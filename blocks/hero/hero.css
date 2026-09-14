@@ -5,22 +5,35 @@
 
 .hero {
   position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 360px;
   padding: 40px 24px;
-  min-height: 300px;
+  overflow: hidden;
 }
 
-.hero h1 {
+/* readability scrim over the background image */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, rgb(0 0 0 / 0%) 45%, rgb(0 0 0 / 55%) 100%);
+}
+
+.hero > div {
+  position: relative;
+  z-index: 1;
+  width: 100%;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  color: var(--background-color);
 }
 
 .hero picture {
   position: absolute;
   z-index: -1;
   inset: 0;
-  object-fit: cover;
   box-sizing: border-box;
 }
 
@@ -30,8 +43,37 @@
   height: 100%;
 }
 
+.hero h1,
+.hero p {
+  max-width: 900px;
+  color: var(--background-color);
+}
+
+.hero h1 {
+  margin: 6px 0;
+}
+
+/* byline / date lines after the title */
+.hero h1 ~ p {
+  margin: 2px 0;
+  font-size: 0.95rem;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+}
+
+/* eyebrow (first paragraph): e.g. "Press Blog" */
+.hero p:first-of-type {
+  margin: 0 0 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 @media (width >= 900px) {
   .hero {
-    padding: 40px 32px;
+    min-height: 460px;
+    padding: 48px 32px;
   }
 }

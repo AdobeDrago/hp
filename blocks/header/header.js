@@ -225,6 +225,23 @@ export default async function decorate(block) {
   if (navNewsroom) {
     const brandP = navNewsroom.querySelector(':scope > p:first-child');
     if (brandP) brandP.classList.add('nav-newsroom-brand');
+
+    // On mobile the link list collapses behind a chevron next to the brand.
+    const linksUl = navNewsroom.querySelector('ul');
+    if (brandP && linksUl) {
+      const toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'nav-newsroom-toggle';
+      toggle.setAttribute('aria-label', 'Toggle newsroom links');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.innerHTML = '<span class="nav-newsroom-chevron" aria-hidden="true"></span>';
+      brandP.append(toggle);
+      toggle.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+        navNewsroom.classList.toggle('nav-newsroom-open', !open);
+      });
+    }
   }
 
   // hamburger for mobile

@@ -14,9 +14,16 @@
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 420px;
+  min-height: 360px;
   overflow: hidden;
   color: #fff;
+}
+
+@media (width >= 900px) {
+  .hero.block {
+    height: 650px;
+    min-height: unset;
+  }
 }
 
 /* background image layer */
@@ -81,10 +88,6 @@
 
 /* mobile: stack full width, tighter type, no right reserve */
 @media (width < 900px) {
-  .hero.block {
-    min-height: 360px;
-  }
-
   .hero-title {
     padding-right: 24px;
     font-size: clamp(1.7rem, 8vw, 2.2rem);

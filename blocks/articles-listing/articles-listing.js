@@ -1,7 +1,7 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const DEFAULT_SOURCE = '/us-en/newsroom/query-index.json';
-const BATCH = 12;
+const BATCH = 9;
 
 const MEDIA_TYPES = [
   { value: 'Press Release', label: 'Press Releases' },

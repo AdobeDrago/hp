@@ -35,7 +35,7 @@ export default function decorate(block) {
       el.className = 'hero-title';
       passedTitle = true;
     } else if (isCta(el)) {
-      el.classList.add('hero-cta');            // keep the button-container class
+      el.classList.add('hero-cta'); // keep the button-container class
     } else if (!passedTitle) {
       el.className = 'hero-eyebrow';
     } else {

@@ -309,8 +309,9 @@ header nav .nav-menu ul {
   padding: 0;
 }
 
-/* ===== Desktop (min-width: 900px) ===== */
-@media (width >= 900px) {
+/* ===== Desktop (min-width: 1300px) — below this the mobile hamburger nav
+   shows, so the wide global nav never squishes on tablet / small laptops ===== */
+@media (width >= 1300px) {
   /* Sticky header: pulled up by the white bar's height so, on scroll, the white
      global bar scrolls away and the black secondary bar pins to the top. */
   header {
@@ -629,7 +630,7 @@ header .nav-wrapper .nav-newsroom p:last-child a:hover {
   text-decoration: none;
 }
 
-@media (width >= 900px) {
+@media (width >= 1300px) {
   header .nav-wrapper .nav-newsroom {
     /* Background stays full-bleed (element is full width); the horizontal
        padding constrains the content to a centered max-width column. */

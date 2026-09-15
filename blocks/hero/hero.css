@@ -47,59 +47,38 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  padding: 22px 0;
   background: rgb(0 0 0 / 32%);
-  border-top: 1px solid rgb(255 255 255 / 40%);
 }
 
+/* every line is divided from the one above by a rule, indented, styled by tag */
 .hero-content > * {
   margin: 0;
-  padding-left: clamp(24px, 6vw, 96px);
-  padding-right: 24px;
-}
-
-/* the band's top border is the first line; never double it on the first row */
-.hero-content > *:first-child {
-  border-top: none;
-  margin-top: 0;
-}
-
-.hero-eyebrow {
-  padding-bottom: 18px;
-  font-size: 0.95rem;
+  padding: 16px clamp(24px, 6vw, 96px);
+  border-top: 1px solid rgb(255 255 255 / 40%);
+  font-size: 1rem;
   font-weight: 400;
-}
-
-.hero-title {
-  padding-top: 20px;
-  padding-right: 38%;
-  border-top: 1px solid rgb(255 255 255 / 40%);
-  font-size: clamp(2rem, 4vw, 3.1rem);
-  font-weight: 700;
-  line-height: 1.08;
-}
-
-.hero-desc {
-  margin-top: 20px;
-  padding-top: 20px;
-  padding-right: 38%;
-  border-top: 1px solid rgb(255 255 255 / 40%);
-  font-size: clamp(1rem, 1.6vw, 1.25rem);
   line-height: 1.35;
 }
 
-.hero-date {
-  padding-top: 16px;
-  font-size: 0.9rem;
+.hero-content h1 {
+  padding-right: 38%;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 700;
+  line-height: 1.1;
 }
 
-/* CTA link (e.g. "Read") -> circular-arrow button */
-.hero-cta {
-  padding-top: 18px;
+.hero-content p {
+  padding-right: 38%;
 }
 
-.hero-cta a,
-.hero-cta a.button:any-link {
+/* inline links within a line stay legible over the image */
+.hero-content a:not(.button) {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* a standalone CTA link (e.g. "Read") -> circular-arrow button */
+.hero-content a.button:any-link {
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -117,7 +96,7 @@
   text-decoration: none;
 }
 
-.hero-cta a::before {
+.hero-content a.button::before {
   content: "";
   flex: 0 0 auto;
   width: 34px;
@@ -128,14 +107,14 @@
     url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='white'%20stroke-width='2.5'%3E%3Cpath%20d='M9%206l6%206-6%206'/%3E%3C/svg%3E");
 }
 
-/* mobile: stack full width, tighter type, no right reserve */
+/* mobile: full-width lines, tighter type */
 @media (width < 900px) {
-  .hero-title {
+  .hero-content h1 {
     padding-right: 24px;
     font-size: clamp(1.7rem, 8vw, 2.2rem);
   }
 
-  .hero-desc {
+  .hero-content p {
     padding-right: 24px;
   }
 }

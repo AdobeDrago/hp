@@ -467,6 +467,18 @@ header nav .nav-menu ul {
     pointer-events: auto;
   }
 
+  /* dim + blur the page content behind an open megamenu (sits above the
+     page but below the header at z-index 20 and the panel at z-index 25) */
+  body:has(header nav .nav-drop[aria-expanded='true'])::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 15;
+    background: rgb(0 0 0 / 20%);
+    backdrop-filter: blur(6px);
+    pointer-events: none;
+  }
+
   header nav .nav-panel-featured {
     order: 0;
     margin-bottom: 0;

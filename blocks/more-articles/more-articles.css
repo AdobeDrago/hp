@@ -1,5 +1,12 @@
 .more-articles {
   --ma-line: #111;
+
+  padding-bottom: 48px;
+}
+
+/* full-bleed divider under the section (section has no horizontal padding) */
+main > .section:has(.more-articles) {
+  border-bottom: 1px solid #000;
 }
 
 /* ===== grid ===== */

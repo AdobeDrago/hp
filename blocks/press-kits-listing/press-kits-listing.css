@@ -1,5 +1,12 @@
 .press-kits-listing {
   --pkl-line: #111;
+
+  padding-bottom: 48px;
+}
+
+/* full-bleed divider under the section (section has no horizontal padding) */
+main > .section:has(.press-kits-listing) {
+  border-bottom: 1px solid #000;
 }
 
 /* neutralize the global button style inside the block */

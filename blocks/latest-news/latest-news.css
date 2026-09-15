@@ -1,5 +1,12 @@
 .latest-news {
   --lnl-line: #111;
+
+  padding-bottom: 48px;
+}
+
+/* full-bleed divider under the section (section has no horizontal padding) */
+main > .section:has(.latest-news) {
+  border-bottom: 1px solid #000;
 }
 
 /* ===== grid ===== */

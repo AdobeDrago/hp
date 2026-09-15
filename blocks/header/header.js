@@ -1,5 +1,5 @@
 // media query match that indicates mobile/tablet width
-const isDesktop = window.matchMedia('(min-width: 1300px)');
+const isDesktop = window.matchMedia('(min-width: 1280px)');
 
 /**
  * Fetches the nav fragment. Metadata-independent dual-fetch:

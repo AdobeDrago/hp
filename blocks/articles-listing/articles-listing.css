@@ -1,0 +1,406 @@
+.articles-listing {
+  --al-line: #111;
+  --al-accent: #0067b0;
+}
+
+/* neutralize the global button style (blue pill, white text) inside the block */
+.articles-listing button {
+  color: inherit;
+}
+
+/* ===== toolbar ===== */
+.articles-listing .al-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.articles-listing .al-keyword {
+  width: 300px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid var(--al-line);
+  border-radius: 0;
+  font: inherit;
+}
+
+.articles-listing .al-facet,
+.articles-listing .al-sort {
+  position: relative;
+}
+
+.articles-listing .al-sort {
+  margin-left: auto;
+}
+
+.articles-listing .al-facet-btn,
+.articles-listing .al-sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 18px;
+  border: 1px solid var(--al-line);
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.articles-listing .al-facet-btn::after,
+.articles-listing .al-sort-btn::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.15s ease;
+}
+
+.articles-listing .al-facet-btn.open::after,
+.articles-listing .al-sort-btn.open::after {
+  transform: translateY(2px) rotate(-135deg);
+}
+
+.articles-listing .al-count {
+  font-weight: 600;
+}
+
+/* ===== dropdown panels ===== */
+.articles-listing .al-facet-panel,
+.articles-listing .al-sort-panel {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 10;
+  min-width: 240px;
+  max-height: 360px;
+  overflow-y: auto;
+  padding: 6px 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+}
+
+.articles-listing .al-sort-panel {
+  left: auto;
+  right: 0;
+}
+
+.articles-listing .al-check-item,
+.articles-listing .al-sort-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  border: 0;
+  background: #fff;
+  font: inherit;
+  text-align: left;
+  color: #111;
+  cursor: pointer;
+}
+
+.articles-listing .al-check-item:hover,
+.articles-listing .al-sort-option:hover,
+.articles-listing .al-sort-option.active {
+  background: #f2f2f2;
+}
+
+.articles-listing .al-check {
+  width: 16px;
+  height: 16px;
+}
+
+/* ===== chips ===== */
+.articles-listing .al-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 20px;
+}
+
+.articles-listing .al-chips:not(:empty) {
+  margin: 12px 0 4px;
+}
+
+.articles-listing .al-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.articles-listing .al-chip-x {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: var(--al-accent);
+  color: #fff;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.articles-listing .al-clear {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--al-accent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ===== grid + cards ===== */
+.articles-listing .al-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 16px;
+  border-top: 1px solid var(--al-line);
+  border-left: 1px solid var(--al-line);
+}
+
+.articles-listing .al-card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border-right: 1px solid var(--al-line);
+  border-bottom: 1px solid var(--al-line);
+}
+
+.articles-listing .al-card-media {
+  display: block;
+  margin-bottom: 24px;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: #f2f2f2;
+}
+
+.articles-listing .al-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.articles-listing .al-card-title {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+.articles-listing .al-card-title a {
+  color: #111;
+  text-decoration: none;
+}
+
+.articles-listing .al-card-title a:hover { text-decoration: underline; }
+
+.articles-listing .al-card-desc {
+  margin: 0 0 20px;
+  color: #4a4a4a;
+  font-size: 1rem;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.articles-listing .al-card-cta {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 12px 26px;
+  background: #111;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.articles-listing .al-card-cta:hover { background: #333; }
+
+/* ===== load more ===== */
+.articles-listing .al-loadmore {
+  display: block;
+  margin: 40px auto 0;
+  padding: 14px 44px;
+  border: 1px solid var(--al-line);
+  border-radius: 0;
+  background: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.articles-listing .al-loadmore:hover { background: #f2f2f2; }
+
+/* mobile-only controls hidden on desktop */
+.articles-listing .al-mobile-trigger,
+.articles-listing .al-modal { display: none; }
+
+/* ===== mobile ===== */
+@media (width < 900px) {
+  .articles-listing .al-keyword,
+  .articles-listing .al-facet,
+  .articles-listing .al-sort { display: none; }
+
+  .articles-listing .al-toolbar {
+    justify-content: space-between;
+  }
+
+  .articles-listing .al-mobile-trigger {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 12px 20px;
+    border: 1px solid var(--al-line);
+    border-radius: 0;
+    background: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .articles-listing .al-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .articles-listing .al-card {
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .articles-listing .al-card-media {
+    flex: 0 0 40%;
+    margin-bottom: 0;
+  }
+
+  .articles-listing .al-card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===== mobile modal ===== */
+  .articles-listing .al-modal {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    justify-content: center;
+    align-items: flex-start;
+    background: rgb(0 0 0 / 45%);
+  }
+
+  .articles-listing .al-modal[hidden] { display: none; }
+
+  .articles-listing .al-modal-sheet {
+    width: min(92vw, 520px);
+    max-height: 88vh;
+    margin-top: 40px;
+    padding: 24px;
+    overflow-y: auto;
+    background: #fff;
+  }
+
+  .articles-listing .al-modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .articles-listing .al-modal-clear { font-size: 1.1rem; }
+
+  .articles-listing .al-modal-close {
+    border: 0;
+    background: none;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .articles-listing .al-modal-sheet .al-keyword {
+    display: block;
+    width: 100%;
+    margin: 16px 0;
+  }
+
+  .articles-listing .al-modal-sort {
+    padding: 8px 0 4px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .articles-listing .al-modal-sort-title {
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .articles-listing .al-radio-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    font-size: 1.1rem;
+  }
+
+  .articles-listing .al-radio-item input {
+    width: 20px;
+    height: 20px;
+  }
+
+  .articles-listing .al-collapse {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .articles-listing .al-collapse-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 16px 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+
+  .articles-listing .al-collapse-btn::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #111;
+    border-bottom: 2px solid #111;
+    transform: rotate(45deg);
+  }
+
+  .articles-listing .al-collapse-btn.open::after { transform: rotate(-135deg); }
+
+  .articles-listing .al-collapse-body .al-check-item { padding: 10px 4px; }
+
+  .articles-listing .al-modal-view {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 16px;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-align: center;
+    cursor: pointer;
+  }
+}

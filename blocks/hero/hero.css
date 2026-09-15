@@ -57,6 +57,12 @@
   padding-right: 24px;
 }
 
+/* the band's top border is the first line; never double it on the first row */
+.hero-content > *:first-child {
+  border-top: none;
+  margin-top: 0;
+}
+
 .hero-eyebrow {
   padding-bottom: 18px;
   font-size: 0.95rem;
@@ -84,6 +90,41 @@
 .hero-date {
   padding-top: 16px;
   font-size: 0.9rem;
+}
+
+/* CTA link (e.g. "Read") -> circular-arrow button */
+.hero-cta {
+  padding-top: 18px;
+}
+
+.hero-cta a,
+.hero-cta a.button:any-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: normal;
+  text-decoration: none;
+}
+
+.hero-cta a::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  background: center / 9px no-repeat
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='white'%20stroke-width='2.5'%3E%3Cpath%20d='M9%206l6%206-6%206'/%3E%3C/svg%3E");
 }
 
 /* mobile: stack full width, tighter type, no right reserve */

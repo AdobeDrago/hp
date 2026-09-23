@@ -354,6 +354,7 @@
   .tag-css { background: #e9f1fc; color: #0d51b5; }
   .tag-cfg { background: #eaf6f1; color: #1a6b50; }
   .tag-core{ background: var(--gray-100); color: var(--gray-700); }
+  .tag-poli{ background: var(--hp-pale-blue); color: var(--hp-blue-text); }
   .skill-card-name { font-size: 13px; font-weight: 700; color: var(--gray-900); font-family: var(--mono); }
   .skill-card-desc { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
 
@@ -594,7 +595,7 @@
 
         <div class="stat-row">
           <div class="stat-card"><div class="stat-num">1,181</div><div class="stat-label">articles imported to DA</div></div>
-          <div class="stat-card"><div class="stat-num">7</div><div class="stat-label">custom blocks built</div></div>
+          <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">custom blocks built</div></div>
           <div class="stat-card"><div class="stat-num">2016–2026</div><div class="stat-label">archive span</div></div>
           <div class="stat-card"><div class="stat-num">46</div><div class="stat-label">topic taxonomy</div></div>
         </div>
@@ -621,7 +622,7 @@
           <tbody>
             <tr><td><a href="#chrome" style="color:var(--hp-blue-text);">Site chrome</a></td><td>Newsroom header &amp; footer + HP brand typeface (Forma DJR)</td><td><span class="nav-status ns-done">Complete</span></td></tr>
             <tr><td><a href="#import" style="color:var(--hp-blue-text);">Content import</a></td><td>1,181 articles imported to DA with metadata, previewed &amp; reconciled</td><td><span class="nav-status ns-done">Complete</span></td></tr>
-            <tr><td><a href="#landing" style="color:var(--hp-blue-text);">Newsroom landing</a></td><td>Hero, latest-news, more-articles, press-kits-listing blocks</td><td><span class="nav-status ns-done">Complete</span></td></tr>
+            <tr><td><a href="#landing" style="color:var(--hp-blue-text);">Newsroom landing</a></td><td>Hero, latest-news, more-articles, press-kits-listing, and articles-listing blocks</td><td><span class="nav-status ns-done">Complete</span></td></tr>
             <tr><td><a href="#archive" style="color:var(--hp-blue-text);">Article archive</a></td><td>articles-listing block — faceted, sortable, searchable</td><td><span class="nav-status ns-done">Complete</span></td></tr>
           </tbody>
         </table>
@@ -724,7 +725,7 @@
         <ul class="checklist">
           <li class="check-item">
             <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
-            <div class="check-body"><div class="check-title">Header &amp; footer migrated</div><div class="check-note">HP newsroom mega-menu navigation and footer rebuilt as EDS blocks, with a responsive mobile nav and a dim/blur behind open menus.</div></div>
+            <div class="check-body"><div class="check-title">Header &amp; footer migrated (via EMA)</div><div class="check-note">HP newsroom mega-menu navigation and footer migrated and styled using the Experience Modernization Agent (EMA), then refined — responsive mobile nav and a dim/blur behind open menus.</div></div>
           </li>
           <li class="check-item">
             <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
@@ -759,10 +760,10 @@
           <span class="status-badge sb-done">Complete</span>
         </h2>
         <div class="section-rule"></div>
-        <p>The first workstream migrated the newsroom's shared chrome so every imported page renders inside HP's own navigation.</p>
+        <p>The first workstream migrated the newsroom's shared chrome so every imported page renders inside HP's own navigation. The header and footer were <strong>migrated and styled using the Experience Modernization Agent (EMA)</strong> — which generated the EDS block structure and base styling from the production site — then refined by the Drago team.</p>
         <ul class="req-list">
-          <li><strong>Header</strong> — the HP mega-menu navigation, rebuilt as an EDS block. Open menus dim and blur the page behind them; the nav collapses to a mobile menu through tablet and small-laptop widths.</li>
-          <li><strong>Footer</strong> — the HP newsroom footer, migrated to an authorable block.</li>
+          <li><strong>Header</strong> — the HP mega-menu navigation, migrated via EMA and refined as an EDS block. Open menus dim and blur the page behind them; the nav collapses to a mobile menu through tablet and small-laptop widths.</li>
+          <li><strong>Footer</strong> — the HP newsroom footer, migrated via EMA into an authorable block.</li>
         </ul>
         <div class="notice tip">
           <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L7 8.94 5.28 7.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.06 0l4.25-4.25z"/></svg>
@@ -838,10 +839,6 @@
           <li><strong>type</strong> — Press Release / Press Blog / Press Kit</li>
         </ul>
 
-        <div class="notice warning">
-          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
-          <span><strong>Metadata blocks must be nested inside a section div.</strong> A Metadata block placed as a direct child of <code class="code-inline">&lt;main&gt;</code> is parsed as a section and silently ignored, so EDS auto-derives title/description/image from body content instead. Caught only by checking rendered output.</span>
-        </div>
 
         <h3>Engineering notes</h3>
         <ul class="req-list">
@@ -907,7 +904,7 @@
           <span class="status-badge sb-done">Complete</span>
         </h2>
         <div class="section-rule"></div>
-        <p>The landing page is composed from four blocks: a full-bleed hero on top of three curated, index-driven feeds.</p>
+        <p>The landing page is composed from a full-bleed hero on top of curated, index-driven feeds plus the faceted archive.</p>
         <div class="skills-grid">
           <div class="skill-card">
             <div class="skill-card-header"><span class="skill-tag tag-js">block</span><span class="skill-card-name">hero</span></div>
@@ -924,6 +921,10 @@
           <div class="skill-card">
             <div class="skill-card-header"><span class="skill-tag tag-js">block</span><span class="skill-card-name">press-kits-listing</span></div>
             <div class="skill-card-desc">The latest 4 press kits — filtered from the index by the <code class="code-inline">/newsroom/press-kits/</code> path — surfaced on the landing page.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-header"><span class="skill-tag tag-js">block</span><span class="skill-card-name">articles-listing</span></div>
+            <div class="skill-card-desc">The full faceted archive of all 1,181 articles — keyword search, Media Type and Topics facets, sort, and Load More. See <a href="#archive" style="color:var(--hp-blue-text);">Article archive</a>.</div>
           </div>
         </div>
       </section>
@@ -997,6 +998,10 @@
         <div class="section-rule"></div>
         <p>Accepted for this delivery — each is a candidate for follow-up if Code &amp; Theory needs it resolved for production.</p>
         <ul class="checklist">
+          <li class="check-item">
+            <span class="check-mark cm-partial"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg></span>
+            <div class="check-body"><div class="check-title">Article pages are at MVP fidelity, not a production pixel match</div><div class="check-note">Individual article pages were migrated and assembled using existing blocks to reach an MVP — they don't yet replicate the exact styling of the production newsroom. Example: <a href="https://main--hp--adobedrago.aem.page/us-en/newsroom/press-releases/2026/hp-extends-data-center-ai-architecture-to-the-edge" target="_blank" rel="noopener" style="color:var(--hp-blue-text);">a migrated 2026 press release</a>. Matching production styling per template is a follow-up for Code &amp; Theory.</div></div>
+          </li>
           <li class="check-item">
             <span class="check-mark cm-partial"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg></span>
             <div class="check-body"><div class="check-title">created-date clustering (~87%)</div><div class="check-note">1,027 of 1,181 articles show <code class="code-inline">2024-06-18</code> because HP's 2024 CMS migration reset the date on older content. True editorial dates are recoverable from the embedded newsroom JSON (<code class="code-inline">ad</code>, epoch ms) but were <strong>not applied</strong> this pass.</div></div>
@@ -1080,18 +1085,20 @@
           Block library
         </h2>
         <div class="section-rule"></div>
-        <h3>Built &amp; customized for HP</h3>
+        <h3>Custom blocks built for HP</h3>
+        <p>Net-new blocks authored for the newsroom — not part of the boilerplate. All four read from the query index.</p>
         <div class="skills-grid">
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">header</span></div><div class="skill-card-desc">HP mega-menu nav, responsive mobile fallback, page dim/blur behind open menus.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">footer</span></div><div class="skill-card-desc">Migrated HP newsroom footer.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">hero</span></div><div class="skill-card-desc">Full-bleed background + divided content band; scrim, per-line rules, responsive.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">articles-listing</span></div><div class="skill-card-desc">Faceted, sortable, searchable archive with Load More.</div></div>
           <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">latest-news</span></div><div class="skill-card-desc">Newest 4 articles from the query index.</div></div>
           <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">more-articles</span></div><div class="skill-card-desc">Next 6 articles, de-duped against latest-news.</div></div>
           <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">press-kits-listing</span></div><div class="skill-card-desc">Latest 4 press kits from the index.</div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">articles-listing</span></div><div class="skill-card-desc">Faceted, sortable, searchable archive with Load More.</div></div>
         </div>
         <h3>Standard EDS blocks in the project</h3>
+        <p>Blocks from the AEM boilerplate. <span class="skill-tag tag-poli" style="vertical-align:middle;">polished</span> marks the three existing blocks updated and restyled for HP.</p>
         <div class="skills-grid">
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-poli">polished</span><span class="skill-card-name">header</span></div><div class="skill-card-desc">HP mega-menu nav, responsive mobile fallback, page dim/blur behind open menus.</div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-poli">polished</span><span class="skill-card-name">footer</span></div><div class="skill-card-desc">HP newsroom footer.</div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-poli">polished</span><span class="skill-card-name">hero</span></div><div class="skill-card-desc">Full-bleed background + divided content band; scrim, per-line rules, responsive.</div></div>
           <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">accordion</span></div></div>
           <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">cards</span></div><div class="skill-card-desc">Reused for press-kit galleries.</div></div>
           <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">carousel</span></div></div>
@@ -1123,8 +1130,6 @@
         <p>Every dynamic block (<code class="code-inline">latest-news</code>, <code class="code-inline">more-articles</code>, <code class="code-inline">press-kits-listing</code>, <code class="code-inline">articles-listing</code>) defaults to <code class="code-inline">/us-en/newsroom/query-index.json</code>, and an author can override the source with a link in the block. Change the index config once and every feed updates.</p>
         <h3>Button color gotcha</h3>
         <p>The project's global <code class="code-inline">button { color: var(--background-color) }</code> renders white — which made block buttons white-on-white. Listing blocks reset this with <code class="code-inline">.articles-listing button { color: inherit }</code>.</p>
-        <h3>Metadata block placement</h3>
-        <p>Keep Metadata blocks nested inside a section <code class="code-inline">&lt;div&gt;</code>, never as a direct child of <code class="code-inline">&lt;main&gt;</code> — a direct child is read as a section boundary and the block is silently dropped.</p>
 
         <div class="doc-footer">
           <span>HP Newsroom · AEM → EDS Migration</span>

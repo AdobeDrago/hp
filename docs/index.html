@@ -553,10 +553,6 @@
         <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
         Known limitations
       </a>
-      <a class="sidebar-link" href="#next-steps">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg>
-        Next steps for Code &amp; Theory
-      </a>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-label">Reference</div>
@@ -741,7 +737,7 @@
           </li>
           <li class="check-item">
             <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
-            <div class="check-body"><div class="check-title">Newsroom landing page</div><div class="check-note">A full-bleed hero plus latest-news, more-articles, and press-kits-listing blocks — all reading from the query index.</div></div>
+            <div class="check-body"><div class="check-title">Newsroom landing page</div><div class="check-note">A full-bleed hero plus latest-news, more-articles, and press-kits-listing blocks reading from the query index (press-kits-listing can also take a hand-picked set of URLs).</div></div>
           </li>
           <li class="check-item">
             <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
@@ -874,6 +870,10 @@
           <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
           <span><strong>Mixed date formats.</strong> <code class="code-inline">created-date</code> is an ISO string while <code class="code-inline">lastModified</code> is epoch seconds, so every block normalizes both to epoch milliseconds via a <code class="code-inline">toEpoch()</code> helper before sorting or formatting. Blocks sort on the authored <code class="code-inline">created-date</code> — never on <code class="code-inline">lastModified</code>, which resets to migration time.</span>
         </div>
+        <div class="notice tip">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L7 8.94 5.28 7.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.06 0l4.25-4.25z"/></svg>
+          <span><strong>Managing the index.</strong> Add or edit index properties (e.g. the <code class="code-inline">topic</code> column) and rebuild the index from the AEM index-admin tool: <a href="https://tools.aem.live/tools/index-admin/index.html?org=adobedrago&amp;site=hp" target="_blank" rel="noopener" style="color:#1a6b50;text-decoration:underline;">tools.aem.live/tools/index-admin (adobedrago/hp)</a>.</span>
+        </div>
       </section>
 
       <!-- TAXONOMY -->
@@ -920,7 +920,7 @@
           </div>
           <div class="skill-card">
             <div class="skill-card-header"><span class="skill-tag tag-js">block</span><span class="skill-card-name">press-kits-listing</span></div>
-            <div class="skill-card-desc">The latest 4 press kits — filtered from the index by the <code class="code-inline">/newsroom/press-kits/</code> path — surfaced on the landing page.</div>
+            <div class="skill-card-desc">Two modes: by default the latest 4 press kits from the query index (filtered by the <code class="code-inline">/newsroom/press-kits/</code> path), or a hand-picked set when the author lists specific article URLs in the block.</div>
           </div>
           <div class="skill-card">
             <div class="skill-card-header"><span class="skill-tag tag-js">block</span><span class="skill-card-name">articles-listing</span></div>
@@ -1029,53 +1029,6 @@
         </ul>
       </section>
 
-      <!-- NEXT STEPS -->
-      <section class="doc-section" id="next-steps">
-        <h2>
-          <span class="section-icon icon-green">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg>
-          </span>
-          Next steps for Code &amp; Theory
-          <span class="status-badge sb-planned">Handoff</span>
-        </h2>
-        <div class="section-rule"></div>
-        <p>Where the work stands and what remains to take the newsroom to production.</p>
-        <ul class="checklist">
-          <li class="check-item">
-            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg></span>
-            <div class="check-body"><div class="check-title">Add <code class="code-inline">topic</code> to the query-index config &amp; reindex</div><div class="check-note">In tools.aem.live, add a <code class="code-inline">topic</code> property selecting <code class="code-inline">head &gt; meta[name="topic"]</code>, then re-index — so the Topics facet in the archive filters against every backfilled article.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg></span>
-            <div class="check-body"><div class="check-title">Decide the landing feed logic</div><div class="check-note">Confirm how the curated landing blocks are populated — latest-N (current), a manual pick, or a <code class="code-inline">featured</code> flag — and whether press kits get a dedicated hero.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg></span>
-            <div class="check-body"><div class="check-title">Recover true editorial dates (optional)</div><div class="check-note">Apply the <code class="code-inline">ad</code> epoch dates from the embedded newsroom JSON to fix the pre-2024 date clustering, if accurate chronology matters for the archive.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg></span>
-            <div class="check-body"><div class="check-title">Rebuild press-kit interactivity (if required)</div><div class="check-note">Recreate download modals and asset galleries as EDS blocks, or link out to the existing hp.com kits — a decision for HP.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg></span>
-            <div class="check-body"><div class="check-title">Index cleanups</div><div class="check-note">Drop the legacy empty <code class="code-inline">date</code> column and exclude the landing row and any stray test pages from listing results.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg></span>
-            <div class="check-body"><div class="check-title">Locale expansion</div><div class="check-note">The migration covers US-en only. ~80 other locale sitemaps exist; the importer generalizes to them if HP wants additional markets.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg></span>
-            <div class="check-body"><div class="check-title">Production cutover</div><div class="check-note">Confirm the production domain mapping, publish flow (preview → live), and sign-off on topic-data provenance before go-live.</div></div>
-          </li>
-        </ul>
-        <div class="notice info">
-          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
-          <span><strong>Handoff state.</strong> The migration and blocks are complete and live on the EDS preview. The remaining items above are configuration, curation, and scope decisions for Code &amp; Theory and HP — none block the newsroom from rendering today.</span>
-        </div>
-      </section>
-
       <!-- BLOCK LIBRARY -->
       <section class="doc-section" id="blocks">
         <h2>
@@ -1090,7 +1043,7 @@
         <div class="skills-grid">
           <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">latest-news</span></div><div class="skill-card-desc">Newest 4 articles from the query index.</div></div>
           <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">more-articles</span></div><div class="skill-card-desc">Next 6 articles, de-duped against latest-news.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">press-kits-listing</span></div><div class="skill-card-desc">Latest 4 press kits from the index.</div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">press-kits-listing</span></div><div class="skill-card-desc">Latest 4 press kits from the index, or a hand-picked set of author-listed URLs.</div></div>
           <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">articles-listing</span></div><div class="skill-card-desc">Faceted, sortable, searchable archive with Load More.</div></div>
         </div>
         <h3>Standard EDS blocks in the project</h3>

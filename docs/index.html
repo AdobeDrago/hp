@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HP Newsroom — AEM → EDS Migration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* HP brand */
+    --hp-blue: #0096d6;
+    --hp-blue-hover: #0077aa;
+    --hp-blue-text: #006699; /* AA-compliant HP blue for small text on light bg */
+    --hp-navy: #12232e;
+    --hp-text: #12232e;
+    --hp-grey-text: #5b6b76;
+    --hp-pale-blue: #e6f5fc;
+    --accent: var(--hp-blue);
+
+    --gray-50: #ffffff;
+    --gray-75: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #eaeaea;
+    --gray-300: #e1e1e1;
+    --gray-400: #cacaca;
+    --gray-500: #b3b3b3;
+    --gray-600: #6b6b6b;
+    --gray-700: #6e6e6e;
+    --gray-800: #4b4b4b;
+    --gray-900: #2c2c2c;
+
+    --font: 'Source Sans 3', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: 'Source Code Pro', 'Fira Mono', 'Courier New', monospace;
+    --sidebar-width: 248px;
+    --content-max: 860px;
+    --header-h: 56px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--gray-900);
+    background: var(--gray-50);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* ── TOP NAV ── */
+  .topnav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--header-h);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 16px;
+    z-index: 100;
+    box-shadow: 0 1px 0 var(--gray-200);
+  }
+  .topnav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--hp-navy);
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+  .topnav-logo .mark {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--hp-blue-hover);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+  }
+  .topnav-divider { width: 1px; height: 20px; background: var(--gray-300); }
+  .topnav-title {
+    color: var(--gray-800);
+    font-size: 14px;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+  .topnav-badge {
+    margin-left: auto;
+    background: var(--hp-pale-blue);
+    color: var(--hp-blue-text);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  /* ── LAYOUT ── */
+  .layout { display: flex; margin-top: var(--header-h); min-height: calc(100vh - var(--header-h)); }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: var(--sidebar-width);
+    flex-shrink: 0;
+    position: sticky;
+    top: var(--header-h);
+    height: calc(100vh - var(--header-h));
+    overflow-y: auto;
+    border-right: 1px solid var(--gray-200);
+    background: var(--gray-75);
+    padding: 24px 0 40px;
+  }
+  .sidebar-section { margin-bottom: 8px; }
+  .sidebar-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-600);
+    padding: 8px 20px 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 20px;
+    font-size: 13px;
+    color: var(--gray-800);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: background 0.1s, color 0.1s, border-color 0.1s;
+  }
+  .sidebar-link:hover { background: var(--gray-200); color: var(--gray-900); }
+  .sidebar-link.active {
+    background: var(--hp-pale-blue);
+    color: var(--hp-blue-text);
+    border-left-color: var(--hp-blue);
+    font-weight: 700;
+  }
+  .sidebar-link .icon { width: 16px; height: 16px; opacity: 0.6; flex-shrink: 0; }
+  .sidebar-link.active .icon { opacity: 1; }
+
+  /* ── MAIN ── */
+  .main { flex: 1; min-width: 0; padding: 48px 56px 80px; }
+  .main-inner { max-width: var(--content-max); }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--gray-200);
+    margin-bottom: 48px;
+  }
+  .page-hero-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--hp-blue-text);
+    margin-bottom: 8px;
+  }
+  .page-hero h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--hp-navy);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .page-hero-sub { font-size: 16px; color: var(--gray-700); max-width: 640px; line-height: 1.5; }
+
+  /* ── SECTIONS ── */
+  .doc-section { margin-bottom: 56px; scroll-margin-top: calc(var(--header-h) + 24px); }
+  .doc-section h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--hp-navy);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  .section-rule { height: 1px; background: var(--gray-200); margin: 12px 0 24px; }
+  .doc-section h3 { font-size: 14px; font-weight: 700; color: var(--gray-900); margin: 24px 0 8px; }
+  .doc-section p { font-size: 14px; color: var(--gray-800); margin-bottom: 12px; line-height: 1.65; }
+
+  /* ── SECTION ICON BADGE ── */
+  .section-icon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .icon-blue   { background: #e9f1fc; color: var(--hp-blue); }
+  .icon-navy   { background: #e6eef7; color: var(--hp-navy); }
+  .icon-green  { background: #eaf6f1; color: #268e6c; }
+  .icon-purple { background: #f3edfb; color: #7240ab; }
+  .icon-seafoam{ background: #e6f4f4; color: #16878c; }
+  .icon-orange { background: #fff4e5; color: #da7b11; }
+
+  /* ── URL CARDS ── */
+  .url-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .url-card {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .url-card:hover { border-color: var(--hp-blue); box-shadow: 0 0 0 1px var(--hp-blue); }
+  .url-card-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--gray-600);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .url-card-label .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .dot-blue   { background: var(--hp-blue); }
+  .dot-navy   { background: var(--hp-navy); }
+  .dot-green  { background: #268e6c; }
+  .dot-purple { background: #7240ab; }
+  .url-card-title { font-size: 13px; font-weight: 700; color: var(--gray-900); }
+  .url-card-url { font-size: 12px; font-family: var(--mono); color: var(--hp-blue-text); word-break: break-all; }
+  .url-card-desc { font-size: 12px; color: var(--gray-600); margin-top: 2px; }
+
+  /* ── STEPS ── */
+  .steps { counter-reset: step; list-style: none; display: flex; flex-direction: column; gap: 0; position: relative; }
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 15px; top: 30px; bottom: 30px;
+    width: 1px;
+    background: var(--gray-300);
+  }
+  .step { display: flex; gap: 16px; padding-bottom: 24px; position: relative; }
+  .step:last-child { padding-bottom: 0; }
+  .step-num {
+    counter-increment: step;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--hp-blue);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .step-num::after { content: counter(step); }
+  .step-body { padding-top: 5px; flex: 1; }
+  .step-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+  .step-body p { font-size: 13px; color: var(--gray-700); margin-bottom: 8px; }
+  .step-commit {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-300);
+    color: var(--gray-700);
+    padding: 1px 7px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+  }
+
+  /* ── CODE BLOCKS ── */
+  .code-block {
+    background: var(--gray-900);
+    color: #d4d4d4;
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.6;
+    overflow-x: auto;
+    margin: 8px 0 4px;
+    white-space: pre;
+  }
+  .code-block .cmt  { color: #6a9955; }
+  .code-block .str  { color: #ce9178; }
+  .code-block .kw   { color: #569cd6; }
+  .code-block .var  { color: #9cdcfe; }
+  .code-inline {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-300);
+    color: var(--gray-900);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+
+  /* ── NOTICES ── */
+  .notice {
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .notice-icon { flex-shrink: 0; margin-top: 1px; }
+  .notice.info     { background: #e9f1fc; color: #0d51b5; border-left: 3px solid var(--hp-blue); }
+  .notice.tip      { background: #eaf6f1; color: #1a6b50; border-left: 3px solid #268e6c; }
+  .notice.warning  { background: #fff4e5; color: #8a4b08; border-left: 3px solid #da7b11; }
+  .notice.question { background: #f3edfb; color: #5b2d99; border-left: 3px solid #7240ab; }
+
+  /* ── SKILLS / BLOCKS GRID ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .skill-card { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; padding: 14px 16px; }
+  .skill-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .skill-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 10px;
+  }
+  .tag-js  { background: #fff8d6; color: #8a5e00; }
+  .tag-css { background: #e9f1fc; color: #0d51b5; }
+  .tag-cfg { background: #eaf6f1; color: #1a6b50; }
+  .tag-core{ background: var(--gray-100); color: var(--gray-700); }
+  .skill-card-name { font-size: 13px; font-weight: 700; color: var(--gray-900); font-family: var(--mono); }
+  .skill-card-desc { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+
+  /* ── PIPELINE DIAGRAM ── */
+  .arch-diagram { border: 1px solid var(--gray-200); border-radius: 8px; padding: 24px; background: var(--gray-75); margin: 16px 0; }
+  .arch-row { display: flex; gap: 8px; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 8px; }
+  .arch-node { padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 700; text-align: center; min-width: 110px; }
+  .arch-arrow { font-size: 18px; color: var(--gray-400); }
+
+  /* ── TABLE ── */
+  .spec-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+  .spec-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--gray-600);
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--gray-200);
+    background: var(--gray-75);
+  }
+  .spec-table td { padding: 9px 12px; border-bottom: 1px solid var(--gray-200); color: var(--gray-800); vertical-align: top; }
+  .spec-table tr:last-child td { border-bottom: none; }
+  .spec-table td:first-child { font-weight: 700; color: var(--gray-900); }
+
+  /* ── STAT ROW ── */
+  .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 16px 0; }
+  .stat-card { border: 1px solid var(--gray-200); border-radius: 8px; padding: 16px; background: var(--gray-75); }
+  .stat-num { font-size: 26px; font-weight: 700; color: var(--hp-blue); line-height: 1.1; }
+  .stat-label { font-size: 12px; color: var(--gray-600); margin-top: 4px; }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    border-top: 1px solid var(--gray-200);
+    margin-top: 40px;
+    padding-top: 20px;
+    font-size: 12px;
+    color: var(--gray-500);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* ── SIDEBAR STATUS PILL ── */
+  .nav-status {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 1px 6px;
+    border-radius: 8px;
+    text-transform: uppercase;
+  }
+  .ns-progress { background: #fff4e5; color: #8a4b08; }
+  .ns-planned  { background: var(--gray-200); color: var(--gray-600); }
+  .ns-done     { background: #eaf6f1; color: #1a6b50; }
+
+  /* ── SECTION STATUS BADGE ── */
+  .status-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 3px 10px;
+    border-radius: 12px;
+    text-transform: uppercase;
+  }
+  .sb-progress { background: #fff4e5; color: #8a4b08; }
+  .sb-planned  { background: var(--gray-100); color: var(--gray-600); }
+  .sb-done     { background: #eaf6f1; color: #1a6b50; }
+
+  /* ── PROGRESS CHECKLIST ── */
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 4px 0; }
+  .check-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 14px;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    background: var(--gray-50);
+  }
+  .check-mark {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .check-mark svg { width: 12px; height: 12px; }
+  .cm-done    { background: #eaf6f1; color: #268e6c; }
+  .cm-partial { background: #fff4e5; color: #da7b11; }
+  .cm-todo    { background: var(--gray-100); color: var(--gray-500); }
+  .check-body { flex: 1; }
+  .check-title { font-weight: 700; font-size: 13px; color: var(--gray-900); }
+  .check-note  { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+
+  .req-list { margin: 8px 0 0 18px; font-size: 13px; color: var(--gray-700); }
+  .req-list li { margin-bottom: 4px; }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 24px 20px 60px; }
+    .page-hero h1 { font-size: 24px; }
+    .url-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <a class="topnav-logo" href="#overview">
+    <span class="mark">hp</span>
+    hp
+  </a>
+  <div class="topnav-divider"></div>
+  <span class="topnav-title">Newsroom — AEM → EDS Migration · Partner Handoff Playbook</span>
+  <span class="topnav-badge">Handoff</span>
+</nav>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" aria-label="Page navigation">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Newsroom</div>
+      <a class="sidebar-link active" href="#overview">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2h5v5H2zm7 0h5v5H9zM2 9h5v5H2zm7 0h5v5H9z"/></svg>
+        Overview
+      </a>
+      <a class="sidebar-link" href="#use-case">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.75A.75.75 0 012.75 2h7.5a.75.75 0 01.53.22l3 3a.75.75 0 01.22.53v7.5a.75.75 0 01-.75.75h-10.5a.75.75 0 01-.75-.75V2.75zM5 6.5a.5.5 0 000 1h6a.5.5 0 000-1H5zm0 2.5a.5.5 0 000 1h6a.5.5 0 000-1H5zm0 2.5a.5.5 0 000 1h4a.5.5 0 000-1H5z"/></svg>
+        Use case &amp; requirements
+      </a>
+      <a class="sidebar-link" href="#references">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg>
+        Key references
+      </a>
+      <a class="sidebar-link" href="#deliverables">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M4.5 2A2.5 2.5 0 002 4.5v7A2.5 2.5 0 004.5 14h7a2.5 2.5 0 002.5-2.5v-7A2.5 2.5 0 0011.5 2h-7zM5 5.5A.5.5 0 015.5 5h5a.5.5 0 010 1h-5A.5.5 0 015 5.5zm0 2.5a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5A.5.5 0 015 8zm.5 2a.5.5 0 000 1h3a.5.5 0 000-1h-3z"/></svg>
+        Deliverables
+      </a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Site chrome <span class="nav-status ns-done">Complete</span></div>
+      <a class="sidebar-link" href="#chrome">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5zm1.75-.25a.25.25 0 00-.25.25v.5h13v-.5a.25.25 0 00-.25-.25H1.75zM1.5 5.5v6.75c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.5h-13z"/></svg>
+        Header &amp; footer
+      </a>
+      <a class="sidebar-link" href="#typeface">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2.5A.5.5 0 013.5 2h9a.5.5 0 01.5.5V4a.5.5 0 01-1 0v-1H8.5v10H10a.5.5 0 010 1H6a.5.5 0 010-1h1.5V3H4v1a.5.5 0 01-1 0V2.5z"/></svg>
+        Brand typeface
+      </a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Content <span class="nav-status ns-done">Complete</span></div>
+      <a class="sidebar-link" href="#import">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a.75.75 0 01.75.75v6.19l1.72-1.72a.75.75 0 111.06 1.06l-3 3a.75.75 0 01-1.06 0l-3-3a.75.75 0 011.06-1.06l1.72 1.72V1.75A.75.75 0 018 1zM2.75 12a.75.75 0 01.75.75v.75h9v-.75a.75.75 0 011.5 0v1.5a.75.75 0 01-.75.75h-11a.75.75 0 01-.75-.75v-1.5A.75.75 0 012.75 12z"/></svg>
+        Article import
+      </a>
+      <a class="sidebar-link" href="#query-index">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 3.5C2 2.12 4.69 1 8 1s6 1.12 6 2.5v9C14 13.88 11.31 15 8 15s-6-1.12-6-2.5v-9zM8 2.5C5.1 2.5 3.5 3.46 3.5 3.5S5.1 4.5 8 4.5s4.5-.96 4.5-1S10.9 2.5 8 2.5z"/></svg>
+        Query index
+      </a>
+      <a class="sidebar-link" href="#taxonomy">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 3.75A1.75 1.75 0 013.75 2h3.5c.464 0 .909.184 1.237.513l5.5 5.5a1.75 1.75 0 010 2.474l-3.5 3.5a1.75 1.75 0 01-2.474 0l-5.5-5.5A1.75 1.75 0 012 7.25v-3.5zM5 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+        Topic taxonomy
+      </a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Landing page <span class="nav-status ns-done">Complete</span></div>
+      <a class="sidebar-link" href="#landing">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Hero &amp; landing blocks
+      </a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Archive <span class="nav-status ns-done">Complete</span></div>
+      <a class="sidebar-link" href="#archive">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M11.742 10.344a6.5 6.5 0 10-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 001.415-1.414l-3.85-3.85a1 1 0 00-.115-.099zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"/></svg>
+        Articles listing
+      </a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Handoff</div>
+      <a class="sidebar-link" href="#decisions">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5l2 4 4.5.5-3.2 3 .9 4.5L8 11.3 3.8 13.5l.9-4.5L1.5 6 6 5.5l2-4z" opacity=".0"/><path d="M2 4.5A2.5 2.5 0 014.5 2h7A2.5 2.5 0 0114 4.5v5a2.5 2.5 0 01-2.5 2.5H6.7l-3 2.4A.5.5 0 013 14v-2H4.5A2.5 2.5 0 012 9.5v-5z"/></svg>
+        Decisions &amp; assumptions
+      </a>
+      <a class="sidebar-link" href="#limitations">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+        Known limitations
+      </a>
+      <a class="sidebar-link" href="#next-steps">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg>
+        Next steps for the partner
+      </a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Reference</div>
+      <a class="sidebar-link" href="#blocks">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5A1.5 1.5 0 012.5 2h2A1.5 1.5 0 016 3.5v2A1.5 1.5 0 014.5 7h-2A1.5 1.5 0 011 5.5v-2zm5.5 0A1.5 1.5 0 018 2h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 7H8A1.5 1.5 0 016.5 5.5v-2zm-5.5 5A1.5 1.5 0 012.5 7h2A1.5 1.5 0 016 8.5v2A1.5 1.5 0 014.5 12h-2A1.5 1.5 0 011 10.5v-2zm5.5 0A1.5 1.5 0 018 7h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 12H8A1.5 1.5 0 016.5 10.5v-2z"/></svg>
+        Block library
+      </a>
+      <a class="sidebar-link" href="#dev-notes">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+        Developer notes
+      </a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <div class="main-inner">
+
+      <!-- PAGE HERO -->
+      <div class="page-hero" id="overview">
+        <div class="page-hero-eyebrow">HP · Newsroom Migration</div>
+        <h1>HP Newsroom on Edge Delivery Services</h1>
+        <p class="page-hero-sub">Rebuilding <strong>hp.com/us-en/newsroom</strong> on <strong>Adobe Edge Delivery Services</strong> — migrating the site chrome, importing the full newsroom archive of <strong>1,181 articles</strong> into Document Authoring, and building the blocks that power the landing page and the faceted archive. This is the <strong>partner handoff playbook</strong>: what we gathered, what Drago built, the decisions and assumptions behind it, and where the partner takes it from here.</p>
+      </div>
+
+      <!-- PROJECT OVERVIEW -->
+      <section class="doc-section">
+        <h2>
+          <span class="section-icon icon-navy">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5A1.5 1.5 0 012.5 2h2A1.5 1.5 0 016 3.5v2A1.5 1.5 0 014.5 7h-2A1.5 1.5 0 011 5.5v-2zm5.5 0A1.5 1.5 0 018 2h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 7H8A1.5 1.5 0 016.5 5.5v-2zm-5.5 5A1.5 1.5 0 012.5 7h2A1.5 1.5 0 016 8.5v2A1.5 1.5 0 014.5 12h-2A1.5 1.5 0 011 10.5v-2zm5.5 0A1.5 1.5 0 018 7h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 12H8A1.5 1.5 0 016.5 10.5v-2z"/></svg>
+          </span>
+          Project overview
+        </h2>
+        <div class="section-rule"></div>
+        <p>This effort recreates HP's US-English <strong>Newsroom</strong> — the public home for HP press releases, blogs, and press kits — on <strong>Adobe Edge Delivery Services (EDS)</strong>, authored through <strong>Document Authoring (DA)</strong>. It follows an EDS block-based development model: the newsroom's chrome, articles, landing modules, and archive are all delivered as authorable blocks fed by a single content query index.</p>
+
+        <div class="stat-row">
+          <div class="stat-card"><div class="stat-num">1,181</div><div class="stat-label">articles imported to DA</div></div>
+          <div class="stat-card"><div class="stat-num">7</div><div class="stat-label">custom blocks built</div></div>
+          <div class="stat-card"><div class="stat-num">2016–2026</div><div class="stat-label">archive span</div></div>
+          <div class="stat-card"><div class="stat-num">46</div><div class="stat-label">topic taxonomy</div></div>
+        </div>
+
+        <h3>Goals</h3>
+        <ul class="req-list">
+          <li>Recreate the HP newsroom experience on <strong>Edge Delivery Services</strong>, authored in DA.</li>
+          <li>Migrate the <strong>full article archive</strong> (press releases, blogs, press kits) with metadata intact.</li>
+          <li>Reproduce the landing page and a <strong>faceted, searchable archive</strong> driven by a query index.</li>
+          <li>Match HP's <strong>brand identity</strong> — typeface, color, header, and footer.</li>
+        </ul>
+
+        <h3>Approach</h3>
+        <ul class="req-list">
+          <li>EDS <strong>block-based development only</strong> — every module is an authorable block.</li>
+          <li>A single <strong>content query index</strong> (<code class="code-inline">/us-en/newsroom/query-index.json</code>) powers all dynamic listing blocks.</li>
+          <li>Content <strong>bulk-imported from the public HP sitemap</strong> into DA, one page per article, each carrying an EDS Metadata block.</li>
+          <li>Sort and filter on an authored <code class="code-inline">created-date</code> and a <code class="code-inline">topic</code> taxonomy projected into the index.</li>
+        </ul>
+
+        <h3>Workstreams</h3>
+        <table class="spec-table">
+          <thead><tr><th>Workstream</th><th>What it delivers</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><a href="#chrome" style="color:var(--hp-blue-text);">Site chrome</a></td><td>Newsroom header &amp; footer + HP brand typeface (Forma DJR)</td><td><span class="nav-status ns-done">Complete</span></td></tr>
+            <tr><td><a href="#import" style="color:var(--hp-blue-text);">Content import</a></td><td>1,181 articles imported to DA with metadata, previewed &amp; reconciled</td><td><span class="nav-status ns-done">Complete</span></td></tr>
+            <tr><td><a href="#landing" style="color:var(--hp-blue-text);">Newsroom landing</a></td><td>Hero, latest-news, more-articles, press-kits-listing blocks</td><td><span class="nav-status ns-done">Complete</span></td></tr>
+            <tr><td><a href="#archive" style="color:var(--hp-blue-text);">Article archive</a></td><td>articles-listing block — faceted, sortable, searchable</td><td><span class="nav-status ns-done">Complete</span></td></tr>
+          </tbody>
+        </table>
+
+        <div class="notice info">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>Progress to date.</strong> The newsroom <strong>header and footer</strong> are migrated and the site is on HP's <strong>Forma DJR</strong> typeface. The <strong>full archive — 1,181 articles</strong> (709 press releases, 323 blogs, 149 press kits) — is imported into DA, previewed, and reconciled, and a <a href="#query-index" style="color:#0d51b5;">query index</a> of 1,182 rows drives every listing block. The <a href="#landing" style="color:#0d51b5;">landing page</a> (hero + latest-news + more-articles + press-kits-listing) and the faceted <a href="#archive" style="color:#0d51b5;">articles-listing archive</a> are both built and live on the preview.</span>
+        </div>
+
+        <table class="spec-table" style="margin-top:16px;">
+          <thead><tr><th>Attribute</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Effort</td><td>hp.com newsroom → Edge Delivery Services migration</td></tr>
+            <tr><td>GitHub repo</td><td><code class="code-inline">AdobeDrago/hp</code> · branch <code class="code-inline">main</code></td></tr>
+            <tr><td>Authoring</td><td>Document Authoring — <code class="code-inline">adobedrago/hp</code></td></tr>
+            <tr><td>Dev model</td><td>EDS block-based only</td></tr>
+            <tr><td>Brand typeface</td><td>Forma DJR (self-hosted, mirrors hp.com)</td></tr>
+            <tr><td>Brand color</td><td><code class="code-inline">#0096d6</code> (HP blue)</td></tr>
+            <tr><td>Content source</td><td>hp.com public newsroom sitemap (US-en)</td></tr>
+            <tr><td>Reference site</td><td>hp.com/us-en/newsroom</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- USE CASE & REQUIREMENTS -->
+      <section class="doc-section" id="use-case">
+        <h2>
+          <span class="section-icon icon-navy">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.75A.75.75 0 012.75 2h7.5a.75.75 0 01.53.22l3 3a.75.75 0 01.22.53v7.5a.75.75 0 01-.75.75h-10.5a.75.75 0 01-.75-.75V2.75zM5 6.5a.5.5 0 000 1h6a.5.5 0 000-1H5zm0 2.5a.5.5 0 000 1h6a.5.5 0 000-1H5zm0 2.5a.5.5 0 000 1h4a.5.5 0 000-1H5z"/></svg>
+          </span>
+          Use case &amp; requirements
+        </h2>
+        <div class="section-rule"></div>
+        <p><strong>Use case.</strong> Recreate HP's US-English <strong>Newsroom</strong> — the public hub for HP press releases, blogs, and press kits — on Edge Delivery Services, authored in Document Authoring. The experience is a <strong>landing page</strong> of curated, recent stories plus a <strong>faceted archive</strong> across the full back catalog, all reading from a single content query index.</p>
+
+        <h3>Requirements gathered</h3>
+        <table class="spec-table">
+          <thead><tr><th>Area</th><th>What we found</th></tr></thead>
+          <tbody>
+            <tr><td>Content source</td><td>HP's public sitemap (<code class="code-inline">sitemap-aem-us-en.xml</code> via <code class="code-inline">sitemap_index.xml</code>), filtered to <code class="code-inline">/us-en/newsroom/</code> — ~1,183 pages spanning 2016–2026.</td></tr>
+            <tr><td>Content mix</td><td>711 press releases · 323 blogs · 149 press kits (US-en only; ~80 other locale sitemaps exist if scope expands).</td></tr>
+            <tr><td>Per-page metadata</td><td>Machine-readable in each page <code class="code-inline">&lt;head&gt;</code>: <code class="code-inline">og:title</code>, <code class="code-inline">description</code>/<code class="code-inline">og:description</code>, <code class="code-inline">og:image</code>, <code class="code-inline">created-date</code>.</td></tr>
+            <tr><td>Topic taxonomy</td><td><strong>Not</strong> in page metadata — HP's newsroom embeds a JSON index of all articles and filters client-side. Topics follow a fixed <strong>46-topic taxonomy</strong>, extracted from that embedded index.</td></tr>
+            <tr><td>Templates</td><td>Two source templates — a post-2024 template and a pre-2024 one (breakpoint <code class="code-inline">data-src</code> images, DAM paths with spaces). Editorial body lives in the <code class="code-inline">c-title-and-text-v2</code> component.</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Supporting analysis</h3>
+        <p>A markup-consistency probe (12 pages across 3 templates × 2016–2026) confirmed press releases and blogs share one clean, stable template — a single importer, Phase 1 (~1,034 articles, low risk). <strong>Press kits are a heavier, interactive template</strong> (asset galleries, download modals, dropdowns) and were scoped separately. Descriptions are absent on ~1/3 of older pages, so the importer falls back to the first body paragraph.</p>
+      </section>
+
+      <!-- KEY REFERENCES -->
+      <section class="doc-section" id="references">
+        <h2>
+          <span class="section-icon icon-blue">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg>
+          </span>
+          Key references
+        </h2>
+        <div class="section-rule"></div>
+        <p>The four places the newsroom lives — the rendered preview, the authoring surface, the code, and the content index that feeds the listing blocks.</p>
+        <div class="url-grid">
+          <a class="url-card" href="https://main--hp--adobedrago.aem.page/us-en/newsroom" target="_blank" rel="noopener">
+            <span class="url-card-label"><span class="dot dot-blue"></span>EDS Preview</span>
+            <span class="url-card-title">Newsroom (rendered)</span>
+            <span class="url-card-url">main--hp--adobedrago.aem.page/us-en/newsroom</span>
+            <span class="url-card-desc">The main branch rendered against DA content.</span>
+          </a>
+          <a class="url-card" href="https://da.live/#/adobedrago/hp" target="_blank" rel="noopener">
+            <span class="url-card-label"><span class="dot dot-navy"></span>Document Authoring</span>
+            <span class="url-card-title">adobedrago / hp</span>
+            <span class="url-card-url">da.live/#/adobedrago/hp</span>
+            <span class="url-card-desc">Where authors edit pages, blocks, and metadata.</span>
+          </a>
+          <a class="url-card" href="https://github.com/AdobeDrago/hp" target="_blank" rel="noopener">
+            <span class="url-card-label"><span class="dot dot-purple"></span>GitHub</span>
+            <span class="url-card-title">AdobeDrago/hp</span>
+            <span class="url-card-url">github.com/AdobeDrago/hp</span>
+            <span class="url-card-desc">Blocks, styles, scripts, and the PR queue.</span>
+          </a>
+          <a class="url-card" href="https://main--hp--adobedrago.aem.page/us-en/newsroom/query-index.json" target="_blank" rel="noopener">
+            <span class="url-card-label"><span class="dot dot-green"></span>Query index</span>
+            <span class="url-card-title">query-index.json</span>
+            <span class="url-card-url">main--hp--adobedrago.aem.page/us-en/newsroom/query-index.json</span>
+            <span class="url-card-desc">1,182 rows — the data behind every listing block.</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- DELIVERABLES -->
+      <section class="doc-section" id="deliverables">
+        <h2>
+          <span class="section-icon icon-green">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg>
+          </span>
+          Deliverables
+        </h2>
+        <div class="section-rule"></div>
+        <p>What shipped, at a glance.</p>
+        <ul class="checklist">
+          <li class="check-item">
+            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
+            <div class="check-body"><div class="check-title">Header &amp; footer migrated</div><div class="check-note">HP newsroom mega-menu navigation and footer rebuilt as EDS blocks, with a responsive mobile nav and a dim/blur behind open menus.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
+            <div class="check-body"><div class="check-title">HP brand typeface (Forma DJR)</div><div class="check-note">Self-hosted Forma DJR set as the body and heading font, replacing the boilerplate Roboto — matching hp.com.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
+            <div class="check-body"><div class="check-title">Full archive imported (1,181 articles)</div><div class="check-note">709 press releases + 323 blogs + 149 press kits, bulk-imported into DA with metadata, previewed and reconciled — 0 missing, 0 extra.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
+            <div class="check-body"><div class="check-title">Query index + topic backfill</div><div class="check-note">A 1,182-row query index with a <code class="code-inline">created-date</code>, <code class="code-inline">type</code>, and <code class="code-inline">topic</code> column; 753 pages backfilled against HP's 46-topic taxonomy.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
+            <div class="check-body"><div class="check-title">Newsroom landing page</div><div class="check-note">A full-bleed hero plus latest-news, more-articles, and press-kits-listing blocks — all reading from the query index.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
+            <div class="check-body"><div class="check-title">Faceted article archive</div><div class="check-note">The articles-listing block: keyword search, Media Type + Topics facets, four sort orders, removable chips, and Load More.</div></div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- SITE CHROME -->
+      <section class="doc-section" id="chrome">
+        <h2>
+          <span class="section-icon icon-blue">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5zm1.75-.25a.25.25 0 00-.25.25v.5h13v-.5a.25.25 0 00-.25-.25H1.75zM1.5 5.5v6.75c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.5h-13z"/></svg>
+          </span>
+          Site chrome — header &amp; footer
+          <span class="status-badge sb-done">Complete</span>
+        </h2>
+        <div class="section-rule"></div>
+        <p>The first workstream migrated the newsroom's shared chrome so every imported page renders inside HP's own navigation.</p>
+        <ul class="req-list">
+          <li><strong>Header</strong> — the HP mega-menu navigation, rebuilt as an EDS block. Open menus dim and blur the page behind them; the nav collapses to a mobile menu through tablet and small-laptop widths.</li>
+          <li><strong>Footer</strong> — the HP newsroom footer, migrated to an authorable block.</li>
+        </ul>
+        <div class="notice tip">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L7 8.94 5.28 7.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.06 0l4.25-4.25z"/></svg>
+          <span>Header and footer shipped first (<code class="code-inline">Migrate HP newsroom header and footer to EDS</code>) so that all subsequently imported articles inherit the correct chrome.</span>
+        </div>
+      </section>
+
+      <!-- TYPEFACE -->
+      <section class="doc-section" id="typeface">
+        <h2>
+          <span class="section-icon icon-purple">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2.5A.5.5 0 013.5 2h9a.5.5 0 01.5.5V4a.5.5 0 01-1 0v-1H8.5v10H10a.5.5 0 010 1H6a.5.5 0 010-1h1.5V3H4v1a.5.5 0 01-1 0V2.5z"/></svg>
+          </span>
+          Brand typeface — Forma DJR
+          <span class="status-badge sb-done">Complete</span>
+        </h2>
+        <div class="section-rule"></div>
+        <p>HP's brand typeface is <strong>Forma DJR</strong>, self-hosted on hp.com as a single face with a synthetic bold and an Arial fallback. The boilerplate EDS project shipped with Roboto; we swapped in Forma DJR so the newsroom reads as HP.</p>
+        <ul class="req-list">
+          <li>Added <code class="code-inline">fonts/forma-djr.woff2</code> and <code class="code-inline">.woff</code>, removed the Roboto faces.</li>
+          <li>Set both <code class="code-inline">--body-font-family</code> and <code class="code-inline">--heading-font-family</code> to <code class="code-inline">forma-djr, forma-djr-fallback, arial, sans-serif</code>.</li>
+          <li>Arial stands in as the fallback face before Forma DJR loads — the same behavior as hp.com.</li>
+        </ul>
+        <div class="code-block"><span class="cmt">/* styles/fonts.css — HP brand typeface, self-hosted */</span>
+@font-face {
+  <span class="var">font-family</span>: forma-djr;
+  <span class="var">src</span>: <span class="kw">url</span>(<span class="str">'../fonts/forma-djr.woff2'</span>) <span class="kw">format</span>(<span class="str">'woff2'</span>),
+       <span class="kw">url</span>(<span class="str">'../fonts/forma-djr.woff'</span>) <span class="kw">format</span>(<span class="str">'woff'</span>);
+}</div>
+      </section>
+
+      <!-- ARTICLE IMPORT -->
+      <section class="doc-section" id="import">
+        <h2>
+          <span class="section-icon icon-seafoam">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a.75.75 0 01.75.75v6.19l1.72-1.72a.75.75 0 111.06 1.06l-3 3a.75.75 0 01-1.06 0l-3-3a.75.75 0 011.06-1.06l1.72 1.72V1.75A.75.75 0 018 1zM2.75 12a.75.75 0 01.75.75v.75h9v-.75a.75.75 0 011.5 0v1.5a.75.75 0 01-.75.75h-11a.75.75 0 01-.75-.75v-1.5A.75.75 0 012.75 12z"/></svg>
+          </span>
+          Article import
+          <span class="status-badge sb-done">Complete</span>
+        </h2>
+        <div class="section-rule"></div>
+        <p>The entire US-English newsroom was bulk-imported from HP's public sitemap into Document Authoring — one DA page per article, each carrying an EDS <strong>Metadata block</strong> so title, description, image, type, and <code class="code-inline">created-date</code> flow into the query index.</p>
+
+        <div class="arch-diagram">
+          <div class="arch-row">
+            <div class="arch-node" style="background:#e6eef7;color:var(--hp-navy);">hp.com sitemap</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-node" style="background:#e9f1fc;color:var(--hp-blue-text);">fetch + transform</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-node" style="background:#f3edfb;color:#7240ab;">DA source (PUT)</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-node" style="background:#eaf6f1;color:#1a6b50;">preview + reconcile</div>
+          </div>
+        </div>
+
+        <h3>What was imported</h3>
+        <table class="spec-table">
+          <thead><tr><th>Content type</th><th>Count</th><th>DA path pattern</th></tr></thead>
+          <tbody>
+            <tr><td>Press releases</td><td>709</td><td><code class="code-inline">us-en/newsroom/press-releases/{year}/{slug}</code></td></tr>
+            <tr><td>Blogs</td><td>323</td><td><code class="code-inline">us-en/newsroom/blogs/{year}/{slug}</code></td></tr>
+            <tr><td>Press kits</td><td>149</td><td><code class="code-inline">us-en/newsroom/press-kits/…</code></td></tr>
+            <tr><td>Total unique</td><td>1,181</td><td>spanning 2016–2026</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Per-page metadata captured</h3>
+        <ul class="req-list">
+          <li><strong>Title</strong> ← <code class="code-inline">og:title</code></li>
+          <li><strong>Description</strong> ← <code class="code-inline">meta[description]</code> / <code class="code-inline">og:description</code>, with a fallback to the article's first paragraph (~1/3 of older pages have none)</li>
+          <li><strong>Image</strong> ← <code class="code-inline">og:image</code> (absolute DAM URL, sideloaded into the Media Bus on preview)</li>
+          <li><strong>created-date</strong> ← HP's <code class="code-inline">created-date</code> meta, normalized to ISO <code class="code-inline">YYYY-MM-DD</code></li>
+          <li><strong>type</strong> — Press Release / Press Blog / Press Kit</li>
+        </ul>
+
+        <div class="notice warning">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>Metadata blocks must be nested inside a section div.</strong> A Metadata block placed as a direct child of <code class="code-inline">&lt;main&gt;</code> is parsed as a section and silently ignored, so EDS auto-derives title/description/image from body content instead. Caught only by checking rendered output.</span>
+        </div>
+
+        <h3>Engineering notes</h3>
+        <ul class="req-list">
+          <li><strong>Path normalization:</strong> DA source paths use EDS-normalized slugs (lowercase, non-alphanumeric runs → single <code class="code-inline">-</code>, trimmed) — otherwise the preview 404s. ~253 older slugs needed this.</li>
+          <li><strong>Two source templates:</strong> a post-2024 template and a pre-2024 one (breakpoint <code class="code-inline">data-src</code> image syntax, DAM paths with spaces) — a recursive walker handles both.</li>
+          <li><strong>Image guards:</strong> images ≥ 20 MB and TIFF/GIF/SVG are excluded (some HP DAM mastheads are 48 MB TIFFs / 145 MB+ PNGs).</li>
+          <li><strong>Press kits</strong> imported best-effort using existing blocks — galleries collapse into the <code class="code-inline">cards</code> block; interactive download modals and dropdowns are intentionally dropped for this pass.</li>
+        </ul>
+      </section>
+
+      <!-- QUERY INDEX -->
+      <section class="doc-section" id="query-index">
+        <h2>
+          <span class="section-icon icon-green">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 3.5C2 2.12 4.69 1 8 1s6 1.12 6 2.5v9C14 13.88 11.31 15 8 15s-6-1.12-6-2.5v-9zM8 2.5C5.1 2.5 3.5 3.46 3.5 3.5S5.1 4.5 8 4.5s4.5-.96 4.5-1S10.9 2.5 8 2.5z"/></svg>
+          </span>
+          Query index
+          <span class="status-badge sb-done">Complete</span>
+        </h2>
+        <div class="section-rule"></div>
+        <p>A single query index at <code class="code-inline">/us-en/newsroom/query-index.json</code> is the data source behind every dynamic block on the site — the landing modules and the archive all read from it.</p>
+        <table class="spec-table">
+          <thead><tr><th>Column</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td>path, title, description, image</td><td>Card rendering</td></tr>
+            <tr><td>type</td><td>Media Type facet — Press Release (709) / Press Blog (323) / Press Kit (149)</td></tr>
+            <tr><td>created-date</td><td>Sort key — ISO <code class="code-inline">YYYY-MM-DD</code></td></tr>
+            <tr><td>topic</td><td>Topics facet — comma-separated slugs</td></tr>
+            <tr><td>lastModified</td><td>EDS system field — epoch <em>seconds</em></td></tr>
+          </tbody>
+        </table>
+        <div class="notice info">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>Mixed date formats.</strong> <code class="code-inline">created-date</code> is an ISO string while <code class="code-inline">lastModified</code> is epoch seconds, so every block normalizes both to epoch milliseconds via a <code class="code-inline">toEpoch()</code> helper before sorting or formatting. Blocks sort on the authored <code class="code-inline">created-date</code> — never on <code class="code-inline">lastModified</code>, which resets to migration time.</span>
+        </div>
+      </section>
+
+      <!-- TAXONOMY -->
+      <section class="doc-section" id="taxonomy">
+        <h2>
+          <span class="section-icon icon-orange">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 3.75A1.75 1.75 0 013.75 2h3.5c.464 0 .909.184 1.237.513l5.5 5.5a1.75 1.75 0 010 2.474l-3.5 3.5a1.75 1.75 0 01-2.474 0l-5.5-5.5A1.75 1.75 0 012 7.25v-3.5zM5 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          </span>
+          Topic taxonomy
+          <span class="status-badge sb-done">Complete</span>
+        </h2>
+        <div class="section-rule"></div>
+        <p>Article topics aren't in the individual page metadata on hp.com — the newsroom embeds a JSON index of every article and filters it client-side. We extracted that index, mapped each article to HP's fixed <strong>46-topic taxonomy</strong>, and backfilled a <code class="code-inline">topic</code> metadata field onto the DA pages that carry topics.</p>
+        <ul class="req-list">
+          <li><strong>753 pages</strong> backfilled with a comma-separated list of topic slugs (e.g. <code class="code-inline">financial, 3d_printing</code>); 416 topicless articles left untouched.</li>
+          <li>The 46-topic list drives the Topics facet in the archive — matched by slug against each article's <code class="code-inline">topic</code>.</li>
+          <li>Backfill inserted a metadata row into each page's existing Metadata block and re-previewed — <strong>753/753 succeeded, 0 failures</strong>.</li>
+        </ul>
+      </section>
+
+      <!-- LANDING -->
+      <section class="doc-section" id="landing">
+        <h2>
+          <span class="section-icon icon-navy">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+          </span>
+          Newsroom landing page
+          <span class="status-badge sb-done">Complete</span>
+        </h2>
+        <div class="section-rule"></div>
+        <p>The landing page is composed from four blocks: a full-bleed hero on top of three curated, index-driven feeds.</p>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-card-header"><span class="skill-tag tag-js">block</span><span class="skill-card-name">hero</span></div>
+            <div class="skill-card-desc">Full-bleed background image with an overlaid content band — divider rules per line, scrim over the image, responsive down to mobile. Generic: any authored picture becomes the background and every remaining line renders in the band.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-header"><span class="skill-tag tag-js">block</span><span class="skill-card-name">latest-news</span></div>
+            <div class="skill-card-desc">The newest 4 articles from the query index, sorted on <code class="code-inline">created-date</code>. Optimized images, headline, and description.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-header"><span class="skill-tag tag-js">block</span><span class="skill-card-name">more-articles</span></div>
+            <div class="skill-card-desc">The next 6 articles after latest-news (skips the first 4), so the two feeds never repeat a story.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-header"><span class="skill-tag tag-js">block</span><span class="skill-card-name">press-kits-listing</span></div>
+            <div class="skill-card-desc">The latest 4 press kits — filtered from the index by the <code class="code-inline">/newsroom/press-kits/</code> path — surfaced on the landing page.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ARCHIVE -->
+      <section class="doc-section" id="archive">
+        <h2>
+          <span class="section-icon icon-blue">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.742 10.344a6.5 6.5 0 10-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 001.415-1.414l-3.85-3.85a1 1 0 00-.115-.099zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"/></svg>
+          </span>
+          Article archive — articles-listing
+          <span class="status-badge sb-done">Complete</span>
+        </h2>
+        <div class="section-rule"></div>
+        <p>The <code class="code-inline">articles-listing</code> block is the faceted archive over all 1,181 articles. It reads the query index and filters, sorts, and paginates entirely client-side.</p>
+        <h3>Features</h3>
+        <ul class="req-list">
+          <li><strong>Card grid</strong> — 3-up on desktop; image, title, two-line description, and a Read button.</li>
+          <li><strong>Keyword search</strong> across title and description.</li>
+          <li><strong>Media Type facet</strong> (<code class="code-inline">type</code>) and a <strong>Topics facet</strong> over the 46-topic taxonomy.</li>
+          <li><strong>Sort</strong> — Newest / Oldest (on <code class="code-inline">created-date</code>) and A–Z / Z–A.</li>
+          <li><strong>Removable chips</strong> + Clear all, and a <strong>Load More</strong> that reveals the next batch of 9.</li>
+          <li><strong>Mobile</strong> — single-column cards with a combined Sort &amp; Filter modal, state synced with the desktop controls.</li>
+        </ul>
+        <p>Only real articles appear — a path filter keeps the landing, archive, and any test pages out of the results.</p>
+        <div class="url-grid">
+          <a class="url-card" href="https://main--hp--adobedrago.aem.page/us-en/newsroom/archive" target="_blank" rel="noopener">
+            <span class="url-card-label"><span class="dot dot-blue"></span>EDS Preview</span>
+            <span class="url-card-title">Newsroom Archive</span>
+            <span class="url-card-url">main--hp--adobedrago.aem.page/us-en/newsroom/archive</span>
+            <span class="url-card-desc">The faceted articles-listing block, live.</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- DECISIONS & ASSUMPTIONS -->
+      <section class="doc-section" id="decisions">
+        <h2>
+          <span class="section-icon icon-purple">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 4.5A2.5 2.5 0 014.5 2h7A2.5 2.5 0 0114 4.5v5a2.5 2.5 0 01-2.5 2.5H6.7l-3 2.4A.5.5 0 013 14v-2H4.5A2.5 2.5 0 012 9.5v-5z"/></svg>
+          </span>
+          Decisions &amp; assumptions
+          <span class="status-badge sb-done">Handoff</span>
+        </h2>
+        <div class="section-rule"></div>
+        <p>The choices behind the build — the partner should understand these before extending the work.</p>
+        <table class="spec-table">
+          <thead><tr><th>Decision</th><th>Rationale / assumption</th></tr></thead>
+          <tbody>
+            <tr><td>Sort on authored <code class="code-inline">created-date</code>, not EDS <code class="code-inline">lastModified</code></td><td>EDS's system <code class="code-inline">lastModified</code> resets to migration time for every page, so it can't order the archive. Blocks sort on the authored, ISO-normalized <code class="code-inline">created-date</code>.</td></tr>
+            <tr><td>No <code class="code-inline">published-date</code> carried from HP</td><td>Only <code class="code-inline">created-date</code> is authored/indexed for sorting; <code class="code-inline">lastModified</code> remains a system field.</td></tr>
+            <tr><td>Family-only font swap to Forma DJR</td><td>Swap the boilerplate Roboto for HP's brand face without re-scaling the whole type ramp — lowest-risk brand match.</td></tr>
+            <tr><td>Hero as an explicit block</td><td>Autoblocking was removed; the masthead is an authored hero block, so authors control the eyebrow/title/date and it renders consistently.</td></tr>
+            <tr><td>Corporate boilerplate dropped on import</td><td>Everything from an "About HP" / "Media Contact" component onward is dropped; the article's own closing paragraph is kept as real content.</td></tr>
+            <tr><td>Press kits imported best-effort</td><td>Migrated with existing blocks (metadata, hero, body, galleries → <code class="code-inline">cards</code>); interactive download modals and dropdowns intentionally dropped for this pass.</td></tr>
+            <tr><td>Delivery via branch + PR</td><td>All work shipped through feature branches and PRs on <code class="code-inline">AdobeDrago/hp</code>, never pushed straight to <code class="code-inline">main</code>.</td></tr>
+            <tr><td>Topic values stored as slugs</td><td>Backfilled a singular <code class="code-inline">topic</code> field (comma-separated slugs); <code class="code-inline">created-date</code> left unchanged during backfill.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- KNOWN LIMITATIONS -->
+      <section class="doc-section" id="limitations">
+        <h2>
+          <span class="section-icon icon-orange">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          </span>
+          Known limitations &amp; accepted quirks
+          <span class="status-badge sb-progress">Review</span>
+        </h2>
+        <div class="section-rule"></div>
+        <p>Accepted for this delivery — each is a candidate for follow-up if the partner needs it resolved for production.</p>
+        <ul class="checklist">
+          <li class="check-item">
+            <span class="check-mark cm-partial"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg></span>
+            <div class="check-body"><div class="check-title">created-date clustering (~87%)</div><div class="check-note">1,027 of 1,181 articles show <code class="code-inline">2024-06-18</code> because HP's 2024 CMS migration reset the date on older content. True editorial dates are recoverable from the embedded newsroom JSON (<code class="code-inline">ad</code>, epoch ms) but were <strong>not applied</strong> this pass.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-partial"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg></span>
+            <div class="check-body"><div class="check-title">Missing descriptions (~1/3 of older pages)</div><div class="check-note">Handled with a fallback to the article's first paragraph; index shows 1,165 of 1,181 with a description.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-partial"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg></span>
+            <div class="check-body"><div class="check-title">Press-kit interactivity dropped</div><div class="check-note">Download modals, dropdowns, and interactive asset galleries were not migrated; galleries were flattened into the <code class="code-inline">cards</code> block. Faithful press-kit experiences are a separate scope.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-partial"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg></span>
+            <div class="check-body"><div class="check-title">Oversized / unsupported images excluded</div><div class="check-note">Images ≥ 20 MB and TIFF/GIF/SVG are skipped (some HP DAM mastheads are 48 MB TIFFs or 145 MB+ PNGs). Affected heroes fall back to no masthead.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-partial"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg></span>
+            <div class="check-body"><div class="check-title">416 articles have no topic</div><div class="check-note">Source data has no topic for those articles, so they won't match any Topics facet until tagged.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM6.05 6.05a1.95 1.95 0 113.31 1.4c-.42.42-.86.86-.86 1.55a.5.5 0 01-1 0c0-1.1.66-1.76 1.15-2.25a.95.95 0 10-1.6-.7.5.5 0 01-1 0zM8 11.5A.75.75 0 108 13a.75.75 0 000-1.5z"/></svg></span>
+            <div class="check-body"><div class="check-title">Topic data provenance</div><div class="check-note">The topic taxonomy was scraped from HP's public embedded JSON. Confirm this source is acceptable for production use before go-live.</div></div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- NEXT STEPS -->
+      <section class="doc-section" id="next-steps">
+        <h2>
+          <span class="section-icon icon-green">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg>
+          </span>
+          Next steps for the partner
+          <span class="status-badge sb-planned">Handoff</span>
+        </h2>
+        <div class="section-rule"></div>
+        <p>Where the work stands and what remains to take the newsroom to production.</p>
+        <ul class="checklist">
+          <li class="check-item">
+            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg></span>
+            <div class="check-body"><div class="check-title">Add <code class="code-inline">topic</code> to the query-index config &amp; reindex</div><div class="check-note">In tools.aem.live, add a <code class="code-inline">topic</code> property selecting <code class="code-inline">head &gt; meta[name="topic"]</code>, then re-index — so the Topics facet in the archive filters against every backfilled article.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg></span>
+            <div class="check-body"><div class="check-title">Decide the landing feed logic</div><div class="check-note">Confirm how the curated landing blocks are populated — latest-N (current), a manual pick, or a <code class="code-inline">featured</code> flag — and whether press kits get a dedicated hero.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg></span>
+            <div class="check-body"><div class="check-title">Recover true editorial dates (optional)</div><div class="check-note">Apply the <code class="code-inline">ad</code> epoch dates from the embedded newsroom JSON to fix the pre-2024 date clustering, if accurate chronology matters for the archive.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg></span>
+            <div class="check-body"><div class="check-title">Rebuild press-kit interactivity (if required)</div><div class="check-note">Recreate download modals and asset galleries as EDS blocks, or link out to the existing hp.com kits — a decision for HP.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg></span>
+            <div class="check-body"><div class="check-title">Index cleanups</div><div class="check-note">Drop the legacy empty <code class="code-inline">date</code> column and exclude the landing row and any stray test pages from listing results.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg></span>
+            <div class="check-body"><div class="check-title">Locale expansion</div><div class="check-note">The migration covers US-en only. ~80 other locale sitemaps exist; the importer generalizes to them if HP wants additional markets.</div></div>
+          </li>
+          <li class="check-item">
+            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 2a.75.75 0 00-.75.75v10.5a.75.75 0 001.28.53l5.25-5.25a.75.75 0 000-1.06L5.28 2.22A.75.75 0 004.75 2z"/></svg></span>
+            <div class="check-body"><div class="check-title">Production cutover</div><div class="check-note">Confirm the production domain mapping, publish flow (preview → live), and sign-off on topic-data provenance before go-live.</div></div>
+          </li>
+        </ul>
+        <div class="notice info">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>Handoff state.</strong> The migration and blocks are complete and live on the EDS preview. The remaining items above are configuration, curation, and scope decisions for the partner and HP — none block the newsroom from rendering today.</span>
+        </div>
+      </section>
+
+      <!-- BLOCK LIBRARY -->
+      <section class="doc-section" id="blocks">
+        <h2>
+          <span class="section-icon icon-navy">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5A1.5 1.5 0 012.5 2h2A1.5 1.5 0 016 3.5v2A1.5 1.5 0 014.5 7h-2A1.5 1.5 0 011 5.5v-2zm5.5 0A1.5 1.5 0 018 2h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 7H8A1.5 1.5 0 016.5 5.5v-2zm-5.5 5A1.5 1.5 0 012.5 7h2A1.5 1.5 0 016 8.5v2A1.5 1.5 0 014.5 12h-2A1.5 1.5 0 011 10.5v-2zm5.5 0A1.5 1.5 0 018 7h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 12H8A1.5 1.5 0 016.5 10.5v-2z"/></svg>
+          </span>
+          Block library
+        </h2>
+        <div class="section-rule"></div>
+        <h3>Built &amp; customized for HP</h3>
+        <div class="skills-grid">
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">header</span></div><div class="skill-card-desc">HP mega-menu nav, responsive mobile fallback, page dim/blur behind open menus.</div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">footer</span></div><div class="skill-card-desc">Migrated HP newsroom footer.</div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">hero</span></div><div class="skill-card-desc">Full-bleed background + divided content band; scrim, per-line rules, responsive.</div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">articles-listing</span></div><div class="skill-card-desc">Faceted, sortable, searchable archive with Load More.</div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">latest-news</span></div><div class="skill-card-desc">Newest 4 articles from the query index.</div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">more-articles</span></div><div class="skill-card-desc">Next 6 articles, de-duped against latest-news.</div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">press-kits-listing</span></div><div class="skill-card-desc">Latest 4 press kits from the index.</div></div>
+        </div>
+        <h3>Standard EDS blocks in the project</h3>
+        <div class="skills-grid">
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">accordion</span></div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">cards</span></div><div class="skill-card-desc">Reused for press-kit galleries.</div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">carousel</span></div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">columns</span></div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">embed</span></div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">form</span></div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">fragment</span></div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">modal</span></div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">quote</span></div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">search</span></div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">table</span></div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">tabs</span></div></div>
+          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">video</span></div></div>
+        </div>
+      </section>
+
+      <!-- DEVELOPER NOTES -->
+      <section class="doc-section" id="dev-notes">
+        <h2>
+          <span class="section-icon icon-orange">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+          </span>
+          Developer notes
+        </h2>
+        <div class="section-rule"></div>
+        <h3>Date normalization</h3>
+        <p>Listing blocks share a <code class="code-inline">toEpoch()</code> helper: numeric values below <code class="code-inline">1e12</code> are treated as epoch seconds and multiplied by 1000; everything else goes through <code class="code-inline">Date.parse</code>. Sort and display both work off that normalized millisecond value.</p>
+        <h3>Index as the single source</h3>
+        <p>Every dynamic block (<code class="code-inline">latest-news</code>, <code class="code-inline">more-articles</code>, <code class="code-inline">press-kits-listing</code>, <code class="code-inline">articles-listing</code>) defaults to <code class="code-inline">/us-en/newsroom/query-index.json</code>, and an author can override the source with a link in the block. Change the index config once and every feed updates.</p>
+        <h3>Button color gotcha</h3>
+        <p>The project's global <code class="code-inline">button { color: var(--background-color) }</code> renders white — which made block buttons white-on-white. Listing blocks reset this with <code class="code-inline">.articles-listing button { color: inherit }</code>.</p>
+        <h3>Metadata block placement</h3>
+        <p>Keep Metadata blocks nested inside a section <code class="code-inline">&lt;div&gt;</code>, never as a direct child of <code class="code-inline">&lt;main&gt;</code> — a direct child is read as a section boundary and the block is silently dropped.</p>
+
+        <div class="doc-footer">
+          <span>HP Newsroom · AEM → EDS Migration</span>
+          <span>·</span>
+          <span><a href="https://github.com/AdobeDrago/hp" style="color:var(--hp-blue-text);text-decoration:none;">AdobeDrago/hp</a></span>
+          <span>·</span>
+          <span>Built on Adobe Edge Delivery Services</span>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  // Highlight the sidebar link for the section currently in view.
+  const links = [...document.querySelectorAll('.sidebar-link')];
+  const byId = new Map(links.map((a) => [a.getAttribute('href').slice(1), a]));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const link = byId.get(entry.target.id);
+        if (!link) return;
+        links.forEach((a) => a.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  document.querySelectorAll('.doc-section, .page-hero').forEach((s) => { if (s.id) observer.observe(s); });
+</script>
+
+</body>
+</html>

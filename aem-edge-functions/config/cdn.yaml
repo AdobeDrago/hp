@@ -1,0 +1,14 @@
+kind: 'CDN'
+version: '1'
+data:
+  originSelectors:
+    rules:
+      # Route all newsroom pages (landing + articles) to the related-links edge
+      # function. Assets (.js/.css/.json/images) fall through to the normal origin.
+      - name: route-newsroom-to-related-links
+        when:
+          reqProperty: path
+          matches: '^/us-en/newsroom(/.*)?$'
+        action:
+          type: selectAemOrigin
+          originName: edgefunction-related-links

@@ -1,0 +1,31 @@
+# Fastly Compute package for the "related-links" AEM Edge Function.
+# https://www.fastly.com/documentation/reference/compute/fastly-toml
+
+authors = []
+description = "HP newsroom Related Links — server-side BrightEdge link rendering at the edge"
+language = "javascript"
+manifest_version = 3
+name = "related-links"
+service_id = ""
+
+[scripts]
+  post_init = "npm install"
+
+[local_server]
+  [local_server.backends]
+    # EDS origin (preview tier for local dev; production uses .aem.live via ConfigStore)
+    [local_server.backends.eds_origin]
+      url = "https://main--hp--adobedrago.aem.page"
+      override_host = "main--hp--adobedrago.aem.page"
+    # BrightEdge IXF capsule API
+    [local_server.backends.brightedge]
+      url = "https://api.brightedge.com"
+      override_host = "api.brightedge.com"
+
+  [local_server.config_stores]
+    [local_server.config_stores.config_default]
+      format = "inline-toml"
+    [local_server.config_stores.config_default.contents]
+      CANONICAL_HOST = "www.hp.com"
+      EDS_ORIGIN = "https://main--hp--adobedrago.aem.page"
+      BE_ACCOUNT = "f00000000019918"

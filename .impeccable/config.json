@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "docs/index.html"
+        ],
+        "createdAt": "2026-09-29T04:53:15.332Z",
+        "reason": "reused doc's pre-existing .notice admonition component (info/tip/warning) used across all 16 sections; attribution predates this session, not introduced by this edit"
+      }
+    ]
+  }
+}

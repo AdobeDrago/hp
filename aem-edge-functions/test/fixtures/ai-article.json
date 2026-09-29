@@ -1,0 +1,804 @@
+{
+  "account_id": "f00000000019918", 
+  "date_published": 1790644856098, 
+  "key": "-0", 
+  "is_universal_capsule_enabled": "false", 
+  "capsule_version": "1.0.0.0", 
+  "engine_version": "1.0.0.0", 
+  "version": 2, 
+  "date_created": 1790644856098, 
+  "nodes": [
+    {
+      "feature_group": "body_1", 
+      "engine_version": "1.0.0.0", 
+      "content": "", 
+      "date_published": 1790644856098, 
+      "date_created": 1790644861301, 
+      "type": "bodystr", 
+      "publishing_engine": "link-block"
+    }, 
+    {
+      "feature_group": "_head_open", 
+      "engine_version": "1.0.0.0", 
+      "content": "", 
+      "date_published": 1790644856098, 
+      "date_created": 1790644861303, 
+      "type": "headstr", 
+      "publishing_engine": "pixel"
+    }
+  ], 
+  "config": {
+    "page_groups": [
+      {
+        "priority": 1, 
+        "include_rules": [
+          "^https://www\\\\.hp\\\\.com/us-en/.*usage=(?:Maximum\\\\-gaming\\\\-performance|Great\\\\-gaming\\\\-performance|Performance\\\\-computing|Entry\\\\-level\\\\-gaming|Gaming)", 
+          "^https://www\\\\.hp\\\\.com/us-en/.*grph=(?:Qualcomm\\\\-Adreno|Intel\\\\-Graphics|NVIDIA\\\\-GeForce|AMD\\\\-Radeon|Intel\\\\-Iris|NVIDIA\\\\-RTX|Intel\\\\-Arc|Intel\\\\-UHD)", 
+          "^https://www\\\\.hp\\\\.com/us-en/.*mem=(?:128\\\\-GB|12\\\\-GB|16\\\\-GB|32\\\\-GB|64\\\\-GB|4\\\\-GB|8\\\\-GB)", 
+          "^https://www\\\\.hp\\\\.com/us-en/.*proc=AMD-(?:Athlon|Ryzen-(?:[3579]|AI-(?:[579]|Max)))", 
+          "^https://www\\\\.hp\\\\.com/us-en/.*proc=(?:Intel-(?:Celeron|Core-(?:[357]|Ultra-[579]|i[357]))|MediaTek|Snapdragon)", 
+          "^https://www\\\\.hp\\\\.com/us-en/.*ssd=(?:Yes)", 
+          "^https://www\\\\.hp\\\\.com/us-en/.*stor=(?:128\\\\-GB|256\\\\-GB|512\\\\-GB|32\\\\-GB|64\\\\-GB|1\\\\-TB|2\\\\-TB)"
+        ], 
+        "name": "B2 Performance Specs", 
+        "exclude_rules": []
+      }, 
+      {
+        "priority": 2, 
+        "include_rules": [
+          "^https://www\\\\.hp\\\\.com/us-en/.*form=(?:Convertible)", 
+          "https://www\\\\.hp\\\\.com/us-en/.*opsy=(?:Windows\\\\-11\\\\-IoT\\\\-Enterprise|Windows\\\\-11\\\\-Home|Windows\\\\-10\\\\-IoT|Windows\\\\-11\\\\-Pro|HP\\\\-ThinPro|ChromeOS|IGEL\\\\-OS)", 
+          "^https://www\\\\.hp\\\\.com/us-en/.*scrs=(?:115\\\\-|13\\\\-|14\\\\-|16\\\\-|17\\\\-|18\\\\-)", 
+          "^https://www\\\\.hp\\\\.com/us-en/.*touch=(?:Touch)"
+        ], 
+        "name": "B4 Feature - Experience", 
+        "exclude_rules": []
+      }, 
+      {
+        "priority": 3, 
+        "include_rules": [
+          "^https://www\\\\.hp\\\\.com/us-en/.*brand=(?:HyperX-OMEN(?:-MAX)?|OMEN(?:-MAX|-Transcend)?|OmniBook-(?:Ultra|[357X])|Elite(?:Book)?|Essential|Chromebook|Mobile-Thin-Client|Pavilion|ProBook|Victus-by-HP|ZBook)"
+        ], 
+        "name": "B3 Brand - Family", 
+        "exclude_rules": []
+      }, 
+      {
+        "priority": 4, 
+        "include_rules": [
+          "^https://www\\\\.hp\\\\.com/us-en/.*availability=(?:In\\\\-Stock)", 
+          "https://www\\\\.hp\\\\.com/us-en/.*ecolabel=(?:TCO\\\\-Certified|Low\\\\-halogen)", 
+          "^https://www\\\\.hp\\\\.com/us-en/.*price=(?:1500\\\\-99999|1200\\\\-1500|800\\\\-1200|500\\\\-800|1\\\\-500)", 
+          "^https://www\\\\.hp\\\\.com/us-en/.*rating=(?:2\\\\-9733\\\\-9733\\\\-9734\\\\-9734\\\\-9734\\\\-Up|3\\\\-9733\\\\-9733\\\\-9733\\\\-9734\\\\-9734\\\\-Up|4\\\\-9733\\\\-9733\\\\-9733\\\\-9733\\\\-9734\\\\-Up|5\\\\-9733\\\\-9733\\\\-9733\\\\-9733\\\\-9733\\\\-)", 
+          "https://www\\\\.hp\\\\.com/us-en/.*Deal=(?:Sale)"
+        ], 
+        "name": "B5 Deals & Value", 
+        "exclude_rules": []
+      }, 
+      {
+        "priority": 5, 
+        "include_rules": [
+          "^https://www\\\\.hp\\\\.com/us-en/.*aipc=(?:AI\\\\-Workstation|Copilot\\\\-PC|AI\\\\-PC)", 
+          "^https://www\\\\.hp\\\\.com/us-en/.*segm=(?:Business|Home)", 
+          "^https://www\\\\.hp\\\\.com/us-en/.*usage=(?:Mainstream\\\\-business\\\\-productivity|Premium\\\\-business\\\\-productivity|Chrome\\\\-productivity|Everyday\\\\-computing|Education)"
+        ], 
+        "name": "B1 Use Case - Need", 
+        "exclude_rules": []
+      }, 
+      {
+        "priority": 6, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/.*(-ai-|\\/ai-|omnibook).*"
+        ], 
+        "name": "AI and Omnibook", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 7, 
+        "include_rules": [
+          "www\\.hp\\.com\\/us\\-en\\/shop\\/reviews\\/"
+        ], 
+        "name": "Reviews", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 8, 
+        "include_rules": [
+          ".*?https:\\/\\/www\\.hp\\.com\\/us-en(.*pdp.*).*$"
+        ], 
+        "name": "PDP", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 9, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/.*(gaming|games|omen|victus).*laptop.*"
+        ], 
+        "name": "Gaming Laptops", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 10, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/(.*proboo.*|.*business-lap.*|.*zbook.*chrome-enterprise.*|.*workstation.*|.*elitebook.*|.*thin-client.*|.*thin.*|.*spectre.*|.*omnibook.*)"
+        ], 
+        "name": "Business Laptops", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 11, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/.*(laptops|Laptops).*$"
+        ], 
+        "name": "General Laptops", 
+        "exclude_rules": [
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*(sitesearch|security|business\\-laptop|business\\-desktop|elitedesk|elite\\-mini|prodesk|chromebox).*", 
+          ".*?(jumpid=).*", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/(.*proboo.*|.*business-lap.*|.*zbook.*chrome-enterprise.*|.*workstation.*|.*elitebook.*|.*thin-client.*|.*thin.*|.*spectre.*)", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/(.*gaming.*|.*games.*)", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 12, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/(.*gaming.*desktop.*|.*games.*desktop.*|.*omen.*desktop.*|.*victus.*desktop.*).*"
+        ], 
+        "name": "Gaming Desktops", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 13, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/(.*tower.*|.*business.*desktop.*|.*prodesk.*|.*engage.*|.*station.*|.*elitedesk.*|.*business.*elite.*).*"
+        ], 
+        "name": "Business Desktops", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 14, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/.*desktop.*"
+        ], 
+        "name": "Desktops General", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/(.*gaming.*desktop.*|.*games.*desktop.*|.*omen.*desktop.*|.*victus.*desktop.*).*", 
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/(.*tower.*|.business-lap.*|.*prodesk.*|.*engage.*|.*station.*|.*elitedesk.*|.*business.*elite.*).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 15, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/.*(ink.*printer|officejet|smart-tank|tango|sprocket).*"
+        ], 
+        "name": "Ink Printers", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 16, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/(.*toner.*.printer.*|.*business.*toner.*|.*enterprise.*toner.*|.*tango.*|.*neverstop.*|.*laserjet.*|.*laser.*printer.*).*"
+        ], 
+        "name": "Toner Printers", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 17, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/(.*ink.*|.*instantink.*).*"
+        ], 
+        "name": "Ink", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 18, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/(.*toner.*).*"
+        ], 
+        "name": "Toner", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 19, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/(.*plotter.*|.*industrial.*|.*commercial.*|.*large-format.*|.*designjet.*|.*pagewide.*|.*stitch.*|.*multi-jet.*|.*metaljet.*|.*metal-jet.*|.*metaljet.*|.*indigo.*|.*industrial.*|.*digital-press.*|.*press.*).*"
+        ], 
+        "name": "LF, IND., 3D", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 20, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/(.*Gaming.*Accessories.*|.*gaming.*accessories.*).*"
+        ], 
+        "name": "Gaming Accessories", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 21, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/(.*business.*monitor.*|.*poly.*|.*display.*).*"
+        ], 
+        "name": "Business Accessories", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 22, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/.*accessories.*"
+        ], 
+        "name": "General Accessories", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/(.*Gaming.*Accessories.*|.*gaming.*accessories.*).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 23, 
+        "include_rules": [
+          "publish\\-stage\\.hp\\.com\\/us\\-en\\/security\\/", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*(wolf|security|endpoint|services|presence|anywhere|digital\\-workspaces|remote\\-systems\\-controller|solutions|managed\\-print\\-services|specialty\\-printing\\-solutions).*", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/shop\\/pdp\\/.*(wolf|security|endpoint|services|presence|anywhere|digital\\-workspaces|remote\\-systems\\-controller|solutions|managed\\-print\\-services|specialty\\-printing\\-solutions).*"
+        ], 
+        "name": "Services & Solutions", 
+        "exclude_rules": [
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*(security|sitesearch).*", 
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 24, 
+        "include_rules": [
+          "hp\\.com\\/us\\-en\\/sustainable\\-impact\\/learning\\-hub", 
+          "hp\\.com\\/us\\-en\\/hp\\-information\\/sustainable\\-impact\\/", 
+          "hp\\.com\\/us\\-en\\/sustainable\\-impact\\/"
+        ], 
+        "name": "Sustainable Impact", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 25, 
+        "include_rules": [
+          "https:\\/\\/www\\.hp\\.com\\/us-en\\/(.*paper.*|.*cartridge.*).*"
+        ], 
+        "name": "Other", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }, 
+      {
+        "priority": 26, 
+        "include_rules": [
+          "DISABLEDhttps\\:\\/\\/www\\.hp\\.com\\/us-en\\/shop(.*laptop.*|.*Laptop.*).*"
+        ], 
+        "name": "Laptop General Shop (Disabled)", 
+        "exclude_rules": [
+          ".*?(jumpid=).*"
+        ]
+      }, 
+      {
+        "priority": 27, 
+        "include_rules": [
+          "www\\.hp\\.com\\/us\\-en\\/shop\\/vwa\\/laptops\\/DISABLE", 
+          "www\\.hp\\.com\\/us\\-en\\/laptops\\-and\\-2\\-in\\-1s\\/DISABLE", 
+          "www\\.hp\\.com\\/us\\-en\\/laptops\\-and\\-2\\-in\\-1s\\.html\\/DISABLE", 
+          "www\\.hp\\.com\\/us\\-en\\/laptops\\/business\\-laptops\\-and\\-2\\-in\\-1s\\.html\\/DISABLE", 
+          "www\\.hp\\.com\\/us\\-en\\/laptops\\/business\\-laptops\\-and\\-2\\-in\\-1s\\/DISABLE", 
+          "publish\\-stage\\.hp\\.com\\/us\\-en\\/laptops\\/\\/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/shop\\/pdp\\/.*(laptop|2\\-in\\-1|notebook|chromebook|elitebook|elite\\-dragonfly|probook|zbook|thin\\-client|chrome\\-enterprise|spectre).*/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*(laptop|2\\-in\\-1|notebook|chromebook|elitebook|elite\\-dragonfly|probook|zbook|thin\\-client|chrome\\-enterprise|spectre).*/DISABLE"
+        ], 
+        "name": "Laptops (DISABLED)", 
+        "exclude_rules": [
+          ".*?(jumpid=).*/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*(sitesearch|security|business\\-laptop|business\\-desktop|elitedesk|elite\\-mini|prodesk|chromebox).*/DISABLE"
+        ]
+      }, 
+      {
+        "priority": 28, 
+        "include_rules": [
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*[desktop|all\\-in\\-one|elitedesk|elite\\-mini|prodesk|pos\\-system|engage|chromebox].*/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/shop\\/pdp\\/.*[desktop|all\\-in\\-one|elitedesk|elite\\-mini|prodesk|pos\\-system|engage|chromebox].*/DISABLE", 
+          "publish\\-stage\\.hp\\.com\\/us\\-en\\/desktops\\/DISABLE"
+        ], 
+        "name": "Desktops (DISABLED)", 
+        "exclude_rules": [
+          ".*?(jumpid=).*/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*[sitesearch|security|business\\-laptop|elitebook|elite\\-dragonfly|probook|zbook|thin\\-client|chrome\\-enterprise|spectre].*/DISABLE"
+        ]
+      }, 
+      {
+        "priority": 29, 
+        "include_rules": [
+          "publish\\-stage\\.hp\\.com\\/us\\-en\\/printers\\/\\/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*(home|envy|deskjet|smart\\-tank|tango|sprocket|scanjet|business).*(printer|scanner|plotter|press).*/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*(officejet|laserjet|pagewide|neverstop|enterprise|designjet).*(printer|scanner|plotter|press).*/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*(pagewide\\-xl|stitch|latex|large\\-format|indigo|pagewide\\-industrial|digital|pagewide\\-corrugated|3d).*(printer|scanner|plotter|press).*/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/shop\\/pdp\\/.*(home|envy|deskjet|smart\\-tank|tango|sprocket|scanjet|business).*(printer|scanner|plotter|press).*/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/shop\\/pdp\\/.*(pagewide\\-xl|stitch|latex|large\\-format|indigo|pagewide\\-industrial|digital|pagewide\\-corrugated|3d).*(printer|scanner|plotter|press).*/DISABLE"
+        ], 
+        "name": "Printers (DISABLED)", 
+        "exclude_rules": [
+          ".*?(jumpid=).*/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*(security|sitesearch).*/DISABLE"
+        ]
+      }, 
+      {
+        "priority": 30, 
+        "include_rules": [
+          "publish\\-stage\\.hp\\.com\\/us\\-en\\/vr\\/\\/DISABLE", 
+          "publish\\-stage\\.hp\\.com\\/us\\-en\\/monitors\\-accessories\\/\\/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/shop\\/pdp\\/.*(monitors|display|accessories|webcams|keyboard|mice|mouse|headset|headphones|microphones|dock|hub|charger|adapter|bag|case|backpack|carepack|care\\-pack|speaker|servers\\-storage networking|sleeve|software).*/DISABL", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/shop\\/pdp\\/.*(thunderbolt|usb).*/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*(monitors|display|accessories|webcams|keyboard|mice|mouse|headset|headphones|microphones|dock|hub|charger|adapter|bag|case|backpack|carepack|care\\-pack|speaker|servers\\-storage networking|sleeve|software).*/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*(thunderbolt|usb).*/DISABLE"
+        ], 
+        "name": "Accessories (DISABLED)", 
+        "exclude_rules": [
+          ".*?(jumpid=).*/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*(laptop\\-monitor|laptop\\-display).*/DISABLE"
+        ]
+      }, 
+      {
+        "priority": 31, 
+        "include_rules": [
+          "publish\\-stage\\.hp\\.com\\/us\\-en\\/cartridge\\/\\/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*(supplies|cartridge|paper|instantink|instant\\-ink).*/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/shop\\/pdp\\/.*(supplies|cartridge|paper|instantink|instant\\-ink).*/DISABLE"
+        ], 
+        "name": "Supplies (DISABLED)", 
+        "exclude_rules": [
+          ".*?(jumpid=).*/DISABLE", 
+          "https\\:\\/\\/www.hp.com\\/us-en\\/.*(security|sitesearch).*/DISABLE"
+        ]
+      }, 
+      {
+        "priority": 32, 
+        "include_rules": [
+          "www\\.hp\\.com\\/us\\-en\\/"
+        ], 
+        "name": "Global Settings", 
+        "exclude_rules": [
+          ".*?(jumpid=).*", 
+          "^https?:\\/\\/store-prodlive-us\\.hpcloud\\.hp\\.com\\/.*", 
+          ".*\\/shop\\/tech-takes\\/.*$"
+        ]
+      }
+    ]
+  }, 
+  "publishing_engine": "ixf-compiler", 
+  "page_group_nodes": {
+    "Printers (DISABLED)": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/printers/commercial-printers.html\", \"h1\":\"Commercial Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/printers/enterprise-printers.html\", \"h1\":\"Enterprise Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/printers/smart-tank.html\", \"h1\":\"Refillable Ink Tank Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/printers\", \"h1\":\"All HP Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/slp/weekly-deals/printers\", \"h1\":\"Weekly Printer Deals\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/printers/business-printers.html\", \"h1\":\"Business Printers and Small Business Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/printers/prnttyp=Laser\", \"h1\":\"Shop Laser Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/printers/home-printers.html\", \"h1\":\"Home Printers for Family Use and Photo Printing\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cat/printers\", \"h1\":\"Printers for Home & Office\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861288, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Gaming Desktops": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/slp/holiday-gift-guide/gaming\", \"h1\":\"Gaming Gift Guide 2025\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/omen-by-hp-32-inch-qhd-165hz-curved-gaming-monitor-omen-32c\", \"h1\":\"OMEN by HP 31.5 inch QHD 165Hz...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/slp/hp-gaming\", \"h1\":\"Shop Gaming PCs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/slp/omen-gaming/desktops\", \"h1\":\"OMEN Gaming Desktop Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mlp/desktops/gaming-367001--1\", \"h1\":\"Gaming Desktops - HP & OMEN\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/dlp/hp-gaming-desktop\", \"h1\":\"HP Gaming Desktops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/gaming.html\", \"h1\":\"Learn About Gaming PCs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/omen-27-inch-fhd-165hz-gaming-monitor-hyperx-armada-gaming-mount-omen27-mount-kit\", \"h1\":\"OMEN 27 inch FHD 165Hz Gaming...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/omen-by-hp-34-inch-wqhd-165hz-curved-gaming-monitor-omen-34c\", \"h1\":\"OMEN by HP Monitors\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/omen-by-hp-25l-gaming-desktop-gt15-0258z-bundle-pc\", \"h1\":\"OMEN HP 25L Gaming Desktop\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861288, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "B5 Deals & Value": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861289, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Accessories (DISABLED)": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/vwa/accessories-88342--1/subcat=Mice-Keyboards\", \"h1\":\"Mice & Keyboards\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/printers/hp-plus.html\", \"h1\":\"HP+ Smart Printing System\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/workstations/z-displays.html\", \"h1\":\"Z Monitors\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/accessories-88342--1/subcat=Chargers-Adapters\", \"h1\":\"Chargers & Adapters\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/monitors-accessories/computer-accessories.html\", \"h1\":\"Learn about HP Computer Accessories\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cat/accessories-88342--1\", \"h1\":\"Shop HP Monitors and Accessories\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/monitors-accessories/computer-monitors.html\", \"h1\":\"HP Computer Monitors\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/accessories-88342--1/subcat=Monitors\", \"h1\":\"Computer Monitors\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/vr/vr-products.html\", \"h1\":\"HP VR Ready Headsets and PCs\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861293, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Other": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-712-80-ml-black-designjet-ink-cartridge\", \"h1\":\"HP 712 80ml Black DesignJet Ink...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-712-3-pack-29-ml-magenta-designjet-ink-cartridge\", \"h1\":\"HP 712 Magenta DesignJet Ink...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops/business/elitebooks/ultra-ai-pc.html\", \"h1\":\"HP EliteBook Ultra AI PC\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s/omnibook-ultra-ai-pc.html\", \"h1\":\"HP OmniBook Ultra Next Gen AI PC\u200bs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s/omnibook-x-ai-pc.html\", \"h1\":\"HP OmniBook X AI Laptop PCs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html\", \"h1\":\"AI PCs - HP's Next Gen AI PCs, Computers, and Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-712-3-pack-29-ml-cyan-designjet-ink-cartridge\", \"h1\":\"HP 712 Cyan DesignJet Ink...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-712-29-ml-magenta-designjet-ink-cartridge\", \"h1\":\"HP 712 29ml Magenta DesignJet Ink...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-67-tri-color-original-ink-cartridge\", \"h1\":\"HP 67 Tri-color Original Ink...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-67xl-high-yield-black-original-ink-cartridge\", \"h1\":\"HP 67XL High Yield Black Original...\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861289, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Supplies (DISABLED)": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/cartridge/ink.html\", \"h1\":\"Original HP Printer Ink Cartridges\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/ink--toner---paper\", \"h1\":\"Ink\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/printers/instant-ink.html\", \"h1\":\"Learn About HP Instant Ink\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/cartridge/printing-paper.html\", \"h1\":\"HP Copy & Printer Paper \u2013 Photo Paper, Business Paper, and...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mlp/ink--toner---paper/toner-cartridges\", \"h1\":\"Shop HP Toner Cartridges\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cat/ink--toner---paper\", \"h1\":\"Shop HP Ink or Toner Cartridges\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/cartridge/ink-toner-paper.html\", \"h1\":\"Ink Cartridges - Toner cartridges \u2013 Papers - Free Shipping\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mlp/ink--toner---paper/ink-cartridges\", \"h1\":\"Shop HP Printer Ink\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cv/instantink\", \"h1\":\"Shop HP Instant Ink\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861290, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Gaming Laptops": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/vwa/laptops\", \"h1\":\"Best  Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/laptops/usage=Gaming\", \"h1\":\"Gaming Laptops - OMEN &  Victus Gaming PCs - \u00ae Store\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/omen-gaming-laptop-16-xf0087nr\", \"h1\":\"OMEN MAX Gaming Laptop 16z-ak000\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mdp/victusgaming/victus-15-gaming-tab2-module2-victus15\", \"h1\":\"Victus 15\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/omen-transcend-laptop-16-u0097nr\", \"h1\":\"OMEN Slim Gaming Laptop 16t-an000\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mdp/hyperxgaming/hyperx-clutch-\", \"h1\":\"HyperX Clutch\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/omen-by-hp-32-inch-qhd-165hz-curved-gaming-monitor-omen-32c\", \"h1\":\"OMEN by HP 31.5 inch QHD 165Hz...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/omen-gaming-laptop-16t-wf000-161-76w28av-1\", \"h1\":\"OMEN Gaming Laptop 16t-wf000\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mdp/victusgaming/victus-by-hp-15l-gaming-tab2-module2-victusbyhp15l\", \"h1\":\"Victus by HP 15L\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/omen-by-hp-laptop-17t-cm200-70p74av-1\", \"h1\":\"OMEN Laptop 17t-cm200\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861290, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "B4 Feature - Experience": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861291, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "excluded_config": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861291, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Desktops General": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/cat/desktops\", \"h1\":\"Shop Desktop Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops\", \"h1\":\"Best Desktops For Home & Office - \u00ae Store US\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/slp/weekly-deals/desktops\", \"h1\":\"Weekly Deals on HP Desktop Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops-on-sale/Deal=Sale\", \"h1\":\"Desktop Deals (Updated Daily)\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mlp/business-solutions/desktops-and-workstations\", \"h1\":\"Shop Business Desktop & Workstation Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops-under-400/Price=245-399\", \"h1\":\"PC Under $400 | Affordable Desktops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/desktops/business/elitedesk.html\", \"h1\":\"HP EliteDesk\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops-under-500/Price=245-499\", \"h1\":\"Affordable Desktops Under $500\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops-under-800/Price=224-799\", \"h1\":\"Desktop Under $800\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/desktops/business/prodesks.html\", \"h1\":\"HP Pro Desktop Computers\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861291, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Global Settings": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/vwa/laptops\", \"h1\":\"Best  Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cat/laptops\", \"h1\":\"Shop Laptops & 2-in-1 Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cv/instantink\", \"h1\":\"Shop HP Instant Ink\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cat/ink--toner---paper\", \"h1\":\"Shop HP Ink or Toner Cartridges\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/printers\", \"h1\":\"All HP Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops\", \"h1\":\"Best Desktops For Home & Office - \u00ae Store US\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/business-solutions/commercial-printers.html\", \"h1\":\"Commercial Printers - Office Printers, Large Format, Digital...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s.html\", \"h1\":\"Learn About Laptops & 2-in-1 Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops-on-sale/Deal=Sale\", \"h1\":\"Desktop Deals (Updated Daily)\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/cartridge/ink-toner-paper.html\", \"h1\":\"Ink Cartridges - Toner cartridges \u2013 Papers - Free Shipping\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861292, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Toner Printers": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/vwa/printers\", \"h1\":\"All HP Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/printers/prnttyp=Laser\", \"h1\":\"Shop Laser Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cb/best/laser\", \"h1\":\"Best Laser Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/printers/home-laser-printers.html\", \"h1\":\"HP laser printers for home and home offices \u2013 choose high...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/printers/black-white-laser-printers.html\", \"h1\":\"Black & White Laser Printers - HP LaserJet Pro\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/printers/color-laser-printers.html\", \"h1\":\"Color Laser Printers - HP LaserJet Pro\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/printers/laserjet-printers.html\", \"h1\":\"HP LaserJet Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/printers/enterprise-printers.html\", \"h1\":\"Enterprise Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/printers/commercial-printers.html\", \"h1\":\"Commercial Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/printers/prntbrnd=LaserJet,LaserJet-Tank,OfficeJet,Smart-Tank\", \"h1\":\"Business Printers\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861292, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Business Laptops": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/vwa/business-solutions/bizcat=Laptop\", \"h1\":\"Shop Business Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/laptops\", \"h1\":\"Best  Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/slp/weekly-deals/bnb\", \"h1\":\"Business Laptop Deals\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/touch-screen-laptops/touch=Touch\", \"h1\":\"Touchscreen  Laptops - \u00ae Store\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops/business/probooks.html\", \"h1\":\"HP ProBook Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/workstations/zbook-firefly.html\", \"h1\":\"ZBook Firefly Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/business-computers.html\", \"h1\":\"Business Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops/business/elitebooks.html\", \"h1\":\"HP EliteBook Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/thin-clients.html\", \"h1\":\"HP Thin Clients\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mlp/business-solutions/laptops-and-workstations\", \"h1\":\"Small Business Laptops\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861289, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "AI and Omnibook": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/poly/learning-hub/directorai.html\", \"h1\":\"HP Poly DirectorAI\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/solutions/ai-for-business.html\", \"h1\":\"AI Solutions for Business & Hybrid Work\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/workstations/ai-studio.html\", \"h1\":\"HP AI Studio\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/tech-takes/what-is-ai-pc-understanding-hp-ai-laptops\", \"h1\":\"What is an AI PC? Understanding HP\u2019s Next Generation AI Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops/business/elitebooks/ultra-ai-pc.html\", \"h1\":\"HP EliteBook Ultra AI PC\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html\", \"h1\":\"AI PCs - HP's Next Gen AI PCs, Computers, and Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/tech-takes/hp-elite-ai-pc-desktops-all-in-ones\", \"h1\":\"HP's Next-Gen AI PCs: Elite Desktops and All-in-Ones...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/workstations/ai-workstations.html\", \"h1\":\"AI Workstations\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s/omnibook-ultra-ai-pc.html\", \"h1\":\"HP OmniBook Ultra Next Gen AI PC\u200bs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/desktops/omnidesk-desktop-all-in-one-pc.html\", \"h1\":\"HP OmniDesk Desktop PCs\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861293, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Business Accessories": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/pdp/poly-blackwire-8225-usb-c-headset\", \"h1\":\"Headsets - HP\u00ae Store\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s/omnibook-x-ai-pc.html\", \"h1\":\"HP OmniBook X AI Laptop PCs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html\", \"h1\":\"AI PCs - HP's Next Gen AI PCs, Computers, and Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops/business/elitebooks/ultra-ai-pc.html\", \"h1\":\"HP EliteBook Ultra AI PC\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/slp/back-to-business-sale/monitors\", \"h1\":\"Back to Business Sale: HP Monitor...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s/omnibook-ultra-ai-pc.html\", \"h1\":\"HP OmniBook Ultra Next Gen AI PC\u200bs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/poly-blackwire-8225-m-microsoft-teams-certified-usb-c-headset\", \"h1\":\"HP\u00ae Computer and Laptop Store\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861294, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Desktops (DISABLED)": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/cat/desktops\", \"h1\":\"Shop Desktop Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/workstations/desktop-workstation-pc.html\", \"h1\":\"Z Workstation Desktop Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/gaming.html\", \"h1\":\"Learn About Gaming PCs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops/segm=Home;form=Tower\", \"h1\":\"Home Computer Towers - \u00ae Store\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/slp/hp-gaming/desktops\", \"h1\":\"Gaming Desktop Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/desktops-and-all-in-ones.html\", \"h1\":\"Learn About Desktops & All-in-One Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/desktops/business-desktops.html\", \"h1\":\"Learn About Business Desktop Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops/form=All-in-One\", \"h1\":\"All-in-One PCs (Updated Daily) - \u00ae Store\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops\", \"h1\":\"Best Desktops For Home & Office - \u00ae Store US\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861294, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Business Desktops": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/cat/desktops\", \"h1\":\"Shop Desktop Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops\", \"h1\":\"Best Desktops For Home & Office - \u00ae Store US\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops-on-sale/Deal=Sale\", \"h1\":\"Desktop Deals (Updated Daily)\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops/aipc=AI-PC\", \"h1\":\"AI-Powered Desktop Computers - \u00ae Official Store\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mdp/hp-desktop-tower\", \"h1\":\"Great value\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops/aiotch=Non-Touch\", \"h1\":\"All-in-One Desktops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops-under-400/Price=245-399\", \"h1\":\"PC Under $400 | Affordable Desktops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops/form=Tower\", \"h1\":\"Tower Desktops\u00a0- \u00ae Store\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/desktops/business/elitedesk.html\", \"h1\":\"HP EliteDesk\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mdp/business-pc-care-packs/select-desktops-workstations\", \"h1\":\"Select Desktops & Workstations...\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861294, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "B2 Performance Specs": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861295, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Laptops (DISABLED)": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s.html\", \"h1\":\"Learn About Laptops & 2-in-1 Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cat/laptops\", \"h1\":\"Shop Laptops & 2-in-1 Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/chrome/chromebook.html\", \"h1\":\"HP Chromebooks\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/intel-i7-laptops/proc=Intel-Core-i7\", \"h1\":\"Intel Core i7 Laptops - \u00ae Store\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/slp/weekly-deals/laptops\", \"h1\":\"Weekly Laptop Deals - HP\u00ae Store\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mlp/laptops/workstation-352501--1\", \"h1\":\"HP ZBook\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops/business-laptops-and-2-in-1s.html\", \"h1\":\"Learn About Business Laptops & 2-in-1s\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s/dragonfly-pro.html\", \"h1\":\"HP Dragonfly Pro\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/workstations/mobile-workstation-pc.html\", \"h1\":\"Mobile Workstation Computers\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861295, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "PDP": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-z4-g5-workstation-customizable-57k34av-mb\", \"h1\":\"HP Z4 G5 Tower Workstation -...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-z8-fury-g5-tower-workstation-customizable-3f0p6av-mb\", \"h1\":\"HP Z8 Fury G5 Tower Workstation -...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-color-laserjet-550-sheet-paper-tray\", \"h1\":\"HP Color LaserJet 550 Sheet Paper...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-laserjet-pro-4001n-printer-2z599f-bgj\", \"h1\":\"HP LaserJet Pro 4001n Printer\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-z6-g5-a-tower-workstation-customizable-7d8b9av-mb\", \"h1\":\"HP Z6 G5 A Tower Workstation -...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-color-laserjet-pro-mfp-3301fdw-499q5f-bgj\", \"h1\":\"HP Color LaserJet Pro MFP 3301fdw...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-elitebook-8-g1i-16-inch-next-gen-ai-customizable-b4cm3av-mb\", \"h1\":\"HP EliteBook 8 G1i 16 inch...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/omen-35l-gaming-desktop-gt17-0050m-pc\", \"h1\":\"OMEN 35L Gaming Desktop GT17-0050m...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/omen-max-45l-gaming-dt-gt23-0990m-pc\", \"h1\":\"OMEN MAX 45L Gaming DT PC\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/printers/home-printers.html\", \"h1\":\"Home Printers for Family Use and Photo Printing\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861295, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "General Laptops": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/vwa/laptops\", \"h1\":\"Best  Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cat/laptops\", \"h1\":\"Shop Laptops & 2-in-1 Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/laptops/brand=OmniBook-X\", \"h1\":\"Envy is now OmniBook X - \u00ae Store US\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/slp/hp-gaming\", \"h1\":\"Shop Gaming PCs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops/business-laptops-and-2-in-1s.html\", \"h1\":\"Learn About Business Laptops & 2-in-1s\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s.html\", \"h1\":\"Learn About Laptops & 2-in-1 Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s/omnibook-x-ai-pc.html\", \"h1\":\"HP OmniBook X AI Laptop PCs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/business-solutions/bizcat=Laptop\", \"h1\":\"Shop Business Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s/omnibook-ultra-ai-pc.html\", \"h1\":\"HP OmniBook Ultra Next Gen AI PC\u200bs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html\", \"h1\":\"AI PCs - HP's Next Gen AI PCs, Computers, and Laptops\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861296, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "B1 Use Case - Need": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861296, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Toner": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/mlp/ink--toner---paper/toner-cartridges\", \"h1\":\"Shop HP Toner Cartridges\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cat/ink--toner---paper\", \"h1\":\"Shop HP Ink or Toner Cartridges\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mdp/laserjet-maintenance/laserjet-maintenance-3074457345617379169--1\", \"h1\":\"LaserJet Maintenance\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mdp/ink--toner---paper/hp-141-toner-cartridges\", \"h1\":\"HP 141A Toner Cartridges - In Stock\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mdp/ink--toner---paper/hp-210-toner-cartridges\", \"h1\":\"HP 210 Toner Cartridges | Reliable...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mdp/ink--toner---paper/hp-37-toner-cartridges\", \"h1\":\"Find your ink or toner cartridges\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mdp/samsung-toner-cartridges/samsung-toner-cartridges--1\", \"h1\":\"Samsung Toner Cartridges\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mdp/ink--toner---paper/hp-213-toner-cartridges\", \"h1\":\"HP 213 Toner Cartridges - In Stock\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/sustainable-impact/planet-product-recycling.html\", \"h1\":\"HP Toner Cartridge Recycling\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mdp/ink--toner---paper/hp-217-toner-cartridges\", \"h1\":\"HP 217 Toner Cartridges\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861296, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "General Accessories": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s/omnibook-ultra-ai-pc.html\", \"h1\":\"HP OmniBook Ultra Next Gen AI PC\u200bs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/accessories-88342--1/accbrand=Bang---Olufsen\", \"h1\":\"Bang & Olufsen Monitor Accessories\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/accessories-88342--1/subcat=Mice-Keyboards\", \"h1\":\"Mice & Keyboards\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/accessories-88342--1/subcat=Monitors\", \"h1\":\"Computer Monitors\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html\", \"h1\":\"AI PCs - HP's Next Gen AI PCs, Computers, and Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops/business/elitebooks/ultra-ai-pc.html\", \"h1\":\"HP EliteBook Ultra AI PC\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/accessories-88342--1/subcat=Chargers-Adapters\", \"h1\":\"Chargers & Adapters\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/accessories-88342--1/acccat=Storage\", \"h1\":\"Storage\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/accessories-88342--1/acccat=Cables-Components\", \"h1\":\"Cables & Components for \u00ae Devices\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/accessories-88342--1\", \"h1\":\"Computer Accessories\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861297, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Gaming Accessories": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/vwa/accessories-88342--1/subcat=Gaming-Accessories&typegaming=Keyboards\", \"h1\":\"Gaming Keyboards\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/slp/weekly-deals/accessories\", \"h1\":\"Computer Accessories Deals\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/accessories-88342--1/subcat=Gaming-Accessories&typegaming=Mice\", \"h1\":\"Gaming Mice: Wired & Wireless\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops/business/elitebooks/ultra-ai-pc.html\", \"h1\":\"HP EliteBook Ultra AI PC\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html\", \"h1\":\"AI PCs - HP's Next Gen AI PCs, Computers, and Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s/omnibook-x-ai-pc.html\", \"h1\":\"HP OmniBook X AI Laptop PCs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s/omnibook-ultra-ai-pc.html\", \"h1\":\"HP OmniBook Ultra Next Gen AI PC\u200bs\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861297, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Reviews": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/cat/accessories-88342--1\", \"h1\":\"Shop HP Monitors and Accessories\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/commercial-industrial-printing/pagewide-web-press.html\", \"h1\":\"HP PageWide Web Presses \u2013 Inkjet Presses for Production Printing\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s/omnibook-ultra-ai-pc.html\", \"h1\":\"HP OmniBook Ultra Next Gen AI PC\u200bs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/commercial-industrial-printing/pagewide/commercial-web-presses.html\", \"h1\":\"General Commercial Inkjet Printing - HP PageWide Web Presses\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html\", \"h1\":\"AI PCs - HP's Next Gen AI PCs, Computers, and Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-e24m-g4-fhd-usb-c-conferencing-monitor\", \"h1\":\"HP E24m G4 FHD USB-C Conferencing...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/laptops-and-2-in-1s/omnibook-x-ai-pc.html\", \"h1\":\"HP OmniBook X AI Laptop PCs\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/commercial-industrial-printing/pagewide-corrugated/partner.html\", \"h1\":\"Partner with HP for Corrugated Packaging\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cat/business-solutions\", \"h1\":\"HP Business Products\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/commercial-industrial-printing/pagewide-corrugated/t470s-press.html\", \"h1\":\"HP PageWide T470S Press \u2013Digital Web Press for Printing Corrugated Boxes\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861297, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Laptop General Shop (Disabled)": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/mlp/business-solutions/hp-pro-laptops\", \"h1\":\"HP Pro laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mlp/business-solutions/laptops-and-workstations\", \"h1\":\"Small Business Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-spectre-x360-2-in-1-laptop-14t-ef200-135-771x5av-1\", \"h1\":\"HP OmniBook Ultra Flip 2-in-1...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-pavilion-laptop-15t-eg300-156-7p418av-1\", \"h1\":\"HP OmniBook 5 Laptop 16t-ba100\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-envy-laptop-17-cw0097nr\", \"h1\":\"HP OmniBook X Laptop Next Gen AI...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cat/laptops\", \"h1\":\"Shop Laptops & 2-in-1 Computers\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861298, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Services & Solutions": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-elitebook-840-14-inch-g10-notebook-pc-wolf-pro-security-edition-p-890l2ua-aba-1\", \"h1\":\"HP EliteBook 840 Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-elitebook-1040-14-inch-g10-notebook-pc-wolf-pro-security-edition-p-7z184ut-aba-1\", \"h1\":\"HP EliteBook 1040 14 inch G10...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-elitebook-840-14-inch-g10-notebook-pc-wolf-pro-security-edition-p-890l3ua-aba-1\", \"h1\":\"HP EliteBook 840 14 inch G10...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-elite-x360-830-13-inch-g10-2-in-1-notebook-pc-wolf-pro-security-edition-p-7y3e2ut-aba-1\", \"h1\":\"HP Elite x360 830 13 inch G10...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/slp/hybrid-work-solutions\", \"h1\":\"Remote Work Solutions\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/services.html\", \"h1\":\"HP Services - PC Services for Commercial Enterprise and SMB IT\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/services/consumer/carepack-pc.html\", \"h1\":\"HP Care Pack - PC Repair, Extended Warranty & Support\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/business-solutions\", \"h1\":\"Business Solutions\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/security/endpoint-security-solutions.html\", \"h1\":\"HP Wolf Security - Endpoint Security Solutions\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/services/workforce-solutions.html\", \"h1\":\"HP Workforce Solutions - IT Services & Solutions for Hybrid Work\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861298, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Ink Printers": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/vwa/printers\", \"h1\":\"All HP Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cat/printers\", \"h1\":\"Printers for Home & Office\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/printers/feat=hp-instant-ink-eligible\", \"h1\":\"Insstant Ink Printers (Updated Daily)\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/printers-under-100/Price=29-99\", \"h1\":\"Printers Under $100\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/printers/availability=In-Stock;feat=HP-Instant-Ink-eligible\", \"h1\":\"Shop  Instant Ink eligible Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/printers-on-sale/Deal=Sale\", \"h1\":\"Printers on Sale | Wireless & More\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/printers-under-200/Price=27-199\", \"h1\":\"Printers Under $200\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/printers/feat=High-volume-printer-tank\", \"h1\":\"High-Volume Printer Tank\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/dlp/inkjet-photo-printer\", \"h1\":\"Inkjet Photo Printer\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/dlp/inkjet-printer\", \"h1\":\"Inkjet Printers\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861299, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Ink": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/mlp/ink--toner---paper/ink-cartridges\", \"h1\":\"Shop HP Printer Ink\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cv/instantink\", \"h1\":\"Shop HP Instant Ink\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cat/ink--toner---paper\", \"h1\":\"Shop HP Ink or Toner Cartridges\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/printers/instant-ink.html\", \"h1\":\"Learn About HP Instant Ink\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-laserjet-110v-maintenance-kit-p-l0h24a--1\", \"h1\":\"HP LaserJet 110V Maintenance Kit\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mdp/ink--toner---paper/hp-business-laser-paper\", \"h1\":\"HP Business Papers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/mdp/ink--toner---paper/hp-564-ink-cartridges\", \"h1\":\"Find your ink or toner cartridges\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-laserjet-1012-printer\", \"h1\":\"HP LaserJet 1012 Printer\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-laser-glossy-brochure-paper-120-gsm-150-sht-letter-85-x-11-in\", \"h1\":\"HP Everyday Business Paper\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/pdp/hp-everyday-glossy-photo-paper-50-sht-letter-85-x-11-in\", \"h1\":\"HP Everyday Photo Paper\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861299, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "LF, IND., 3D": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/printers/commercial-printers.html\", \"h1\":\"Commercial Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/commercial-industrial-printing/pagewide/commercial-services.html\", \"h1\":\"HP PageWide Web Presses Commercial Services\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/commercial-industrial-printing/pagewide/technology.html\", \"h1\":\"HP PageWide Web Press Technology - HDNA\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/commercial-industrial-printing/pagewide-corrugated/t700i-press.html\", \"h1\":\"HP PageWide T700i Press \u2013 Digital Web Press for Printing Corrugated Boxes\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/commercial-industrial-printing/pagewide/t400-hd-web-presses.html\", \"h1\":\"HP PageWide T400 HD Digital Web Press\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/commercial-industrial-printing/pagewide/commercial-workflow-solutions.html\", \"h1\":\"Commercial Workflow Solutions - HP PageWide\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/commercial-industrial-printing/pagewide/a2200-hd-web-presses.html\", \"h1\":\"HP PageWide Web Press a2200 HD\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/commercial-industrial-printing/pagewide/t485-hd-web-presses.html\", \"h1\":\"HP PageWide Web Press t485 HD\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/commercial-industrial-printing/pagewide-web-press.html\", \"h1\":\"HP PageWide Web Presses \u2013 Inkjet Presses for Production Printing\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/commercial-industrial-printing/pagewide-corrugated/t470s-press.html\", \"h1\":\"HP PageWide T470S Press \u2013Digital Web Press for Printing Corrugated Boxes\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861300, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "Sustainable Impact": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/sustainable-impact/learning-hub/hp-aspen-digital-equity-accelerator.html\", \"h1\":\"Bridging the Digital Divide: HP's Journey Towards Global Digital Equity\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/sustainable-impact/learning-hub/girls-education-and-climate-action.html\", \"h1\":\"We're passionate about the power of education to shape a...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/sustainable-impact/learning-hub/accessibility-for-disabled-individuals.html\", \"h1\":\"Enhancing Accessibility for Disabled Individuals by Creating a...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/sustainable-impact/learning-hub/supporting-employee-volunteering-and-purpose.html\", \"h1\":\"Empowering a Purpose-Driven Workforce: How HP Supports Gen Z and...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/sustainable-impact/learning-hub.html\", \"h1\":\"Sustainable Impact Learning Hub\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/sustainable-impact/planet-product-recycling.html\", \"h1\":\"HP Toner Cartridge Recycling\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html\", \"h1\":\"AI PCs - HP's Next Gen AI PCs, Computers, and Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/sustainable-impact/learning-hub/hp-ymca-digital-equity-partnership.html\", \"h1\":\"Closing the Digital Gap: HP LIFE Teams Up with YMCA for a...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/sustainable-impact/learning-hub/eco-friendly-recycling.html\", \"h1\":\"Crafting a Greener Future: Companies Leading the Charge in...\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/sustainable-impact/learning-hub/hp-eco-friendly-printing-recommendations.html\", \"h1\":\"Green Printing for a Sustainable Future: Tips to Make an...\", \"desc\":\"None\"}]}\n", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861300, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ], 
+    "B3 Brand - Family": [
+      {
+        "feature_group": "body_1", 
+        "engine_version": "1.0.0.0", 
+        "content": "", 
+        "date_published": 1790644856098, 
+        "date_created": 1790644861300, 
+        "type": "bodystr", 
+        "publishing_engine": "link-block"
+      }
+    ]
+  }
+}

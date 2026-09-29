@@ -544,6 +544,13 @@
       </a>
     </div>
     <div class="sidebar-section">
+      <div class="sidebar-label">Edge Functions <span class="nav-status ns-done">Complete</span></div>
+      <a class="sidebar-link" href="#related-links">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg>
+        Related links (SEO)
+      </a>
+    </div>
+    <div class="sidebar-section">
       <div class="sidebar-label">Handoff</div>
       <a class="sidebar-link" href="#decisions">
         <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5l2 4 4.5.5-3.2 3 .9 4.5L8 11.3 3.8 13.5l.9-4.5L1.5 6 6 5.5l2-4z" opacity=".0"/><path d="M2 4.5A2.5 2.5 0 014.5 2h7A2.5 2.5 0 0114 4.5v5a2.5 2.5 0 01-2.5 2.5H6.7l-3 2.4A.5.5 0 013 14v-2H4.5A2.5 2.5 0 012 9.5v-5z"/></svg>
@@ -958,6 +965,143 @@
             <span class="url-card-desc">The faceted articles-listing block, live.</span>
           </a>
         </div>
+      </section>
+
+      <!-- RELATED LINKS (SEO EDGE FUNCTION) -->
+      <section class="doc-section" id="related-links">
+        <h2>
+          <span class="section-icon icon-purple">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg>
+          </span>
+          Related links — SEO edge function
+          <span class="status-badge sb-done">Complete</span>
+        </h2>
+        <div class="section-rule"></div>
+
+        <p>On the live site the newsroom "Related links" module is rendered by a third-party
+        <strong>BrightEdge</strong> integration (the <code class="code-inline">&lt;hp-brightedge-autopilot&gt;</code>
+        component). Its links are written into the page <em>server-side</em>, so search engines and AI
+        crawlers see them in the initial HTML. To preserve that SEO value on Edge Delivery — where blocks
+        normally render client-side — we reproduced the behavior with an <strong>AEM Edge Function</strong>
+        that stitches the links into the HTML at the CDN edge, with <strong>no dependency on BrightEdge
+        source access or a client-supplied API</strong>.</p>
+
+        <h3>What was accomplished</h3>
+        <ul class="doc-list">
+          <li>Reverse-engineered BrightEdge's IXF link-resolution contract from its public API and the
+          open-source SDK, and reproduced it exactly (verified against every sample newsroom page).</li>
+          <li>Built an AEM Edge Function (<code class="code-inline">aem-edge-functions/</code>) that fetches
+          the page from origin, resolves the correct links for that URL, and injects them above the footer —
+          present in the raw server HTML.</li>
+          <li>Built a matching <code class="code-inline">related-links</code> EDS block (the black bar,
+          collapsible drawer, pipe-separated links) that decorates the injected markup and re-adds the
+          <code class="code-inline">data-gtm-*</code> click-tracking so existing Google Tag Manager
+          analytics keep working unchanged.</li>
+          <li>Covered the resolution logic with 19 unit tests against live BrightEdge fixtures; block passes
+          the project's ESLint + Stylelint.</li>
+          <li>Runs fully on a developer's machine — no custom domain or cloud deployment needed to demo.</li>
+        </ul>
+
+        <h3>How it works</h3>
+        <p>For any <code class="code-inline">/us-en/newsroom</code> page request, the function runs this
+        pipeline at the edge and returns the composed HTML:</p>
+        <div class="code-block"><span class="cmt">// request for /us-en/newsroom(/...)</span>
+Browser → Edge Function ─┬→ EDS origin        <span class="cmt">(page HTML)</span>
+                         └→ api.brightedge.com <span class="cmt">(link capsule)</span>
+              ↳ inject &lt;div class="related-links"&gt; before &lt;/main&gt; → return HTML</div>
+        <p>Link resolution mirrors BrightEdge's own SDK and resolves in three tiers — this is what makes
+        every newsroom page (landing pages <em>and</em> deep articles) get the right links automatically:</p>
+        <table class="spec-table">
+          <thead><tr><th>Tier</th><th>Source</th><th>Used by</th></tr></thead>
+          <tbody>
+            <tr><td>1 · Page-specific</td><td><code class="code-inline">nodes[body_1]</code> in the page's capsule</td><td>Newsroom landing pages (newsroom, press-releases, press-kits, blogs)</td></tr>
+            <tr><td>2 · Page-group</td><td>First <code class="code-inline">config.page_groups[]</code> rule (by priority) whose regex matches the URL → <code class="code-inline">page_group_nodes[group]</code></td><td>Articles — e.g. an AI blog post matches group "AI and Omnibook"; others fall to the "Global Settings" catch-all</td></tr>
+            <tr><td>3 · Account default</td><td><code class="code-inline">default.json</code></td><td>Fallback when the capsule reports <code class="code-inline">account_id = 0</code></td></tr>
+          </tbody>
+        </table>
+        <p>If anything fails (origin error, capsule error, no links) the function serves the origin HTML
+        unchanged — related links can never break a page.</p>
+
+        <h3>The BrightEdge contract (reverse-engineered)</h3>
+        <table class="spec-table">
+          <thead><tr><th>Step</th><th>Rule</th></tr></thead>
+          <tbody>
+            <tr><td>Normalize + canonicalize</td><td>EDS serves extensionless URLs; BrightEdge keys on the live <code class="code-inline">.html</code> URL. Force host to <code class="code-inline">www.hp.com</code> and add <code class="code-inline">.html</code> → e.g. <code class="code-inline">https://www.hp.com/us-en/newsroom.html</code></td></tr>
+            <tr><td>Page hash</td><td>Java 32-bit <code class="code-inline">String.hashCode()</code> of that URL; if negative, return <code class="code-inline">"0" + abs(hash)</code></td></tr>
+            <tr><td>Fetch</td><td><code class="code-inline">GET api.brightedge.com/api/ixf/1.0.0/get_capsule/{account}/{hash}</code> (account <code class="code-inline">f00000000019918</code>, public, no auth)</td></tr>
+            <tr><td>Render</td><td>Link node <code class="code-inline">content</code> is a JSON string → <code class="code-inline">{links:[{url, h1}]}</code>; <code class="code-inline">h1</code> is the display text (HTML-decoded)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Run it locally (demo)</h3>
+        <div class="code-block"><span class="cmt"># one-time: Adobe CLI + Edge Functions plugin</span>
+npm install -g @adobe/aio-cli
+aio plugins install @adobe/aio-cli-plugin-aem-edge-functions
+
+<span class="cmt"># from the project</span>
+cd aem-edge-functions
+npm install        <span class="cmt"># installs deps, copies the block into assets/</span>
+npm run serve      <span class="cmt"># → http://127.0.0.1:7676</span></div>
+        <p>Open <code class="code-inline">http://127.0.0.1:7676/us-en/newsroom</code> — the real newsroom page
+        renders with the styled Related Links block injected. Prove the links are truly server-side (present
+        with no JavaScript):</p>
+        <div class="code-block">curl -s http://127.0.0.1:7676/us-en/newsroom | grep -o 'class="related-links".*&lt;/main&gt;'</div>
+        <div class="notice tip">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span>For the local demo the function also serves <code class="code-inline">blocks/related-links/*</code> itself, so nothing needs pushing to a branch. In production those files come from the EDS code bus and that route can be removed.</span>
+        </div>
+
+        <h3>Next steps — production deployment (client action)</h3>
+        <p>Deployment requires Adobe Cloud Manager setup that only HP can provision. Full checklist is in
+        <code class="code-inline">aem-edge-functions/PREREQUISITES.md</code>. In order:</p>
+        <ul class="doc-list">
+          <li><strong>Onboard</strong> the newsroom Edge Delivery site to a Cloud Manager program with the Edge Delivery Services add-on.</li>
+          <li><strong>Custom domain + TLS</strong> mapped to the Adobe-managed CDN (required even for a staging deploy).</li>
+          <li><strong>Deployment Manager</strong> role for the person deploying.</li>
+          <li><strong>Config pipeline</strong> pointed at <code class="code-inline">/aem-edge-functions/config</code> on <code class="code-inline">main</code> — deploys <code class="code-inline">edgeFunctions.yaml</code> + <code class="code-inline">cdn.yaml</code> (routes <code class="code-inline">/us-en/newsroom(/.*)?</code> to the function).</li>
+          <li><strong>Build &amp; deploy code:</strong> <code class="code-inline">npm run build</code> then <code class="code-inline">npm run deploy</code>.</li>
+          <li><strong>Switch the origin</strong> config (<code class="code-inline">EDS_ORIGIN</code>) from the <code class="code-inline">.aem.page</code> preview tier to <code class="code-inline">.aem.live</code>.</li>
+          <li><strong>Ship the block on <code class="code-inline">main</code></strong> (normal EDS code deploy) and remove the demo-only local asset route from the function.</li>
+        </ul>
+
+        <h3>Gotchas (hard-won — read before deploying)</h3>
+        <div class="notice warning">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>Canonical URL is mandatory.</strong> The page hash <em>and</em> the page-group regexes are computed against <code class="code-inline">https://www.hp.com/us-en/…</code>. If you hash the serving host (<code class="code-inline">.aem.page</code>/<code class="code-inline">.aem.live</code> or a staging domain) instead, no capsule and no page-group will match, and every page silently falls through to nothing. Keep <code class="code-inline">CANONICAL_HOST</code> correct per environment.</span>
+        </div>
+        <div class="notice warning">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>Extensionless EDS URLs.</strong> <code class="code-inline">/us-en/newsroom</code> is a page; <code class="code-inline">/us-en/newsroom.html</code> 404s on EDS. The function adds <code class="code-inline">.html</code> only when computing the BrightEdge key — the actual origin fetch stays extensionless.</span>
+        </div>
+        <div class="notice info">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>An "empty" capsule is not empty.</strong> A response with <code class="code-inline">key:"-0"</code> / <code class="code-inline">account_id:0</code> and blank <code class="code-inline">nodes</code> only means "no page-specific override" — the links come from page-group matching (tiers 2–3). Parsing only the top-level <code class="code-inline">nodes</code> array will wrongly conclude a page has no links.</span>
+        </div>
+        <div class="notice info">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>BrightEdge is cached per-POP.</strong> Responses carry <code class="code-inline">x-be-pop</code> and <code class="code-inline">cache-control: max-age=3600</code>; different POPs can transiently differ. Always trust the full capsule (config + page_group_nodes), not a single top-level read, and don't chase phantom "missing" data across regions.</span>
+        </div>
+        <div class="notice info">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>Limits &amp; parity.</strong> A program allows only <strong>3 edge functions</strong> (dev/staging/prod) — confirm headroom. The <code class="code-inline">data-gtm-value</code> slug is regenerated to match hp.com's convention; spot-check a few labels with the client if exact analytics parity matters.</span>
+        </div>
+        <div class="notice info">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>No committed lockfile.</strong> <code class="code-inline">package-lock.json</code> is gitignored, so a fresh clone resolves dependency versions on <code class="code-inline">npm install</code> (fine for the demo, no pinning). If the client wants reproducible installs for the handoff repo, un-ignore it — a one-line change.</span>
+        </div>
+
+        <h3>Files</h3>
+        <table class="spec-table">
+          <thead><tr><th>Path</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">aem-edge-functions/src/lib/brightedge.js</code></td><td>Pure resolution logic (canonicalize, hash, 3-tier resolve)</td></tr>
+            <tr><td><code class="code-inline">aem-edge-functions/src/related-links.js</code></td><td>Handler: fetch origin, resolve, inject</td></tr>
+            <tr><td><code class="code-inline">aem-edge-functions/src/index.js</code></td><td>Router + transparent origin proxy</td></tr>
+            <tr><td><code class="code-inline">aem-edge-functions/config/*.yaml</code></td><td>Function declaration + CDN routing</td></tr>
+            <tr><td><code class="code-inline">blocks/related-links/</code></td><td>EDS block: drawer styling + GTM tracking</td></tr>
+            <tr><td><code class="code-inline">aem-edge-functions/PREREQUISITES.md</code></td><td>Client deployment checklist</td></tr>
+          </tbody>
+        </table>
       </section>
 
       <!-- DECISIONS & ASSUMPTIONS -->

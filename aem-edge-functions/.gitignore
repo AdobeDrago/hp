@@ -1,0 +1,7 @@
+node_modules/
+bin/
+pkg/
+assets/
+package-lock.json
+.aio
+.env

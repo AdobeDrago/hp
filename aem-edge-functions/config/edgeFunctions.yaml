@@ -1,0 +1,19 @@
+kind: "EdgeFunctions"
+version: "1"
+data:
+  functions:
+    - name: related-links
+      # Restrict outbound fetches to these origins (referenced by `backend` in code).
+      origins:
+        - name: eds_origin
+          domain: main--hp--adobedrago.aem.live
+        - name: brightedge
+          domain: api.brightedge.com
+  # Exposed to the function via ConfigStore("config_default").
+  configs:
+    - key: CANONICAL_HOST
+      value: www.hp.com
+    - key: EDS_ORIGIN
+      value: https://main--hp--adobedrago.aem.live
+    - key: BE_ACCOUNT
+      value: f00000000019918

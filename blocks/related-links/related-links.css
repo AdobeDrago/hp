@@ -1,0 +1,111 @@
+/*
+ * Related Links Block — newsroom "Related links" drawer.
+ * Black bar, collapsible header with chevron + persistent rule, pipe-separated
+ * plain-text links that wrap. Collapsed by default.
+ */
+
+.related-links-container {
+  background: #000;
+  color: #fff;
+  margin-bottom: 0 !important;
+}
+
+.related-links .related-links-drawer {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 0 0;
+}
+
+/* header / trigger */
+.related-links .related-links-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  cursor: pointer;
+  list-style: none;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #4d4d4d;
+}
+
+.related-links .related-links-trigger::-webkit-details-marker {
+  display: none;
+}
+
+.related-links .related-links-title {
+  white-space: nowrap;
+}
+
+/* chevron — down when collapsed, up when open */
+.related-links .related-links-chevron {
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg) translateY(-2px);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
+.related-links .related-links-drawer[open] .related-links-chevron {
+  transform: rotate(-135deg) translateY(-2px);
+}
+
+/* links — plain white text, pipe-separated, wrapping */
+.related-links .related-links-list {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  line-height: 1;
+}
+
+.related-links .related-links-list .be-related-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.related-links .related-links-list .be-related-link::after {
+  content: '|';
+  color: #6d6d6d;
+  margin: 0 8px 0 14px;
+}
+
+.related-links .related-links-list .be-related-link:last-child::after {
+  content: '';
+  margin: 0;
+}
+
+.related-links .related-links-list .be-related-link:hover {
+  text-decoration: underline;
+}
+
+/* mobile — larger title, chevron pushed to the far right, larger links */
+@media (width <= 768px) {
+  .related-links .related-links-drawer {
+    padding: 24px 0;
+  }
+
+  .related-links .related-links-trigger {
+    justify-content: space-between;
+    font-size: 26px;
+    padding-bottom: 20px;
+  }
+
+  .related-links .related-links-chevron {
+    width: 12px;
+    height: 12px;
+  }
+
+  .related-links .related-links-list {
+    line-height: 1;
+  }
+
+  .related-links .related-links-list .be-related-link {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "account_id": "f00000000019918", 
+  "date_published": 1790647914843, 
+  "key": "953301158", 
+  "is_universal_capsule_enabled": "false", 
+  "capsule_version": "1.0.0.0", 
+  "engine_version": "1.0.0.0", 
+  "version": 2, 
+  "date_created": 1790647914843, 
+  "nodes": [
+    {
+      "feature_group": "body_1", 
+      "engine_version": "1.0.0.0", 
+      "content": "{\"links\":[{\"url\":\"https://www.hp.com/us-en/shop/cat/laptops\", \"h1\":\"Shop Laptops & 2-in-1 Computers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/printers\", \"h1\":\"All HP Printers\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops\", \"h1\":\"Best Desktops For Home & Office - \u00ae Store US\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/laptops\", \"h1\":\"Best  Laptops\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cat/ink--toner---paper\", \"h1\":\"Shop HP Ink or Toner Cartridges\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/cv/instantink\", \"h1\":\"Shop HP Instant Ink\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/vwa/desktops-on-sale/Deal=Sale\", \"h1\":\"Desktop Deals (Updated Daily)\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/cartridge/ink-toner-paper.html\", \"h1\":\"Ink Cartridges - Toner cartridges \u2013 Papers - Free Shipping\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/shop/slp/cyber-sale/top-deals\", \"h1\":\"Cyber Monday 2025 Top Deals\", \"desc\":\"None\"},{\"url\":\"https://www.hp.com/us-en/business-solutions/commercial-printers.html\", \"h1\":\"Commercial Printers - Office Printers, Large Format, Digital...\", \"desc\":\"None\"}]}\n", 
+      "date_published": 1790647914843, 
+      "date_created": 1790647790398, 
+      "type": "bodystr", 
+      "publishing_engine": "link-block"
+    }, 
+    {
+      "feature_group": "_head_open", 
+      "engine_version": "1.0.0.0", 
+      "content": "", 
+      "date_published": 1790647914843, 
+      "date_created": 1790647915032, 
+      "type": "headstr", 
+      "publishing_engine": "pixel"
+    }
+  ], 
+  "config": {}, 
+  "publishing_engine": "ixf-compiler"
+}

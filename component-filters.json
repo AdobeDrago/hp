@@ -9,6 +9,7 @@
     "id": "section",
     "components": [
       "accordion",
+      "anchor-nav",
       "cards",
       "carousel",
       "columns",

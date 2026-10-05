@@ -79,6 +79,25 @@
     ]
   },
   {
+    "id": "anchor-nav",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "links_items",
+        "label": "Links",
+        "description": "One link per line, e.g. Benefits, Portfolio, Featured Products, FAQs - each becomes a jump-nav item.",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "cta_link",
+        "label": "CTA button",
+        "description": "A single link. Bold it for a solid button, italicize it for an outline button.",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {

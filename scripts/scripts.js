@@ -16,6 +16,8 @@ import {
   toCamelCase,
 } from './aem.js';
 
+export const NX_ORIGIN = 'https://da.live/nx';
+
 /**
  * load fonts.css and set a session storage flag
  */
@@ -198,5 +200,5 @@ loadPage();
 
   const exp = searchParams.get('daexperiment');
   // eslint-disable-next-line import/no-unresolved
-  if (exp) import('https://da.live/nx/public/plugins/exp/exp.js');
+  if (exp) import(`${NX_ORIGIN}/public/plugins/exp/exp.js`);
 }());

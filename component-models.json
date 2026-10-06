@@ -90,6 +90,10 @@
           {
             "name": "Benefits",
             "value": "benefits"
+          },
+          {
+            "name": "Portfolio",
+            "value": "portfolio"
           }
         ]
       }

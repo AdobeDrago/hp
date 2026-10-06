@@ -132,3 +132,29 @@
     padding: 24px 48px 48px;
   }
 }
+
+/*
+ * "portfolio" variant: a heading/intro above the existing boxed grid, with
+ * each card holding an image, title, description and a "Learn" button.
+ */
+.cards-container:has(.cards.portfolio) {
+  background-color: #f5f5f5;
+}
+
+.cards-portfolio-header {
+  margin-bottom: 24px;
+}
+
+.cards-portfolio-header h1,
+.cards-portfolio-header h2,
+.cards-portfolio-header h3 {
+  margin-top: 0;
+}
+
+.cards.portfolio .cards-card-body h3 {
+  margin-top: 0;
+}
+
+.cards.portfolio .cards-card-body .button-container {
+  margin-top: 16px;
+}

@@ -1,11 +1,14 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 export default function decorate(block) {
-  // "feature list" variant: first row is a background photo + heading/intro,
-  // the rest are a vertical list of icon + text items instead of a boxed grid
+  // "benefits" variant: first row is a background photo + heading/intro,
+  // the rest are a vertical list of icon + text items instead of a boxed grid.
+  // "portfolio" variant: first row is a heading/intro (no image), the rest
+  // stay a boxed grid of image + title/description/button cards.
   const isBenefits = block.classList.contains('benefits');
+  const isPortfolio = block.classList.contains('portfolio');
   const rows = [...block.children];
-  const headerRow = isBenefits ? rows.shift() : null;
+  const headerRow = (isBenefits || isPortfolio) ? rows.shift() : null;
 
   /* change remaining rows to ul, li */
   const ul = document.createElement('ul');
@@ -19,15 +22,16 @@ export default function decorate(block) {
     ul.append(li);
   });
 
-  // replace images with optimized versions - icons in a feature list stay
-  // small, photo cards keep the existing larger grid size
+  // replace images with optimized versions - icons in the benefits list stay
+  // small, photo cards (default grid and portfolio variant) keep the
+  // existing larger grid size
   const iconWidth = isBenefits ? '64' : '750';
   ul.querySelectorAll('picture > img').forEach((img) => {
     img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: iconWidth }]));
   });
 
   const newChildren = [];
-  if (headerRow) {
+  if (headerRow && isBenefits) {
     const [imageCell, textCell] = headerRow.children;
     const img = imageCell && imageCell.querySelector('img');
     if (img) {
@@ -39,6 +43,12 @@ export default function decorate(block) {
     imageCell.className = 'cards-feature-bg';
     textCell.className = 'cards-feature-header';
     newChildren.push(imageCell, textCell);
+  } else if (headerRow && isPortfolio) {
+    // authors may leave a leading cell empty - use whichever cell has content
+    const headerCells = [...headerRow.children].filter((cell) => cell.textContent.trim());
+    const textCell = headerCells[headerCells.length - 1] || headerRow;
+    textCell.className = 'cards-portfolio-header';
+    newChildren.push(textCell);
   }
   newChildren.push(ul);
 

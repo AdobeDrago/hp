@@ -39,7 +39,8 @@
           "label": "Style",
           "valueType": "string",
           "options": [
-            { "name": "Benefits", "value": "benefits" }
+            { "name": "Benefits", "value": "benefits" },
+            { "name": "Portfolio", "value": "portfolio" }
           ]
         }
       ]

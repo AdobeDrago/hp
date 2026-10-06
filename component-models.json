@@ -145,6 +145,31 @@
     ]
   },
   {
+    "id": "footnotes",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": "Footnotes and Disclaimers",
+        "description": "Optional. Defaults to \"Footnotes and Disclaimers\" when left blank."
+      }
+    ]
+  },
+  {
+    "id": "footnote-item",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "fragment",
     "fields": [
       {

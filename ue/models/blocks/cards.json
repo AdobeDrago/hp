@@ -38,9 +38,11 @@
           "name": "classes",
           "label": "Style",
           "valueType": "string",
+          "description": "No style = plain photo + text grid. Spotlight = first row is a full-bleed background photo + heading, followed by small icon + text rows (e.g. a benefits list). Grid = heading row above boxed, bordered cards with image, title, description and a button. Showcase = heading row above centered, borderless cards for a simple image + title + button (e.g. featured products).",
           "options": [
-            { "name": "Benefits", "value": "benefits" },
-            { "name": "Portfolio", "value": "portfolio" }
+            { "name": "Spotlight", "value": "spotlight" },
+            { "name": "Grid", "value": "grid" },
+            { "name": "Showcase", "value": "showcase" }
           ]
         }
       ]

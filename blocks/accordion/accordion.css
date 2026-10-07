@@ -64,7 +64,7 @@
  * "faq" variant (hp.com FAQs band): white 16px-radius rows on the dark
  * section, 24px ghost "+" icon that rotates 45deg into an "x" when open.
  * Values from hp.com computed styles - 3 tiers like the source
- * (< 600px, 600-1279px, >= 1280px).
+ * (< 441px, 441-1114px, >= 1115px).
  */
 .accordion.faq {
   --faq-pad: 16px;
@@ -163,7 +163,7 @@
   background-color: transparent;
 }
 
-@media (width >= 600px) {
+@media (width >= 441px) {
   .accordion.faq {
     --faq-pad: 32px;
     --faq-icon-gap: 48px;
@@ -180,7 +180,7 @@
   }
 }
 
-@media (width >= 1280px) {
+@media (width >= 1115px) {
   .accordion.faq {
     --faq-pad: 36px;
     --faq-icon-gap: 52px;

@@ -188,6 +188,9 @@ main > .section.promo-container {
 }
 
 .promo:where(.offset) .promo-content {
+  /* phones: hp.com's copy column runs 8px into the right gutter (ends 8px
+     from the screen edge), so the heading wraps like the source */
+  margin-right: calc(8px - var(--container-padding));
   padding-top: 26px;
 }
 
@@ -302,6 +305,7 @@ main > .section.promo-container {
   }
 
   .promo:where(.offset) .promo-content {
+    margin-right: 0;
     padding: 40px 0;
   }
 

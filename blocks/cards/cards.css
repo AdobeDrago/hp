@@ -128,7 +128,9 @@
 
 .cards.spotlight .cards-card-image {
   justify-self: center;
-  width: 48px;
+
+  /* 48px icons, shrinking to the icon column on narrow tablets (hp.com) */
+  width: min(48px, 100%);
 }
 
 .cards.spotlight .cards-card-image img {
@@ -198,7 +200,7 @@
 
   .cards.spotlight > ul {
     gap: 26px;
-    margin-top: 20px;
+    margin-top: 12px;
   }
 
   .cards.spotlight .cards-card-body {
@@ -321,7 +323,7 @@
 }
 
 .cards.showcase > ul {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -366,6 +368,9 @@
   font-size: 24px;
   font-weight: 500;
   line-height: 1;
+
+  /* a word wider than a narrow column wraps instead of overflowing the page */
+  overflow-wrap: break-word;
 }
 
 .cards.grid .cards-card-body p,
@@ -440,8 +445,10 @@
     padding: 0 32px;
   }
 
+  /* minmax(0, 1fr): equal columns even when a title word is wider than
+     the column (e.g. "workstations"), instead of one column growing */
   .cards.grid > ul {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .cards.grid > ul,
@@ -540,7 +547,7 @@
  * "feature" variant: text header row (h2) then a borderless row of
  * photo + title + description items on a light grey band (capped at the
  * 1680px page container) -
- * 1 column on mobile, 2 at 441px, 4 at 1280px (matching hp.com's
+ * 1 column on mobile, 2 at 441px, 4 at 1115px (matching hp.com's
  * breakpoints). No CTA.
  */
 
@@ -601,6 +608,7 @@
   font-size: 24px;
   font-weight: 500;
   line-height: 1;
+  overflow-wrap: break-word;
 }
 
 .cards.feature .cards-card-body p {
@@ -611,7 +619,7 @@
 
 @media (width >= 441px) {
   .cards-container:has(.cards.feature) {
-    padding: 34px 0 78px;
+    padding: 34px 0 72px;
   }
 
   .cards-container:has(.cards.feature) .cards-wrapper {
@@ -627,7 +635,7 @@
   }
 
   .cards.feature > ul {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 32px 20px;
   }
 
@@ -648,7 +656,7 @@
   }
 }
 
-@media (width >= 1280px) {
+@media (width >= 1115px) {
   .cards-container:has(.cards.feature) {
     padding: 44px 0 78px;
   }
@@ -670,7 +678,7 @@
   }
 
   .cards.feature > ul {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 40px 24px;
   }
 

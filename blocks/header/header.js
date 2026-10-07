@@ -1,15 +1,34 @@
+import { getMetadata } from '../../scripts/aem.js';
+
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 1280px)');
 
+// the default fragment this site uses for its header; any page can point at
+// a different one (or at another site's) via a "Header" metadata row
+const DEFAULT_HEADER_FRAGMENT = '/nav';
+
 /**
- * Fetches the nav fragment. Metadata-independent dual-fetch:
- * /content first (localhost / aem up), then root (DA/EDS production).
+ * Fetches a header fragment by path (same-site absolute path, or a full
+ * cross-origin URL to reuse another site's header content) and fixes up any
+ * page-relative media references so they still resolve from here.
+ * @param {string} path Path or URL to the fragment, without the .plain.html suffix
+ * @returns {string|null} The fragment's inner HTML, or null if it couldn't be loaded
  */
-async function fetchNavHtml() {
-  let resp = await fetch('/content/nav.plain.html');
-  if (!resp.ok) resp = await fetch('/nav.plain.html');
+async function fetchNavHtml(path) {
+  const resp = await fetch(`${path}.plain.html`);
   if (!resp.ok) return null;
-  return resp.text();
+  const container = document.createElement('div');
+  container.innerHTML = await resp.text();
+
+  const resetAttributeBase = (tag, attr) => {
+    container.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
+      elem[attr] = new URL(elem.getAttribute(attr), new URL(path, window.location)).href;
+    });
+  };
+  resetAttributeBase('img', 'src');
+  resetAttributeBase('source', 'srcset');
+
+  return container.innerHTML;
 }
 
 /**
@@ -137,11 +156,14 @@ function decorateSections(navSections) {
         h.textContent = node.textContent;
         featuredCol.append(h);
       } else if (node.tagName === 'UL') {
+        // keep the <li>s inside their <ul> - spreading them into a bare div
+        // is invalid HTML and makes some browsers mis-nest the rest of the
+        // header while parsing it back
         const hasImages = node.querySelector('img');
         if (hasImages) {
-          cardsCol.append(...node.children);
+          cardsCol.append(node);
         } else {
-          featuredCol.append(...node.children);
+          featuredCol.append(node);
         }
       }
     }
@@ -195,7 +217,8 @@ function toggleMobileMenu(nav, forceClose = false) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  const html = await fetchNavHtml();
+  const path = getMetadata('header') || DEFAULT_HEADER_FRAGMENT;
+  const html = await fetchNavHtml(path);
   block.textContent = '';
   if (!html) return;
 

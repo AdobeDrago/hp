@@ -1,12 +1,31 @@
+import { getMetadata } from '../../scripts/aem.js';
+
+// the default fragment this site uses for its footer; any page can point at
+// a different one (or at another site's) via a "Footer" metadata row
+const DEFAULT_FOOTER_FRAGMENT = '/footer';
+
 /**
- * Fetches the footer fragment. Metadata-independent dual-fetch:
- * /content first (localhost / aem up), then root (DA/EDS production).
+ * Fetches a footer fragment by path (same-site absolute path, or a full
+ * cross-origin URL to reuse another site's footer content) and fixes up any
+ * page-relative media references so they still resolve from here.
+ * @param {string} path Path or URL to the fragment, without the .plain.html suffix
+ * @returns {string|null} The fragment's inner HTML, or null if it couldn't be loaded
  */
-async function fetchFooterHtml() {
-  let resp = await fetch('/content/footer.plain.html');
-  if (!resp.ok) resp = await fetch('/footer.plain.html');
+async function fetchFooterHtml(path) {
+  const resp = await fetch(`${path}.plain.html`);
   if (!resp.ok) return null;
-  return resp.text();
+  const container = document.createElement('div');
+  container.innerHTML = await resp.text();
+
+  const resetAttributeBase = (tag, attr) => {
+    container.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
+      elem[attr] = new URL(elem.getAttribute(attr), new URL(path, window.location)).href;
+    });
+  };
+  resetAttributeBase('img', 'src');
+  resetAttributeBase('source', 'srcset');
+
+  return container.innerHTML;
 }
 
 /**
@@ -28,7 +47,8 @@ function decorateSocialList(list) {
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
-  const html = await fetchFooterHtml();
+  const path = getMetadata('footer') || DEFAULT_FOOTER_FRAGMENT;
+  const html = await fetchFooterHtml(path);
   block.textContent = '';
   if (!html) return;
 

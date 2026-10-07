@@ -1,101 +1,273 @@
+/* the section above (hero) sits directly on the nav, as on hp.com:
+   cancel the global 40px section gap on both sides of that boundary */
+main > .section:has(+ .section.anchor-nav-container) {
+  margin-bottom: 0;
+}
+
+main > .section.anchor-nav-container {
+  margin-top: 0;
+}
+
 .anchor-nav-container .anchor-nav-wrapper {
   max-width: unset;
   padding: 0;
 }
 
+/* z-index keeps the bar and its mobile dropdown above the page content,
+   but below the site header (z-index 20) and its menus */
 .anchor-nav {
+  position: relative;
+  z-index: 10;
   background-color: var(--background-color);
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 22px;
 }
 
 .anchor-nav.anchor-nav-pinned {
   position: fixed;
-  top: 0;
+  top: var(--anchor-nav-top, 0);
   left: 0;
   right: 0;
-  z-index: 1;
 }
 
+/* bar: 1680px container with the page gutters, hairline top + bottom */
 .anchor-nav > div {
+  position: relative;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  max-width: 1680px;
+  min-height: 68px;
+  margin: 0 auto;
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 0 16px;
+}
+
+/* mobile dropdown toggle */
+.anchor-nav .anchor-nav-toggle {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 16px 24px;
+  align-items: center;
+  justify-self: start;
+  max-width: 100%;
+  min-height: 68px;
+  margin: 0;
+  border: 0;
+  border-radius: 6px;
+  padding: 0;
+  background: none;
+  color: inherit;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: start;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.anchor-nav .anchor-nav-toggle:hover,
+.anchor-nav .anchor-nav-toggle:focus {
+  background: none;
+}
+
+.anchor-nav-toggle-title {
+  overflow: hidden;
+  margin-right: 10px;
+  text-overflow: ellipsis;
+}
+
+.anchor-nav-toggle svg {
+  display: block;
+  flex: none;
+}
+
+.anchor-nav-open .anchor-nav-toggle svg {
+  transform: rotate(180deg);
+}
+
+/* links: dropdown panel on mobile */
+.anchor-nav-links {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid #e8e8e8;
+  background-color: var(--background-color);
+}
+
+.anchor-nav-open .anchor-nav-links {
+  display: block;
 }
 
 .anchor-nav-links ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  list-style: none;
   margin: 0;
   padding: 0;
-  font-size: var(--body-font-size-s);
-  font-weight: 400;
+  list-style: none;
+  font-size: 16px;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.anchor-nav-links li {
+  position: relative;
+  display: flex;
+  padding: 0 6px;
+  transition: background 0.1s ease-in, color 0.1s ease-in;
+}
+
+/* the active section is shown as the toggle title instead */
+.anchor-nav-links li.active {
+  display: none;
 }
 
 .anchor-nav-links a:any-link {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 12px;
-  color: var(--text-color);
+  display: block;
+  width: 100%;
+  border-radius: 6px;
+  padding: 0 10px;
+  color: #1a1a1a;
+  line-height: 44px;
   text-decoration: none;
-  transition: background-color 0.1s ease-in, color 0.1s ease-in;
-}
-
-.anchor-nav-links a:any-link::after {
-  content: '';
-  position: absolute;
-  inset: auto 0 0;
-  height: 2px;
-  background: transparent;
-  transition: background-color 0.1s ease-in;
 }
 
 .anchor-nav-links a:hover,
 .anchor-nav-links a:focus-visible {
-  background-color: rgb(59 99 251 / 12%);
-  color: var(--link-color);
+  color: #103fb2;
+  text-decoration: none;
 }
 
-.anchor-nav-links a:hover::after,
-.anchor-nav-links a:focus-visible::after {
-  background-color: var(--link-hover-color);
-}
-
+/* CTA */
 .anchor-nav-cta {
-  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: 40px;
+  padding: 12px 0;
 }
 
-.anchor-nav-cta .button-container {
+.anchor-nav-cta p {
   margin: 0;
 }
 
-.anchor-nav-cta a.button:any-link,
-.anchor-nav-cta button.button {
+main .anchor-nav-cta a.button:any-link,
+main .anchor-nav-cta a.button:focus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  margin: 0;
+  border: 0;
   border-radius: 8px;
-  padding: 0.375em 0.75em;
+  padding: 6px 12px;
+  background-color: rgb(2 74 216);
+  color: #fff;
+  font-size: 16px;
   font-weight: 400;
+  line-height: 20px;
+  text-decoration: none;
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s;
 }
 
-.anchor-nav-cta .button.primary {
-  border-color: var(--link-color);
-  background-color: var(--link-color);
-  color: var(--background-color);
+main .anchor-nav-cta a.button:hover,
+main .anchor-nav-cta a.button:focus-visible {
+  background-color: #103fb2;
+  color: #fff;
+  text-decoration: none;
 }
 
-.anchor-nav-cta .button.primary:hover,
-.anchor-nav-cta .button.primary:focus-visible {
-  border-color: var(--link-hover-color);
-  background-color: var(--link-hover-color);
-  color: var(--background-color);
+/* small phones: the CTA drops below a 44px dropdown row, as on hp.com */
+@media (width < 441px) {
+  .anchor-nav > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .anchor-nav .anchor-nav-toggle {
+    min-height: 44px;
+  }
+
+  .anchor-nav-cta {
+    margin-left: 0;
+    padding: 16px 0;
+  }
+}
+
+@media (width >= 441px) {
+  .anchor-nav > div {
+    padding: 0 32px;
+  }
 }
 
 @media (width >= 900px) {
   .anchor-nav > div {
-    flex-direction: row;
-    align-items: center;
+    display: flex;
+    align-items: stretch;
     justify-content: space-between;
-    padding: 16px 32px;
+  }
+
+  .anchor-nav .anchor-nav-toggle {
+    display: none;
+  }
+
+  .anchor-nav-links,
+  .anchor-nav-open .anchor-nav-links {
+    display: flex;
+    position: static;
+    border-bottom: 0;
+    background: none;
+  }
+
+  .anchor-nav-links ul {
+    display: flex;
+    font-size: 18px;
+  }
+
+  .anchor-nav-links li,
+  .anchor-nav-links li.active {
+    display: flex;
+    padding: 6px 0;
+  }
+
+  /* 2px indicator along the bottom edge of the bar */
+  .anchor-nav-links li::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 2px;
+    background: transparent;
+    transition: background 0.1s ease-in;
+  }
+
+  .anchor-nav-links a:any-link {
+    display: flex;
+    align-items: center;
+    width: auto;
+    padding: 0 20px;
+    line-height: 24px;
+  }
+
+  .anchor-nav-links li:has(> a:hover)::after,
+  .anchor-nav-links li:has(> a:focus-visible)::after {
+    background: #103fb2;
+  }
+
+  .anchor-nav-links li.active a:any-link {
+    color: #0e3191;
+  }
+
+  .anchor-nav-links li.active::after {
+    background: #0e3191;
+  }
+
+  .anchor-nav-cta {
+    gap: 20px;
+  }
+}
+
+@media (width >= 1200px) {
+  .anchor-nav > div {
+    padding: 0 36px;
   }
 }

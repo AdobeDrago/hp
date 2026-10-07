@@ -4,9 +4,10 @@ export default function decorate(block) {
   // "spotlight": first row is a background photo + heading/intro, the rest
   // are a vertical icon + text list instead of a boxed grid.
   // "grid" and "showcase" are handled identically here - they only diverge
-  // in cards.css (boxed/left vs. borderless/centered cards).
+  // in cards.css (boxed/left vs. borderless/centered cards). "feature" shares
+  // the same text header row and differs only in cards.css (borderless 4-up).
   const isSpotlight = block.classList.contains('spotlight');
-  const hasTextHeader = block.classList.contains('grid') || block.classList.contains('showcase');
+  const hasTextHeader = ['grid', 'showcase', 'feature'].some((c) => block.classList.contains(c));
   const rows = [...block.children];
   const headerRow = (isSpotlight || hasTextHeader) ? rows.shift() : null;
 

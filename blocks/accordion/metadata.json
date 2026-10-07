@@ -1,0 +1,24 @@
+{
+  "variantName": "accordion",
+  "baseBlock": "accordion",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": "Default: grey-bordered expandable rows with a chevron. \"faq\": white rounded borderless rows with a + / - toggle icon, intended for a dark section (section style \"dark\").",
+  "contentPattern": "N rows: [question text] | [answer content]",
+  "usage": {
+    "pagesUsing": [
+      "https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-07"
+  },
+  "options": [
+    {
+      "class": "faq",
+      "label": "FAQ"
+    }
+  ],
+  "memberVariantIds": [
+    "accordion",
+    "accordion-faq"
+  ]
+}

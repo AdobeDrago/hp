@@ -1,22 +1,56 @@
-/* promo: image + content split, five measured instances on next-gen-ai-pcs
-   (hp.com computed styles at 375 / 768 / 1440).
+/* promo: image + content split, four instances on next-gen-ai-pcs
+   (hp.com computed styles at 390 / 441 / 768 / 1024 / 1115 / 1440 / 1920).
+   hp.com steps at 441px (tablet) and 1115px (desktop), like hero/footnotes.
 
    The base rules are the image-first split ("Most powerful Windows
    security"). Variants:
    - offset (Business-ready): text-first split, copy pushed down on desktop
    - large (ROI calculator): white panel, large title, square image
-   - compact (Other home laptops): white rounded box, heading + buttons only
+   - compact (Other home laptops): white rounded box in a grey band,
+     heading + buttons, photo on the right on desktop
    - dark (HP IQ): full-bleed photo with text overlaid on it
 
-   Variant hooks are wrapped in :where() so they keep the base's
+   Headings, copy and buttons are sized here (not via the global newsroom
+   scale). Variant hooks are wrapped in :where() so they keep the base's
    specificity; overrides win by source order (base, then offset, large,
    compact within each breakpoint). Dark rules come last. */
 
+/* block-scoped tokens: hp.com container gutters, neutral grey band and
+   border (the site-wide --light-color is the newsroom's warm beige) */
+.promo-container {
+  --container-padding: 16px;
+  --light-color: #f5f5f5;
+  --border-color: #e8e8e8;
+}
+
+@media (width >= 441px) {
+  .promo-container {
+    --container-padding: 32px;
+  }
+}
+
+@media (width >= 1115px) {
+  .promo-container {
+    --container-padding: 36px;
+  }
+}
+
+/* hp.com stacks these bands flush against each other */
+main > .section.promo-container {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* bands stop at the 1680px page container */
 .promo-container .promo-wrapper {
   display: flow-root;
-  max-width: unset;
-  margin: 0;
+  max-width: 1680px;
+  margin: 0 auto;
   padding: 0;
+}
+
+.promo-container .promo-wrapper:has(> .promo.compact) {
+  background-color: var(--light-color);
 }
 
 /* base (image-first split) */
@@ -25,6 +59,7 @@
   flex-direction: column;
   padding: 30px var(--container-padding);
   background-color: var(--light-color);
+  color: #1a1a1a;
 }
 
 .promo .promo-media {
@@ -55,12 +90,14 @@
   column-gap: 16px;
 }
 
-.promo .promo-content > div > :not(.button-wrapper) {
+.promo .promo-content > div > :not(.button-container) {
   flex: 0 0 100%;
 }
 
 .promo .promo-content h2 {
   margin: 8px 0 0;
+  font-size: 36px;
+  font-weight: 500;
   line-height: 1;
 }
 
@@ -72,7 +109,7 @@
 }
 
 /* the source renders the italic note as one blank line below the copy */
-.promo .promo-content p + p:where(:not(.button-wrapper)) {
+.promo .promo-content p + p:where(:not(.button-container)) {
   margin-top: 24px;
 }
 
@@ -87,27 +124,74 @@
   height: 66px;
 }
 
-.promo .promo-content .button-wrapper {
-  margin: 16px 0 0;
-}
-
 .promo .promo-content sup {
   font-size: 0.6em;
   line-height: 0;
 }
 
-/* offset (Business-ready): image on top on mobile, tight vertical padding */
+/* footnote refs (the footnotes block swaps the authored <sup> for a
+   number): plain superscript in the copy color, as on hp.com */
+.promo .promo-content a[href^="#footnote"] {
+  color: inherit;
+  font-size: 0.5em;
+  line-height: 0;
+  vertical-align: super;
+}
+
+/* buttons: hp.com 48px rounded-rectangle CTAs, not the global pills */
+.promo .promo-content .button-container {
+  margin: 16px 0 0;
+}
+
+.promo a.button:any-link {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 112px;
+  min-height: 48px;
+  margin: 0;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  background-color: #024ad8;
+  color: #fff;
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+.promo a.button:hover,
+.promo a.button:focus-visible {
+  background-color: #103fb2;
+  color: #fff;
+  text-decoration: none;
+}
+
+.promo a.button.secondary:any-link {
+  border: 1px solid #1a1a1a;
+  background-color: transparent;
+  color: #1a1a1a;
+}
+
+.promo a.button.secondary:hover,
+.promo a.button.secondary:focus-visible {
+  border-color: #3d3d3d;
+  background-color: rgb(133 133 133 / 10%);
+  color: #3d3d3d;
+}
+
+/* offset (Business-ready): image on top on phones, tight vertical padding */
 .promo:where(.offset) {
   padding-block: 8px;
 }
 
 .promo:where(.offset) .promo-content {
-  /* the reference's copy column runs 8px past the container on phones */
-  margin-right: -8px;
   padding-top: 26px;
 }
 
-.promo:where(.offset) .promo-content p:not(.button-wrapper) {
+.promo:where(.offset) .promo-content p:not(.button-container) {
   margin-bottom: 8px;
 }
 
@@ -122,7 +206,7 @@
 }
 
 .promo:where(.large) .promo-media img {
-  /* phones: the reference's wider mobile crop (1.8:1); natural ratio from 768 */
+  /* phones: the reference's wider mobile crop (1.8:1); natural ratio from 441 */
   aspect-ratio: 343 / 191;
   border-radius: 0;
 }
@@ -132,17 +216,17 @@
 }
 
 .promo:where(.large) .promo-content h2 {
-  font-size: var(--heading-font-size-xxl);
+  font-size: 44px;
 }
 
-.promo:where(.large) .promo-content p:not(.button-wrapper) {
-  font-size: var(--body-font-size-s);
+.promo:where(.large) .promo-content p:not(.button-container) {
+  font-size: 14px;
   font-weight: 400;
   line-height: 24px;
 }
 
-/* compact (Other home laptops): white rounded box inset in the gray
-   section; the diagonal white/blue color block is part of the photo */
+/* compact (Other home laptops): white rounded box inset in the grey
+   band; the diagonal white/blue color block is part of the photo */
 .promo:where(.compact) {
   margin: var(--container-padding);
   padding: 0;
@@ -162,23 +246,21 @@
 
 .promo:where(.compact) .promo-content h2 {
   margin: 0 0 8px;
-  font-size: var(--heading-font-size-l);
+  font-size: 24px;
 }
 
 .promo:where(.compact) a.button.primary {
-  border-color: var(--text-color);
-  background-color: var(--text-color);
-  color: var(--background-color);
+  background-color: #1a1a1a;
+  color: #fff;
 }
 
 .promo:where(.compact) a.button.primary:hover,
 .promo:where(.compact) a.button.primary:focus-visible {
-  border-color: var(--dark-color);
-  background-color: var(--dark-color);
-  color: var(--background-color);
+  background-color: #3d3d3d;
+  color: #fff;
 }
 
-@media (width >= 768px) {
+@media (width >= 441px) {
   .promo {
     padding: 40px var(--container-padding);
   }
@@ -193,6 +275,7 @@
 
   .promo .promo-content h2 {
     margin-top: 16px;
+    font-size: 44px;
   }
 
   .promo .promo-content p {
@@ -219,7 +302,6 @@
   }
 
   .promo:where(.offset) .promo-content {
-    margin-right: 0;
     padding: 40px 0;
   }
 
@@ -227,13 +309,17 @@
     margin-top: 12px;
   }
 
-  .promo:where(.offset) .promo-content p:not(.button-wrapper) {
+  .promo:where(.offset) .promo-content p:not(.button-container) {
     margin-top: 12px;
     margin-bottom: 12px;
   }
 
   .promo:where(.large) .promo-content {
     padding: 0 0 40px;
+  }
+
+  .promo:where(.large) .promo-content h2 {
+    font-size: 56px;
   }
 
   .promo:where(.compact) {
@@ -246,15 +332,16 @@
 
   .promo:where(.compact) .promo-content h2 {
     margin-top: 0;
+    font-size: 28px;
   }
 
   /* image-first: gutter between the image and the copy */
-  .promo .promo-media:first-child {
+  .promo:where(:not(.compact)) .promo-media:first-child {
     padding-right: 20px;
   }
 }
 
-@media (width >= 1200px) {
+@media (width >= 1115px) {
   .promo {
     flex-direction: row;
     align-items: stretch;
@@ -277,12 +364,16 @@
     padding: 0 48px 40px 0;
   }
 
+  .promo .promo-content h2 {
+    font-size: 56px;
+  }
+
   .promo .promo-content p {
     font-size: 24px;
     line-height: 28px;
   }
 
-  .promo .promo-content p + p:where(:not(.button-wrapper)) {
+  .promo .promo-content p + p:where(:not(.button-container)) {
     margin-top: 28px;
   }
 
@@ -310,24 +401,41 @@
     margin-top: 16px;
   }
 
-  .promo:where(.offset) .promo-content p:not(.button-wrapper) {
+  .promo:where(.offset) .promo-content p:not(.button-container) {
     margin-top: 16px;
     margin-bottom: 16px;
   }
 
+  .promo:where(.large) .promo-content h2 {
+    font-size: 72px;
+  }
+
+  .promo:where(.large) .promo-content p:not(.button-container) {
+    font-size: 16px;
+  }
+
+  /* compact: copy on the left, photo on the right (min 280px tall) */
   .promo:where(.compact) {
     padding: 0;
+  }
+
+  .promo:where(.compact) .promo-media {
+    order: 1;
+  }
+
+  .promo:where(.compact) .promo-media img {
+    min-height: 280px;
   }
 
   .promo:where(.compact) .promo-content {
     padding: var(--container-padding);
   }
 
-  .promo:where(.compact) .promo-media img {
-    height: 280px;
+  .promo:where(.compact) .promo-content h2 {
+    font-size: 32px;
   }
 
-  .promo .promo-media:first-child {
+  .promo:where(:not(.compact)) .promo-media:first-child {
     padding-right: 25px;
   }
 }

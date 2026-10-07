@@ -11,10 +11,10 @@ const DYNAMIC_REF_SELECTOR = 'a[href^="#footnote-"]';
 
 function buildItem(id) {
   const li = document.createElement('li');
-  li.className = 'footnotes__item';
+  li.className = 'footnotes-item';
   if (id) li.id = id;
   const content = document.createElement('div');
-  content.className = 'footnotes__item-content';
+  content.className = 'footnotes-item-content';
   li.append(content);
   return li;
 }
@@ -44,11 +44,11 @@ function decorateDynamicRefs(block, dynamicList) {
 
   entries.forEach((entry) => {
     const li = buildItem(entry.id);
-    li.querySelector('.footnotes__item-content').textContent = entry.text;
+    li.querySelector('.footnotes-item-content').textContent = entry.text;
     const backlinks = refs.filter((ref) => ref.getAttribute('href') === `#${entry.id}`);
     backlinks.forEach((ref) => {
       const backlink = document.createElement('a');
-      backlink.className = 'footnotes__item-backlink';
+      backlink.className = 'footnotes-item-backlink';
       backlink.href = `#${ref.id}`;
       backlink.textContent = '↑';
       backlink.setAttribute('aria-label', `Back to reference ${entry.number}`);
@@ -72,42 +72,44 @@ export default function decorate(block) {
   }
 
   const staticList = document.createElement('ul');
-  staticList.className = 'footnotes__list footnotes__list--static';
+  staticList.className = 'footnotes-list footnotes-list-static';
   bodyRows.forEach((row) => {
     if (!row.textContent.trim()) return;
     const li = buildItem();
-    const content = li.querySelector('.footnotes__item-content');
+    const content = li.querySelector('.footnotes-item-content');
     [...row.children].forEach((cell) => {
-      while (cell.firstElementChild) content.append(cell.firstElementChild);
+      while (cell.firstChild) content.append(cell.firstChild);
     });
     staticList.append(li);
   });
 
   const dynamicList = document.createElement('ol');
-  dynamicList.className = 'footnotes__list footnotes__list--dynamic';
+  dynamicList.className = 'footnotes-list footnotes-list-dynamic';
 
   const content = document.createElement('div');
-  content.className = 'footnotes__content caption-regular reset-list no-default-list-spacings';
+  content.className = 'footnotes-content';
+  content.id = `footnotes-content-${[...document.querySelectorAll('.footnotes')].indexOf(block)}`;
   content.append(staticList, dynamicList);
 
   const title = document.createElement('p');
-  title.className = 'footnotes__title body-regular';
+  title.className = 'footnotes-title';
   title.textContent = titleText;
 
   const icon = document.createElement('div');
-  icon.className = 'footnotes__icon';
-  icon.innerHTML = `<span class="footnotes__icon-expand">${ICON_EXPAND}</span><span class="footnotes__icon-collapse">${ICON_COLLAPSE}</span>`;
+  icon.className = 'footnotes-icon';
+  icon.innerHTML = `<span class="footnotes-icon-expand">${ICON_EXPAND}</span><span class="footnotes-icon-collapse">${ICON_COLLAPSE}</span>`;
 
   const header = document.createElement('div');
-  header.className = 'footnotes__header';
+  header.className = 'footnotes-header';
   header.setAttribute('tabindex', '0');
   header.setAttribute('role', 'button');
-  header.setAttribute('aria-expanded', 'false');
+  // expanded on load, as on hp.com
+  header.setAttribute('aria-expanded', 'true');
+  header.setAttribute('aria-controls', content.id);
   header.append(title, icon);
 
-  block.classList.add('footnotes--collapsed');
   const toggle = () => {
-    const collapsed = block.classList.toggle('footnotes--collapsed');
+    const collapsed = block.classList.toggle('footnotes-collapsed');
     header.setAttribute('aria-expanded', String(!collapsed));
   };
 
@@ -120,7 +122,7 @@ export default function decorate(block) {
   });
 
   const container = document.createElement('div');
-  container.className = 'footnotes__container';
+  container.className = 'footnotes-panel';
   container.append(header, content);
 
   dynamicList.style.setProperty('--hpi-fn-static-length', staticList.children.length);
@@ -129,5 +131,5 @@ export default function decorate(block) {
 
   decorateDynamicRefs(block, dynamicList);
 
-  block.classList.toggle('footnotes--empty', !staticList.children.length && !dynamicList.children.length);
+  block.classList.toggle('footnotes-empty', !staticList.children.length && !dynamicList.children.length);
 }

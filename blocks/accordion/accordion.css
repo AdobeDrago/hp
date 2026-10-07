@@ -1,132 +1,190 @@
-/* Spacing from the heading above to the first card (source: 40 / 64 / 76px);
-   collapses with the heading's own bottom margin so the larger value wins.
-   Needs section-level specificity to beat the global section > div margin */
-main .section > .accordion-wrapper {
-  margin-top: 40px;
-}
-
-.accordion {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
 .accordion details {
-  background-color: #fff;
-  border-radius: 16px;
-  color: var(--text-color);
-  overflow: hidden;
+  border: 1px solid #dadada;
 }
 
-.accordion summary {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 16px;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 24px;
+/* stylelint-disable-next-line no-descending-specificity */
+.accordion details + details {
+  margin-top: 24px;
+}
+
+.accordion details p {
+  margin-bottom: 0.8em;
+}
+
+.accordion details summary {
+  position: relative;
+  padding: 0 16px;
+  padding-right: 46px;
   cursor: pointer;
   list-style: none;
+  overflow: auto;
+  transition: background-color 0.2s;
 }
 
-/* the question cell may arrive wrapped in a <p>; keep it to one 24px line box */
-.accordion summary > p {
-  margin: 0;
-  font: inherit;
+.accordion details[open] summary {
+  background-color: var(--light-color);
 }
 
-.accordion summary::-webkit-details-marker {
+.accordion details summary:focus,
+.accordion details summary:hover {
+  background-color: var(--light-color);
+}
+
+.accordion details summary::-webkit-details-marker {
   display: none;
 }
 
-/* thin 18px plus glyph in a 24px box; rotates 45deg into an "x" when open */
-.accordion summary::after {
+.accordion details summary::after {
   content: '';
-  flex: none;
-  width: 24px;
-  height: 24px;
-  position: relative;
-  margin-right: -1px;
-  background:
-    linear-gradient(currentcolor, currentcolor) center / 18px 1px no-repeat,
-    linear-gradient(currentcolor, currentcolor) center / 1px 18px no-repeat;
-  transition: transform 0.3s ease-out;
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%) rotate(135deg);
+  width: 6px;
+  height: 6px;
+  border: 2px solid;
+  border-width: 2px 2px 0 0;
+  transition: transform 0.2s;
 }
 
 .accordion details[open] summary::after {
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.accordion details .accordion-item-body {
+  padding: 0 16px;
+}
+
+.accordion details[open] .accordion-item-body {
+  border-top: 1px solid #dadada;
+  background-color: var(--background-color);
+}
+
+/*
+ * "faq" variant (hp.com FAQs band): white 16px-radius rows on the dark
+ * section, 24px ghost "+" icon that rotates 45deg into an "x" when open.
+ * Values from hp.com computed styles - 3 tiers like the source
+ * (< 600px, 600-1279px, >= 1280px).
+ */
+.accordion.faq {
+  --faq-pad: 16px;
+  --faq-icon-gap: 33px;
+  --faq-icon-top: 9px;
+  --faq-icon-right: 9px;
+  --faq-gap: 8px;
+
+  /* hp.com: question list starts 40/64/76px under the section H2 and ends
+     24/42/48px above the band's bottom edge (section H2 margin is 28px and
+     section padding-bottom 36px globally, so only the difference is added) */
+  margin-bottom: -12px;
+  padding-top: 12px;
+}
+
+.accordion.faq details {
+  border: 0;
+  border-radius: 16px;
+  background-color: #fff;
+  color: #1a1a1a;
+  box-shadow: 0 3px 12px 3px rgb(0 0 0 / 0%);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-out;
+}
+
+.accordion.faq details + details {
+  margin-top: var(--faq-gap);
+}
+
+.accordion.faq details:hover {
+  box-shadow: 0 3px 12px 3px rgb(26 26 26 / 20%);
+}
+
+.accordion.faq details summary {
+  padding: var(--faq-pad) calc(var(--faq-pad) + var(--faq-icon-gap)) var(--faq-pad) var(--faq-pad);
+  overflow: visible;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.accordion.faq details[open] summary {
+  padding-bottom: 0;
+}
+
+.accordion.faq details[open] summary,
+.accordion.faq details summary:focus,
+.accordion.faq details summary:hover {
+  background-color: transparent;
+}
+
+.accordion.faq details summary p,
+.accordion.faq details .accordion-item-body p {
+  margin: 0;
+}
+
+/* 36px ghost button area, 24px "+" glyph (hp.com c-hp-icon--plus) */
+.accordion.faq details summary::after {
+  top: var(--faq-icon-top);
+  right: var(--faq-icon-right);
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231a1a1a' d='M11.874 3.018a.518.518 0 0 0-.36.368c-.011.05-.013.566-.013 4.086v4.03H7.472c-3.56 0-4.036.002-4.088.014a.516.516 0 0 0-.368.364.505.505 0 0 0 .369.606c.05.012.566.014 4.087.014h4.03v4.029c0 3.52 0 4.037.013 4.087.04.174.188.323.364.369a.505.505 0 0 0 .606-.37c.012-.049.014-.565.014-4.086v-4.03h4.03c3.52 0 4.036-.001 4.086-.013a.516.516 0 0 0 .37-.364.505.505 0 0 0-.37-.606c-.05-.012-.566-.014-4.086-.014h-4.03v-4.03c0-3.52-.002-4.036-.014-4.086a.516.516 0 0 0-.364-.37.6.6 0 0 0-.247.002z'/%3E%3C/svg%3E") center / 24px 24px no-repeat;
+  transform: none;
+  transition: transform 0.3s ease-out;
+}
+
+.accordion.faq details[open] summary::after {
   transform: rotate(45deg);
 }
 
-/* answer: 16px below the question, plus the source's 24px trailing space
-   before the card padding. Answer cells are usually bare text (DA unwraps
-   a lone <p>), so the container carries the type styles */
-.accordion .accordion-item-body {
-  padding: 0 16px 40px;
-  color: var(--text-color);
+/* 16px gap under the question; + 24px trailing spacer as on hp.com
+   (empty CTA group rendered under every answer) */
+.accordion.faq details .accordion-item-body {
+  padding: 16px var(--faq-pad) calc(var(--faq-pad) + 24px);
   font-size: 14px;
   line-height: 24px;
 }
 
-.accordion .accordion-item-body p {
-  margin: 0 0 0.8em;
-  color: inherit;
-  font-size: inherit;
-  line-height: inherit;
+.accordion.faq details[open] .accordion-item-body {
+  border-top: 0;
+  background-color: transparent;
 }
 
-.accordion .accordion-item-body p:last-child {
-  margin-bottom: 0;
-}
+@media (width >= 600px) {
+  .accordion.faq {
+    --faq-pad: 32px;
+    --faq-icon-gap: 48px;
+    --faq-icon-top: 28px;
+    --faq-icon-right: 28px;
+    --faq-gap: 16px;
 
-.accordion details[open] summary {
-  padding-bottom: 16px;
-}
-
-@media (width >= 768px) {
-  main .section > .accordion-wrapper {
-    margin-top: 64px;
+    margin-bottom: 6px;
+    padding-top: 36px;
   }
 
-  .accordion {
-    gap: 16px;
-  }
-
-  .accordion summary {
-    gap: 22px;
-    padding: 32px;
+  .accordion.faq details summary {
     font-size: 20px;
   }
-
-  .accordion summary::after {
-    top: 2px;
-    margin-right: 2px;
-  }
-
-  .accordion .accordion-item-body {
-    padding: 0 32px 56px;
-  }
 }
 
-@media (width >= 1200px) {
-  main .section > .accordion-wrapper {
-    margin-top: 76px;
+@media (width >= 1280px) {
+  .accordion.faq {
+    --faq-pad: 36px;
+    --faq-icon-gap: 52px;
+    --faq-icon-top: 34px;
+    --faq-icon-right: 32px;
+
+    margin-bottom: 12px;
+    padding-top: 48px;
   }
 
-  .accordion summary {
-    gap: 26px;
-    padding: 36px;
+  .accordion.faq details summary {
     font-size: 24px;
     line-height: 28px;
   }
 
-  .accordion summary::after {
-    top: 4px;
-  }
-
-  .accordion .accordion-item-body {
-    padding: 0 36px 60px;
+  .accordion.faq details .accordion-item-body {
     font-size: 16px;
   }
 }

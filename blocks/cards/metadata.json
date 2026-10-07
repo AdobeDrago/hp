@@ -1,0 +1,39 @@
+{
+  "variantName": "cards",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": "Default: auto-fill grid of bordered image + body cards. \"spotlight\": background photo header with vertical icon list. \"grid\": grey section, text header row, boxed cards with CTA. \"showcase\": centered header and borderless centered cards. \"feature\": white, text header row then a borderless 4-up row of rounded photo, H3 and description items with no links.",
+  "contentPattern": "Rows of [picture] | [h3, p, optional link]. spotlight: first row [background picture] | [heading, intro]. grid/showcase/feature: first row is a text-only header [h2].",
+  "usage": {
+    "pagesUsing": [
+      "https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-07"
+  },
+  "options": [
+    {
+      "class": "spotlight",
+      "label": "Spotlight"
+    },
+    {
+      "class": "grid",
+      "label": "Grid"
+    },
+    {
+      "class": "showcase",
+      "label": "Showcase"
+    },
+    {
+      "class": "feature",
+      "label": "Feature"
+    }
+  ],
+  "memberVariantIds": [
+    "cards",
+    "cards-spotlight",
+    "cards-grid",
+    "cards-showcase",
+    "cards-feature"
+  ]
+}

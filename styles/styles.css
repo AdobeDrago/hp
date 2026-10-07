@@ -249,10 +249,70 @@ main > .section:first-of-type {
   }
 }
 
+/* ai-solutions template (hp.com landing pages): 1680px container with
+   16 / 32 / 36px gutters. :where() keeps the base specificity so block
+   wrappers that set their own width still win. */
+:where(body.ai-solutions) main > .section > div {
+  max-width: 1680px;
+  padding: 0 16px;
+}
+
+@media (width >= 768px) {
+  :where(body.ai-solutions) main > .section > div {
+    padding: 0 32px;
+  }
+}
+
+@media (width >= 1200px) {
+  :where(body.ai-solutions) main > .section > div {
+    padding: 0 36px;
+  }
+}
+
 /* section metadata */
 main .section.light,
 main .section.highlight {
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;
+}
+
+/* dark (hp.com FAQs band): near-black full-bleed band, white headings */
+main .section.dark {
+  background-color: #1a1a1a;
+  color: var(--background-color);
+  margin: 0;
+  padding: 24px 0 36px;
+}
+
+main .section.dark :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--background-color);
+}
+
+main .section.dark .default-content-wrapper h2 {
+  margin: 0 0 28px;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* hp.com tiers: 441px (tablet) and 1115px (desktop) */
+@media (width >= 441px) {
+  main .section.dark {
+    padding-top: 34px;
+  }
+
+  main .section.dark .default-content-wrapper h2 {
+    font-size: 44px;
+  }
+}
+
+@media (width >= 1115px) {
+  main .section.dark {
+    padding-top: 44px;
+  }
+
+  main .section.dark .default-content-wrapper h2 {
+    font-size: 56px;
+  }
 }

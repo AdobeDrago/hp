@@ -1,0 +1,24 @@
+{
+  "ai-solutions": {
+    "3": {
+      "name": "Benefits",
+      "anchorId": "benefits"
+    },
+    "4": {
+      "name": "Portfolio",
+      "anchorId": "portfolio"
+    },
+    "5": {
+      "name": "Featured products",
+      "anchorId": "products"
+    },
+    "6": {
+      "name": "ROI calculator promo",
+      "anchorId": "roi-calculator"
+    },
+    "12": {
+      "name": "FAQs",
+      "anchorId": "faqs"
+    }
+  }
+}

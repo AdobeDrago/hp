@@ -1,124 +1,145 @@
-/* Hero — full-bleed background image with an overlaid, divided content band. */
-
-/* full-bleed: escape the section's max-width / padding / margin */
-.hero-container {
-  margin: 0;
-}
-
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
 }
 
-.hero.block {
-  position: relative;
+/* The source clips its oversized, slanted image box at the viewport edge */
+.hero {
   display: flex;
-  align-items: flex-end;
-  min-height: 360px;
+  flex-direction: column;
   overflow: hidden;
-  color: #fff;
 }
 
-@media (width >= 900px) {
-  .hero.block {
-    height: 650px;
-    min-height: unset;
-  }
-
-  .hero.short.block {
-    height: 530px;
-  }
+/* Image box is inset by the container gutter on the left and deliberately
+   wider than the viewport on the right (source: c-hp-hero-banner__media) */
+.hero .hero-media {
+  order: 0;
+  padding-left: var(--container-padding);
+  line-height: 0;
 }
 
-/* background image layer */
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.hero-bg picture,
-.hero-bg img {
+/* The parallelogram shape is baked into the photo; clip-path matches the
+   source's c-hp-hero-banner__media--image polygon for a clean edge */
+.hero .hero-media img {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 468px;
+  max-width: none;
+  height: 270px;
   object-fit: cover;
-  object-position: top;
+
+  /* Left-anchored crop keeps the photo's baked slant at the source's
+     mobile position (the source swaps in a separate mobile asset here) */
+  object-position: left center;
+  clip-path: polygon(98.28px 0, 100% 0, 661px 100%, 0 100%);
 }
 
-/* content band with legibility scrim, spanning the full width */
 .hero-content {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  background: rgb(0 0 0 / 32%);
+  order: 1;
+  padding: 28px var(--container-padding);
 }
 
-/* every line is divided from the one above by a rule, indented, styled by tag */
-.hero-content > * {
-  margin: 0;
-  padding: 16px clamp(24px, 6vw, 96px);
-  border-top: 1px solid rgb(255 255 255 / 40%);
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.35;
+.hero-content .hero-eyebrow {
+  margin: 0 0 16px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
 }
 
 .hero-content h1 {
-  padding-right: 38%;
-  font-size: clamp(2rem, 4vw, 3.1rem);
-  font-weight: 700;
-  line-height: 1.1;
-}
-
-.hero-content p {
-  padding-right: 38%;
-}
-
-/* inline links within a line stay legible over the image */
-.hero-content a:not(.button) {
-  color: inherit;
-  text-decoration: underline;
-}
-
-/* a standalone CTA link (e.g. "Read") -> circular-arrow button */
-.hero-content a.button:any-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: none;
-  color: #fff;
-  font-size: 0.95rem;
-  font-weight: 700;
+  margin: 0 0 16px;
   line-height: 1;
-  white-space: normal;
-  text-decoration: none;
 }
 
-.hero-content a.button::before {
-  content: "";
-  flex: 0 0 auto;
-  width: 34px;
-  height: 34px;
-  border: 1.5px solid #fff;
-  border-radius: 50%;
-  background: center / 9px no-repeat
-    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='white'%20stroke-width='2.5'%3E%3Cpath%20d='M9%206l6%206-6%206'/%3E%3C/svg%3E");
+.hero-content .hero-subtitle {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
 }
 
-/* mobile: full-width lines, tighter type */
-@media (width < 900px) {
-  .hero-content h1 {
-    padding-right: 24px;
-    font-size: clamp(1.7rem, 8vw, 2.2rem);
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.hero .hero-badges p {
+  margin: 0;
+  line-height: 0;
+}
+
+.hero .hero-badges img {
+  height: 32px;
+  width: auto;
+}
+
+@media (width >= 768px) {
+  .hero .hero-media img {
+    width: 786px;
+    height: 336px;
+    object-position: center;
+    clip-path: polygon(122.304px 0, 100% 0, 661px 100%, 0 100%);
   }
 
-  .hero-content p {
-    padding-right: 24px;
+  .hero-content {
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+
+  .hero-content .hero-eyebrow {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .hero-content .hero-subtitle {
+    font-size: 20px;
+  }
+}
+
+@media (width >= 1200px) {
+  .hero {
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 500px;
+  }
+
+  /* Text column: 42.66% of the 1680px-capped container's inner width
+     (max 680px incl. 24px right padding), aligned to the container gutter */
+  .hero-content {
+    order: 0;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(min(680px, (min(100%, var(--container-max-width)) - 2 * var(--container-padding)) * 0.4266) - 24px);
+    padding: 80px 24px 80px max(var(--container-padding), calc((100% - var(--container-max-width)) / 2 + var(--container-padding)));
+  }
+
+  .hero .hero-media {
+    position: relative;
+    order: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding-left: 0;
+  }
+
+  .hero .hero-media img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1101.3px;
+    height: 100%;
+    clip-path: polygon(175px 0, 100% 0, 926.297px 100%, 0 100%);
+  }
+
+  .hero-content .hero-eyebrow {
+    font-size: 16px;
+  }
+
+  .hero-content .hero-subtitle {
+    font-size: 24px;
+    line-height: 28px;
   }
 }

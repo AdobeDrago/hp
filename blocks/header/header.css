@@ -447,6 +447,7 @@ header nav .nav-cta-btn {
     line-height: 18px;
     color: #3d3d3d;
     text-align: left;
+    white-space: nowrap;
     position: relative;
   }
 

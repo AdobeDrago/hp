@@ -222,6 +222,43 @@
           }
         },
         {
+          "title": "Footnotes",
+          "id": "footnotes",
+          "model": "footnotes",
+          "filter": "footnotes",
+          "plugins": {
+            "da": {
+              "name": "footnotes",
+              "rows": 1,
+              "columns": 0,
+              "fields": [
+                {
+                  "name": "title",
+                  "selector": "div:nth-child(1)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Footnote Item",
+          "id": "footnote-item",
+          "model": "footnote-item",
+          "plugins": {
+            "da": {
+              "name": "footnote-item",
+              "rows": 1,
+              "columns": 0,
+              "fields": [
+                {
+                  "name": "text",
+                  "selector": "div:nth-child(1)"
+                }
+              ]
+            }
+          }
+        },
+        {
           "title": "Fragment",
           "id": "fragment",
           "model": "fragment",

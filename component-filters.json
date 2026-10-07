@@ -66,6 +66,12 @@
     ]
   },
   {
+    "id": "footnotes",
+    "components": [
+      "footnote-item"
+    ]
+  },
+  {
     "id": "table",
     "rte": {
       "toolbar": {

@@ -145,25 +145,6 @@
     ]
   },
   {
-    "id": "footnotes",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Title",
-        "value": "Footnotes and Disclaimers"
-      },
-      {
-        "component": "richtext",
-        "name": "body",
-        "label": "Body",
-        "description": "Disclaimer paragraphs and/or an ordered list of footnotes (may contain links).",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "fragment",
     "fields": [
       {
@@ -338,25 +319,6 @@
         "name": "searchUrl",
         "label": "Search URL",
         "required": true
-      }
-    ]
-  },
-  {
-    "id": "section-nav",
-    "fields": [
-      {
-        "component": "richtext",
-        "name": "links",
-        "label": "Jump Links",
-        "description": "Bulleted list of links; each href must be #<anchor-id> matching the target section's Section Metadata Id.",
-        "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "name": "cta",
-        "label": "CTA",
-        "description": "A single link, e.g. Contact Sales.",
-        "valueType": "string"
       }
     ]
   },

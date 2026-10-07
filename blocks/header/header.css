@@ -158,6 +158,9 @@ header nav .nav-search-form {
 
 header nav .nav-search-form[hidden] { display: none; }
 
+/* mobile-only close for the expanded search (shown in the < 1280px block) */
+header nav .nav-search-close { display: none; }
+
 header nav .nav-search-form input {
   flex: 1;
   border: 0;
@@ -325,6 +328,152 @@ header nav .nav-cta-btn {
   font-weight: 400;
   color: #024ad8;
   text-decoration: none;
+}
+
+/* ===== Mobile / tablet (below 1280px): hamburger menu + expanding search,
+   matched to hp.com's open states ===== */
+@media (width < 1280px) {
+  header nav { position: relative; }
+
+  /* menu open: the bar keeps only the logo and the close "x" */
+  header nav[aria-expanded='true'] .nav-tools { visibility: hidden; }
+
+  header nav[aria-expanded='true'] .nav-hamburger-icon::before,
+  header nav[aria-expanded='true'] .nav-hamburger-icon::after {
+    height: 1.5px;
+    background: #024ad8;
+  }
+
+  /* menu content sits inside the 16px page gutters (hp.com), not edge to edge */
+  header nav[aria-expanded='true'] .nav-sections {
+    border-top: 1px solid #d9d1d1;
+    padding: 0 16px 40px;
+  }
+
+  header nav .nav-menu > li {
+    border-bottom: 0;
+  }
+
+  header nav .nav-menu > li + li {
+    border-top: 1px solid #d9d1d1;
+  }
+
+  header nav .nav-menu-trigger {
+    padding: 29px 0;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 34px;
+    color: #3d3d3d;
+  }
+
+  /* 24px chevron area, thin stroke as on hp.com */
+  header nav .nav-menu-trigger::after {
+    flex: none;
+    width: 9px;
+    height: 9px;
+    margin: 0 13px 6px 0;
+    border-right: 1.5px solid #3d3d3d;
+    border-bottom: 1.5px solid #3d3d3d;
+  }
+
+  header nav .nav-drop[aria-expanded='true'] .nav-menu-trigger::after {
+    margin-bottom: -6px;
+  }
+
+  header nav .nav-panel {
+    padding: 0 0 24px;
+  }
+
+  /* "HP for Business": outlined pill button under the last divider */
+  header nav .nav-cta {
+    border-bottom: 0;
+    padding-top: 18px;
+  }
+
+  header nav .nav-cta-btn {
+    display: inline-block;
+    border: 1px solid #024ad8;
+    border-radius: 8px;
+    padding: 6px 16px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  header nav .nav-cta-btn:hover,
+  header nav .nav-cta-btn:focus-visible {
+    background-color: rgb(2 74 216 / 8%);
+    text-decoration: none;
+  }
+
+  /* search open: the search field replaces the header bar contents */
+  header nav.nav-search-open .nav-search {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    gap: 20px;
+    padding: 0 10px 0 16px;
+    background: #fff;
+  }
+
+  header nav.nav-search-open .nav-search-btn { display: none; }
+
+  header nav.nav-search-open .nav-search-form {
+    position: static;
+    box-sizing: border-box;
+    flex: 1;
+    height: 36px;
+    width: auto;
+    margin: 0;
+    border: 1px solid #c2c2c2;
+    border-radius: 8px;
+    padding: 0 12px;
+    background: #f0f0f0;
+  }
+
+  header nav.nav-search-open .nav-search-form input {
+    padding: 0 2px;
+    background: transparent;
+    font-size: 14px;
+    line-height: 18px;
+    color: #000;
+  }
+
+  header nav.nav-search-open .nav-search-form input::placeholder {
+    color: #757575;
+  }
+
+  header nav.nav-search-open .nav-search-submit {
+    display: flex;
+    margin: 0;
+  }
+
+  header nav.nav-search-open .nav-search-submit svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  header nav.nav-search-open .nav-search-close {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  header nav.nav-search-open .nav-search-close svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #000;
+    stroke-width: 1.5;
+  }
 }
 
 /* ===== Desktop (min-width: 1280px) — below this the mobile hamburger nav

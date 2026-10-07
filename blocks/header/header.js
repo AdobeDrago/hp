@@ -48,6 +48,36 @@ function closeAllPanels(nav) {
 }
 
 /**
+ * Opens/closes the search. Below 1280px the open search takes over the
+ * header bar (brand and the other tools hide), as on hp.com; on desktop the
+ * search field is always shown and this has no visual effect.
+ * @param {Element} nav The nav element
+ * @param {Boolean} open Whether the search should be open
+ */
+function setSearchOpen(nav, open) {
+  if (!nav) return;
+  const searchBtn = nav.querySelector('.nav-search-btn');
+  const form = nav.querySelector('.nav-search-form');
+  const close = nav.querySelector('.nav-search-close');
+  if (!searchBtn || !form) return;
+  searchBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  nav.classList.toggle('nav-search-open', open);
+  form.hidden = !open; // desktop CSS shows the field regardless
+  if (close) close.hidden = !open;
+  if (open) {
+    // only one overlay at a time: close the mobile menu if it's open
+    if (nav.getAttribute('aria-expanded') === 'true') {
+      nav.setAttribute('aria-expanded', 'false');
+      document.body.style.overflowY = '';
+      closeAllPanels(nav);
+    }
+    form.querySelector('input').focus();
+  } else if (!isDesktop.matches) {
+    searchBtn.focus();
+  }
+}
+
+/**
  * Builds the tools (search, cart, sign-in) region controls.
  * @param {Element} navTools The tools section element
  */
@@ -86,13 +116,20 @@ function decorateTools(navTools) {
   searchSubmit.innerHTML = searchBtn.innerHTML;
   searchForm.append(searchInput, searchSubmit);
 
+  // closes the expanded mobile search (it replaces the header bar, as on hp.com)
+  const searchClose = document.createElement('button');
+  searchClose.type = 'button';
+  searchClose.className = 'nav-search-close';
+  searchClose.setAttribute('aria-label', 'Close search');
+  searchClose.hidden = true;
+  searchClose.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>';
+
   searchBtn.addEventListener('click', () => {
-    const open = searchBtn.getAttribute('aria-expanded') === 'true';
-    searchBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
-    searchForm.hidden = open;
-    if (!open) searchInput.focus();
+    const open = searchBtn.getAttribute('aria-expanded') !== 'true';
+    setSearchOpen(navTools.closest('nav'), open);
   });
-  searchWrap.append(searchBtn, searchForm);
+  searchClose.addEventListener('click', () => setSearchOpen(navTools.closest('nav'), false));
+  searchWrap.append(searchBtn, searchForm, searchClose);
 
   // cart
   const cartBtn = document.createElement('a');
@@ -239,6 +276,7 @@ function decorateSections(navSections) {
 function toggleMobileMenu(nav, forceClose = false) {
   const expanded = nav.getAttribute('aria-expanded') === 'true';
   const open = forceClose ? false : !expanded;
+  if (open && nav.classList.contains('nav-search-open')) setSearchOpen(nav, false);
   nav.setAttribute('aria-expanded', open ? 'true' : 'false');
   document.body.style.overflowY = open && !isDesktop.matches ? 'hidden' : '';
   const button = nav.querySelector('.nav-hamburger button');
@@ -333,7 +371,10 @@ export default async function decorate(block) {
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Escape') {
       closeAllPanels(nav);
-      if (!isDesktop.matches) toggleMobileMenu(nav, true);
+      if (!isDesktop.matches) {
+        if (nav.classList.contains('nav-search-open')) setSearchOpen(nav, false);
+        toggleMobileMenu(nav, true);
+      }
     }
   });
 
@@ -341,6 +382,7 @@ export default async function decorate(block) {
   isDesktop.addEventListener('change', () => {
     closeAllPanels(nav);
     toggleMobileMenu(nav, true);
+    if (nav.classList.contains('nav-search-open')) setSearchOpen(nav, false);
     const button = nav.querySelector('.nav-hamburger button');
     if (button) button.setAttribute('aria-label', 'Open navigation');
     document.body.style.overflowY = '';

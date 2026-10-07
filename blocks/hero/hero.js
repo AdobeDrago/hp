@@ -29,8 +29,17 @@ function decorateSplit(block) {
     [...cell.children]
       .filter((el) => el.textContent.trim() !== '' || el.querySelector('picture'))
       .forEach((el) => {
-        // a line made only of (linked) images is the logo row
-        if (el.querySelector('picture') && el.textContent.trim() === '') el.classList.add('hero-logos');
+        // a line made only of (linked) images is the logo row; consecutive
+        // logo lines (one paragraph per logo in published content) merge
+        // into a single row so the logos sit side by side
+        if (el.querySelector('picture') && el.textContent.trim() === '') {
+          const prev = content.lastElementChild;
+          if (prev && prev.classList.contains('hero-logos')) {
+            prev.append(...el.childNodes);
+            return;
+          }
+          el.classList.add('hero-logos');
+        }
         content.append(el);
       });
   });

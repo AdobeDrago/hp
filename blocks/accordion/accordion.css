@@ -138,6 +138,11 @@
   transform: rotate(45deg);
 }
 
+/* while a row animates closed it is still [open]: turn the "x" back now */
+.accordion.faq details.is-closing summary::after {
+  transform: none;
+}
+
 /* 16px gap under the question; + 24px trailing spacer as on hp.com
    (empty CTA group rendered under every answer) */
 .accordion.faq details .accordion-item-body {

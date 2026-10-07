@@ -380,8 +380,124 @@ header nav .nav-cta-btn {
     margin-bottom: -6px;
   }
 
+  header nav .nav-menu-trigger,
+  header nav .nav-menu-trigger:hover,
+  header nav .nav-menu-trigger:focus {
+    text-decoration: none;
+  }
+
+  /* open item: hp.com puts the first card 20px under the heading text */
+  header nav .nav-drop[aria-expanded='true'] .nav-menu-trigger {
+    padding-bottom: 21px;
+  }
+
   header nav .nav-panel {
-    padding: 0 0 24px;
+    padding: 0 0 28px;
+  }
+
+  /* category cards: 120x80 rounded image + title side by side, 8px apart.
+     Works for both nav shapes: title inside the link (li > a > picture +
+     text) or, as DA publishes it, a linked picture paragraph followed by a
+     title paragraph. The link is stretched over the row so the whole card
+     is tappable, as on hp.com. */
+  header nav .nav-panel-cards ul {
+    gap: 8px;
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  header nav .nav-panel-cards li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 80px;
+  }
+
+  header nav .nav-panel-cards li > p {
+    margin: 0;
+    font-size: 20px;
+    line-height: 24px;
+    color: #1a1a1a;
+  }
+
+  header nav .nav-panel-cards li > p:has(picture) {
+    flex: none;
+    line-height: 0;
+  }
+
+  header nav .nav-panel-cards a {
+    gap: 10px;
+    font-size: 20px;
+    line-height: 24px;
+    color: #1a1a1a;
+  }
+
+  header nav .nav-panel-cards a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  header nav .nav-panel-cards picture {
+    display: block;
+    line-height: 0;
+  }
+
+  header nav .nav-panel-cards img {
+    display: block;
+    width: 120px;
+    height: 80px;
+    border-radius: 10px;
+    background: transparent;
+  }
+
+  header nav .nav-panel-featured a:hover,
+  header nav .nav-panel-cards a:hover,
+  header nav .nav-panel-cards li:hover > p {
+    text-decoration: underline;
+  }
+
+  /* deals link (first list) + "Featured" group, separated by a divider */
+  header nav .nav-panel-featured {
+    margin: 20px 0 0;
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  header nav .nav-panel-featured a {
+    padding: 0;
+    font-size: 20px;
+    line-height: 24px;
+    color: #485571;
+  }
+
+  header nav .nav-panel-featured li + li {
+    margin-top: 12px;
+  }
+
+  header nav .nav-panel-featured > ul:first-child a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* price-tag icon before the deals link (hp.com digitnav-priceTag-icon) */
+  header nav .nav-panel-featured > ul:first-child a::before {
+    content: '';
+    flex: none;
+    width: 24px;
+    height: 24px;
+    background-color: currentcolor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'%3E%3Cpath d='M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l7.9 7.9a1 1 0 0 1 0 1.4l-7.4 7.4a1 1 0 0 1-1.4 0z'/%3E%3Ccircle cx='8' cy='8' r='1.5'/%3E%3C/svg%3E") center / 24px 24px no-repeat;
+  }
+
+  header nav .nav-featured-heading {
+    margin: 20px 0 0;
+    border-top: 1px solid #d9d1d1;
+    padding: 20px 0 16px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 22px;
+    color: #000;
   }
 
   /* "HP for Business": outlined pill button under the last divider */

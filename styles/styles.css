@@ -109,6 +109,13 @@ footer .footer[data-block-status="loaded"] {
   }
 }
 
+/* set by header.js when a page's "Newsroom: false" metadata removes the
+   newsroom sub-bar - shrinks the reserved header height back down to just
+   the nav bar, instead of leaving that now-empty space sitting on the page. */
+body[data-no-newsroom] {
+  --header-height: var(--nav-height);
+}
+
 h1,
 h2,
 h3,

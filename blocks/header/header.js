@@ -125,16 +125,33 @@ function decorateSections(navSections) {
   const menu = document.createElement('ul');
   menu.className = 'nav-menu nav-list';
 
+  // The business-solutions item renders as a standalone CTA button rather
+  // than a mega-menu item, pinned after every other item regardless of
+  // where it's authored in the fragment — so it's built last and appended
+  // once the loop below is done. Matched by href rather than the heading's
+  // id, since the id is auto-generated from the heading text and changes
+  // whenever an author edits the label (e.g. "Business Solutions" ->
+  // "HP for Business") — the href is what actually stays stable.
+  let businessCta = null;
+
   let current = null;
   nodes.forEach((node) => {
     if (node.tagName === 'H2') {
+      const topLink = node.querySelector('a');
+      const label = topLink ? topLink.textContent : node.textContent;
+      const href = topLink ? topLink.getAttribute('href') : '';
+
+      if (/\/business-solutions\.html$/i.test(href)) {
+        businessCta = { href, label };
+        current = null;
+        return;
+      }
+
       // start a new top-level menu item
       current = document.createElement('li');
       current.className = 'nav-drop';
       current.setAttribute('aria-expanded', 'false');
 
-      const topLink = node.querySelector('a');
-      const label = topLink ? topLink.textContent : node.textContent;
       const trigger = document.createElement('a');
       trigger.className = 'nav-menu-trigger nav-trigger';
       trigger.href = topLink ? topLink.getAttribute('href') : '#';
@@ -174,6 +191,17 @@ function decorateSections(navSections) {
       }
     }
   });
+
+  if (businessCta) {
+    const ctaLi = document.createElement('li');
+    ctaLi.className = 'nav-cta';
+    const ctaBtn = document.createElement('a');
+    ctaBtn.className = 'nav-cta-btn';
+    ctaBtn.href = businessCta.href;
+    ctaBtn.textContent = businessCta.label;
+    ctaLi.append(ctaBtn);
+    menu.append(ctaLi);
+  }
 
   navSections.textContent = '';
   navSections.append(menu);
@@ -245,7 +273,21 @@ export default async function decorate(block) {
   const navBrand = nav.querySelector('.nav-brand');
   const navSections = nav.querySelector('.nav-sections');
   const navTools = nav.querySelector('.nav-tools');
-  const navNewsroom = nav.querySelector('.nav-newsroom');
+  let navNewsroom = nav.querySelector('.nav-newsroom');
+
+  // Any page can hide the newsroom sub-bar via a "Newsroom: false" metadata
+  // row; every other page keeps it by default. The outer <header> reserves
+  // height up front (styles.css --header-height) sized for nav + newsroom
+  // together, to avoid a layout shift while the page loads; flag this on
+  // <body> so that reservation can shrink back down to just the nav when
+  // the newsroom bar isn't there to fill it (see the body[data-no-newsroom]
+  // rule in styles.css) - otherwise that now-empty space is left sitting,
+  // transparent, on top of the hero underneath it.
+  if (navNewsroom && getMetadata('newsroom') === 'false') {
+    navNewsroom.remove();
+    navNewsroom = null;
+    document.body.dataset.noNewsroom = 'true';
+  }
 
   if (navSections) decorateSections(navSections);
   if (navTools) decorateTools(navTools);

@@ -273,8 +273,12 @@ header nav .nav-panel-featured a {
   font-size: 15px;
 }
 
-header nav .nav-panel-cards {
-  order: 1;
+header nav .nav-panel-cards { order: 1; }
+
+/* the cards column holds a single <ul> (kept intact for valid HTML - see
+   decorateSections in header.js); the layout rules apply to that list,
+   not to this wrapper, so it works whether it holds one child or many. */
+header nav .nav-panel-cards ul {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -308,6 +312,19 @@ header nav .nav-menu ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+/* "Business Solutions" is pinned last in the menu and rendered as a CTA
+   rather than a dropdown trigger (see header.js decorateSections). */
+header nav .nav-cta { border-bottom: 1px solid #e6e6e6; }
+
+header nav .nav-cta-btn {
+  display: block;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #024ad8;
+  text-decoration: none;
 }
 
 /* ===== Desktop (min-width: 1280px) — below this the mobile hamburger nav
@@ -439,6 +456,35 @@ header nav .nav-menu ul {
     box-shadow: inset 0 -2px 0 0 #000;
   }
 
+  header nav .nav-cta {
+    border-bottom: 0;
+    margin-left: 8px;
+  }
+
+  header nav .nav-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    min-width: 112px;
+    padding: 6px 16px;
+    border: 1px solid #024ad8;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: #024ad8;
+    white-space: nowrap;
+  }
+
+  header nav .nav-cta-btn:hover {
+    background: #c9e0fc;
+    color: #103fb2;
+  }
+
+  header nav .nav-cta-btn:active {
+    background: #b2d2ff;
+    color: #0e3191;
+  }
+
   /* full-width dropdown panel */
   header nav .nav-panel {
     display: block;
@@ -488,8 +534,9 @@ header nav .nav-menu ul {
     padding-right: 24px;
   }
 
-  header nav .nav-panel-cards {
-    order: 0;
+  header nav .nav-panel-cards { order: 0; }
+
+  header nav .nav-panel-cards ul {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;

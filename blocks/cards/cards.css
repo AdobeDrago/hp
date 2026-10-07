@@ -3,8 +3,8 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  grid-gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(257px, 1fr));
+  gap: 24px;
 }
 
 .cards > ul > li {
@@ -24,4 +24,224 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+}
+
+/* HP's title-and-text spacing tier (measured on the reference): 8px phone,
+   12px tablet, 16px desktop. Image → h3 = 2 steps, h3 → copy = 1 step.
+   Card gutter is HP's grid gutter: 16px / 20px / 24px. */
+.cards.benefits,
+.cards.portfolio,
+.cards.product,
+.cards.feature {
+  --cards-space: 8px;
+  --cards-gutter: 16px;
+}
+
+@media (width >= 768px) {
+  .cards.benefits,
+  .cards.portfolio,
+  .cards.product,
+  .cards.feature {
+    --cards-space: 12px;
+    --cards-gutter: 20px;
+  }
+}
+
+@media (width >= 1200px) {
+  .cards.benefits,
+  .cards.portfolio,
+  .cards.product,
+  .cards.feature {
+    --cards-space: 16px;
+    --cards-gutter: 24px;
+  }
+}
+
+/* intro copy → first tile: one spacing step + one gutter (24/32/40px) */
+.cards.portfolio > ul,
+.cards.product > ul,
+.cards.feature > ul {
+  margin-top: calc(var(--cards-space) + var(--cards-gutter));
+}
+
+/* shared tile typography for the image variants: title-small (24/28/32px,
+   line-height = font-size, weight 500) + body-extra-large copy (24px leading),
+   text flush with the image edge */
+.cards.portfolio .cards-card-body,
+.cards.product .cards-card-body,
+.cards.feature .cards-card-body {
+  margin: 0;
+}
+
+.cards.portfolio .cards-card-body h3,
+.cards.product .cards-card-body h3,
+.cards.feature .cards-card-body h3 {
+  margin: calc(2 * var(--cards-space)) 0 0;
+  line-height: 1;
+}
+
+.cards.portfolio .cards-card-body p,
+.cards.feature .cards-card-body p {
+  margin: var(--cards-space) 0 0;
+  line-height: 24px;
+}
+
+/* benefits: each item is a full-width row — icon column (1/6 of the row,
+   icon centered in it) + text column, stacked, not a side-by-side card grid.
+   Reference row model: icon and copy are vertically centered on each other,
+   rows are padded 12px top and bottom and touch (no gap), and the list
+   starts one spacing step below the intro. */
+.cards.benefits > ul {
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: var(--cards-space);
+}
+
+.cards.benefits > ul > li {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border: none;
+  background: none;
+}
+
+.cards.benefits .cards-card-image {
+  flex: 0 0 calc(100% / 6);
+}
+
+.cards.benefits .cards-card-image img {
+  display: block;
+  aspect-ratio: auto;
+  width: 48px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.cards.benefits .cards-card-body {
+  flex: 1;
+  margin: 0;
+  padding-left: 10px;
+}
+
+.cards.benefits .cards-card-body p {
+  margin: 0;
+  line-height: 24px;
+}
+
+.cards.benefits .cards-card-body h3 {
+  margin-top: 16px;
+  font-size: var(--heading-font-size-xs);
+}
+
+@media (width >= 768px) {
+  .cards.benefits .cards-card-body {
+    padding-left: 0;
+  }
+}
+
+/* portfolio: image kept at its native 1040/898 ratio (phones get the
+   reference's 816/600 mobile crop), "Learn" link promoted to primary
+   button, 3-up from 768px */
+.cards.portfolio > ul {
+  grid-template-columns: 1fr;
+  gap: var(--cards-gutter);
+}
+
+.cards.portfolio > ul > li {
+  border: none;
+  background: none;
+}
+
+.cards.portfolio .cards-card-image img {
+  aspect-ratio: 816 / 600;
+  border-radius: 16px;
+}
+
+.cards.portfolio .cards-card-body p.button-wrapper {
+  margin: calc(var(--cards-space) + 16px) 0 16px;
+}
+
+@media (width >= 768px) {
+  .cards.portfolio > ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cards.portfolio .cards-card-image img {
+    aspect-ratio: 1040 / 898;
+  }
+}
+
+/* product: always 2-up, image fills the tile at its native ratio (phones
+   get the reference's tighter 392/360 mobile crop), centered title + CTA */
+.cards.product > ul {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--cards-gutter);
+}
+
+.cards.product > ul > li {
+  border: none;
+  background: none;
+}
+
+.cards.product .cards-card-image img {
+  aspect-ratio: 392 / 360;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.cards.product .cards-card-body {
+  text-align: center;
+}
+
+.cards.product .cards-card-body p.button-wrapper {
+  margin: calc(var(--cards-space) + 16px) 0 16px;
+}
+
+@media (width >= 768px) {
+  .cards.product .cards-card-image img {
+    aspect-ratio: 1584 / 1138;
+  }
+}
+
+/* feature: flat (no border/bg), image on top, heading + copy, no CTA.
+   Reference uses a stepped grid (1 col phone, 2 tablet, 4 desktop), not
+   a fluid auto-fit track — matched here rather than left fluid.
+   Phones: HP pads the heading block 30px below (not one 8px step). */
+.cards.feature > ul {
+  grid-template-columns: 1fr;
+  gap: var(--cards-gutter);
+  margin-top: calc(30px + var(--cards-gutter));
+}
+
+@media (width >= 768px) {
+  .cards.feature > ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: calc(var(--cards-space) + var(--cards-gutter));
+  }
+}
+
+@media (width >= 1200px) {
+  .cards.feature > ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.cards.feature > ul > li {
+  border: none;
+  background: none;
+}
+
+.cards.feature .cards-card-image img {
+  aspect-ratio: 816 / 600;
+  border-radius: 16px;
+}
+
+.cards.feature .cards-card-body {
+  padding-bottom: var(--cards-space);
+}
+
+@media (width >= 768px) {
+  .cards.feature .cards-card-image img {
+    aspect-ratio: 768 / 640;
+  }
 }

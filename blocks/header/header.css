@@ -338,6 +338,14 @@ header nav .nav-cta-btn {
 @media (width < 1280px) {
   header nav { position: relative; }
 
+  /* no blue tap flash on menu items/buttons (hp.com sets it transparent);
+     keyboard focus still shows the :focus-visible ring */
+  header nav a,
+  header nav button,
+  header .nav-overlay {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   /* menu open: the bar keeps only the logo and the close "x" */
   header nav[aria-expanded='true'] .nav-tools { visibility: hidden; }
 

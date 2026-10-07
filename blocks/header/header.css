@@ -161,6 +161,9 @@ header nav .nav-search-form[hidden] { display: none; }
 /* mobile-only close for the expanded search (shown in the < 1280px block) */
 header nav .nav-search-close { display: none; }
 
+/* backdrop behind the tablet menu drawer (shown in the 441-1279px block) */
+header .nav-overlay { display: none; }
+
 header nav .nav-search-form input {
   flex: 1;
   border: 0;
@@ -589,6 +592,26 @@ header nav .nav-cta-btn {
     fill: none;
     stroke: #000;
     stroke-width: 1.5;
+  }
+}
+
+/* ===== Tablet (441px - 1279px): the menu is a 340px drawer on the right over
+   a blurred, dimmed page, as on hp.com (phones keep the full-width menu) ===== */
+@media (441px <= width < 1280px) {
+  header nav[aria-expanded='true'] .nav-sections {
+    left: auto;
+    box-sizing: border-box;
+    width: 340px;
+  }
+
+  header .nav-wrapper:has(nav[aria-expanded='true']) .nav-overlay {
+    display: block;
+    position: fixed;
+    inset: var(--nav-height, 55px) 0 0;
+    z-index: 24;
+    border-top: 1px solid #d9d1d1;
+    background-color: rgb(26 26 26 / 50%);
+    backdrop-filter: blur(8px);
   }
 }
 

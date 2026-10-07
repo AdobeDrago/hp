@@ -392,6 +392,14 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
 
+  // tablet: the menu opens as a side drawer over a blurred, dimmed page
+  // (hp.com); tapping the backdrop closes it
+  const overlay = document.createElement('div');
+  overlay.className = 'nav-overlay';
+  overlay.setAttribute('aria-hidden', 'true');
+  overlay.addEventListener('click', () => toggleMobileMenu(nav, true));
+  navWrapper.append(overlay);
+
   // The newsroom sub-bar spans full width below the centered global header.
   if (navNewsroom) {
     navNewsroom.remove();

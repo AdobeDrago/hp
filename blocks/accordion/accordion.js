@@ -27,11 +27,28 @@ function animateToggle(details) {
     return h;
   };
 
+  // the "x" is the summary's ::after; hit-test the pointer against its box
+  const onCloseIcon = (e) => {
+    const icon = getComputedStyle(summary, '::after');
+    const box = summary.getBoundingClientRect();
+    const right = box.right - parseFloat(icon.right);
+    const top = box.top + parseFloat(icon.top);
+    return e.clientX >= right - parseFloat(icon.width) && e.clientX <= right
+      && e.clientY >= top && e.clientY <= top + parseFloat(icon.height);
+  };
+
   summary.addEventListener('click', (e) => {
+    const isOpen = animation ? details.classList.contains('is-opening') : details.open;
+    // as on hp.com: once open, a pointer click only closes the row on the "x"
+    // (keyboard activation, e.detail === 0, still toggles from the summary)
+    if (isOpen && e.detail > 0 && !onCloseIcon(e)) {
+      e.preventDefault();
+      return;
+    }
     if (reducedMotion.matches) return;
     e.preventDefault();
 
-    const closing = animation ? details.classList.contains('is-opening') : details.open;
+    const closing = isOpen;
     const from = details.getBoundingClientRect().height;
     if (animation) animation.cancel();
     const to = heightWhen(!closing);

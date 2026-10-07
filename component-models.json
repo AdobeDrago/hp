@@ -145,6 +145,25 @@
     ]
   },
   {
+    "id": "footnotes",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": "Footnotes and Disclaimers"
+      },
+      {
+        "component": "richtext",
+        "name": "body",
+        "label": "Body",
+        "description": "Disclaimer paragraphs and/or an ordered list of footnotes (may contain links).",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "fragment",
     "fields": [
       {
@@ -249,6 +268,44 @@
     ]
   },
   {
+    "id": "promo",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "img_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "img_imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "content_content",
+        "label": "Content",
+        "description": "Optional logo image, heading, paragraph(s), optional italic note, and 1-2 CTA links.",
+        "valueType": "string"
+      },
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string[]",
+        "options": [
+          {
+            "name": "Dark",
+            "value": "dark"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "quote",
     "fields": [
       {
@@ -281,6 +338,25 @@
         "name": "searchUrl",
         "label": "Search URL",
         "required": true
+      }
+    ]
+  },
+  {
+    "id": "section-nav",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "links",
+        "label": "Jump Links",
+        "description": "Bulleted list of links; each href must be #<anchor-id> matching the target section's Section Metadata Id.",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "cta",
+        "label": "CTA",
+        "description": "A single link, e.g. Contact Sales.",
+        "valueType": "string"
       }
     ]
   },
@@ -338,6 +414,18 @@
         "component": "reference",
         "name": "posterImage",
         "label": "Poster Image",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "widget",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "link",
+        "label": "Widget Link",
+        "description": "A single link to the widget asset path, e.g. /widgets/roi-calculator/index.html — loads <name>.html/.css/.js from /widgets/<path>/.",
         "valueType": "string"
       }
     ]

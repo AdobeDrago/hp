@@ -207,6 +207,21 @@
           }
         },
         {
+          "title": "Footnotes",
+          "id": "footnotes",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Footnotes",
+                  "model": "footnotes"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Fragment",
           "id": "fragment",
           "model": "fragment",
@@ -266,6 +281,21 @@
           }
         },
         {
+          "title": "Promo",
+          "id": "promo",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Promo",
+                  "model": "promo"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Quote",
           "id": "quote",
           "model": "quote",
@@ -306,6 +336,21 @@
                   "selector": "div>div>p>a"
                 }
               ]
+            }
+          }
+        },
+        {
+          "title": "Section Nav",
+          "id": "section-nav",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Section Nav",
+                  "model": "section-nav"
+                }
+              }
             }
           }
         },
@@ -384,6 +429,21 @@
                   "selector": "div>div>picture>img[src]"
                 }
               ]
+            }
+          }
+        },
+        {
+          "title": "Widget",
+          "id": "widget",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Widget",
+                  "model": "widget"
+                }
+              }
             }
           }
         }

@@ -1,0 +1,460 @@
+/* promo: image + content split, five measured instances on next-gen-ai-pcs
+   (hp.com computed styles at 375 / 768 / 1440).
+
+   The base rules are the image-first split ("Most powerful Windows
+   security"). Variants:
+   - offset (Business-ready): text-first split, copy pushed down on desktop
+   - large (ROI calculator): white panel, large title, square image
+   - compact (Other home laptops): white rounded box, heading + buttons only
+   - dark (HP IQ): full-bleed photo with text overlaid on it
+
+   Variant hooks are wrapped in :where() so they keep the base's
+   specificity; overrides win by source order (base, then offset, large,
+   compact within each breakpoint). Dark rules come last. */
+
+.promo-container .promo-wrapper {
+  display: flow-root;
+  max-width: unset;
+  margin: 0;
+  padding: 0;
+}
+
+/* base (image-first split) */
+.promo {
+  display: flex;
+  flex-direction: column;
+  padding: 30px var(--container-padding);
+  background-color: var(--light-color);
+}
+
+.promo .promo-media {
+  order: -1;
+  line-height: 0;
+}
+
+.promo .promo-media picture {
+  display: block;
+}
+
+.promo .promo-media img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 816 / 600;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.promo .promo-content {
+  padding: 20px 0 30px;
+}
+
+/* heading/copy each take a full line; buttons sit side by side and wrap */
+.promo .promo-content > div {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 16px;
+}
+
+.promo .promo-content > div > :not(.button-wrapper) {
+  flex: 0 0 100%;
+}
+
+.promo .promo-content h2 {
+  margin: 8px 0 0;
+  line-height: 1;
+}
+
+.promo .promo-content p {
+  margin: 8px 0 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+/* the source renders the italic note as one blank line below the copy */
+.promo .promo-content p + p:where(:not(.button-wrapper)) {
+  margin-top: 24px;
+}
+
+/* logo above the heading (Copilot+ PC badge) */
+.promo .promo-content p:has(> picture) {
+  margin: 0;
+  line-height: 0;
+}
+
+.promo .promo-content img {
+  width: auto;
+  height: 66px;
+}
+
+.promo .promo-content .button-wrapper {
+  margin: 16px 0 0;
+}
+
+.promo .promo-content sup {
+  font-size: 0.6em;
+  line-height: 0;
+}
+
+/* offset (Business-ready): image on top on mobile, tight vertical padding */
+.promo:where(.offset) {
+  padding-block: 8px;
+}
+
+.promo:where(.offset) .promo-content {
+  /* the reference's copy column runs 8px past the container on phones */
+  margin-right: -8px;
+  padding-top: 26px;
+}
+
+.promo:where(.offset) .promo-content p:not(.button-wrapper) {
+  margin-bottom: 8px;
+}
+
+/* large (ROI calculator): white panel, text before image at every width,
+   square-cornered image at its natural ratio, large title, regular copy */
+.promo:where(.large) {
+  background-color: var(--background-color);
+}
+
+.promo:where(.large) .promo-media {
+  order: 0;
+}
+
+.promo:where(.large) .promo-media img {
+  /* phones: the reference's wider mobile crop (1.8:1); natural ratio from 768 */
+  aspect-ratio: 343 / 191;
+  border-radius: 0;
+}
+
+.promo:where(.large) .promo-content {
+  padding: 0 0 30px;
+}
+
+.promo:where(.large) .promo-content h2 {
+  font-size: var(--heading-font-size-xxl);
+}
+
+.promo:where(.large) .promo-content p:not(.button-wrapper) {
+  font-size: var(--body-font-size-s);
+  font-weight: 400;
+  line-height: 24px;
+}
+
+/* compact (Other home laptops): white rounded box inset in the gray
+   section; the diagonal white/blue color block is part of the photo */
+.promo:where(.compact) {
+  margin: var(--container-padding);
+  padding: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background-color: var(--background-color);
+}
+
+.promo:where(.compact) .promo-media img {
+  aspect-ratio: 816 / 320;
+  border-radius: 0;
+}
+
+.promo:where(.compact) .promo-content {
+  padding: 24px var(--container-padding);
+}
+
+.promo:where(.compact) .promo-content h2 {
+  margin: 0 0 8px;
+  font-size: var(--heading-font-size-l);
+}
+
+.promo:where(.compact) a.button.primary {
+  border-color: var(--text-color);
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
+.promo:where(.compact) a.button.primary:hover,
+.promo:where(.compact) a.button.primary:focus-visible {
+  border-color: var(--dark-color);
+  background-color: var(--dark-color);
+  color: var(--background-color);
+}
+
+@media (width >= 768px) {
+  .promo {
+    padding: 40px var(--container-padding);
+  }
+
+  .promo .promo-media img {
+    aspect-ratio: auto;
+  }
+
+  .promo .promo-content {
+    padding: 20px 0 40px;
+  }
+
+  .promo .promo-content h2 {
+    margin-top: 16px;
+  }
+
+  .promo .promo-content p {
+    margin-top: 16px;
+    font-size: 20px;
+  }
+
+  /* offset: already two columns on tablet */
+  .promo:where(.offset) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 60px 36px 80px;
+  }
+
+  .promo:where(.offset) .promo-media {
+    order: 0;
+  }
+
+  .promo:where(.offset) .promo-media,
+  .promo:where(.offset) .promo-content {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .promo:where(.offset) .promo-content {
+    margin-right: 0;
+    padding: 40px 0;
+  }
+
+  .promo:where(.offset) .promo-content h2 {
+    margin-top: 12px;
+  }
+
+  .promo:where(.offset) .promo-content p:not(.button-wrapper) {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+
+  .promo:where(.large) .promo-content {
+    padding: 0 0 40px;
+  }
+
+  .promo:where(.compact) {
+    padding: 0;
+  }
+
+  .promo:where(.compact) .promo-content {
+    padding: var(--container-padding);
+  }
+
+  .promo:where(.compact) .promo-content h2 {
+    margin-top: 0;
+  }
+
+  /* image-first: gutter between the image and the copy */
+  .promo .promo-media:first-child {
+    padding-right: 20px;
+  }
+}
+
+@media (width >= 1200px) {
+  .promo {
+    flex-direction: row;
+    align-items: stretch;
+    padding: 50px var(--container-padding);
+  }
+
+  .promo .promo-media {
+    box-sizing: border-box;
+    flex: 0 0 50%;
+    align-self: flex-start;
+    order: 0;
+  }
+
+  .promo .promo-content {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 50%;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 48px 40px 0;
+  }
+
+  .promo .promo-content p {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .promo .promo-content p + p:where(:not(.button-wrapper)) {
+    margin-top: 28px;
+  }
+
+  .promo .promo-content p:has(> picture) {
+    margin-bottom: 15px;
+  }
+
+  .promo:where(.offset) {
+    align-items: flex-start;
+    gap: 24px;
+    padding: 62px var(--container-padding) 82px;
+  }
+
+  .promo:where(.offset) .promo-media,
+  .promo:where(.offset) .promo-content {
+    flex: 1 1 0;
+  }
+
+  .promo:where(.offset) .promo-content {
+    justify-content: flex-start;
+    padding: 130px 0 40px;
+  }
+
+  .promo:where(.offset) .promo-content h2 {
+    margin-top: 16px;
+  }
+
+  .promo:where(.offset) .promo-content p:not(.button-wrapper) {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+  .promo:where(.compact) {
+    padding: 0;
+  }
+
+  .promo:where(.compact) .promo-content {
+    padding: var(--container-padding);
+  }
+
+  .promo:where(.compact) .promo-media img {
+    height: 280px;
+  }
+
+  .promo .promo-media:first-child {
+    padding-right: 25px;
+  }
+}
+
+/* dark (HP IQ): full-bleed rounded photo, text overlaid on the left,
+   vertically centered (on mobile pushed below the subject by 200px) */
+.promo.dark {
+  position: relative;
+  display: block;
+  height: 580px;
+
+  /* bottom = the card's own 10 / 20 / 30px + the reference's 36px spacer */
+  margin: 30px 0 46px;
+  padding: 0;
+  background-color: transparent;
+  color: #fff;
+}
+
+.promo.dark .promo-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  align-self: stretch;
+}
+
+.promo.dark .promo-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+
+  /* source swaps in a portrait crop on mobile that frames the subject at
+     the right of the wide photo; this shows the same area */
+  object-position: 80% 50%;
+  border-radius: 16px;
+}
+
+.promo.dark .promo-content {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  max-width: 368px;
+  padding: 200px 0 16px var(--container-padding);
+}
+
+.promo.dark .promo-content h2,
+.promo.dark .promo-content p:not(.button-wrapper) {
+  box-sizing: border-box;
+  padding-left: 4px;
+  color: #fff;
+}
+
+.promo.dark .promo-content p:not(.button-wrapper) {
+  margin-bottom: 8px;
+}
+
+.promo.dark a.button.primary {
+  border-color: var(--border-color);
+  background-color: var(--border-color);
+  color: var(--text-color);
+}
+
+.promo.dark a.button.primary:hover,
+.promo.dark a.button.primary:focus-visible {
+  border-color: #c2c2c2;
+  background-color: #c2c2c2;
+  color: var(--text-color);
+}
+
+.promo.dark a.button.secondary {
+  border-color: var(--border-color);
+  background-color: transparent;
+  color: var(--border-color);
+}
+
+.promo.dark a.button.secondary:hover,
+.promo.dark a.button.secondary:focus-visible {
+  border-color: #c2c2c2;
+  background-color: rgb(133 133 133 / 20%);
+  color: #c2c2c2;
+}
+
+@media (width >= 768px) {
+  .promo.dark {
+    margin: 40px 0 56px;
+  }
+
+  .promo.dark .promo-media img {
+    object-position: 50% 50%;
+  }
+
+  .promo.dark .promo-content {
+    max-width: 719px;
+    padding: 12px 0 16px var(--container-padding);
+  }
+
+  .promo.dark .promo-content h2 {
+    margin-top: 12px;
+  }
+
+  .promo.dark .promo-content p:not(.button-wrapper) {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+}
+
+@media (width >= 1200px) {
+  .promo.dark {
+    margin: 50px 0 66px;
+  }
+
+  .promo.dark .promo-content {
+    padding: 16px 0 16px var(--container-padding);
+  }
+
+  .promo.dark .promo-content h2 {
+    margin-top: 16px;
+  }
+
+  .promo.dark .promo-content p:not(.button-wrapper) {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+}

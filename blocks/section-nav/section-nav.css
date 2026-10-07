@@ -1,0 +1,235 @@
+/* sticky bar: the section itself must be sticky — the wrapper's containing
+ * block is the (bar-height) section, so sticky on the wrapper never engages.
+ * The header scrolls away at every width (header.css), so the bar pins at
+ * 0, as on the reference. z-index sits above the page's own lifted
+ * content (z-index 1, e.g. photo-bg text) so nothing scrolls over the bar or
+ * its open panel, and below the header (3) so the open mobile header menu
+ * paints over the bar. */
+main > .section.section-nav-container {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-nav-container .section-nav-wrapper {
+  max-width: unset;
+  margin: 0;
+  padding: 0;
+}
+
+.section-nav-wrapper > .section-nav {
+  max-width: var(--container-max-width);
+  margin: auto;
+  padding: 0 var(--container-padding);
+}
+
+/* mobile: links row (scrolls horizontally) + CTA on its own row */
+.section-nav > div > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-nav ul {
+  display: flex;
+  flex: 1 0 100%;
+  min-width: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  white-space: nowrap;
+}
+
+.section-nav ul li {
+  display: flex;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.section-nav ul a:any-link {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 20px 0 0;
+  border-radius: 6px;
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-decoration: none;
+}
+
+.section-nav ul a:hover {
+  color: var(--link-hover-color);
+  text-decoration: none;
+}
+
+/* scroll-spy: link of the section under the bar (set by section-nav.js) */
+.section-nav ul li.active a:any-link {
+  color: #0e3191;
+}
+
+.section-nav ul li.active::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background-color: #0e3191;
+}
+
+.section-nav p.button-wrapper {
+  flex: none;
+  margin: 0;
+  padding: 16px 0;
+}
+
+/* HP small primary button (global buttons are the 48px size) */
+main .section-nav a.button:any-link {
+  min-height: 36px;
+  border: 0;
+  padding: 6px 12px;
+}
+
+@media (width >= 768px) {
+  .section-nav > div > div {
+    flex-wrap: nowrap;
+    min-height: 67px;
+  }
+
+  .section-nav ul {
+    flex: 0 1 auto;
+  }
+
+  .section-nav ul li {
+    padding: 6px 0;
+  }
+
+  .section-nav ul a:any-link {
+    height: 54px;
+    padding: 0 20px;
+  }
+
+  .section-nav p.button-wrapper {
+    margin-left: 40px;
+    padding: 12px 0;
+  }
+}
+
+@media (width >= 1200px) {
+  .section-nav ul a:any-link {
+    font-size: 18px;
+  }
+}
+
+/* collapsed: set by section-nav.js when the links don't fit on one row.
+   The links fold into a "current section ⌄" toggle; opening it lists the
+   other sections under the bar over a dimmed, blurred page (reference). */
+.section-nav-toggle {
+  display: none;
+}
+
+.section-nav.is-collapsed .section-nav-toggle {
+  display: flex;
+  flex: 1 0 100%;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--text-color);
+  font: inherit;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.section-nav.is-collapsed .section-nav-toggle::after {
+  content: "";
+  flex: none;
+  width: 24px;
+  height: 24px;
+  background-color: currentcolor;
+  mask: url("../../icons/chevron-down.svg") center / contain no-repeat;
+  transition: transform 0.3s;
+}
+
+.section-nav-container.is-open .section-nav.is-collapsed .section-nav-toggle::after {
+  transform: rotate(180deg);
+}
+
+.section-nav.is-collapsed ul {
+  display: none;
+  order: 1;
+  overflow: visible;
+  white-space: normal;
+}
+
+.section-nav-container.is-open .section-nav.is-collapsed ul {
+  display: block;
+}
+
+.section-nav.is-collapsed p.button-wrapper {
+  order: 2;
+}
+
+.section-nav.is-collapsed ul li.active {
+  display: none;
+}
+
+.section-nav.is-collapsed ul li.active::after {
+  content: none;
+}
+
+.section-nav.is-collapsed ul li {
+  padding: 0;
+}
+
+.section-nav.is-collapsed ul li a:any-link {
+  height: 44px;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* open: the panel overlaps the page below the bar (section-nav.js holds the
+   bar's height so nothing shifts) */
+.section-nav-container.is-open .section-nav-wrapper {
+  position: absolute;
+  inset: 0 0 auto;
+  background-color: var(--background-color);
+}
+
+.section-nav-container.is-open::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: rgb(26 26 26 / 50%);
+  backdrop-filter: blur(16px);
+}
+
+@media (width >= 768px) {
+  /* CTA stays at the right of the toggle; the list opens below both */
+  .section-nav.is-collapsed .section-nav-toggle {
+    flex: 0 0 auto;
+    font-size: 20px;
+  }
+
+  .section-nav.is-collapsed ul {
+    flex-basis: 100%;
+    order: 3;
+  }
+
+  .section-nav.is-collapsed > div > div {
+    flex-wrap: wrap;
+  }
+}

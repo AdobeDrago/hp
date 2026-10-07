@@ -1,0 +1,107 @@
+/* Footnotes and Disclaimers: values measured from source c-hp-footnotes
+ * (375 / 768 / 1440). The gray band's padding and the white card's padding
+ * both follow the site container padding (16 / 32 / 36). */
+
+/* The source component sits flush between the preceding section and the
+ * footer; its gray band owns the vertical spacing. */
+main > .section.footnotes-container {
+  margin: 0;
+}
+
+main .section > .footnotes-wrapper {
+  padding-block: var(--container-padding);
+}
+
+.footnotes details {
+  padding: var(--container-padding);
+  border-radius: 16px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* header: title + 24px +/x icon in a 28px box */
+.footnotes summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: var(--body-font-size-s);
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--text-color);
+  cursor: pointer;
+  list-style: none;
+}
+
+.footnotes summary::-webkit-details-marker {
+  display: none;
+}
+
+.footnotes summary::after {
+  content: '';
+  flex: none;
+  width: 28px;
+  height: 28px;
+  background-color: currentcolor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3.5v17M3.5 12h17' stroke='%23000' stroke-linecap='round'/%3E%3C/svg%3E") center / 24px no-repeat;
+}
+
+.footnotes details[open] summary::after {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5.35 5.35l13.3 13.3M18.65 5.35l-13.3 13.3' stroke='%23000' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* body: caption-regular small print (14px / 20px at all widths) */
+.footnotes .footnotes-body {
+  padding-top: 16px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-color);
+}
+
+/* beats `main .section.small-print p` (12px, dark gray, 0.8em) */
+main .footnotes.block .footnotes-body p {
+  margin: 0 0 20px;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+/* numbered footnotes: "1." hanging marker as a table cell */
+.footnotes .footnotes-body ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: footnote;
+}
+
+.footnotes .footnotes-body ol > li {
+  display: table;
+  counter-increment: footnote;
+}
+
+.footnotes .footnotes-body ol > li::before {
+  content: counters(footnote, '.') '.';
+  display: table-cell;
+  padding-right: 0.3125em;
+}
+
+.footnotes .footnotes-body ul {
+  margin: 0;
+  padding-left: 1.5em;
+}
+
+.footnotes .footnotes-body > :last-child {
+  margin-bottom: 0;
+}
+
+.footnotes .footnotes-body a:any-link {
+  color: var(--text-color);
+  text-decoration: underline;
+  overflow-wrap: anywhere;
+}
+
+/* external links get the trailing "open in new" icon like the source */
+.footnotes .footnotes-body a[href^='http']:not([href*='hp.com']) {
+  padding-right: 1.3em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%231a1a1a' stroke-width='2'%3E%3Cpath d='M10.5 3.75H3a1.25 1.25 0 0 0-1.25 1.25v13a1.25 1.25 0 0 0 1.25 1.25h11.5a1.25 1.25 0 0 0 1.25-1.25V9.5M12 1h7v7M19 1 7.5 12.5'/%3E%3C/svg%3E") 100% 0 / 14px no-repeat;
+}

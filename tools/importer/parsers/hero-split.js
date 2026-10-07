@@ -33,11 +33,32 @@ function imgSrc(img) {
   return candidates.find((c) => c && !c.startsWith('data:')) || img.getAttribute('src') || '';
 }
 
+// The source badges are 1x rasters only (blurry on high-density screens and
+// flagged by Lighthouse); swap them for vector redraws hosted in DA. The alt
+// carries the badge's visible text, since the image is an image of text.
+const VECTOR_BADGES = {
+  'win-26-gettoknow-windows-11_32px.png': {
+    src: 'https://content.da.live/adobedrago/hp/us-en/ai-solutions/assets/badge-windows-11.svg',
+    alt: 'Get to know Windows 11 devices',
+  },
+  'win-26-gettoknow-copilot-pc-button-en-gb-1@2x2.png': {
+    src: 'https://content.da.live/adobedrago/hp/us-en/ai-solutions/assets/badge-copilot-plus-pc.svg',
+    alt: 'Get to know Copilot+ PC',
+  },
+};
+
 function makeImg(img, document) {
   if (!img) return null;
   const out = document.createElement('img');
-  out.src = absUrl(imgSrc(img));
-  out.alt = (img.getAttribute('alt') || '').trim();
+  const src = absUrl(imgSrc(img));
+  const vector = VECTOR_BADGES[src.split('?')[0].split('/').pop()];
+  out.src = vector ? vector.src : src;
+  out.alt = vector ? vector.alt : (img.getAttribute('alt') || '').trim();
+  if (vector) {
+    // intrinsic size of the badge art, so the image reserves its space
+    out.width = src.includes('copilot') ? 198 : 240;
+    out.height = 32;
+  }
   return out;
 }
 

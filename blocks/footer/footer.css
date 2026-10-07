@@ -62,7 +62,7 @@ footer .footer-country-list {
   width: 100%;
 }
 
-footer .footer-country[aria-expanded='true'] .footer-country-list {
+footer .footer-country[data-expanded='true'] .footer-country-list {
   display: grid;
 }
 
@@ -103,6 +103,24 @@ footer .footer-column-accordion h2 {
   cursor: pointer;
 }
 
+/* heading toggle for link-less headings: renders as the heading text */
+footer .footer-column-toggle,
+footer .footer-column-toggle:hover,
+footer .footer-column-toggle:focus {
+  display: inline;
+  max-width: none;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  white-space: normal;
+  cursor: inherit;
+}
+
 footer .footer-column-accordion h2::after {
   content: '';
   width: 9px;
@@ -113,7 +131,7 @@ footer .footer-column-accordion h2::after {
   transition: transform 0.2s ease;
 }
 
-footer .footer-column-accordion[aria-expanded='true'] h2::after {
+footer .footer-column-accordion[data-expanded='true'] h2::after {
   transform: rotate(-135deg);
 }
 
@@ -132,7 +150,7 @@ footer .footer-column-accordion ul {
   padding-bottom: 16px;
 }
 
-footer .footer-column-accordion[aria-expanded='true'] ul {
+footer .footer-column-accordion[data-expanded='true'] ul {
   display: flex;
 }
 
@@ -221,7 +239,7 @@ footer .footer-legal .footer-privacy-icon::before {
   width: 28px;
   height: 14px;
   margin-right: 6px;
-  background: url('/content/images/your-privacy-choices.png') center / contain no-repeat;
+  background: url('/icons/your-privacy-choices.jpg') center / contain no-repeat;
   vertical-align: middle;
 }
 
@@ -255,7 +273,7 @@ footer .footer-inner a:hover {
     padding: 22px 0;
   }
 
-  footer .footer-country[aria-expanded='true'] .footer-country-list {
+  footer .footer-country[data-expanded='true'] .footer-country-list {
     grid-template-columns: repeat(5, 1fr);
     gap: 12px 32px;
   }
@@ -289,7 +307,7 @@ footer .footer-inner a:hover {
   }
 
   footer .footer-column-accordion ul,
-  footer .footer-column-accordion[aria-expanded='true'] ul {
+  footer .footer-column-accordion[data-expanded='true'] ul {
     display: flex;
     padding-bottom: 0;
   }

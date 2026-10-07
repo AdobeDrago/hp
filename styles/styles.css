@@ -39,7 +39,16 @@
   /* nav heights */
   --nav-height: 64px;
   --breadcrumbs-height: 34px;
-  --header-height: var(--nav-height);
+
+  /* rendered header: white nav bar + black newsroom bar (128px from 1280px).
+     Reserved up front so the page doesn't shift when the header loads. */
+  --header-height: 126px;
+}
+
+@media (width >= 1280px) {
+  :root {
+    --header-height: 128px;
+  }
 }
 
 /* fallback font: Arial stands in for Forma DJR before it loads (as on hp.com) */

@@ -4,6 +4,7 @@
    secondary bar no longer overlaps the first section of the page. */
 header {
   height: auto;
+  min-height: var(--header-height);
 }
 
 header .nav-wrapper {

@@ -1,10 +1,11 @@
 /**
- * Fetches the footer fragment. Metadata-independent dual-fetch:
- * /content first (localhost / aem up), then root (DA/EDS production).
+ * Fetches the footer fragment from the same content root as the page:
+ * /content/ for pages served from /content/ (localhost / aem up), the
+ * site root otherwise (DA/EDS), so neither environment requests a 404.
  */
 async function fetchFooterHtml() {
-  let resp = await fetch('/content/footer.plain.html');
-  if (!resp.ok) resp = await fetch('/footer.plain.html');
+  const root = window.location.pathname.startsWith('/content/') ? '/content' : '';
+  const resp = await fetch(`${root}/footer.plain.html`);
   if (!resp.ok) return null;
   return resp.text();
 }
@@ -56,20 +57,42 @@ export default async function decorate(block) {
 
   // country/region selector: the second paragraph is the current locale (button),
   // the following list is the full country overlay (hidden until toggled).
+  // Open state lives on the container as data-expanded (for CSS); the control
+  // itself carries aria-expanded/aria-controls.
   const country = footer.querySelector('.footer-country');
   if (country) {
     const trigger = country.querySelector('p:nth-of-type(2)');
     const list = country.querySelector('ul');
     if (trigger && list) {
       list.classList.add('footer-country-list');
-      country.setAttribute('aria-expanded', 'false');
+      list.id = 'footer-country-list';
+      country.dataset.expanded = 'false';
       trigger.classList.add('footer-country-trigger');
+      const control = trigger.querySelector('a') || trigger;
+      if (control === trigger) {
+        trigger.setAttribute('role', 'button');
+        trigger.tabIndex = 0;
+      }
+      control.setAttribute('aria-expanded', 'false');
+      control.setAttribute('aria-controls', list.id);
+      const toggle = () => {
+        const open = country.dataset.expanded !== 'true';
+        country.dataset.expanded = open;
+        control.setAttribute('aria-expanded', open);
+      };
       trigger.addEventListener('click', (e) => {
         // toggle the overlay rather than following the current-locale link
         if (e.target.closest('a')) e.preventDefault();
-        const open = country.getAttribute('aria-expanded') === 'true';
-        country.setAttribute('aria-expanded', open ? 'false' : 'true');
+        toggle();
       });
+      if (control === trigger) {
+        trigger.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggle();
+          }
+        });
+      }
     }
   }
 
@@ -99,19 +122,33 @@ export default async function decorate(block) {
 
     // Mobile accordion: every link column (not the social one) collapses under
     // its heading. The heading becomes a toggle button; desktop CSS keeps it open.
-    groups.forEach((col) => {
+    // The toggle control is the heading's link, or a button wrapping the
+    // heading text when it has none.
+    groups.forEach((col, i) => {
       if (col === last) return;
       const heading = col.querySelector('h2');
       const listEl = col.querySelector('ul');
       if (!heading || !listEl) return;
       col.classList.add('footer-column-accordion');
-      col.setAttribute('aria-expanded', 'false');
+      col.dataset.expanded = 'false';
+      listEl.id = listEl.id || `footer-column-list-${i}`;
+      let control = heading.querySelector('a');
+      if (!control) {
+        control = document.createElement('button');
+        control.type = 'button';
+        control.className = 'footer-column-toggle';
+        control.append(...heading.childNodes);
+        heading.append(control);
+      }
+      control.setAttribute('aria-expanded', 'false');
+      control.setAttribute('aria-controls', listEl.id);
       heading.addEventListener('click', (e) => {
         if (window.matchMedia('(min-width: 900px)').matches) return;
         // On mobile the heading toggles the accordion instead of navigating.
         e.preventDefault();
-        const open = col.getAttribute('aria-expanded') === 'true';
-        col.setAttribute('aria-expanded', open ? 'false' : 'true');
+        const open = col.dataset.expanded !== 'true';
+        col.dataset.expanded = open;
+        control.setAttribute('aria-expanded', open);
       });
     });
   }

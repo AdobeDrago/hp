@@ -16,6 +16,13 @@ function decorateSplit(block) {
   const media = document.createElement('div');
   media.className = 'hero-media';
   if (photo) {
+    // the photo is the LCP image, but the logo badges precede it in the DOM,
+    // so the default first-image handling would leave it lazy-loaded
+    const img = photo.querySelector('img');
+    if (img) {
+      img.loading = 'eager';
+      img.fetchPriority = 'high';
+    }
     const holder = photo.parentElement;
     media.append(photo);
     // drop the paragraph/cell that only wrapped the photo

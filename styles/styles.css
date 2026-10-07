@@ -262,6 +262,7 @@ main > .section:first-of-type {
    16 / 32 / 36px gutters. :where() keeps the base specificity so block
    wrappers that set their own width still win. */
 :where(body.ai-solutions) main > .section > div {
+  box-sizing: border-box;
   max-width: 1680px;
   padding: 0 16px;
 }
@@ -286,9 +287,10 @@ main .section.highlight {
   padding: 40px 0;
 }
 
-/* dark (hp.com FAQs band): near-black full-bleed band, white headings */
+/* dark (hp.com FAQs band): near-black band capped at the 1680px page
+   container (centered) and spanning the section's full height, white headings */
 main .section.dark {
-  background-color: #1a1a1a;
+  background: linear-gradient(#1a1a1a, #1a1a1a) center / min(100%, 1680px) 100% no-repeat;
   color: var(--background-color);
   margin: 0;
   padding: 24px 0 36px;

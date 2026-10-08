@@ -36,6 +36,13 @@ const LABELS = new Map([
   ...TOPICS.map((t) => [t.value, t.label]),
 ]);
 
+// authors can pin this listing to one content type (e.g. a dedicated Press
+// Releases page) by adding a line of text naming it, matched against either
+// form so "Press Release" or "Press Releases" both work.
+const MEDIA_TYPE_BY_TEXT = new Map(
+  MEDIA_TYPES.flatMap((m) => [[m.value.toLowerCase(), m.value], [m.label.toLowerCase(), m.value]]),
+);
+
 const SORTS = [
   { id: 'az', label: 'A-Z' },
   { id: 'za', label: 'Z-A' },
@@ -131,7 +138,7 @@ function checkList(group, options) {
 }
 
 function facetDropdown(title, group, options) {
-  const root = el('div', 'al-facet');
+  const root = el('div', `al-facet al-facet-${group}`);
   const btn = el('button', 'al-facet-btn', title);
   btn.type = 'button';
   btn.dataset.facet = group;
@@ -169,7 +176,7 @@ function collapsible(title, body) {
   return root;
 }
 
-function modal() {
+function modal(pinnedType) {
   const root = el('div', 'al-modal');
   root.hidden = true;
   const sheet = el('div', 'al-modal-sheet');
@@ -204,7 +211,7 @@ function modal() {
     head,
     kw,
     sortWrap,
-    collapsible('Media Type', checkList('media', MEDIA_TYPES)),
+    ...(pinnedType ? [] : [collapsible('Media Type', checkList('media', MEDIA_TYPES))]),
     collapsible('Topics', checkList('topics', TOPICS)),
     view,
   );
@@ -215,10 +222,23 @@ function modal() {
 export default async function decorate(block) {
   const link = block.querySelector('a[href]');
   const source = link ? link.getAttribute('href') : DEFAULT_SOURCE;
+
+  // an optional authored line (e.g. "Press Releases") pins the listing to
+  // that one content type instead of the full newsroom archive, for a page
+  // dedicated to a single type.
+  const pinnedType = [...block.querySelectorAll('p, div, li')]
+    .map((n) => MEDIA_TYPE_BY_TEXT.get(n.textContent.trim().toLowerCase()))
+    .find(Boolean);
+
   block.textContent = '';
+  if (pinnedType) block.classList.add('al-type-pinned');
 
   const state = {
-    keyword: '', media: new Set(), topics: new Set(), sort: 'newest', shown: BATCH,
+    keyword: '',
+    media: new Set(pinnedType ? [pinnedType] : []),
+    topics: new Set(),
+    sort: 'newest',
+    shown: BATCH,
   };
 
   const toolbar = el('div', 'al-toolbar');
@@ -231,7 +251,7 @@ export default async function decorate(block) {
   toolbar.append(
     mobileTrigger,
     keyword,
-    facetDropdown('Media Type', 'media', MEDIA_TYPES),
+    ...(pinnedType ? [] : [facetDropdown('Media Type', 'media', MEDIA_TYPES)]),
     facetDropdown('Topics', 'topics', TOPICS),
     count,
     sortDropdown(),
@@ -241,7 +261,7 @@ export default async function decorate(block) {
   const grid = el('div', 'al-grid');
   const loadMore = el('button', 'al-loadmore', 'Load More');
   loadMore.type = 'button';
-  const sheet = modal();
+  const sheet = modal(pinnedType);
   block.append(toolbar, chips, grid, loadMore, sheet);
 
   const items = await loadItems(source);
@@ -253,7 +273,7 @@ export default async function decorate(block) {
 
   function renderChips() {
     chips.textContent = '';
-    const active = [...[...state.media].map((v) => ['media', v]),
+    const active = [...[...state.media].filter((v) => v !== pinnedType).map((v) => ['media', v]),
       ...[...state.topics].map((v) => ['topics', v])];
     active.forEach(([group, value]) => {
       const chip = el('span', 'al-chip');
@@ -344,7 +364,8 @@ export default async function decorate(block) {
       return;
     }
     if (t.closest('.al-clear')) {
-      state.media.clear(); state.topics.clear();
+      state.media = new Set(pinnedType ? [pinnedType] : []);
+      state.topics.clear();
       apply();
       return;
     }

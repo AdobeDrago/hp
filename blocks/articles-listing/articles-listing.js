@@ -105,20 +105,23 @@ function sortItems(items, sort) {
   return a;
 }
 
-function card(it) {
+function card(it, level) {
   const art = el('article', 'al-card');
   const media = el('a', 'al-card-media');
   media.href = it.path;
   if (it.image) media.append(createOptimizedPicture(it.image, it.title, false, [{ width: '750' }]));
   const body = el('div', 'al-card-body');
-  const h = el('h3', 'al-card-title');
+  const h = el(`h${level}`, 'al-card-title');
   const ha = el('a', null, it.title);
   ha.href = it.path;
   h.append(ha);
   body.append(h);
   const desc = (it.description || '').trim();
   if (desc && desc.toLowerCase() !== 'null') body.append(el('p', 'al-card-desc', desc));
+  // visible label stays "Read"; the hidden title makes each link's text unique
+  // and descriptive for screen readers and crawlers
   const cta = el('a', 'al-card-cta', 'Read');
+  cta.append(el('span', 'al-sr-only', `: ${it.title}`));
   cta.href = it.path;
   body.append(cta);
   art.append(media, body);
@@ -271,10 +274,14 @@ export default async function decorate(block) {
   // author already placed a heading in the section; it becomes the page h1
   // when the page has none.
   const section = block.closest('.section');
-  if (pinnedType && !section?.querySelector('h1, h2')) {
-    const title = el(document.querySelector('main h1') ? 'h2' : 'h1', 'al-title', LABELS.get(pinnedType));
-    block.prepend(title);
+  let heading = section?.querySelector('h1, h2');
+  if (pinnedType && !heading) {
+    heading = el(document.querySelector('main h1') ? 'h2' : 'h1', 'al-title', LABELS.get(pinnedType));
+    block.prepend(heading);
   }
+  // card titles sit one level below the listing's heading so the outline never
+  // skips a level (h1 "Press Releases" -> h2 cards, h2 "Archive" -> h3 cards)
+  const cardLevel = heading ? Number(heading.tagName[1]) + 1 : 3;
 
   const items = await loadItems(source);
 
@@ -322,7 +329,7 @@ export default async function decorate(block) {
     const results = sortItems(filterItems(items, state), state.sort);
     count.textContent = `${results.length} Items`;
     grid.textContent = '';
-    results.slice(0, state.shown).forEach((it) => grid.append(card(it)));
+    results.slice(0, state.shown).forEach((it) => grid.append(card(it, cardLevel)));
     loadMore.hidden = state.shown >= results.length;
     renderChips();
     syncControls();

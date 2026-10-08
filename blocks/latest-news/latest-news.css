@@ -186,8 +186,7 @@ main .section.latest-news-container {
 }
 
 .section.latest-news-container > div,
-.section.more-articles-container > div,
-.section.articles-listing-container > div {
+.section.more-articles-container > div {
   max-width: 1220px;
   padding: 0 20px;
 }
@@ -195,8 +194,7 @@ main .section.latest-news-container {
 /* Reserve image space up front so lazy-loaded images never push content (CLS) */
 .section.press-kits-listing-container .press-kits-listing .pkl-card-media,
 .section.latest-news-container .latest-news .lnl-card-media,
-.section.more-articles-container .more-articles .ma-card-media,
-.section.articles-listing-container .articles-listing .al-card-media {
+.section.more-articles-container .more-articles .ma-card-media {
   display: block;
   overflow: hidden;
   aspect-ratio: 16 / 9;
@@ -205,34 +203,22 @@ main .section.latest-news-container {
 .section.press-kits-listing-container .press-kits-listing .pkl-card-media picture,
 .section.latest-news-container .latest-news .lnl-card-media picture,
 .section.more-articles-container .more-articles .ma-card-media picture,
-.section.articles-listing-container .articles-listing .al-card-media picture,
 .section.press-kits-listing-container .press-kits-listing .pkl-card-media img,
 .section.latest-news-container .latest-news .lnl-card-media img,
-.section.more-articles-container .more-articles .ma-card-media img,
-.section.articles-listing-container .articles-listing .al-card-media img {
+.section.more-articles-container .more-articles .ma-card-media img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* Section headings (lower-specificity rules first: no-descending-specificity) */
-.section.latest-news-container h2,
-.section.articles-listing-container h2 {
+/* Section heading */
+.section.latest-news-container h2 {
   margin: 0;
+  padding: 25px 0;
   font-size: 2rem;
   font-weight: normal;
   line-height: 2.125rem;
-}
-
-.section.latest-news-container h2 {
-  padding: 25px 0;
-}
-
-.section.articles-listing-container h2 {
-  margin-bottom: 21px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #000;
 }
 
 /* CTA underline animation (latest news + more articles) */
@@ -377,136 +363,6 @@ main .section.latest-news-container {
 }
 
 /* ==========================================================================
-   Articles listing
-   ========================================================================== */
-
-.section.articles-listing-container {
-  margin: 0;
-  padding: 30px 0;
-}
-
-/* Toolbar */
-.section.articles-listing-container .articles-listing .al-toolbar {
-  margin: 0;
-  padding-top: 10px;
-}
-
-.section.articles-listing-container .articles-listing .al-toolbar button {
-  padding: 3px 16px;
-  font-size: 1rem;
-}
-
-.section.articles-listing-container .articles-listing .al-keyword,
-.section.articles-listing-container .articles-listing .al-facet-btn,
-.section.articles-listing-container .articles-listing .al-sort-btn {
-  height: 32px;
-  padding: 0 16px;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.section.articles-listing-container .articles-listing .al-keyword {
-  max-width: auto;
-  height: 42px;
-}
-
-
-.section.articles-listing-container .articles-listing .al-keyword,
-.section.articles-listing-container .articles-listing .al-count,
-.section.articles-listing-container .articles-listing .al-chip,
-.section.articles-listing-container .articles-listing .al-clear {
-  font-size: 1rem;
-  font-weight: normal;
-}
-
-.section.articles-listing-container .articles-listing .al-chips:not(:empty) {
-  margin: 18px 0 4px;
-}
-
-/* Cards */
-.section.articles-listing-container .articles-listing .al-card {
-  padding: 18px;
-}
-
-.section.articles-listing-container .articles-listing .al-card-media {
-  margin-bottom: 17px;
-}
-
-.section.articles-listing-container .articles-listing .al-card-title {
-  display: -webkit-box;
-  flex-shrink: 0;
-  min-height: auto;
-  overflow: hidden;
-  line-height: 1.375rem;
-  text-transform: none;
-  word-break: break-word;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
-  line-clamp: 4;
-}
-
-.section.articles-listing-container .articles-listing .al-card-title a {
-  font-size: 1rem;
-  font-weight: normal;
-  line-height: 1.375rem;
-  text-decoration: none;
-}
-
-.section.articles-listing-container .articles-listing .al-card-desc {
-  display: none;
-  font-size: 0.875rem;
-}
-
-.section.articles-listing-container .articles-listing .al-card-cta {
-  max-width: 57px;
-  padding: 6px 16px;
-  font-size: 1rem;
-}
-
-/* Load more */
-.section.articles-listing-container .articles-listing .al-loadmore {
-  margin: 30px auto 0;
-  padding: 8px 33px;
-  font-size: 1rem;
-  transition: background-color 0.2s linear, color 0.2s linear;
-}
-
-.section.articles-listing-container .articles-listing .al-loadmore:hover {
-  background: #000;
-  color: #fff;
-}
-
-/* Filter / sort modal */
-.section.articles-listing-container .articles-listing .al-modal-sort-title {
-  font-size: 1rem;
-  font-weight: normal;
-}
-
-.section.articles-listing-container .articles-listing .al-radio-item {
-  padding: 8px 0;
-  font-size: 1rem;
-}
-
-.section.articles-listing-container .articles-listing .al-collapse-btn {
-  margin: 0;
-  padding: 6px 0;
-  font-size: 1rem;
-}
-
-.section.articles-listing-container .articles-listing .al-modal-view {
-  margin: 13px 0;
-  padding: 0;
-}
-
-.section.articles-listing-container .articles-listing .al-modal-close {
-  margin: 0;
-}
-
-.section.articles-listing-container .articles-listing .al-modal-head {
-  padding-bottom: 0;
-}
-
-/* ==========================================================================
    Tablet (>= 768px)
    ========================================================================== */
 
@@ -518,8 +374,7 @@ main .section.latest-news-container {
 
   .section.press-kits-listing-container > div,
   .section.latest-news-container > div,
-  .section.more-articles-container > div,
-  .section.articles-listing-container > div {
+  .section.more-articles-container > div {
     padding: 0 30px;
   }
 
@@ -535,7 +390,6 @@ main .section.latest-news-container {
   }
 
   .section.latest-news-container h2,
-  .section.articles-listing-container h2,
   .section.highlight.more-articles-container h2 {
     font-size: 2.5rem;
     line-height: 2.75rem;
@@ -563,76 +417,6 @@ main .section.latest-news-container {
   .section.more-articles-container .more-articles .ma-card-cta {
     padding-top: 20px;
   }
-
-  /* Articles listing */
-  .section.articles-listing-container {
-    padding: 50px 0;
-  }
-
-  .section.articles-listing-container .articles-listing .al-grid {
-    grid-template-columns: repeat(2, 1fr);
-    width: 658px;
-    margin: 34px auto 0;
-  }
-
-  .section.articles-listing-container .articles-listing .al-toolbar button {
-    padding: 12px 20px;
-  }
-
-  .section.articles-listing-container .articles-listing .al-card-title {
-    min-height: 78px;
-    line-height: 1.3;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-  }
-
-  .section.articles-listing-container .articles-listing .al-card-desc {
-    display: -webkit-box;
-    flex-shrink: 1;
-    overflow: hidden;
-    word-break: break-word;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
-  }
-
-  .section.articles-listing-container .articles-listing .al-loadmore {
-    margin: 40px auto 0;
-  }
-
-  .section.articles-listing-container .articles-listing .al-modal-sort-title {
-    font-size: 1.375rem;
-  }
-
-  .section.articles-listing-container .articles-listing .al-radio-item {
-    padding: 12px 0;
-    font-size: 1.1rem;
-  }
-
-  .section.articles-listing-container .articles-listing .al-collapse-btn {
-    margin: 12px 0;
-    padding: 16px 0;
-    font-size: 1.1rem;
-  }
-
-  .section.articles-listing-container .articles-listing .al-modal-view {
-    margin-top: 20px;
-    padding: 16px;
-  }
-
-  .section.articles-listing-container .articles-listing .al-modal-close {
-    margin: 12px 0;
-  }
-
-  .section.articles-listing-container .articles-listing .al-modal-head {
-    padding-bottom: 16px;
-  }
-
-  .section.articles-listing-container .articles-listing .al-keyword {
-  max-width: 200px;
-  height: 32px;
-}
-
 }
 
 /* ==========================================================================
@@ -651,7 +435,6 @@ main .section.latest-news-container {
 
   /* Headings */
   .section.latest-news-container h2,
-  .section.articles-listing-container h2,
   .section.highlight.more-articles-container h2 {
     font-size: 3.125rem;
     line-height: 3.25rem;
@@ -667,11 +450,5 @@ main .section.latest-news-container {
 
   .section.more-articles-container .more-articles .ma-card {
     flex-direction: row;
-  }
-
-  .section.articles-listing-container .articles-listing .al-grid {
-    grid-template-columns: repeat(3, 1fr);
-    width: 100%;
-    margin-top: 16px;
   }
 }

@@ -264,6 +264,15 @@ export default async function decorate(block) {
   const sheet = modal(pinnedType);
   block.append(toolbar, chips, grid, loadMore, sheet);
 
+  // a pinned listing page titles itself (e.g. "Press Releases") unless the
+  // author already placed a heading in the section; it becomes the page h1
+  // when the page has none.
+  const section = block.closest('.section');
+  if (pinnedType && !section?.querySelector('h1, h2')) {
+    const title = el(document.querySelector('main h1') ? 'h2' : 'h1', 'al-title', LABELS.get(pinnedType));
+    block.prepend(title);
+  }
+
   const items = await loadItems(source);
 
   function closePanels() {

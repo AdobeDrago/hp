@@ -357,9 +357,62 @@ function wrapTextNodes(block) {
  * Decorates paragraphs containing a single link as buttons.
  * @param {Element} element container element
  */
+const GTM_SEPARATOR = '|';
+const GTM_KEY_PATTERN = /^[a-z][a-z0-9_-]*$/;
+// const GTM_DEFAULT_EVENT = 'link_click';
+
+function cleanText(str = '') {
+  return str
+    .replace(/[\u200B-\u200D\uFEFF`]/g, '')
+    .replace(/[\u00A0\s]+/g, ' ')
+    .trim();
+}
+
+function parseGtmFromTitle(rawTitle = '') {
+  const attrs = {};
+  const titleParts = [];
+  let explicitTitle = '';
+
+  rawTitle.split(GTM_SEPARATOR).forEach((part) => {
+    const text = cleanText(part);
+    if (!text) return;
+
+    const idx = text.indexOf('=');
+    if (idx > 0) {
+      // spaces inside the key are removed: "cate gory" -> "category"
+      const key = cleanText(text.slice(0, idx)).replace(/\s+/g, '').toLowerCase();
+      const value = cleanText(text.slice(idx + 1));
+      if (GTM_KEY_PATTERN.test(key)) {
+        if (key === 'title') {
+          explicitTitle = value; // reserved key: visible title only
+        } else if (value) {
+          attrs[key] = value;
+        }
+        return;
+      }
+    }
+    titleParts.push(text); // plain text becomes the title
+  });
+
+  return { cleanTitle: explicitTitle || titleParts.join(' | '), attrs };
+}
+
 function decorateButtons(element) {
   element.querySelectorAll('a').forEach((a) => {
-    a.title = a.title || a.textContent;
+    // 1. Parse GTM info out of the title
+    const { cleanTitle, attrs } = parseGtmFromTitle(a.getAttribute('title') || '');
+
+    if (Object.keys(attrs).length) {
+      Object.entries(attrs).forEach(([key, value]) => {
+        a.setAttribute(`data-gtm-${key}`, value);
+      });
+      // a.setAttribute('data-gtm-event', GTM_DEFAULT_EVENT);
+    }
+
+    // 2. Clean title (falls back to link text)
+    a.setAttribute('title', cleanTitle || a.textContent.trim());
+
+    // 3. Existing button decoration
     if (a.href !== a.textContent) {
       const up = a.parentElement;
       const twoup = a.parentElement.parentElement;
@@ -390,7 +443,6 @@ function decorateButtons(element) {
     }
   });
 }
-
 /**
  * Add <img> for icon, prefixed with codeBasePath and optional prefix.
  * @param {Element} [span] span element with icon classes

@@ -6,7 +6,7 @@ const BATCH = 9;
 const MEDIA_TYPES = [
   { value: 'Press Release', label: 'Press Releases' },
   { value: 'Press Kit', label: 'Press Kits' },
-  { value: 'Press Blog', label: 'Press Blog' },
+  { value: 'Press Blog', label: 'Press Blogs' },
 ];
 
 // HP's fixed 46-topic taxonomy (slug -> label); articles store slugs in `topic`.

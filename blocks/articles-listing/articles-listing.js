@@ -10,25 +10,28 @@ const MEDIA_TYPES = [
 ];
 
 // HP's fixed 46-topic taxonomy (slug -> label); articles store slugs in `topic`.
+// Order matches the reference site's dropdown (most-used topics first, not
+// alphabetical) rather than being resorted - so the two line up row-for-row.
 const TOPICS = [
-  ['3d_printing', '3D Printing'], ['awards_recognition', 'Awards & Recognition'],
-  ['blended_reality', 'Blended Reality'], ['ces', 'CES'], ['community', 'Community'],
-  ['consumer_printing', 'Consumer Printing'], ['corporate', 'Corporate'],
-  ['desktop_computing', 'Desktop Computing'], ['diversity', 'Diversity'],
-  ['education', 'Education'], ['enterprise_printing', 'Enterprise Printing'],
-  ['entertainment', 'Entertainment'], ['environment', 'Environment'], ['events', 'Events'],
-  ['financial', 'Financial'], ['gaming', 'Gaming'], ['global_citizenship', 'Global Citizenship'],
-  ['graphic_arts', 'Graphic Arts'], ['graphics', 'Graphics'], ['health', 'Health'],
-  ['healthcare', 'Healthcare'], ['home', 'Home'], ['hp_labs', 'HP Labs'],
-  ['hybrid_work', 'Hybrid Work'], ['innovation', 'Innovation'], ['leadership', 'Leadership'],
-  ['legacy', 'Legacy'], ['life_at_hp', 'Life at HP'], ['manufacturing', 'Manufacturing'],
-  ['megatrends', 'Megatrends'], ['mobile_computing', 'Mobile Computing'], ['mobility', 'Mobility'],
-  ['personal_computers', 'Personal Computers'], ['print', 'Print'], ['printers', 'Printers'],
-  ['reinvention', 'Reinvention'], ['science', 'Science'], ['security', 'Security'],
-  ['small_business_printing', 'Small Business Printing'], ['sports', 'Sports'],
-  ['sustainability', 'Sustainability'], ['technology_and_innovation', 'Technology and Innovation'],
-  ['tradeshows_events', 'Tradeshows + Events'], ['urbanization', 'Urbanization'],
-  ['virtual_reality', 'Virtual Reality'], ['work_life', 'Work-life'],
+  ['print', 'Print'], ['community', 'Community'], ['megatrends', 'Megatrends'],
+  ['healthcare', 'Healthcare'], ['urbanization', 'Urbanization'], ['mobility', 'Mobility'],
+  ['legacy', 'Legacy'], ['gaming', 'Gaming'], ['manufacturing', 'Manufacturing'],
+  ['security', 'Security'], ['entertainment', 'Entertainment'], ['virtual_reality', 'Virtual Reality'],
+  ['diversity', 'Diversity'], ['reinvention', 'Reinvention'], ['hp_labs', 'HP Labs'],
+  ['sustainability', 'Sustainability'], ['education', 'Education'], ['3d_printing', '3D Printing'],
+  ['leadership', 'Leadership'], ['innovation', 'Innovation'], ['corporate', 'Corporate'],
+  ['awards_recognition', 'Awards & Recognition'], ['financial', 'Financial'],
+  ['graphic_arts', 'Graphic Arts'], ['science', 'Science'], ['health', 'Health'],
+  ['sports', 'Sports'], ['work_life', 'Work-life'], ['home', 'Home'], ['printers', 'Printers'],
+  ['personal_computers', 'Personal Computers'], ['events', 'Events'],
+  ['tradeshows_events', 'Tradeshows + Events'], ['ces', 'CES'],
+  ['desktop_computing', 'Desktop Computing'], ['blended_reality', 'Blended Reality'],
+  ['mobile_computing', 'Mobile Computing'], ['consumer_printing', 'Consumer Printing'],
+  ['enterprise_printing', 'Enterprise Printing'], ['graphics', 'Graphics'],
+  ['small_business_printing', 'Small Business Printing'],
+  ['technology_and_innovation', 'Technology and Innovation'], ['environment', 'Environment'],
+  ['global_citizenship', 'Global Citizenship'], ['life_at_hp', 'Life at HP'],
+  ['hybrid_work', 'Hybrid Work'],
 ].map(([value, label]) => ({ value, label }));
 
 const LABELS = new Map([

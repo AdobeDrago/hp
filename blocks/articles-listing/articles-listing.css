@@ -110,7 +110,8 @@
   left: 0;
   z-index: 10;
   min-width: 240px;
-  max-height: 360px;
+  width: max-content;
+  max-height: 400px;
   overflow-y: auto;
   padding: 6px 0;
   background: #fff;
@@ -127,13 +128,16 @@
 .articles-listing .al-sort-option {
   display: flex;
   align-items: center;
-  gap: 12px;
   width: 100%;
   box-sizing: border-box;
-  padding: 10px 20px;
+  padding: 8px 16px;
   border: 0;
   background: #fff;
-  font: inherit;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.4;
+  white-space: nowrap;
   text-align: left;
   color: #111;
   cursor: pointer;
@@ -142,12 +146,14 @@
 .articles-listing .al-check-item:hover,
 .articles-listing .al-sort-option:hover,
 .articles-listing .al-sort-option.active {
-  background: #f2f2f2;
+  background: #e8e8e8;
 }
 
+/* no visible checkbox glyph - the whole row is the click target (the label
+   already toggles its input) and the active set shows up as chips instead,
+   matching the reference site's dropdown */
 .articles-listing .al-check {
-  width: 16px;
-  height: 16px;
+  display: none;
 }
 
 /* ===== chips ===== */

@@ -14,7 +14,12 @@ function getHeaderOffset() {
 function getTarget(link) {
   const hash = link.getAttribute('href') || '';
   if (!hash.startsWith('#') || hash.length < 2) return null;
-  return document.getElementById(decodeURIComponent(hash.slice(1)));
+  try {
+    return document.getElementById(decodeURIComponent(hash.slice(1)));
+  } catch (e) {
+    // malformed %-escape in an authored hash: treat as no target
+    return null;
+  }
 }
 
 function setOpen(block, toggle, open) {

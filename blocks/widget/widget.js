@@ -34,6 +34,8 @@ function applyWidgetShell(widget, source, widgetName, searchParams) {
 
 export default async function decorate(widget) {
   const source = widget.querySelector('a[href]');
+  // nothing authored to load; avoids a TypeError on source.href below
+  if (!source) return;
   const { pathname, searchParams } = new URL(source.href);
   const { widgetPath, widgetName } = parseWidgetHref(pathname);
 

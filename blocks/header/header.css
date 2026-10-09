@@ -753,6 +753,20 @@ header nav .nav-cta-btn {
     box-shadow: inset 0 -2px 0 0 #000;
   }
 
+  /* invisible hover bridge: the 48px trigger sits centred in the taller nav
+     row, so the panel (anchored at the nav's bottom edge) starts a few px below
+     it. Extending the trigger's hit area down to the panel keeps the pointer
+     "inside" the menu item on its way to the tiles, so mouseleave doesn't
+     close the panel mid-move. */
+  header nav .nav-drop .nav-menu-trigger::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: calc((var(--nav-height, 64px) - 48px) / 2);
+  }
+
   header nav .nav-cta {
     border-bottom: 0;
     margin-left: 8px;

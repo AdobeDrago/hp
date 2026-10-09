@@ -1,4 +1,4 @@
-import { getMetadata } from '../../scripts/aem.js';
+import { decorateGtmLinks, getMetadata } from '../../scripts/aem.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 1280px)');
@@ -314,6 +314,7 @@ export default async function decorate(block) {
     navWrapper.append(navNewsroom);
   }
 
+  decorateGtmLinks(navWrapper);
   block.append(navWrapper);
   if (navBrand) { /* brand kept as-is */ }
 }

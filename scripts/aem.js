@@ -353,66 +353,58 @@ function wrapTextNodes(block) {
   });
 }
 
+const GTM_ATTR_PREFIX = 'data-gtm-';
+const GTM_CLICK_EVENT = 'link_click';
+const GTM_KEY_PATTERN = /^[a-z][a-z0-9_-]*$/;
+
+/**
+ * Splits an authored link title into the visible title and GTM values.
+ * Supports a plain title ("Laptops") or pipe-separated pairs:
+ * "title=Laptops|id=l3-laptops|category=globalNavigation|value=laptops"
+ * @param {string} rawTitle the link's title attribute
+ * @returns {{ title: string, gtm: Object<string, string> }}
+ */
+function parseLinkTitle(rawTitle = '') {
+  const gtm = {};
+  const plainParts = [];
+
+  rawTitle.split('|').forEach((part) => {
+    const [key, ...rest] = part.split('=');
+    const name = key.trim().toLowerCase();
+    const value = rest.join('=').trim();
+
+    if (rest.length && GTM_KEY_PATTERN.test(name)) {
+      if (value) gtm[name] = value;
+    } else if (part.trim()) {
+      plainParts.push(part.trim());
+    }
+  });
+
+  const { title, ...attrs } = gtm;
+  return { title: title || plainParts.join(' | '), gtm: attrs };
+}
+
+function decorateGtmLink(a) {
+  const { title, gtm } = parseLinkTitle(a.getAttribute('title') || '');
+  Object.entries(gtm).forEach(([key, value]) => a.setAttribute(`${GTM_ATTR_PREFIX}${key}`, value));
+  a.title = title || a.textContent.trim();
+}
+
+/**
+ * Adds GTM attributes to links outside main (header, footer) without button styling.
+ * @param {Element} element container element
+ */
+function decorateGtmLinks(element) {
+  element.querySelectorAll('a').forEach(decorateGtmLink);
+}
+
 /**
  * Decorates paragraphs containing a single link as buttons.
  * @param {Element} element container element
  */
-const GTM_SEPARATOR = '|';
-const GTM_KEY_PATTERN = /^[a-z][a-z0-9_-]*$/;
-// const GTM_DEFAULT_EVENT = 'link_click';
-
-function cleanText(str = '') {
-  return str
-    .replace(/[\u200B-\u200D\uFEFF`]/g, '')
-    .replace(/[\u00A0\s]+/g, ' ')
-    .trim();
-}
-
-function parseGtmFromTitle(rawTitle = '') {
-  const attrs = {};
-  const titleParts = [];
-  let explicitTitle = '';
-
-  rawTitle.split(GTM_SEPARATOR).forEach((part) => {
-    const text = cleanText(part);
-    if (!text) return;
-
-    const idx = text.indexOf('=');
-    if (idx > 0) {
-      // spaces inside the key are removed: "cate gory" -> "category"
-      const key = cleanText(text.slice(0, idx)).replace(/\s+/g, '').toLowerCase();
-      const value = cleanText(text.slice(idx + 1));
-      if (GTM_KEY_PATTERN.test(key)) {
-        if (key === 'title') {
-          explicitTitle = value; // reserved key: visible title only
-        } else if (value) {
-          attrs[key] = value;
-        }
-        return;
-      }
-    }
-    titleParts.push(text); // plain text becomes the title
-  });
-
-  return { cleanTitle: explicitTitle || titleParts.join(' | '), attrs };
-}
-
 function decorateButtons(element) {
   element.querySelectorAll('a').forEach((a) => {
-    // 1. Parse GTM info out of the title
-    const { cleanTitle, attrs } = parseGtmFromTitle(a.getAttribute('title') || '');
-
-    if (Object.keys(attrs).length) {
-      Object.entries(attrs).forEach(([key, value]) => {
-        a.setAttribute(`data-gtm-${key}`, value);
-      });
-      // a.setAttribute('data-gtm-event', GTM_DEFAULT_EVENT);
-    }
-
-    // 2. Clean title (falls back to link text)
-    a.setAttribute('title', cleanTitle || a.textContent.trim());
-
-    // 3. Existing button decoration
+    decorateGtmLink(a);
     if (a.href !== a.textContent) {
       const up = a.parentElement;
       const twoup = a.parentElement.parentElement;
@@ -443,6 +435,36 @@ function decorateButtons(element) {
     }
   });
 }
+
+// Pushes link_click with every data-gtm-* value, so data-gtm-id is sent as link_id
+function pushLinkClick(a) {
+  const payload = { event: GTM_CLICK_EVENT };
+  a.getAttributeNames()
+    .filter((name) => name.startsWith(GTM_ATTR_PREFIX))
+    .forEach((name) => {
+      payload[`link_${name.slice(GTM_ATTR_PREFIX.length)}`] = a.getAttribute(name);
+    });
+  payload.link_url = a.href;
+  payload.link_text = a.textContent.trim();
+
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(payload);
+}
+
+/**
+ * Tracks clicks on links that have data-gtm-* attributes.
+ * One delegated listener, so links added later (header, footer) are covered too.
+ */
+function initLinkTracking() {
+  // capture phase, so the push happens even if another handler stops propagation
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a');
+    if (a?.getAttributeNames().some((name) => name.startsWith(GTM_ATTR_PREFIX))) {
+      pushLinkClick(a);
+    }
+  }, true);
+}
+
 /**
  * Add <img> for icon, prefixed with codeBasePath and optional prefix.
  * @param {Element} [span] span element with icon classes
@@ -728,11 +750,13 @@ export {
   decorateBlock,
   decorateBlocks,
   decorateButtons,
+  decorateGtmLinks,
   decorateIcons,
   decorateSections,
   decorateTemplateAndTheme,
   fetchPlaceholders,
   getMetadata,
+  initLinkTracking,
   loadBlock,
   loadCSS,
   loadFooter,

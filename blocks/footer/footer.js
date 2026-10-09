@@ -1,4 +1,4 @@
-import { getMetadata } from '../../scripts/aem.js';
+import { decorateGtmLinks, getMetadata } from '../../scripts/aem.js';
 
 // the default fragment this site uses for its footer; any page can point at
 // a different one (or at another site's) via a "Footer" metadata row
@@ -178,5 +178,6 @@ export default async function decorate(block) {
     });
   }
 
+  decorateGtmLinks(footer);
   block.append(footer);
 }

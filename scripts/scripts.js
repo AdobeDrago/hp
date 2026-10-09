@@ -14,10 +14,10 @@ import {
   readBlockConfig,
   toClassName,
   toCamelCase,
+  initLinkTracking,
 } from './aem.js';
 
 export const NX_ORIGIN = 'https://da.live/nx';
-
 /**
  * load fonts.css and set a session storage flag
  */
@@ -122,6 +122,7 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
+    initLinkTracking();
     doc.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
   }

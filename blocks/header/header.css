@@ -25,7 +25,7 @@ header nav {
   max-width: 1600px;
   height: var(--nav-height, 55px);
   padding: 0 16px;
-  font-family: forma-djr-micro, 'Helvetica Neue', helvetica, arial, sans-serif;
+  font-family: forma-djr-micro, forma-djr, 'Helvetica Neue', helvetica, arial, sans-serif;
 }
 
 /* hamburger */
@@ -114,15 +114,15 @@ header nav .nav-tools { grid-area: tools; }
 header nav .nav-tools-group {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0;
 }
 
 header nav .nav-tool-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 48px;
+  height: 48px;
   border: 0;
   background: transparent;
   color: #000;
@@ -131,8 +131,8 @@ header nav .nav-tool-btn {
 }
 
 header nav .nav-tool-btn svg {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   fill: currentcolor;
 }
 
@@ -153,7 +153,7 @@ header nav .nav-account-open .nav-signin-btn { color: #024ad8; }
 header nav .nav-account-flyout {
   display: none;
   position: absolute;
-  top: calc(100% + 22px);
+  top: calc(100% + 12px);
   right: -4px;
   z-index: 40;
   box-sizing: border-box;
@@ -312,8 +312,9 @@ header nav .nav-account-signed-in .nav-signin-btn { position: relative; }
 
 header nav .nav-account-signed-in .nav-signin-initials {
   position: absolute;
-  inset: 1px;
+  inset: 0;
   display: flex;
+  margin: auto;
   align-items: center;
   justify-content: center;
   width: 26px;
@@ -854,21 +855,33 @@ header nav .nav-cta-btn {
     align-items: center;
     justify-content: flex-start;
     gap: 0;
+    max-width: 1680px;
     padding: 0 36px;
+    border-bottom: 1px solid #e0e0e0;
+    border-image: linear-gradient(#e0e0e0, #e0e0e0) 0 0 1 / 0 0 1px / 0 100vmax;
   }
 
   header nav .nav-hamburger { display: none; }
 
-  header nav .nav-brand { margin-right: 34px; }
+  /* account panel 3px under the 55px bar (hp.com) */
+  header nav .nav-account-flyout { top: calc(100% + 7px); }
+
+  /* 48px logo box with the 32px mark centred, as on hp.com */
+  header nav .nav-brand {
+    justify-content: center;
+    width: 48px;
+    margin-right: 22px;
+  }
 
   header nav .nav-brand a {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
+    background: transparent;
   }
 
   header nav .nav-brand img {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
   }
 
   header nav .nav-sections,
@@ -939,7 +952,7 @@ header nav .nav-cta-btn {
     top: 100%;
     left: 0;
     right: 0;
-    height: calc((var(--nav-height, 64px) - 48px) / 2);
+    height: calc(var(--nav-height, 55px) - 48px);
   }
 
   header nav .nav-cta {
@@ -1145,7 +1158,14 @@ header nav .nav-cta-btn {
   }
 }
 
-@media (width >= 1280px) {
+@media (width >= 1680px) {
+  /* wider screens space the menu out as on hp.com */
+  header nav .nav-brand { margin-right: 71px; }
+
+  header nav .nav-menu { gap: 12px; }
+
+  header nav .nav-search { margin-right: 20px; }
+
   header nav .nav-search-btn { display: none; }
 
   header nav .nav-search-form,
@@ -1153,35 +1173,44 @@ header nav .nav-cta-btn {
     display: flex;
     position: static;
     inset: auto;
-    width: clamp(220px, 22vw, 260px);
-    padding: 0;
-    border: 1px solid #b3b3b3;
-    border-radius: 6px;
+    gap: 6px;
+    box-sizing: border-box;
+    width: 267px;
+    height: 38px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0 12px;
     background: #fafafa;
   }
 
   header nav .nav-search-form input {
-    padding: 3px 14px;
+    height: 20px;
+    padding: 0;
+    background: transparent;
     font-size: 14px;
-    background: #fafafa;
+    line-height: 20px;
+    color: #000;
   }
 
   header nav .nav-search-form input::placeholder {
     color: #767676;
   }
 
-  header nav .nav-search-submit svg {
-    width: 18px;
-    height: 18px;
-    fill: #191919;
+  header nav .nav-search-submit {
+    display: flex;
+    width: 24px;
+    height: 24px;
+    margin: 0;
   }
 
-  header nav .nav-search-submit {
-    width: 40px;
+  header nav .nav-search-submit svg {
+    width: 24px;
+    height: 24px;
+    fill: #000;
   }
 }
 
-@media (1115px <= width < 1280px) {
+@media (1115px <= width < 1680px) {
   header nav.nav-search-open { position: relative; }
 
   header nav.nav-search-open .nav-sections,

@@ -44,7 +44,9 @@
 
 @media (width >= 1115px) {
   :root {
-    --header-height: 128px;
+    /* white bar as on hp.com: 54px + 1px bottom border, then the 64px newsroom bar */
+    --nav-height: 55px;
+    --header-height: 119px;
   }
 }
 

@@ -1,5 +1,17 @@
 /* eslint-disable */
 /* global WebImporter */
+/**
+ * Parser for cards-spotlight. Base block: cards (option "spotlight").
+ * Source: https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html
+ * Instance selector: div.spacing:has(#benefits) + div.backgroundContainer c-hp-bg-container
+ *
+ * Target structure (blocks/cards/cards.js, isSpotlight):
+ *   | Cards (Spotlight)                           |
+ *   | background photo | h2 heading + intro p     |   <- header row
+ *   | icon image       | p (<strong>lead</strong> rest) |   <- one row per item
+ * Items: the inner c-hp-grid pairs an `.image` grid cell with the following
+ * `.titleAndText` grid cell; we iterate the image cells (block-level wrappers).
+ */
 const ORIGIN = 'https://www.hp.com';
 const INLINE = { B: 'strong', STRONG: 'strong', I: 'em', EM: 'em', U: 'u', SUP: 'sup', SUB: 'sub', BR: 'br' };
 
@@ -32,6 +44,7 @@ function makeImg(img, document) {
   return out;
 }
 
+/** copy inline content of src into target, keeping only simple inline semantics */
 function copyInline(src, target, document) {
   src.childNodes.forEach((n) => {
     if (n.nodeType === 3) {
@@ -57,6 +70,7 @@ function copyInline(src, target, document) {
 function trimBr(el) {
   while (el.firstChild && (el.firstChild.nodeName === 'BR' || (el.firstChild.nodeType === 3 && !el.firstChild.textContent.trim()))) el.firstChild.remove();
   while (el.lastChild && (el.lastChild.nodeName === 'BR' || (el.lastChild.nodeType === 3 && !el.lastChild.textContent.trim()))) el.lastChild.remove();
+  // a lone leading text space after <strong> removal is fine; normalize edges
   if (el.firstChild && el.firstChild.nodeType === 3) el.firstChild.textContent = el.firstChild.textContent.replace(/^\s+/, '');
   if (el.lastChild && el.lastChild.nodeType === 3) el.lastChild.textContent = el.lastChild.textContent.replace(/\s+$/, '');
   return el;
@@ -77,6 +91,7 @@ function heading(tag, src, document) {
 }
 
 export default function parse(element, { document }) {
+  // header: background photo + section title/subtitle
   const bgImg = element.querySelector(':scope > .c-hp-bg-container__body > .c-hp-bg-container__media-wrapper img')
     || element.querySelector('.c-hp-bg-container__media-wrapper img');
   const headerTat = [...element.querySelectorAll('.titleAndText')].find((t) => t.querySelector('.c-hp-tat__title'));
@@ -92,6 +107,7 @@ export default function parse(element, { document }) {
     });
   }
 
+  // items: grid cells holding an icon image, paired with the next text cell
   const rows = [];
   const imageCells = [...element.querySelectorAll('.c-hp-grid-cell')]
     .filter((c) => c.querySelector(':scope > .image img') && !c.querySelector('.c-hp-grid-cell'));

@@ -1,6 +1,22 @@
 /* eslint-disable */
 /* global WebImporter */
+/**
+ * Parser for promo. Base block: promo (default, image-first split).
+ * Source: https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html
+ * Instance selector: #body > div.root > div.aem-Grid > div.mediaContent
+ *
+ * Target structure (blocks/promo/promo.js - one 1-cell row per part; the row
+ * holding a picture becomes .promo-media, the other .promo-content):
+ *   | Promo                                                          |
+ *   | main image                                                     |
+ *   | [logo img], h2, p copy (+ footnote refs), p <em>note</em>, p <strong><a>CTA</a></strong> |
+ * CTAs: c-hp-button--primary -> <strong><a>, --secondary -> <em><a>.
+ * Superscript footnote numbers become dynamic footnote refs per
+ * blocks/footnotes/footnotes.js: <sup><a href="#footnote-<key>" title="<text>">n</a></sup>,
+ * the text taken from the page's c-hp-footnotes numbered list.
+ */
 const BLOCK_NAME = 'Promo';
+// 'image-first' -> image row, content row; 'content-first' -> content row, image row
 const ROW_ORDER = 'image-first';
 
 const ORIGIN = 'https://www.hp.com';
@@ -36,6 +52,7 @@ function makeImg(img, document) {
   return out;
 }
 
+/** numbered footnotes (static list) of the page, keyed by number */
 function footnoteMap(document) {
   const map = {};
   const used = new Set();
@@ -91,6 +108,7 @@ function trimEdges(el) {
   return el;
 }
 
+/** copy a rich-text container, splitting it into paragraphs at double <br> */
 function paragraphs(src, document, notes) {
   if (!src || !src.textContent.trim()) return [];
   const flat = copyInline(src, document.createElement('div'), document, notes);
@@ -145,6 +163,8 @@ function ctaParagraphs(scope, document) {
 export default function parse(element, { document }) {
   const notes = footnoteMap(document);
 
+  // main (large) image: media column of c-hp-media-content / contained section,
+  // or the grid cell whose only content is an image
   let mainImgSrc = element.querySelector('.c-hp-media-content__media img, .c-hp-contained-section-block__media img');
   if (!mainImgSrc) {
     const imageCell = [...element.querySelectorAll('.c-hp-grid-cell')]
@@ -152,11 +172,13 @@ export default function parse(element, { document }) {
     mainImgSrc = imageCell && imageCell.querySelector('img');
   }
 
+  // content column
   const contentScope = element.querySelector('.c-hp-media-content__content, .c-hp-contained-section-block__content')
     || [...element.querySelectorAll('.c-hp-grid-cell')].find((c) => c.querySelector('.titleAndText'))
     || element;
 
   const content = [];
+  // inline logo image(s) in the content column (e.g. Copilot+ PC logo)
   contentScope.querySelectorAll('.image img').forEach((img) => {
     if (img !== mainImgSrc) content.push(makeImg(img, document));
   });

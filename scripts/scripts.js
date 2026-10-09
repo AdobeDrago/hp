@@ -85,6 +85,7 @@ function decorateSections(main) {
             .map((style) => toClassName(style.trim()));
           styles.forEach((style) => section.classList.add(style));
         } else if (key === 'id') {
+          // anchor target for in-page links (e.g. anchor-nav)
           section.id = toClassName(meta.id);
         } else {
           section.dataset[toCamelCase(key)] = meta[key];

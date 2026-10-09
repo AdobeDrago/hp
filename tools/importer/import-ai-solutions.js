@@ -1,6 +1,7 @@
 /* eslint-disable */
 /* global WebImporter */
 
+// PARSER IMPORTS
 import heroSplitParser from './parsers/hero-split.js';
 import anchorNavParser from './parsers/anchor-nav.js';
 import cardsSpotlightParser from './parsers/cards-spotlight.js';
@@ -15,9 +16,11 @@ import promoCompactParser from './parsers/promo-compact.js';
 import accordionFaqParser from './parsers/accordion-faq.js';
 import footnotesParser from './parsers/footnotes.js';
 
+// TRANSFORMER IMPORTS
 import hpCleanupTransformer from './transformers/hp-cleanup.js';
 import hpSectionsTransformer from './transformers/hp-sections.js';
 
+// PARSER REGISTRY
 const parsers = {
   'hero-split': heroSplitParser,
   'anchor-nav': anchorNavParser,
@@ -34,6 +37,8 @@ const parsers = {
   'footnotes': footnotesParser,
 };
 
+// PAGE TEMPLATE CONFIGURATION - Embedded from page-templates.json
+// Block order matters: promo parses before footnotes so footnote refs are de-duplicated.
 const PAGE_TEMPLATE = {
   "name": "ai-solutions",
   "description": "HP AI solutions landing page (Next Gen AI PCs): split hero, sticky anchor nav, card groups, promos, media feature, FAQ accordion and footnotes",
@@ -284,11 +289,18 @@ const PAGE_TEMPLATE = {
   ]
 };
 
+// TRANSFORMER REGISTRY - cleanup first, then sections (2+ sections)
 const transformers = [
   hpCleanupTransformer,
   ...(PAGE_TEMPLATE.sections && PAGE_TEMPLATE.sections.length > 1 ? [hpSectionsTransformer] : []),
 ];
 
+/**
+ * Execute all page transformers for a specific hook
+ * @param {string} hookName - 'beforeTransform' or 'afterTransform'
+ * @param {Element} element - The DOM element to transform
+ * @param {Object} payload - { document, url, html, params }
+ */
 function executeTransformers(hookName, element, payload) {
   const enhancedPayload = { ...payload, template: PAGE_TEMPLATE };
   transformers.forEach((transformerFn) => {
@@ -300,6 +312,14 @@ function executeTransformers(hookName, element, payload) {
   });
 }
 
+/**
+ * Find all blocks on the page based on the embedded template configuration.
+ * Elements are resolved up front (before any parser runs) so positional
+ * selectors are not affected by earlier replacements.
+ * @param {Document} document
+ * @param {Object} template
+ * @returns {Array}
+ */
 function findBlocksOnPage(document, template) {
   const pageBlocks = [];
   template.blocks.forEach((blockDef) => {
@@ -327,10 +347,13 @@ export default {
     const { document, url, params } = payload;
     const main = document.body;
 
+    // 1. beforeTransform (initial cleanup + section markers)
     executeTransformers('beforeTransform', main, payload);
 
+    // 2. Find blocks
     const pageBlocks = findBlocksOnPage(document, PAGE_TEMPLATE);
 
+    // 3. Parse blocks (skip elements already replaced by an earlier parser)
     pageBlocks.forEach((block) => {
       if (!block.element.parentNode) return;
       const parser = parsers[block.name];
@@ -345,16 +368,20 @@ export default {
       }
     });
 
+    // 4. afterTransform (final cleanup + section metadata)
     executeTransformers('afterTransform', main, payload);
 
+    // 5. Built-in rules
     const hr = document.createElement('hr');
     main.appendChild(hr);
+    // Page metadata + Template row (body class scopes page-level layout CSS)
     const meta = WebImporter.Blocks.getMetadata(document) || {};
     meta.template = PAGE_TEMPLATE.name;
     main.append(WebImporter.Blocks.getMetadataBlock(document, meta));
     WebImporter.rules.transformBackgroundImages(main, document);
     WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
 
+    // 6. Sanitized path (root maps to /index)
     const rawPath = new URL(params.originalURL).pathname
       .replace(/\/$/, '')
       .replace(/\.html?$/, '');

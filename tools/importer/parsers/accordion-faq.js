@@ -1,5 +1,16 @@
 /* eslint-disable */
 /* global WebImporter */
+/**
+ * Parser for accordion-faq. Base block: accordion (option "faq").
+ * Source: https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html
+ * Instance selector: #faqs .c-hp-grid-cell:has(.collapsibleSection)
+ *
+ * Target structure (blocks/accordion/accordion.js - one row per item,
+ * cell 1 becomes the <summary>, cell 2 the body):
+ *   | Accordion (Faq)        |
+ *   | question  | answer     |
+ * Items: iterate div.collapsibleSection wrappers (block-level), not buttons.
+ */
 const ORIGIN = 'https://www.hp.com';
 const INLINE = { B: 'strong', STRONG: 'strong', I: 'em', EM: 'em', U: 'u', SUP: 'sup', SUB: 'sub', BR: 'br' };
 const BLOCKS = { P: 'p', UL: 'ul', OL: 'ol', LI: 'li' };
@@ -14,11 +25,13 @@ function absUrl(url) {
   return u;
 }
 
+/** copy rich text, keeping inline semantics plus p/ul/ol/li structure */
 function copyRich(src, target, document) {
   src.childNodes.forEach((n) => {
     if (n.nodeType === 3) {
       target.append(document.createTextNode(n.textContent.replace(/\s+/g, ' ')));
     } else if (n.nodeType === 1) {
+      // live page injects per-component <style> blocks inside the answer markup
       if (SKIP.includes(n.tagName)) return;
       let el = null;
       if (n.tagName === 'A') {
@@ -37,6 +50,7 @@ function copyRich(src, target, document) {
   return target;
 }
 
+/** answer cell content: wrap loose inline runs in <p>, keep block children */
 function answerContent(copy, document) {
   const tmp = copyRich(copy, document.createElement('div'), document);
   const out = [];
@@ -75,6 +89,7 @@ export default function parse(element, { document }) {
     const answer = [];
     const copy = item.querySelector('.c-hp-collapsible-section__copy, .c-hp-collapsible-section__description-content');
     if (copy) answer.push(...answerContent(copy, document));
+    // optional CTA links inside the answer
     item.querySelectorAll('.c-hp-collapsible-section__cta a[href]').forEach((src) => {
       const label = src.textContent.replace(/\s+/g, ' ').trim();
       if (!label) return;

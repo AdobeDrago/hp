@@ -26,6 +26,16 @@
   object-fit: cover;
 }
 
+/*
+ * "spotlight" variant (hp.com Benefits): an inset, rounded panel with a
+ * background photo that already fades to black on the right, a heading/intro
+ * and a vertical list of icon + text items in the right-hand column -
+ * authored as the block's first row (background image + heading/intro),
+ * followed by one row per list item (icon + description).
+ * hp.com breakpoints: 441px and 1115px. Below 441px hp.com swaps in a
+ * portrait photo that fades to black at the bottom; the landscape photo is
+ * cropped into the top of the panel with a fade to recreate it.
+ */
 .cards-container:has(.cards.spotlight) {
   margin-bottom: 30px;
 }
@@ -237,6 +247,10 @@
   }
 }
 
+/*
+ * Shared heading/intro row for variants whose first row is text-only (no
+ * header image) - used by "grid", "showcase" and "feature" below.
+ */
 .cards-header {
   margin-bottom: 24px;
 }
@@ -247,6 +261,14 @@
   margin-top: 0;
 }
 
+/*
+ * "grid" (hp.com Portfolio) and "showcase" (hp.com Featured products) share
+ * the same rhythm: heading/intro row, then borderless cards with a rounded
+ * image, title, optional copy and a blue "Learn" button. "grid" is a light
+ * grey full-bleed band with 3 left-aligned cards (1 column on mobile);
+ * "showcase" is white with 2 centered product cards at every width.
+ * hp.com breakpoints: 441px and 1115px.
+ */
 .cards-container:has(.cards.grid),
 .cards-container:has(.cards.showcase) {
   margin: 0;
@@ -511,6 +533,12 @@
   }
 }
 
+/*
+ * "feature" variant: text header row (h2) then a borderless row of
+ * photo + title + description items on a light grey full-bleed band -
+ * 1 column on mobile, 2 at 441px, 4 at 1280px (matching hp.com's
+ * breakpoints). No CTA.
+ */
 .cards-container:has(.cards.feature) {
   background-color: #f5f5f5;
   padding: 46px 0 67px;

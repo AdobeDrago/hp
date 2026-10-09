@@ -3,6 +3,11 @@ const isDesktop = window.matchMedia('(min-width: 900px)');
 const DEFAULT_TITLE = 'Overview';
 const CHEVRON = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4.394 8.512a.518.518 0 0 0-.249.14.495.495 0 0 0-.081.59c.014.03 1.04 1.063 3.83 3.853 3.418 3.419 3.818 3.815 3.87 3.843.154.08.317.08.476-.001.06-.031.28-.249 3.86-3.83 2.624-2.622 3.806-3.81 3.824-3.841a.5.5 0 0 0-.07-.614.52.52 0 0 0-.353-.153.602.602 0 0 0-.224.055c-.059.027-.215.181-3.669 3.635L12 15.796l-3.608-3.607c-3.454-3.454-3.61-3.608-3.67-3.635a.5.5 0 0 0-.328-.042z"/></svg>';
 
+/**
+ * Height of the part of the site header that stays stuck to the top of the
+ * viewport (0 when the header scrolls away with the page).
+ * @returns {number} offset in px
+ */
 function getHeaderOffset() {
   const header = document.querySelector('header');
   if (!header) return 0;
@@ -22,6 +27,14 @@ function setOpen(block, toggle, open) {
   toggle.setAttribute('aria-expanded', String(open));
 }
 
+/**
+ * Pins the block below the sticky header once its natural position scrolls
+ * there, releases it when scrolled back above that point, and marks the link
+ * of the section currently under the nav as active.
+ * @param {Element} block the block
+ * @param {Element} placeholder keeps the block's layout space reserved while pinned
+ * @param {Element} title the mobile dropdown title
+ */
 function setupPinning(block, placeholder, title) {
   const links = [...block.querySelectorAll('.anchor-nav-links a')];
 
@@ -56,6 +69,10 @@ function setupPinning(block, placeholder, title) {
   window.addEventListener('load', update);
 }
 
+/**
+ * decorate the block
+ * @param {Element} block the block
+ */
 export default function decorate(block) {
   const row = block.firstElementChild;
   const [linksCell, ctaCell] = row.children;
@@ -83,6 +100,7 @@ export default function decorate(block) {
     }
   }
 
+  // mobile dropdown toggle (hidden on desktop via CSS)
   const toggle = document.createElement('button');
   toggle.type = 'button';
   toggle.className = 'anchor-nav-toggle';
@@ -106,6 +124,7 @@ export default function decorate(block) {
   });
   isDesktop.addEventListener('change', () => setOpen(block, toggle, false));
 
+  // in-page links: land the target section just below the pinned nav
   ul.addEventListener('click', (e) => {
     const link = e.target.closest('a');
     const target = link && getTarget(link);
@@ -119,6 +138,8 @@ export default function decorate(block) {
     };
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     scrollToTarget(reduceMotion ? 'auto' : 'smooth');
+    // lazy images loading above the target can shift it during the smooth
+    // scroll: re-align once scrolling settles
     const settle = () => {
       const delta = target.getBoundingClientRect().top - getHeaderOffset() - block.offsetHeight;
       if (Math.abs(delta) > 1) scrollToTarget('auto');

@@ -1,3 +1,5 @@
+/* full-bleed grey band (up to 1680px) flush against the section above and
+   the footer, as on hp.com: drop the section gap and the page gutters */
 main > .section.footnotes-container {
   margin: 0;
 }
@@ -7,6 +9,7 @@ main > .section.footnotes-container {
   padding: 0;
 }
 
+/* hp.com steps the gutter at 441px (tablet) and 1115px (desktop) */
 .footnotes {
   --footnotes-padding: 16px;
 
@@ -80,6 +83,7 @@ main > .section.footnotes-container {
   list-style: none;
 }
 
+/* numbered footnotes built from in-page refs: "1." with a hanging indent */
 .footnotes-list-dynamic {
   counter-reset: item;
 }
@@ -89,6 +93,7 @@ main > .section.footnotes-container {
   counter-increment: item;
 }
 
+/* static disclaimers: unbulleted paragraphs, one blank line apart */
 .footnotes-list-static {
   padding-top: 16px;
 }
@@ -117,6 +122,8 @@ main > .section.footnotes-container {
   text-decoration: underline;
 }
 
+/* 24x24 minimum target (WCAG 2.2 target size) around the small arrow,
+   drawn as an overlay so it doesn't grow the line box */
 .footnotes-content a.footnotes-item-backlink:any-link {
   position: relative;
   margin-left: 4px;

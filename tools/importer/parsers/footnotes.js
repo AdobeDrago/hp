@@ -1,5 +1,21 @@
 /* eslint-disable */
 /* global WebImporter */
+/**
+ * Parser for footnotes. Base block: footnotes (custom, no library convention).
+ * Source: https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html
+ * Instance selector: c-hp-footnotes
+ *
+ * Target structure (blocks/footnotes/footnotes.js):
+ *   | Footnotes                    |
+ *   | Footnotes and Disclaimers    |   <- title row (first row, used as the toggle label)
+ *   | <p>disclaimer paragraph</p>  |   <- one row per static disclaimer
+ *   | ...                          |
+ *   | <ol><li>…</li></ol>          |   <- only numbered notes NOT already referenced
+ * Numbered footnotes are rendered by the block from in-content refs
+ * <a href="#footnote-<key>" title="<text>">n</a> (emitted by the promo parsers),
+ * so a numbered note whose text is already carried by such a ref is not
+ * authored again here - otherwise it would appear twice.
+ */
 const ORIGIN = 'https://www.hp.com';
 const INLINE = { B: 'strong', STRONG: 'strong', I: 'em', EM: 'em', U: 'u', SUP: 'sup', SUB: 'sub', BR: 'br' };
 const SKIP = ['STYLE', 'SCRIPT', 'NOSCRIPT', 'TEMPLATE', 'BUTTON'];
@@ -49,6 +65,7 @@ function trimEdges(el) {
   return el;
 }
 
+/** split the loose (non-list) content of a footnote item into paragraphs at <br><br> */
 function disclaimerParagraphs(itemContent, document) {
   const out = [];
   let current = document.createElement('p');
@@ -85,6 +102,7 @@ export default function parse(element, { document }) {
   const titleSrc = element.querySelector('.c-hp-footnotes__title');
   const title = norm(titleSrc && titleSrc.textContent) || 'Footnotes and Disclaimers';
 
+  // footnote texts already carried by dynamic refs elsewhere in the document
   const referenced = new Set(
     [...document.querySelectorAll('a[href^="#footnote-"]')]
       .filter((a) => !element.contains(a))

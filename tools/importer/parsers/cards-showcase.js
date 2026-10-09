@@ -1,5 +1,17 @@
 /* eslint-disable */
 /* global WebImporter */
+/**
+ * Parser for cards-showcase. Base block: cards (option "showcase").
+ * Source: https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html
+ * Instance selector: c-hp-bg-container#products
+ *
+ * Target structure (blocks/cards/cards.js, hasTextHeader):
+ *   | Cards (Showcase)                                 |
+ *   | (empty)      | h2 + intro p                      |   <- header row
+ *   | card image   | h3, p description, p > a CTA      |   <- one row per card
+ * Cards: iterate the leaf `.c-hp-grid-cell` wrappers that contain an `.image`
+ * (block-level wrappers - not the CTA anchors).
+ */
 const BLOCK_NAME = 'Cards (Showcase)';
 const ORIGIN = 'https://www.hp.com';
 const INLINE = { B: 'strong', STRONG: 'strong', I: 'em', EM: 'em', U: 'u', SUP: 'sup', SUB: 'sub', BR: 'br' };
@@ -78,6 +90,7 @@ function heading(tag, src, document) {
   return h;
 }
 
+/** title/subtitle/description of a titleAndText component */
 function tatContent(tat, headingTag, document) {
   const out = [];
   if (!tat) return out;
@@ -109,6 +122,7 @@ function ctaParagraphs(scope, document) {
 export default function parse(element, { document }) {
   const leafCells = [...element.querySelectorAll('.c-hp-grid-cell')].filter((c) => !c.querySelector('.c-hp-grid-cell'));
 
+  // header: the leaf cell with a titleAndText but no image
   const headerCellSrc = leafCells.find((c) => !c.querySelector('.image img') && c.querySelector('.titleAndText .c-hp-tat__title'));
   const headerContent = headerCellSrc ? [
     ...tatContent(headerCellSrc.querySelector('.titleAndText'), 'h2', document),

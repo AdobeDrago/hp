@@ -123,6 +123,12 @@
   }
 }
 
+/*
+ * "split" option (hp.com c-hp-hero-banner, x-large stripe layout):
+ * white band, text column left, slanted photo bleeding to the right edge.
+ * Mobile: photo on top (270px band), text below. Breakpoints follow the
+ * source component (441px / 1115px). All values from source computed styles.
+ */
 .hero.split.block {
   flex-direction: column-reverse;
   align-items: stretch;
@@ -147,6 +153,7 @@
   font-weight: 500;
 }
 
+/* eyebrow */
 .hero.split .hero-content > p:first-child {
   font-size: 12px;
   line-height: 16px;
@@ -162,6 +169,7 @@
   line-height: 24px;
 }
 
+/* subtitle -> logo row spacing is the logo row's 36px top margin */
 .hero.split .hero-content > :has(+ .hero-logos) {
   margin-bottom: 0;
 }
@@ -189,6 +197,7 @@
   height: 32px;
 }
 
+/* photo band: fixed height, image box wider than the band and cropped right */
 .hero.split .hero-media {
   position: relative;
   box-sizing: border-box;
@@ -233,6 +242,7 @@
     line-height: 24px;
   }
 
+  /* tablet: 336px band, desktop photo in a fixed 786px box cropped on the right */
   .hero.split .hero-media {
     height: 336px;
     padding-left: 32px;
@@ -246,6 +256,7 @@
 }
 
 @media (width >= 1115px) {
+  /* 36px gutter inside a 1680px container; the photo bleeds to the right edge */
   .hero.split.block {
     flex-direction: row;
     min-height: 500px;

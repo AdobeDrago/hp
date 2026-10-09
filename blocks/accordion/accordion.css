@@ -60,6 +60,12 @@
   background-color: var(--background-color);
 }
 
+/*
+ * "faq" variant (hp.com FAQs band): white 16px-radius rows on the dark
+ * section, 24px ghost "+" icon that rotates 45deg into an "x" when open.
+ * Values from hp.com computed styles - 3 tiers like the source
+ * (< 600px, 600-1279px, >= 1280px).
+ */
 .accordion.faq {
   --faq-pad: 16px;
   --faq-icon-gap: 33px;
@@ -67,6 +73,9 @@
   --faq-icon-right: 9px;
   --faq-gap: 8px;
 
+  /* hp.com: question list starts 40/64/76px under the section H2 and ends
+     24/42/48px above the band's bottom edge (section H2 margin is 28px and
+     section padding-bottom 36px globally, so only the difference is added) */
   margin-bottom: -12px;
   padding-top: 12px;
 }
@@ -112,6 +121,7 @@
   margin: 0;
 }
 
+/* 36px ghost button area, 24px "+" glyph (hp.com c-hp-icon--plus) */
 .accordion.faq details summary::after {
   top: var(--faq-icon-top);
   right: var(--faq-icon-right);
@@ -128,6 +138,8 @@
   transform: rotate(45deg);
 }
 
+/* 16px gap under the question; + 24px trailing spacer as on hp.com
+   (empty CTA group rendered under every answer) */
 .accordion.faq details .accordion-item-body {
   padding: 16px var(--faq-pad) calc(var(--faq-pad) + 24px);
   font-size: 14px;

@@ -16,6 +16,8 @@ function decorateSplit(block) {
   const media = document.createElement('div');
   media.className = 'hero-media';
   if (photo) {
+    // the photo is the LCP image, but the logo badges precede it in the DOM,
+    // so the default first-image handling would leave it lazy-loaded
     const img = photo.querySelector('img');
     if (img) {
       img.loading = 'eager';
@@ -23,6 +25,7 @@ function decorateSplit(block) {
     }
     const holder = photo.parentElement;
     media.append(photo);
+    // drop the paragraph/cell that only wrapped the photo
     if (holder && !cells.includes(holder) && holder.textContent.trim() === ''
       && !holder.querySelector('picture')) holder.remove();
   }
@@ -33,6 +36,9 @@ function decorateSplit(block) {
     [...cell.children]
       .filter((el) => el.textContent.trim() !== '' || el.querySelector('picture'))
       .forEach((el) => {
+        // a line made only of (linked) images is the logo row; consecutive
+        // logo lines (one paragraph per logo in published content) merge
+        // into a single row so the logos sit side by side
         if (el.querySelector('picture') && el.textContent.trim() === '') {
           const prev = content.lastElementChild;
           if (prev && prev.classList.contains('hero-logos')) {

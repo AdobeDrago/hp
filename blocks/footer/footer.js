@@ -1,5 +1,7 @@
 import { getMetadata } from '../../scripts/aem.js';
 
+// the default fragment this site uses for its footer; any page can point at
+// a different one (or at another site's) via a "Footer" metadata row
 const DEFAULT_FOOTER_FRAGMENT = '/footer';
 
 /**
@@ -80,6 +82,8 @@ export default async function decorate(block) {
 
   // country/region selector: the second paragraph is the current locale (button),
   // the following list is the full country overlay (hidden until toggled).
+  // Open state lives on the container as data-expanded (for CSS); the control
+  // itself carries aria-expanded/aria-controls.
   const country = footer.querySelector('.footer-country');
   if (country) {
     const trigger = country.querySelector('p:nth-of-type(2)');
@@ -143,6 +147,8 @@ export default async function decorate(block) {
 
     // Mobile accordion: every link column (not the social one) collapses under
     // its heading. The heading becomes a toggle button; desktop CSS keeps it open.
+    // The toggle control is the heading's link, or a button wrapping the
+    // heading text when it has none.
     groups.forEach((col, i) => {
       if (col === last) return;
       const heading = col.querySelector('h2');

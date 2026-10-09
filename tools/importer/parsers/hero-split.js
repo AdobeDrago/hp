@@ -1,5 +1,16 @@
 /* eslint-disable */
 /* global WebImporter */
+/**
+ * Parser for hero-split. Base block: hero (option "split").
+ * Source: https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html
+ * Instance selector: c-hp-hero-banner
+ *
+ * Target structure (blocks/hero/hero.js decorateSplit):
+ *   | Hero (Split)                                              |
+ *   | eyebrow p, h1, h2 subtitle, p of linked logos | photo     |
+ * decorateSplit() takes the first picture that is NOT wrapped in a link as the
+ * photo; linked pictures stay in the text column as the logo row.
+ */
 const ORIGIN = 'https://www.hp.com';
 
 function absUrl(url) {
@@ -52,6 +63,7 @@ export default function parse(element, { document }) {
   const h2 = textEl('h2', subtitle, document);
   if (h2) textCell.push(h2);
 
+  // badge logos (Windows 11, Copilot+ PC) - each wrapped in its link
   const badges = [...element.querySelectorAll('.c-hp-hero-banner__badges img')];
   if (badges.length) {
     const p = document.createElement('p');
@@ -70,6 +82,7 @@ export default function parse(element, { document }) {
     textCell.push(p);
   }
 
+  // CTA buttons, if any are authored on other hero instances
   element.querySelectorAll('.c-hp-hero-banner__content a.c-hp-button, .c-hp-hero-banner__content .ctaButton a').forEach((a, i) => {
     const label = a.textContent.replace(/\s+/g, ' ').trim();
     if (!label || !a.getAttribute('href')) return;

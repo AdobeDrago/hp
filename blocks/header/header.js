@@ -188,8 +188,12 @@ function wireMockSignIn(account, flyout) {
   const signOut = document.createElement('button');
   signOut.type = 'button';
   signOut.className = 'nav-account-btn secondary nav-account-signout';
-  user.append(initials, name, signOut);
+  user.append(initials, name);
   flyout.querySelector('.nav-account-head').after(user);
+  // as on hp.com, Sign out sits last, under its own divider below the links
+  const divider = document.createElement('span');
+  divider.className = 'nav-account-divider';
+  flyout.append(divider, signOut);
 
   const render = (session, labels = LABELS) => {
     account.classList.toggle('nav-account-signed-in', !!session);

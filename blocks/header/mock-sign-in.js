@@ -17,7 +17,7 @@ export const LABELS = {
   wrongCode: 'That code isn’t right. Try again.',
   changeNumber: 'Use a different number',
   close: 'Close',
-  greeting: 'Hi, {name}',
+  greeting: 'Welcome, {name}!',
   signOut: 'Sign out',
 };
 

@@ -1,22 +1,4 @@
-/* promo: image + content split, four instances on next-gen-ai-pcs
-   (hp.com computed styles at 390 / 441 / 768 / 1024 / 1115 / 1440 / 1920).
-   hp.com steps at 441px (tablet) and 1115px (desktop), like hero/footnotes.
 
-   The base rules are the image-first split ("Most powerful Windows
-   security"). Variants:
-   - offset (Business-ready): text-first split, copy pushed down on desktop
-   - large (ROI calculator): white panel, large title, square image
-   - compact (Other home laptops): white rounded box in a grey band,
-     heading + buttons, photo on the right on desktop
-   - dark (HP IQ): full-bleed photo with text overlaid on it
-
-   Headings, copy and buttons are sized here (not via the global newsroom
-   scale). Variant hooks are wrapped in :where() so they keep the base's
-   specificity; overrides win by source order (base, then offset, large,
-   compact within each breakpoint). Dark rules come last. */
-
-/* block-scoped tokens: hp.com container gutters, neutral grey band and
-   border (the site-wide --light-color is the newsroom's warm beige) */
 .promo-container {
   --container-padding: 16px;
   --light-color: #f5f5f5;
@@ -35,13 +17,11 @@
   }
 }
 
-/* hp.com stacks these bands flush against each other */
 main > .section.promo-container {
   margin-top: 0;
   margin-bottom: 0;
 }
 
-/* bands stop at the 1680px page container */
 .promo-container .promo-wrapper {
   display: flow-root;
   max-width: 1680px;
@@ -53,7 +33,6 @@ main > .section.promo-container {
   background-color: var(--light-color);
 }
 
-/* base (image-first split) */
 .promo {
   display: flex;
   flex-direction: column;
@@ -83,7 +62,6 @@ main > .section.promo-container {
   padding: 20px 0 30px;
 }
 
-/* heading/copy each take a full line; buttons sit side by side and wrap */
 .promo .promo-content > div {
   display: flex;
   flex-wrap: wrap;
@@ -108,12 +86,10 @@ main > .section.promo-container {
   line-height: 24px;
 }
 
-/* the source renders the italic note as one blank line below the copy */
 .promo .promo-content p + p:where(:not(.button-container)) {
   margin-top: 24px;
 }
 
-/* logo above the heading (Copilot+ PC badge) */
 .promo .promo-content p:has(> picture) {
   margin: 0;
   line-height: 0;
@@ -129,8 +105,6 @@ main > .section.promo-container {
   line-height: 0;
 }
 
-/* footnote refs (the footnotes block swaps the authored <sup> for a
-   number): plain superscript in the copy color, as on hp.com */
 .promo .promo-content a[href^="#footnote"] {
   color: inherit;
   font-size: 0.5em;
@@ -138,7 +112,6 @@ main > .section.promo-container {
   vertical-align: super;
 }
 
-/* buttons: hp.com 48px rounded-rectangle CTAs, not the global pills */
 .promo .promo-content .button-container {
   margin: 16px 0 0;
 }
@@ -182,7 +155,6 @@ main > .section.promo-container {
   color: #3d3d3d;
 }
 
-/* offset (Business-ready): image on top on phones, tight vertical padding */
 .promo:where(.offset) {
   padding-block: 8px;
 }
@@ -196,8 +168,6 @@ main > .section.promo-container {
   margin-bottom: 8px;
 }
 
-/* large (ROI calculator): white panel, text before image at every width,
-   square-cornered image at its natural ratio, large title, regular copy */
 .promo:where(.large) {
   background-color: var(--background-color);
 }
@@ -207,7 +177,6 @@ main > .section.promo-container {
 }
 
 .promo:where(.large) .promo-media img {
-  /* phones: the reference's wider mobile crop (1.8:1); natural ratio from 441 */
   aspect-ratio: 343 / 191;
   border-radius: 0;
 }
@@ -226,8 +195,6 @@ main > .section.promo-container {
   line-height: 24px;
 }
 
-/* compact (Other home laptops): white rounded box inset in the grey
-   band; the diagonal white/blue color block is part of the photo */
 .promo:where(.compact) {
   margin: var(--container-padding);
   padding: 0;
@@ -284,7 +251,6 @@ main > .section.promo-container {
     font-size: 20px;
   }
 
-  /* offset: already two columns on tablet */
   .promo:where(.offset) {
     flex-direction: row;
     align-items: flex-start;
@@ -337,7 +303,6 @@ main > .section.promo-container {
     font-size: 28px;
   }
 
-  /* image-first: gutter between the image and the copy */
   .promo:where(:not(.compact)) .promo-media:first-child {
     padding-right: 20px;
   }
@@ -416,7 +381,6 @@ main > .section.promo-container {
     font-size: 16px;
   }
 
-  /* compact: copy on the left, photo on the right (min 280px tall) */
   .promo:where(.compact) {
     padding: 0;
   }
@@ -442,14 +406,10 @@ main > .section.promo-container {
   }
 }
 
-/* dark (HP IQ): full-bleed rounded photo, text overlaid on the left,
-   vertically centered (on mobile pushed below the subject by 200px) */
 .promo.dark {
   position: relative;
   display: block;
   height: 580px;
-
-  /* bottom = the card's own 10 / 20 / 30px + the reference's 36px spacer */
   margin: 30px 0 46px;
   padding: 0;
   background-color: transparent;
@@ -470,9 +430,6 @@ main > .section.promo-container {
   height: 100%;
   aspect-ratio: auto;
   object-fit: cover;
-
-  /* source swaps in a portrait crop on mobile that frames the subject at
-     the right of the wide photo; this shows the same area */
   object-position: 80% 50%;
   border-radius: 16px;
 }

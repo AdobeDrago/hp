@@ -1,5 +1,3 @@
-/* the section above (hero) sits directly on the nav, as on hp.com:
-   cancel the global 40px section gap on both sides of that boundary */
 main > .section:has(+ .section.anchor-nav-container) {
   margin-bottom: 0;
 }
@@ -13,8 +11,6 @@ main > .section.anchor-nav-container {
   padding: 0;
 }
 
-/* z-index keeps the bar and its mobile dropdown above the page content,
-   but below the site header (z-index 20) and its menus */
 .anchor-nav {
   position: relative;
   z-index: 10;
@@ -31,7 +27,6 @@ main > .section.anchor-nav-container {
   right: 0;
 }
 
-/* bar: 1680px container with the page gutters, hairline top + bottom */
 .anchor-nav > div {
   position: relative;
   box-sizing: border-box;
@@ -46,7 +41,6 @@ main > .section.anchor-nav-container {
   padding: 0 16px;
 }
 
-/* mobile dropdown toggle */
 .anchor-nav .anchor-nav-toggle {
   display: flex;
   align-items: center;
@@ -87,7 +81,6 @@ main > .section.anchor-nav-container {
   transform: rotate(180deg);
 }
 
-/* links: dropdown panel on mobile */
 .anchor-nav-links {
   display: none;
   position: absolute;
@@ -118,7 +111,6 @@ main > .section.anchor-nav-container {
   transition: background 0.1s ease-in, color 0.1s ease-in;
 }
 
-/* the active section is shown as the toggle title instead */
 .anchor-nav-links li.active {
   display: none;
 }
@@ -139,7 +131,6 @@ main > .section.anchor-nav-container {
   text-decoration: none;
 }
 
-/* CTA */
 .anchor-nav-cta {
   display: flex;
   align-items: center;
@@ -229,7 +220,6 @@ main .anchor-nav-cta a.button:focus-visible {
     padding: 6px 0;
   }
 
-  /* 2px indicator along the bottom edge of the bar */
   .anchor-nav-links li::after {
     content: '';
     position: absolute;

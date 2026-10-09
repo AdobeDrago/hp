@@ -39,9 +39,6 @@
   /* nav heights */
   --nav-height: 64px;
   --breadcrumbs-height: 34px;
-
-  /* rendered header: white nav bar + black newsroom bar (128px from 1280px).
-     Reserved up front so the page doesn't shift when the header loads. */
   --header-height: 126px;
 }
 
@@ -258,10 +255,6 @@ main > .section:first-of-type {
   }
 }
 
-/* ai-solutions template (hp.com landing pages): 1680px container with
-   16 / 32 / 36px gutters, stepping at hp.com's 441px / 1115px breakpoints.
-   :where() keeps the base specificity so block wrappers that set their
-   own width still win. */
 :where(body.ai-solutions) main > .section > div {
   box-sizing: border-box;
   max-width: 1680px;
@@ -306,7 +299,6 @@ main .section.dark .default-content-wrapper h2 {
   line-height: 1;
 }
 
-/* hp.com tiers: 441px (tablet) and 1115px (desktop) */
 @media (width >= 441px) {
   main .section.dark {
     padding-top: 34px;

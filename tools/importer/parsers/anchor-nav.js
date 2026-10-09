@@ -1,16 +1,5 @@
 /* eslint-disable */
 /* global WebImporter */
-/**
- * Parser for anchor-nav. Base block: anchor-nav (custom, no library convention).
- * Source: https://www.hp.com/us-en/ai-solutions/next-gen-ai-pcs.html
- * Instance selector: c-hp-anchor-nav
- *
- * Target structure (blocks/anchor-nav/anchor-nav.js):
- *   | Anchor Nav                                         |
- *   | <p><a href="#benefits">…</a></p> … | <p><strong><a>Contact Sales</a></strong></p> |
- * Row 1 cell 1: every in-page link; cell 2: CTA (strong = primary, em = secondary).
- * Iterates li.c-hp-anchor-nav__item (block-level wrapper), not the anchors.
- */
 const ORIGIN = 'https://www.hp.com';
 
 function absUrl(url) {

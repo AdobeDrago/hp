@@ -16,4 +16,12 @@ module.exports = {
     'no-param-reassign': [2, { props: false }], // allow modifying properties of param
     'import/no-cycle': 0, // Allow modules to use each other
   },
+  overrides: [
+    {
+      files: ['scripts/export-fragments*.mjs'],
+      rules: {
+        'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+      },
+    },
+  ],
 };

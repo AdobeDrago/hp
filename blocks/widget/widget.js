@@ -1,10 +1,5 @@
 import { loadCSS } from '../../scripts/aem.js';
 
-/**
- * Parses a widget href into folder path and name.
- * @param {string} pathname URL pathname (e.g. `/widgets/path1/name.html`)
- * @returns {{ widgetPath: string, widgetName: string }}
- */
 function parseWidgetHref(pathname) {
   const pathSegments = pathname.split('/').filter((p) => p);
   const widgetName = pathSegments[pathSegments.length - 1].split('.')[0];
@@ -12,25 +7,11 @@ function parseWidgetHref(pathname) {
   return { widgetPath, widgetName };
 }
 
-/**
- * Builds a widget asset URL.
- * @param {string} widgetPath Folder path under `/widgets/`
- * @param {string} widgetName Widget file name without extension
- * @param {string} extension File extension (`html`, `css`, `js`)
- */
 function widgetUrl(widgetPath, widgetName, extension) {
   const prefix = widgetPath ? `${widgetPath}/` : '';
   return `${window.hlx.codeBasePath}/widgets/${prefix}${widgetName}.${extension}`;
 }
 
-/**
- * Applies widget metadata, block classes, and section shell classes.
- * Must run before widget HTML/JS load so decorate can read config from the DOM.
- * @param {Element} widget The widget block element
- * @param {HTMLAnchorElement} source The authored widget link
- * @param {string} widgetName Widget file name without extension
- * @param {URLSearchParams} searchParams Query params from the widget href
- */
 function applyWidgetShell(widget, source, widgetName, searchParams) {
   widget.classList.add(widgetName);
   widget.classList.remove('block');
@@ -51,10 +32,6 @@ function applyWidgetShell(widget, source, widgetName, searchParams) {
   }
 }
 
-/**
- * Loads and decorates a widget block.
- * @param {Element} widget The widget block element
- */
 export default async function decorate(widget) {
   const source = widget.querySelector('a[href]');
   const { pathname, searchParams } = new URL(source.href);

@@ -1,31 +1,7 @@
 /* eslint-disable */
 /* global WebImporter */
 
-/**
- * Transformer: HP section breaks + Section Metadata.
- *
- * - Section boundaries come from payload.template.sections[].selector (array,
- *   first match wins), as defined in tools/importer/page-templates.json.
- * - Section Metadata rows:
- *     style -> section.style (e.g. FAQs = dark)
- *     id    -> anchorId from tools/importer/section-anchors.json (mirrored below,
- *              keyed by template name then section id). scripts.js maps the
- *              section-metadata `id` onto section.id so anchor-nav links work.
- *   #benefits / #portfolio live on the preceding div.spacing in the source, so
- *   ids are resolved from this map rather than read from the DOM.
- *
- * Timing:
- * - beforeTransform: resolve sections while every element (including the
- *   div.spacing siblings that hp-cleanup.js removes later) still exists, and
- *   insert <hr> breaks. <hr> is not a <div>, so `div...:nth-of-type(N)`
- *   selectors used by parsers are unaffected. When a section is directly
- *   preceded by div.spacing sibling(s), the <hr> goes before the spacing div(s)
- *   so `div.spacing:has(#benefits) + div.backgroundContainer` adjacency used by
- *   parsers stays intact.
- * - afterTransform: insert Section Metadata anchored to the marker <hr>.
- */
 
-// Mirror of tools/importer/section-anchors.json
 const SECTION_ANCHORS = {
   'ai-solutions': {
     3: 'benefits',
@@ -62,8 +38,6 @@ function getMetadataCells(section, templateName) {
   return cells;
 }
 
-// Walk back over directly preceding div.spacing siblings so the break is
-// placed before them (keeps spacing + backgroundContainer adjacency intact).
 function breakAnchor(sectionEl) {
   let anchor = sectionEl;
   let prev = anchor.previousElementSibling;

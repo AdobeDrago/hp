@@ -1,16 +1,38 @@
+import { getMetadata } from '../../scripts/aem.js';
+
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 1280px)');
 
+const DEFAULT_HEADER_FRAGMENT = '/nav';
+
 /**
- * Fetches the nav fragment from the same content root as the page:
- * /content/ for pages served from /content/ (localhost / aem up), the
- * site root otherwise (DA/EDS), so neither environment requests a 404.
+ * Fetches a header fragment by path (same-site absolute path, or a full
+ * cross-origin URL to reuse another site's header content), resolving it
+ * against the same content root as the current page (/content/ for pages
+ * served from /content/ - localhost / aem up - the site root otherwise, so
+ * neither environment requests a 404), and fixes up any page-relative media
+ * references so they still resolve from here.
+ * @param {string} path Path or URL to the fragment, without the .plain.html suffix
+ * @returns {string|null} The fragment's inner HTML, or null if it couldn't be loaded
  */
-async function fetchNavHtml() {
-  const root = window.location.pathname.startsWith('/content/') ? '/content' : '';
-  const resp = await fetch(`${root}/nav.plain.html`);
+async function fetchNavHtml(path) {
+  const isAbsolute = /^https?:\/\//i.test(path);
+  const root = !isAbsolute && window.location.pathname.startsWith('/content/') ? '/content' : '';
+  const resolvedPath = `${root}${path}`;
+  const resp = await fetch(`${resolvedPath}.plain.html`);
   if (!resp.ok) return null;
-  return resp.text();
+  const container = document.createElement('div');
+  container.innerHTML = await resp.text();
+
+  const resetAttributeBase = (tag, attr) => {
+    container.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
+      elem[attr] = new URL(elem.getAttribute(attr), new URL(resolvedPath, window.location)).href;
+    });
+  };
+  resetAttributeBase('img', 'src');
+  resetAttributeBase('source', 'srcset');
+
+  return container.innerHTML;
 }
 
 /**
@@ -140,9 +162,9 @@ function decorateSections(navSections) {
       } else if (node.tagName === 'UL') {
         const hasImages = node.querySelector('img');
         if (hasImages) {
-          cardsCol.append(...node.children);
+          cardsCol.append(node);
         } else {
-          featuredCol.append(...node.children);
+          featuredCol.append(node);
         }
       }
     }
@@ -196,7 +218,8 @@ function toggleMobileMenu(nav, forceClose = false) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  const html = await fetchNavHtml();
+  const path = getMetadata('header') || DEFAULT_HEADER_FRAGMENT;
+  const html = await fetchNavHtml(path);
   block.textContent = '';
   if (!html) return;
 

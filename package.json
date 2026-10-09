@@ -11,6 +11,7 @@
     "build:json:models": "merge-json-cli -i \"ue/models/component-models.json\" -o \"component-models.json\"",
     "build:json:definitions": "merge-json-cli -i \"ue/models/component-definition.json\" -o \"component-definition.json\"",
     "build:json:filters": "merge-json-cli -i \"ue/models/component-filters.json\" -o \"component-filters.json\"",
+    "export:fragments": "node scripts/export-fragments.mjs",
     "prepare": "husky"
   },
   "repository": {
@@ -28,10 +29,11 @@
     "eslint": "8.57.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.29.1",
-    "stylelint": "16.7.0",
-    "stylelint-config-standard": "36.0.1",
     "husky": "^9.1.7",
+    "jsdom": "^30.1.2",
     "merge-json-cli": "^1.0.4",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "stylelint": "16.7.0",
+    "stylelint-config-standard": "36.0.1"
   }
 }

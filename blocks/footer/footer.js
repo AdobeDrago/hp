@@ -1,13 +1,35 @@
+import { getMetadata } from '../../scripts/aem.js';
+
+const DEFAULT_FOOTER_FRAGMENT = '/footer';
+
 /**
- * Fetches the footer fragment from the same content root as the page:
- * /content/ for pages served from /content/ (localhost / aem up), the
- * site root otherwise (DA/EDS), so neither environment requests a 404.
+ * Fetches a footer fragment by path (same-site absolute path, or a full
+ * cross-origin URL to reuse another site's footer content), resolving it
+ * against the same content root as the current page (/content/ for pages
+ * served from /content/ - localhost / aem up - the site root otherwise, so
+ * neither environment requests a 404), and fixes up any page-relative media
+ * references so they still resolve from here.
+ * @param {string} path Path or URL to the fragment, without the .plain.html suffix
+ * @returns {string|null} The fragment's inner HTML, or null if it couldn't be loaded
  */
-async function fetchFooterHtml() {
-  const root = window.location.pathname.startsWith('/content/') ? '/content' : '';
-  const resp = await fetch(`${root}/footer.plain.html`);
+async function fetchFooterHtml(path) {
+  const isAbsolute = /^https?:\/\//i.test(path);
+  const root = !isAbsolute && window.location.pathname.startsWith('/content/') ? '/content' : '';
+  const resolvedPath = `${root}${path}`;
+  const resp = await fetch(`${resolvedPath}.plain.html`);
   if (!resp.ok) return null;
-  return resp.text();
+  const container = document.createElement('div');
+  container.innerHTML = await resp.text();
+
+  const resetAttributeBase = (tag, attr) => {
+    container.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
+      elem[attr] = new URL(elem.getAttribute(attr), new URL(resolvedPath, window.location)).href;
+    });
+  };
+  resetAttributeBase('img', 'src');
+  resetAttributeBase('source', 'srcset');
+
+  return container.innerHTML;
 }
 
 /**
@@ -29,7 +51,8 @@ function decorateSocialList(list) {
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
-  const html = await fetchFooterHtml();
+  const path = getMetadata('footer') || DEFAULT_FOOTER_FRAGMENT;
+  const html = await fetchFooterHtml(path);
   block.textContent = '';
   if (!html) return;
 
@@ -57,8 +80,6 @@ export default async function decorate(block) {
 
   // country/region selector: the second paragraph is the current locale (button),
   // the following list is the full country overlay (hidden until toggled).
-  // Open state lives on the container as data-expanded (for CSS); the control
-  // itself carries aria-expanded/aria-controls.
   const country = footer.querySelector('.footer-country');
   if (country) {
     const trigger = country.querySelector('p:nth-of-type(2)');
@@ -122,8 +143,6 @@ export default async function decorate(block) {
 
     // Mobile accordion: every link column (not the social one) collapses under
     // its heading. The heading becomes a toggle button; desktop CSS keeps it open.
-    // The toggle control is the heading's link, or a button wrapping the
-    // heading text when it has none.
     groups.forEach((col, i) => {
       if (col === last) return;
       const heading = col.querySelector('h2');

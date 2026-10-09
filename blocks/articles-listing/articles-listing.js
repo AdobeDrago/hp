@@ -6,35 +6,40 @@ const BATCH = 9;
 const MEDIA_TYPES = [
   { value: 'Press Release', label: 'Press Releases' },
   { value: 'Press Kit', label: 'Press Kits' },
-  { value: 'Press Blog', label: 'Press Blog' },
+  { value: 'Press Blog', label: 'Press Blogs' },
 ];
 
 // HP's fixed 46-topic taxonomy (slug -> label); articles store slugs in `topic`.
 const TOPICS = [
-  ['3d_printing', '3D Printing'], ['awards_recognition', 'Awards & Recognition'],
-  ['blended_reality', 'Blended Reality'], ['ces', 'CES'], ['community', 'Community'],
-  ['consumer_printing', 'Consumer Printing'], ['corporate', 'Corporate'],
-  ['desktop_computing', 'Desktop Computing'], ['diversity', 'Diversity'],
-  ['education', 'Education'], ['enterprise_printing', 'Enterprise Printing'],
-  ['entertainment', 'Entertainment'], ['environment', 'Environment'], ['events', 'Events'],
-  ['financial', 'Financial'], ['gaming', 'Gaming'], ['global_citizenship', 'Global Citizenship'],
-  ['graphic_arts', 'Graphic Arts'], ['graphics', 'Graphics'], ['health', 'Health'],
-  ['healthcare', 'Healthcare'], ['home', 'Home'], ['hp_labs', 'HP Labs'],
-  ['hybrid_work', 'Hybrid Work'], ['innovation', 'Innovation'], ['leadership', 'Leadership'],
-  ['legacy', 'Legacy'], ['life_at_hp', 'Life at HP'], ['manufacturing', 'Manufacturing'],
-  ['megatrends', 'Megatrends'], ['mobile_computing', 'Mobile Computing'], ['mobility', 'Mobility'],
-  ['personal_computers', 'Personal Computers'], ['print', 'Print'], ['printers', 'Printers'],
-  ['reinvention', 'Reinvention'], ['science', 'Science'], ['security', 'Security'],
-  ['small_business_printing', 'Small Business Printing'], ['sports', 'Sports'],
-  ['sustainability', 'Sustainability'], ['technology_and_innovation', 'Technology and Innovation'],
-  ['tradeshows_events', 'Tradeshows + Events'], ['urbanization', 'Urbanization'],
-  ['virtual_reality', 'Virtual Reality'], ['work_life', 'Work-life'],
+  ['print', 'Print'], ['community', 'Community'], ['megatrends', 'Megatrends'],
+  ['healthcare', 'Healthcare'], ['urbanization', 'Urbanization'], ['mobility', 'Mobility'],
+  ['legacy', 'Legacy'], ['gaming', 'Gaming'], ['manufacturing', 'Manufacturing'],
+  ['security', 'Security'], ['entertainment', 'Entertainment'], ['virtual_reality', 'Virtual Reality'],
+  ['diversity', 'Diversity'], ['reinvention', 'Reinvention'], ['hp_labs', 'HP Labs'],
+  ['sustainability', 'Sustainability'], ['education', 'Education'], ['3d_printing', '3D Printing'],
+  ['leadership', 'Leadership'], ['innovation', 'Innovation'], ['corporate', 'Corporate'],
+  ['awards_recognition', 'Awards & Recognition'], ['financial', 'Financial'],
+  ['graphic_arts', 'Graphic Arts'], ['science', 'Science'], ['health', 'Health'],
+  ['sports', 'Sports'], ['work_life', 'Work-life'], ['home', 'Home'], ['printers', 'Printers'],
+  ['personal_computers', 'Personal Computers'], ['events', 'Events'],
+  ['tradeshows_events', 'Tradeshows + Events'], ['ces', 'CES'],
+  ['desktop_computing', 'Desktop Computing'], ['blended_reality', 'Blended Reality'],
+  ['mobile_computing', 'Mobile Computing'], ['consumer_printing', 'Consumer Printing'],
+  ['enterprise_printing', 'Enterprise Printing'], ['graphics', 'Graphics'],
+  ['small_business_printing', 'Small Business Printing'],
+  ['technology_and_innovation', 'Technology and Innovation'], ['environment', 'Environment'],
+  ['global_citizenship', 'Global Citizenship'], ['life_at_hp', 'Life at HP'],
+  ['hybrid_work', 'Hybrid Work'],
 ].map(([value, label]) => ({ value, label }));
 
 const LABELS = new Map([
   ...MEDIA_TYPES.map((m) => [m.value, m.label]),
   ...TOPICS.map((t) => [t.value, t.label]),
 ]);
+
+const MEDIA_TYPE_BY_TEXT = new Map(
+  MEDIA_TYPES.flatMap((m) => [[m.value.toLowerCase(), m.value], [m.label.toLowerCase(), m.value]]),
+);
 
 const SORTS = [
   { id: 'az', label: 'A-Z' },
@@ -95,13 +100,13 @@ function sortItems(items, sort) {
   return a;
 }
 
-function card(it) {
+function card(it, level) {
   const art = el('article', 'al-card');
   const media = el('a', 'al-card-media');
   media.href = it.path;
   if (it.image) media.append(createOptimizedPicture(it.image, it.title, false, [{ width: '750' }]));
   const body = el('div', 'al-card-body');
-  const h = el('h3', 'al-card-title');
+  const h = el(`h${level}`, 'al-card-title');
   const ha = el('a', null, it.title);
   ha.href = it.path;
   h.append(ha);
@@ -109,6 +114,7 @@ function card(it) {
   const desc = (it.description || '').trim();
   if (desc && desc.toLowerCase() !== 'null') body.append(el('p', 'al-card-desc', desc));
   const cta = el('a', 'al-card-cta', 'Read');
+  cta.append(el('span', 'al-sr-only', `: ${it.title}`));
   cta.href = it.path;
   body.append(cta);
   art.append(media, body);
@@ -131,7 +137,7 @@ function checkList(group, options) {
 }
 
 function facetDropdown(title, group, options) {
-  const root = el('div', 'al-facet');
+  const root = el('div', `al-facet al-facet-${group}`);
   const btn = el('button', 'al-facet-btn', title);
   btn.type = 'button';
   btn.dataset.facet = group;
@@ -169,7 +175,7 @@ function collapsible(title, body) {
   return root;
 }
 
-function modal() {
+function modal(pinnedType) {
   const root = el('div', 'al-modal');
   root.hidden = true;
   const sheet = el('div', 'al-modal-sheet');
@@ -204,7 +210,7 @@ function modal() {
     head,
     kw,
     sortWrap,
-    collapsible('Media Type', checkList('media', MEDIA_TYPES)),
+    ...(pinnedType ? [] : [collapsible('Media Type', checkList('media', MEDIA_TYPES))]),
     collapsible('Topics', checkList('topics', TOPICS)),
     view,
   );
@@ -215,10 +221,20 @@ function modal() {
 export default async function decorate(block) {
   const link = block.querySelector('a[href]');
   const source = link ? link.getAttribute('href') : DEFAULT_SOURCE;
+
+  const pinnedType = [...block.querySelectorAll('p, div, li')]
+    .map((n) => MEDIA_TYPE_BY_TEXT.get(n.textContent.trim().toLowerCase()))
+    .find(Boolean);
+
   block.textContent = '';
+  if (pinnedType) block.classList.add('al-type-pinned');
 
   const state = {
-    keyword: '', media: new Set(), topics: new Set(), sort: 'newest', shown: BATCH,
+    keyword: '',
+    media: new Set(pinnedType ? [pinnedType] : []),
+    topics: new Set(),
+    sort: 'newest',
+    shown: BATCH,
   };
 
   const toolbar = el('div', 'al-toolbar');
@@ -231,7 +247,7 @@ export default async function decorate(block) {
   toolbar.append(
     mobileTrigger,
     keyword,
-    facetDropdown('Media Type', 'media', MEDIA_TYPES),
+    ...(pinnedType ? [] : [facetDropdown('Media Type', 'media', MEDIA_TYPES)]),
     facetDropdown('Topics', 'topics', TOPICS),
     count,
     sortDropdown(),
@@ -241,8 +257,16 @@ export default async function decorate(block) {
   const grid = el('div', 'al-grid');
   const loadMore = el('button', 'al-loadmore', 'Load More');
   loadMore.type = 'button';
-  const sheet = modal();
+  const sheet = modal(pinnedType);
   block.append(toolbar, chips, grid, loadMore, sheet);
+
+  const section = block.closest('.section');
+  let heading = section?.querySelector('h1, h2');
+  if (pinnedType && !heading) {
+    heading = el(document.querySelector('main h1') ? 'h2' : 'h1', 'al-title', LABELS.get(pinnedType));
+    block.prepend(heading);
+  }
+  const cardLevel = heading ? Number(heading.tagName[1]) + 1 : 3;
 
   const items = await loadItems(source);
 
@@ -253,7 +277,7 @@ export default async function decorate(block) {
 
   function renderChips() {
     chips.textContent = '';
-    const active = [...[...state.media].map((v) => ['media', v]),
+    const active = [...[...state.media].filter((v) => v !== pinnedType).map((v) => ['media', v]),
       ...[...state.topics].map((v) => ['topics', v])];
     active.forEach(([group, value]) => {
       const chip = el('span', 'al-chip');
@@ -290,7 +314,7 @@ export default async function decorate(block) {
     const results = sortItems(filterItems(items, state), state.sort);
     count.textContent = `${results.length} Items`;
     grid.textContent = '';
-    results.slice(0, state.shown).forEach((it) => grid.append(card(it)));
+    results.slice(0, state.shown).forEach((it) => grid.append(card(it, cardLevel)));
     loadMore.hidden = state.shown >= results.length;
     renderChips();
     syncControls();
@@ -344,7 +368,8 @@ export default async function decorate(block) {
       return;
     }
     if (t.closest('.al-clear')) {
-      state.media.clear(); state.topics.clear();
+      state.media = new Set(pinnedType ? [pinnedType] : []);
+      state.topics.clear();
       apply();
       return;
     }

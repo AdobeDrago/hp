@@ -36,15 +36,18 @@
   --heading-font-size-s: 24px;
   --heading-font-size-xs: 22px;
 
-  /* nav heights */
-  --nav-height: 64px;
+  /* nav heights: white bar 64px + 1px bottom border (hp.com), then the
+     62px newsroom bar */
+  --nav-height: 65px;
   --breadcrumbs-height: 34px;
-  --header-height: 126px;
+  --header-height: 127px;
 }
 
-@media (width >= 1280px) {
+@media (width >= 1115px) {
   :root {
-    --header-height: 128px;
+    /* white bar as on hp.com: 54px + 1px bottom border, then the 64px newsroom bar */
+    --nav-height: 55px;
+    --header-height: 119px;
   }
 }
 
@@ -104,6 +107,10 @@ footer .footer[data-block-status="loaded"] {
   body[data-breadcrumbs] {
     --header-height: calc(var(--nav-height) + var(--breadcrumbs-height));
   }
+}
+
+body[data-no-newsroom] {
+  --header-height: var(--nav-height);
 }
 
 h1,

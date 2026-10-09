@@ -118,6 +118,10 @@ async function loadEager(doc) {
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
     doc.body.dataset.breadcrumbs = true;
   }
+  // set before first paint so styles.css reserves the header height without the newsroom bar
+  if (getMetadata('newsroom') === 'false') {
+    doc.body.dataset.noNewsroom = 'true';
+  }
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);

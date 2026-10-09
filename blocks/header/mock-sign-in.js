@@ -1,16 +1,3 @@
-/*
- * Mock mobile-number sign-in (demo only).
- *
- * Mimics hp.com's "Sign in with mobile number" + sign-in code flow without
- * HP ID: users come from the "mock-users" spreadsheet in Document Authoring
- * (published as /mock-users.json), the code is a fixed value per user, and the
- * "session" lives in localStorage. Nothing here is real authentication — the
- * sheet is public, so it must only ever hold made-up numbers.
- *
- * Sheet "users" (or the only sheet): country | mobile | firstName | lastName | otp
- * Optional sheet "labels": key | text — overrides any of the LABELS below.
- */
-
 const DATA_URL = '/mock-users.json';
 const SESSION_KEY = 'hp-mock-session';
 const SESSION_HOURS = 8;
@@ -35,18 +22,11 @@ export const LABELS = {
 };
 
 const digits = (v) => String(v ?? '').replace(/\D/g, '');
-// national numbers are often written with a trunk "0" (UK 07700…); ignore it
-// so "07700 900123" and "7700 900123" match the same user
 const nationalNumber = (v) => digits(v).replace(/^0+/, '');
 const fill = (text, values) => text.replace(/\{(\w+)\}/g, (m, k) => values[k] ?? m);
 
 let dataPromise;
 
-/**
- * Loads (once) the mock users and label overrides from the spreadsheet.
- * Accepts a single-sheet or multi-sheet ("users" + "labels") workbook.
- * @returns {Promise<{users: Object[], labels: Object}|null>} null when unavailable
- */
 export function loadMockData() {
   if (!dataPromise) {
     dataPromise = fetch(DATA_URL)
@@ -75,7 +55,6 @@ export function loadMockData() {
   return dataPromise;
 }
 
-/** @returns {Object|null} The stored, unexpired mock session */
 export function getSession() {
   try {
     const session = JSON.parse(localStorage.getItem(SESSION_KEY));
@@ -117,12 +96,6 @@ function field(id, label, input) {
   return wrap;
 }
 
-/**
- * Opens the sign-in dialog. Resolves with the new session once signed in,
- * or null if the dialog is closed first.
- * @param {{users: Object[], labels: Object}} data From loadMockData()
- * @returns {Promise<Object|null>}
- */
 export function openSignInDialog({ users, labels }) {
   return new Promise((resolve) => {
     let result = null;
@@ -141,7 +114,6 @@ export function openSignInDialog({ users, labels }) {
     error.setAttribute('role', 'alert');
     const showError = (msg) => { error.textContent = msg; };
 
-    // step 1: country code + mobile number
     const mobileForm = el('form', 'mock-sign-in-step');
     const country = el('select', 'mock-sign-in-country');
     [...new Set(users.map((u) => u.country))].forEach((c) => {
@@ -159,7 +131,6 @@ export function openSignInDialog({ users, labels }) {
     send.type = 'submit';
     mobileForm.append(row, send);
 
-    // step 2: sign-in code
     const codeForm = el('form', 'mock-sign-in-step');
     codeForm.hidden = true;
     const codeIntro = el('p', 'mock-sign-in-intro');
@@ -205,15 +176,12 @@ export function openSignInDialog({ users, labels }) {
       mobile.focus();
     });
 
-    // backdrop click closes, as with the other header overlays
     dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
     dialog.addEventListener('close', () => {
       dialog.remove();
       resolve(result);
     });
 
-    // content sits in an inner card so only clicks outside it hit the dialog
-    // element itself (the backdrop)
     const card = el('div', 'mock-sign-in-card');
     card.append(close, title, error, mobileForm, codeForm);
     dialog.append(card);

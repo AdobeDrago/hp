@@ -142,8 +142,6 @@ header nav .nav-search {
   align-items: center;
 }
 
-/* account flyout (hp.com "Welcome!" panel), built from the nested list
-   under "Sign In" in the nav fragment (see buildAccountFlyout) */
 header nav .nav-account {
   position: relative;
   display: flex;
@@ -152,8 +150,6 @@ header nav .nav-account {
 
 header nav .nav-account-open .nav-signin-btn { color: #024ad8; }
 
-/* card: 4px below the 64px header bar (the 28px icon sits 18px above the
-   bar's bottom edge), right edge just past the icon - as on hp.com */
 header nav .nav-account-flyout {
   display: none;
   position: absolute;
@@ -172,8 +168,6 @@ header nav .nav-account-flyout {
   font-family: forma-djr-micro, forma-djr, 'Helvetica Neue', helvetica, arial, sans-serif;
 }
 
-/* invisible bridge over the gap above the panel, so moving the mouse from
-   the icon into the panel keeps it open */
 header nav .nav-account-flyout::before {
   content: '';
   position: absolute;
@@ -304,7 +298,6 @@ header nav .nav-account-icon {
   stroke-linejoin: round;
 }
 
-/* demo sign-in (mock-sign-in.js): signed-in state of the icon and flyout */
 header nav .nav-signin-initials,
 header nav .nav-account-user { display: none; }
 
@@ -313,7 +306,6 @@ header nav .nav-account-signed-in .nav-account-btn.primary,
 header nav .nav-account-signed-in .nav-account-btn.secondary:not(.nav-account-signout),
 header nav .nav-account-signed-in .nav-account-benefit { display: none; }
 
-/* the initials circle covers the profile icon while signed in */
 header nav .nav-account-signed-in .nav-signin-btn { position: relative; }
 
 header nav .nav-account-signed-in .nav-signin-initials {
@@ -386,10 +378,8 @@ header nav .nav-search-form {
 
 header nav .nav-search-form[hidden] { display: none; }
 
-/* close for the expanded search (shown in the < 1115px and 1115-1279px blocks) */
 header nav .nav-search-close { display: none; }
 
-/* backdrop behind the tablet menu drawer (shown in the 441-1114px block) */
 header .nav-overlay { display: none; }
 
 header nav .nav-search-form input {
@@ -509,9 +499,6 @@ header nav .nav-panel-featured a {
 
 header nav .nav-panel-cards { order: 1; }
 
-/* the cards column holds a single <ul> (kept intact for valid HTML - see
-   decorateSections in header.js); the layout rules apply to that list,
-   not to this wrapper, so it works whether it holds one child or many. */
 header nav .nav-panel-cards ul {
   display: flex;
   flex-direction: column;
@@ -548,8 +535,6 @@ header nav .nav-menu ul {
   padding: 0;
 }
 
-/* "Business Solutions" is pinned last in the menu and rendered as a CTA
-   rather than a dropdown trigger (see header.js decorateSections). */
 header nav .nav-cta { border-bottom: 1px solid #e6e6e6; }
 
 header nav .nav-cta-btn {
@@ -561,20 +546,15 @@ header nav .nav-cta-btn {
   text-decoration: none;
 }
 
-/* ===== Mobile / tablet (below 1115px): hamburger menu + expanding search,
-   matched to hp.com's open states ===== */
 @media (width < 1115px) {
   header nav { position: relative; }
 
-  /* no blue tap flash on menu items/buttons (hp.com sets it transparent);
-     keyboard focus still shows the :focus-visible ring */
   header nav a,
   header nav button,
   header .nav-overlay {
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* menu open: the bar keeps only the logo and the close "x" */
   header nav[aria-expanded='true'] .nav-tools { visibility: hidden; }
 
   header nav[aria-expanded='true'] .nav-hamburger-icon::before,
@@ -583,7 +563,6 @@ header nav .nav-cta-btn {
     background: #024ad8;
   }
 
-  /* menu content sits inside the 16px page gutters (hp.com), not edge to edge */
   header nav[aria-expanded='true'] .nav-sections {
     border-top: 1px solid #d9d1d1;
     padding: 0 16px 40px;
@@ -605,7 +584,6 @@ header nav .nav-cta-btn {
     color: #3d3d3d;
   }
 
-  /* 24px chevron area, thin stroke as on hp.com */
   header nav .nav-menu-trigger::after {
     flex: none;
     width: 9px;
@@ -625,7 +603,6 @@ header nav .nav-cta-btn {
     text-decoration: none;
   }
 
-  /* open item: hp.com puts the first card 20px under the heading text */
   header nav .nav-drop[aria-expanded='true'] .nav-menu-trigger {
     padding-bottom: 21px;
   }
@@ -634,11 +611,6 @@ header nav .nav-cta-btn {
     padding: 0 0 28px;
   }
 
-  /* category cards: 120x80 rounded image + title side by side, 8px apart.
-     Works for both nav shapes: title inside the link (li > a > picture +
-     text) or, as DA publishes it, a linked picture paragraph followed by a
-     title paragraph. The link is stretched over the row so the whole card
-     is tappable, as on hp.com. */
   header nav .nav-panel-cards ul {
     gap: 8px;
   }
@@ -696,7 +668,6 @@ header nav .nav-cta-btn {
     text-decoration: underline;
   }
 
-  /* deals link (first list) + "Featured" group, separated by a divider */
   header nav .nav-panel-featured {
     margin: 20px 0 0;
   }
@@ -719,7 +690,6 @@ header nav .nav-cta-btn {
     gap: 6px;
   }
 
-  /* price-tag icon before the deals link (hp.com digitnav-priceTag-icon) */
   header nav .nav-panel-featured > ul:first-child a::before {
     content: '';
     flex: none;
@@ -739,7 +709,6 @@ header nav .nav-cta-btn {
     color: #000;
   }
 
-  /* "HP for Business": outlined pill button under the last divider */
   header nav .nav-cta {
     border-bottom: 0;
     padding-top: 18px;
@@ -760,7 +729,6 @@ header nav .nav-cta-btn {
     text-decoration: none;
   }
 
-  /* search open: the search field replaces the header bar contents */
   header nav.nav-search-open .nav-search {
     position: absolute;
     inset: 0;
@@ -831,8 +799,6 @@ header nav .nav-cta-btn {
   }
 }
 
-/* ===== Tablet (441px - 1114px): the menu is a 340px drawer on the right over
-   a blurred, dimmed page, as on hp.com (phones keep the full-width menu) ===== */
 @media (441px <= width < 1115px) {
   header nav[aria-expanded='true'] .nav-sections {
     left: auto;
@@ -851,11 +817,7 @@ header nav .nav-cta-btn {
   }
 }
 
-/* ===== Desktop (min-width: 1115px, as on hp.com) — below this the mobile
-   hamburger nav shows, so the wide global nav never squishes on tablet ===== */
 @media (width >= 1115px) {
-  /* Sticky header: pulled up by the white bar's height so, on scroll, the white
-     global bar scrolls away and the black secondary bar pins to the top. */
   header {
     position: sticky;
     top: calc(-1 * var(--nav-height, 64px));
@@ -872,7 +834,6 @@ header nav .nav-cta-btn {
 
   header nav .nav-hamburger { display: none; }
 
-  /* first menu item starts at 114px, as on hp.com */
   header nav .nav-brand { margin-right: 34px; }
 
   header nav .nav-brand a {
@@ -930,7 +891,7 @@ header nav .nav-cta-btn {
     width: auto;
     height: 48px;
     box-sizing: border-box;
-    margin: 0 8px; /* 20px apart with the 4px menu gap, as on hp.com */
+    margin: 0 8px;
     padding: 15px 2px;
     font-size: 14px;
     font-weight: 400;
@@ -947,11 +908,6 @@ header nav .nav-cta-btn {
     box-shadow: inset 0 -2px 0 0 #000;
   }
 
-  /* invisible hover bridge: the 48px trigger sits centred in the taller nav
-     row, so the panel (anchored at the nav's bottom edge) starts a few px below
-     it. Extending the trigger's hit area down to the panel keeps the pointer
-     "inside" the menu item on its way to the tiles, so mouseleave doesn't
-     close the panel mid-move. */
   header nav .nav-drop .nav-menu-trigger::before {
     content: '';
     position: absolute;
@@ -1010,8 +966,6 @@ header nav .nav-cta-btn {
     z-index: 25;
   }
 
-  /* hp.com: a centred block - 198px link column + four 184px cards, 8px
-     apart (966px; 270px cards from 1680px) - not edge-to-edge content */
   header nav .nav-drop[aria-expanded='true'] .nav-panel {
     display: grid;
     grid-template-columns: 198px auto;
@@ -1023,9 +977,6 @@ header nav .nav-cta-btn {
     pointer-events: auto;
   }
 
-  /* invisible hover bridge over the gap between the menu item (ends 8px
-     above the bar's bottom) and the panel, so moving the mouse down into
-     the panel keeps it open instead of closing it on the way */
   header nav .nav-panel::before {
     content: '';
     position: absolute;
@@ -1047,7 +998,6 @@ header nav .nav-cta-btn {
     pointer-events: none;
   }
 
-  /* left column: deals link (tag icon), divider, "Featured" + links */
   header nav .nav-panel-featured {
     order: 0;
     margin: 0;
@@ -1106,9 +1056,6 @@ header nav .nav-cta-btn {
     margin-top: 13px;
   }
 
-  /* cards: 184x150 rounded image with the title 8px below; works for both
-     nav shapes (title inside the link, or DA's linked-picture paragraph +
-     title paragraph), with the link stretched over the whole card */
   header nav .nav-panel-cards { order: 0; }
 
   /* stylelint-disable-next-line no-descending-specificity */
@@ -1167,14 +1114,12 @@ header nav .nav-cta-btn {
   header nav .nav-panel-cards li:hover > p { text-decoration: underline; }
 }
 
-/* hp.com: wider mega-menu cards (270px) from 1680px */
 @media (width >= 1680px) {
   header nav .nav-panel-cards ul {
     grid-template-columns: repeat(4, 270px);
   }
 }
 
-/* search from 1280px: an always-open pill input (no toggle button) */
 @media (width >= 1280px) {
   header nav .nav-search-btn { display: none; }
 
@@ -1211,9 +1156,6 @@ header nav .nav-cta-btn {
   }
 }
 
-/* search at 1115-1279px (hp.com): the pill doesn't fit beside the menu, so
-   it's an icon; opening it swaps the menu and tools for a centred 912px field
-   with a close "x" 20px to its right (the logo stays) */
 @media (1115px <= width < 1280px) {
   header nav.nav-search-open { position: relative; }
 
@@ -1436,12 +1378,6 @@ header .nav-wrapper .nav-newsroom p:last-child a:hover {
   header .nav-wrapper .nav-newsroom .nav-newsroom-brand { margin-right: 0; }
 }
 
-/* ===== Account panel by breakpoint (hp.com) =====
-   1115px+: the rounded card (opens on hover).
-   1024-1114px: square, full-height panel with 20/16/16px padding (hover).
-   < 1024px: a sheet under the header bar - full width up to 767px, a
-   360px panel on the right from 768px - over a dimmed, blurred page; the
-   bar keeps only the logo and the close "x" (opens on tap/click only). */
 @media (1024px <= width < 1115px) {
   header nav .nav-account-flyout {
     height: calc(100vh - var(--nav-height, 64px) - 4px);
@@ -1466,7 +1402,6 @@ header .nav-wrapper .nav-newsroom p:last-child a:hover {
 
   header nav .nav-account-flyout::before { content: none; }
 
-  /* the close "x" moves into the header bar, where the tools were */
   header nav .nav-account-close {
     position: fixed;
     top: calc((var(--nav-height, 64px) - 48px) / 2);
@@ -1504,7 +1439,6 @@ header .nav-wrapper .nav-newsroom p:last-child a:hover {
   header nav .nav-account-flyout { width: 360px; }
 }
 
-/* demo sign-in dialog — appended to <body>, so not scoped under the header */
 .mock-sign-in {
   box-sizing: border-box;
   width: min(480px, calc(100vw - 32px));

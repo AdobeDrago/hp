@@ -5,12 +5,8 @@ import {
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 1115px)');
-// account panel opens on hover from 1024px with a mouse/trackpad (hp.com);
-// below that, and on touch, it opens on tap/click only
 const accountHover = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
 
-// the default fragment this site uses for its header; any page can point at
-// a different one (or at another site's) via a "Header" metadata row
 const DEFAULT_HEADER_FRAGMENT = '/nav';
 
 /**
@@ -53,18 +49,11 @@ function closeAllPanels(nav) {
   });
 }
 
-/**
- * Opens/closes the account flyout.
- * @param {Element} account The .nav-account wrapper
- * @param {Boolean} open Whether the flyout should be open
- */
 function setAccountOpen(account, open) {
   if (!account) return;
   account.classList.toggle('nav-account-open', open);
   const btn = account.querySelector('.nav-signin-btn');
   if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  // below 1024px the panel is a sheet over the page (hp.com): only one
-  // overlay at a time, so close the mobile menu / search when it opens
   const nav = account.closest('nav');
   if (open && nav && !isDesktop.matches) {
     if (nav.getAttribute('aria-expanded') === 'true') {
@@ -75,13 +64,6 @@ function setAccountOpen(account, open) {
   }
 }
 
-/**
- * Opens/closes the search. Below 1280px the search is an icon and the open
- * search takes over the header bar, as on hp.com; from 1280px the search
- * field is always shown and this has no visual effect.
- * @param {Element} nav The nav element
- * @param {Boolean} open Whether the search should be open
- */
 function setSearchOpen(nav, open) {
   if (!nav) return;
   const searchBtn = nav.querySelector('.nav-search-btn');
@@ -90,11 +72,10 @@ function setSearchOpen(nav, open) {
   if (!searchBtn || !form) return;
   searchBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   nav.classList.toggle('nav-search-open', open);
-  form.hidden = !open; // desktop CSS shows the field regardless
+  form.hidden = !open;
   if (close) close.hidden = !open;
   if (open) {
     setAccountOpen(nav.querySelector('.nav-account'), false);
-    // only one overlay at a time: close the mobile menu if it's open
     if (nav.getAttribute('aria-expanded') === 'true') {
       nav.setAttribute('aria-expanded', 'false');
       document.body.style.overflowY = '';
@@ -110,7 +91,6 @@ function setSearchOpen(nav, open) {
  * Builds the tools (search, cart, sign-in) region controls.
  * @param {Element} navTools The tools section element
  */
-// 24px outline icons for the account flyout links, picked by link target
 const ACCOUNT_ICONS = {
   orders: '<path d="M2.5 4.5h2.2l2.1 10.2h10.6l2.1-7.2H6"/><circle cx="9" cy="18.5" r="1.4"/><circle cx="16.5" cy="18.5" r="1.4"/>',
   subscriptions: '<rect x="7.5" y="7.5" width="13" height="13" rx="1.5"/><path d="M4.5 16.5v-11a1 1 0 0 1 1-1h11M14 11v6M11 14h6"/>',
@@ -126,17 +106,6 @@ function accountIcon(href) {
   return `<svg class="nav-account-icon" viewBox="0 0 24 24" aria-hidden="true">${ACCOUNT_ICONS[key]}</svg>`;
 }
 
-/**
- * Builds the account flyout (hp.com "Welcome!" panel) from the nested list
- * authored under the "Sign In" item of the nav fragment:
- *   - plain text: the first is the greeting, later ones the benefit line
- *   - **bold link**: primary button (Sign in)
- *   - *italic link*: secondary button (Create an account)
- *   - other links: account links (Account, Orders, ...), each with an icon
- * Reads authored content only; returns null when nothing is authored.
- * @param {Element} list The nested <ul> under the Sign In item
- * @returns {Element|null} The flyout element
- */
 function buildAccountFlyout(list) {
   const items = [...list.children];
   if (!items.length) return null;
@@ -199,14 +168,6 @@ function buildAccountFlyout(list) {
   return flyout;
 }
 
-/**
- * Demo sign-in (see mock-sign-in.js): the flyout's primary "Sign in" button
- * opens the mobile-number dialog when the mock-users sheet is published —
- * otherwise it keeps linking to HP ID — and a stored session switches the
- * flyout to its signed-in view (initials, greeting, Sign out).
- * @param {Element} account The .nav-account wrapper
- * @param {Element} flyout The account flyout
- */
 function wireMockSignIn(account, flyout) {
   const trigger = account.querySelector('.nav-signin-btn');
   const primary = flyout.querySelector('.nav-account-btn.primary');
@@ -300,7 +261,6 @@ function decorateTools(navTools) {
   searchSubmit.innerHTML = searchBtn.innerHTML;
   searchForm.append(searchInput, searchSubmit);
 
-  // closes the expanded mobile search (it replaces the header bar, as on hp.com)
   const searchClose = document.createElement('button');
   searchClose.type = 'button';
   searchClose.className = 'nav-search-close';
@@ -329,9 +289,6 @@ function decorateTools(navTools) {
   signInBtn.setAttribute('aria-label', 'Sign In');
   signInBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.73 2a10 10 0 0 0-9.63 8.62 8.48 8.48 0 0 0-.1 1.26c0 .56.02.86.08 1.35a10 10 0 0 0 13.6 8.07 10 10 0 0 0 6.26-8.22c.05-.39.05-.52.05-1.08 0-.64-.01-.88-.1-1.43a10 10 0 0 0-5.75-7.67 9.98 9.98 0 0 0-3.8-.9h-.61Zm.72 1.01a9 9 0 0 1 3.53 17.06 8.98 8.98 0 0 1-3.55.92c-.23.01-.85 0-1.04-.01a9 9 0 0 1-8.35-9.76 9 9 0 0 1 8.49-8.2c.2-.02.72-.02.92 0Zm-.66 2.5a3.5 3.5 0 0 0-2.7 1.54 3.48 3.48 0 0 0-.4 3.07 3.47 3.47 0 0 0 1.3 1.74 3.53 3.53 0 0 0 1.16.54c.32.07.5.1.85.1s.55-.03.86-.1a3.5 3.5 0 0 0 2.62-3.02 4.3 4.3 0 0 0 0-.76 3.5 3.5 0 0 0-3.3-3.11 2.6 2.6 0 0 0-.39 0Zm.5 1a2.53 2.53 0 0 1 1.66.92 2.5 2.5 0 0 1-1.17 3.94 2.27 2.27 0 0 1-.78.13c-.3 0-.52-.04-.78-.13a2.44 2.44 0 0 1-.98-.6 2.48 2.48 0 0 1-.7-2.2 2.79 2.79 0 0 1 .52-1.15c.08-.09.27-.29.37-.37a2.53 2.53 0 0 1 1.28-.53c.14-.02.43-.02.58 0Zm-.46 7a5.48 5.48 0 0 0-3.66 1.55 5.4 5.4 0 0 0-1.23 1.78.63.63 0 0 0-.02.14.5.5 0 0 0 .37.5.66.66 0 0 0 .13.02.47.47 0 0 0 .35-.15.42.42 0 0 0 .1-.15c.2-.42.4-.75.68-1.1a6.38 6.38 0 0 1 .6-.57 4.53 4.53 0 0 1 2.19-.98c.32-.05.74-.06 1.05-.03a4.48 4.48 0 0 1 2.83 1.34c.38.4.66.8.9 1.34a.5.5 0 0 0 .47.3.5.5 0 0 0 .48-.62 3.87 3.87 0 0 0-.31-.64 5.28 5.28 0 0 0-.87-1.13 5.44 5.44 0 0 0-3.66-1.6 3.88 3.88 0 0 0-.4 0Z"/></svg>';
 
-  // account: with an authored flyout the icon opens the "Welcome!" panel
-  // (on hover on desktop, on click/tap everywhere), as on hp.com; without
-  // one it stays a plain link to the account page
   let account = signInBtn;
   if (flyout) {
     account = document.createElement('div');
@@ -354,7 +311,6 @@ function decorateTools(navTools) {
     });
     signInBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      // with hover the pointer has already opened it, so a click keeps it open
       setAccountOpen(account, accountHover.matches || !account.classList.contains('nav-account-open'));
     });
     flyout.querySelector('.nav-account-close').addEventListener('click', () => {
@@ -381,13 +337,6 @@ function decorateSections(navSections) {
   const menu = document.createElement('ul');
   menu.className = 'nav-menu nav-list';
 
-  // The business-solutions item renders as a standalone CTA button rather
-  // than a mega-menu item, pinned after every other item regardless of
-  // where it's authored in the fragment — so it's built last and appended
-  // once the loop below is done. Matched by href rather than the heading's
-  // id, since the id is auto-generated from the heading text and changes
-  // whenever an author edits the label (e.g. "Business Solutions" ->
-  // "HP for Business") — the href is what actually stays stable.
   let businessCta = null;
 
   let current = null;
@@ -397,6 +346,7 @@ function decorateSections(navSections) {
       const label = topLink ? topLink.textContent : node.textContent;
       const href = topLink ? topLink.getAttribute('href') : '';
 
+      // match by href: the heading id changes whenever an author edits the label
       if (/\/business-solutions\.html$/i.test(href)) {
         businessCta = { href, label };
         current = null;
@@ -435,9 +385,6 @@ function decorateSections(navSections) {
         h.textContent = node.textContent;
         featuredCol.append(h);
       } else if (node.tagName === 'UL') {
-        // keep the <li>s inside their <ul> - spreading them into a bare div
-        // is invalid HTML and makes some browsers mis-nest the rest of the
-        // header while parsing it back
         const hasImages = node.querySelector('img');
         if (hasImages) {
           cardsCol.append(node);
@@ -462,9 +409,6 @@ function decorateSections(navSections) {
   navSections.textContent = '';
   navSections.append(menu);
 
-  // desktop hover + click behavior, with a short hover intent: while a panel
-  // is open, passing over a neighbouring item on the way down into the panel
-  // (e.g. heading for a card on the right) must not swap or close it
   const HOVER_INTENT_MS = 200;
   let pending;
   const openPanel = (li) => {
@@ -545,17 +489,10 @@ export default async function decorate(block) {
   const navTools = nav.querySelector('.nav-tools');
   let navNewsroom = nav.querySelector('.nav-newsroom');
 
-  // Any page can hide the newsroom sub-bar via a "Newsroom: false" metadata
-  // row; every other page keeps it by default. The outer <header> reserves
-  // height up front (styles.css --header-height) sized for nav + newsroom
-  // together, to avoid a layout shift while the page loads; flag this on
-  // <body> so that reservation can shrink back down to just the nav when
-  // the newsroom bar isn't there to fill it (see the body[data-no-newsroom]
-  // rule in styles.css) - otherwise that now-empty space is left sitting,
-  // transparent, on top of the hero underneath it.
   if (navNewsroom && getMetadata('newsroom') === 'false') {
     navNewsroom.remove();
     navNewsroom = null;
+    // lets styles.css shrink the reserved header height when the newsroom bar is absent
     document.body.dataset.noNewsroom = 'true';
   }
 
@@ -625,8 +562,6 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
 
-  // tablet: the menu opens as a side drawer over a blurred, dimmed page
-  // (hp.com); tapping the backdrop closes it
   const overlay = document.createElement('div');
   overlay.className = 'nav-overlay';
   overlay.setAttribute('aria-hidden', 'true');

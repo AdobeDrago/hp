@@ -160,6 +160,7 @@ main > .section.promo-container {
 }
 
 .promo:where(.offset) .promo-content {
+  /* pulls the content 8px from the right edge to match hp.com on mobile */
   margin-right: calc(8px - var(--container-padding));
   padding-top: 26px;
 }

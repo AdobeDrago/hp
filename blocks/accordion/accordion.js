@@ -19,6 +19,8 @@ function animateToggle(details) {
     return h;
   };
 
+  // an open row closes only from the X (the ::after icon); this hit-tests the
+  // click against the icon's box, read from its computed position and size
   const onCloseIcon = (e) => {
     const icon = getComputedStyle(summary, '::after');
     const box = summary.getBoundingClientRect();
@@ -30,10 +32,12 @@ function animateToggle(details) {
 
   summary.addEventListener('click', (e) => {
     const isOpen = animation ? details.classList.contains('is-opening') : details.open;
+    // e.detail is 0 for keyboard activation (Enter/Space), so those still toggle
     if (isOpen && e.detail > 0 && !onCloseIcon(e)) {
       e.preventDefault();
       return;
     }
+    // reduced motion: let the browser toggle <details> natively, no animation
     if (reducedMotion.matches) return;
     e.preventDefault();
 

@@ -293,6 +293,7 @@ main .section.dark :is(h1, h2, h3, h4, h5, h6) {
 }
 
 main .section.dark .default-content-wrapper h2 {
+  /* 4px nudge matches hp.com's heading inset on mobile */
   margin: 0 0 28px 4px;
   font-size: 36px;
   font-weight: 500;

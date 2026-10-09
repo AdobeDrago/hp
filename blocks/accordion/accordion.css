@@ -124,6 +124,7 @@
   transition: transform 0.3s ease-out;
 }
 
+/* the X is the only part of an open row that closes it, hence the pointer */
 .accordion.faq details[open] summary::after {
   transform: rotate(45deg);
   cursor: pointer;
@@ -133,6 +134,7 @@
   transform: none;
 }
 
+/* the rest of an open row does not close it, so no pointer cursor */
 .accordion.faq details[open],
 .accordion.faq details[open] summary {
   cursor: auto;

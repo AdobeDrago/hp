@@ -377,7 +377,7 @@
     cursor: pointer;
   }
 
-  .articles-listing .al-collapse-btn::after {
+  .articles-listing .al-collapse-btn::after{
     content: '';
     width: 8px;
     height: 8px;
@@ -405,280 +405,25 @@
   }
 }
 
-
-/* Newsroom Landing Page CSS */
-
-/* ==========================================================================
-   Hero
-   ========================================================================== */
-
-.newsroom-landing.hero-container {
-  margin-bottom: 0;
-}
-
-.newsroom-landing.hero-container .hero-content {
-  position: relative;
-  border-top: 1px solid #fff;
-}
-
-.newsroom-landing.hero-container .hero-content::before {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 64px;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: #fff;
-}
-
-.newsroom-landing.hero-container .hero-content h1,
-.newsroom-landing.hero-container .hero-content p {
-  max-width: 1220px;
-  margin: auto;
-  padding: 15px 30px;
-  border: none;
-  font-size: 1.875rem;
-  font-weight: normal;
-  line-height: 2.125rem;
-  text-align: left;
-}
-
-.newsroom-landing.hero-container .hero-content p {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 17px 30px;
-  font-size: 1rem;
-}
-
-.newsroom-landing.hero-container .hero-content p::before {
-  content: "";
-  flex-shrink: 0;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #fff;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 55%;
-}
-
-/* ==========================================================================
-   Shared section layout
-   ========================================================================== */
-
-.section.press-kits-listing-container,
-.section.latest-news-container {
-  margin: 0;
-}
-
-main .section.latest-news-container {
-  border-bottom: 0;
-}
-
-.section.latest-news-container > div,
-.section.more-articles-container > div,
-.section.articles-listing-container > div {
-  max-width: 1220px;
-  padding: 0 20px;
-}
-
-/* Reserve image space up front so lazy-loaded images never push content (CLS) */
-.section.press-kits-listing-container .press-kits-listing .pkl-card-media,
-.section.latest-news-container .latest-news .lnl-card-media,
-.section.more-articles-container .more-articles .ma-card-media,
-.section.articles-listing-container .articles-listing .al-card-media {
-  display: block;
-  overflow: hidden;
-  aspect-ratio: 16 / 9;
-}
-
-.section.press-kits-listing-container .press-kits-listing .pkl-card-media picture,
-.section.latest-news-container .latest-news .lnl-card-media picture,
-.section.more-articles-container .more-articles .ma-card-media picture,
-.section.articles-listing-container .articles-listing .al-card-media picture,
-.section.press-kits-listing-container .press-kits-listing .pkl-card-media img,
-.section.latest-news-container .latest-news .lnl-card-media img,
-.section.more-articles-container .more-articles .ma-card-media img,
-.section.articles-listing-container .articles-listing .al-card-media img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Section headings (lower-specificity rules first: no-descending-specificity) */
-.section.latest-news-container h2,
-.section.articles-listing-container h2 {
-  margin: 0;
-  font-size: 2rem;
-  font-weight: normal;
-  line-height: 2.125rem;
-}
-
-.section.latest-news-container h2 {
-  padding: 25px 0;
-}
-
-.section.articles-listing-container h2 {
-  margin-bottom: 21px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #000;
-}
-
-/* CTA underline animation (latest news + more articles) */
-.section.latest-news-container .latest-news .lnl-card-cta,
-.section.more-articles-container .more-articles .ma-card-cta {
-  position: relative;
-  gap: 8px;
-  font-size: 1rem;
-}
-
-.section.latest-news-container .latest-news .lnl-card-cta::before,
-.section.more-articles-container .more-articles .ma-card-cta::before {
-  content: "";
-  display: block;
-  position: absolute;
-  bottom: 4px;
-  left: 38px;
-  width: 0;
-  max-width: calc(100% - 38px);
-  height: 1px;
-  border-bottom: 1px solid;
-  transition: width 0.2s linear;
-}
-
-.section.latest-news-container .latest-news .lnl-card-cta:hover::before,
-.section.more-articles-container .more-articles .ma-card-cta:hover::before {
-  width: 100%;
-}
-
-.section.latest-news-container .latest-news .lnl-card-cta-icon,
-.section.more-articles-container .more-articles .ma-card-cta-icon {
-  width: 30px;
-  height: 30px;
-}
-
-.section.latest-news-container .latest-news .lnl-card-cta:hover .lnl-card-cta-icon,
-.section.more-articles-container .more-articles .ma-card-cta:hover .ma-card-cta-icon {
-  transform: none;
-}
-
-/* ==========================================================================
-   Press kits
-   ========================================================================== */
-
-.section.press-kits-listing-container {
-  padding: 25px 0;
-}
-
-.section.press-kits-listing-container .press-kits-listing {
-  padding-bottom: 0;
-}
-
-.section.press-kits-listing-container .press-kits-listing .pkl-card {
-  padding: 0 12px;
-}
-
-.section.press-kits-listing-container .press-kits-listing .pkl-card:first-child {
-  padding-left: 0;
-}
-
-.section.press-kits-listing-container .press-kits-listing .pkl-card-media {
-  flex: 0 0 100px;
-  width: 100px;
-  aspect-ratio: 1;
-}
-
-.section.press-kits-listing-container .press-kits-listing .pkl-card-title {
-  font-weight: normal;
-}
-
-/* ==========================================================================
-   Latest news
-   ========================================================================== */
-
-.section.latest-news-container .latest-news {
-  padding-bottom: 60px;
-}
-
-.section.latest-news-container .latest-news .lnl-grid {
-  gap: 25px 30px;
-}
-
-.section.latest-news-container .latest-news .lnl-card-body {
-  padding: 20px;
-}
-
-.section.latest-news-container .latest-news .lnl-card-title {
-  font-size: 1.375rem;
-  font-weight: normal;
-  line-height: 1.75rem;
-}
-
-.section.latest-news-container .latest-news .lnl-card-desc {
-  margin: 0 0 40px;
-  color: #000;
-  font-size: 1.125rem;
-  line-height: 1.375rem;
-}
-
-/* ==========================================================================
-   More articles
-   ========================================================================== */
-
-.section.highlight.more-articles-container {
-  padding: 0;
-}
-
-.section.highlight.more-articles-container h2 {
-  margin: 0;
-  padding: 20px 0;
-  font-size: 1.875rem;
-  font-weight: normal;
-  line-height: 2.125rem;
-}
-
-.section.highlight .more-articles .ma-card-title {
-  font-size: 1.25rem;
-  font-weight: normal;
-}
-
-.section.more-articles-container .more-articles {
-  padding-bottom: 55px;
-}
-
-.section.more-articles-container .more-articles .ma-grid {
-  column-gap: 30px;
-}
-
-.section.more-articles-container .more-articles .ma-card {
-  flex-direction: row;
-  column-gap: 22px;
-  padding: 30px 0;
-}
-
-.section.more-articles-container .more-articles .ma-card-media {
-  width: 138px;
-}
-
-.section.more-articles-container .more-articles .ma-card-cta {
-  padding-top: 10px;
-  font-weight: normal;
-}
-
-/* ==========================================================================
-   Articles listing
-   ========================================================================== */
-
 .section.articles-listing-container {
   margin: 0;
   padding: 30px 0;
 }
 
-/* Toolbar */
+.section.articles-listing-container > div {
+  max-width: 1220px;
+  padding: 0 20px;
+}
+
+.section.articles-listing-container h2 {
+  margin: 0 0 21px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #000;
+  font-size: 2rem;
+  font-weight: normal;
+  line-height: 2.125rem;
+}
+
 .section.articles-listing-container .articles-listing .al-toolbar {
   margin: 0;
   padding-top: 10px;
@@ -699,10 +444,8 @@ main .section.latest-news-container {
 }
 
 .section.articles-listing-container .articles-listing .al-keyword {
-  max-width: auto;
   height: 42px;
 }
-
 
 .section.articles-listing-container .articles-listing .al-keyword,
 .section.articles-listing-container .articles-listing .al-count,
@@ -716,13 +459,38 @@ main .section.latest-news-container {
   margin: 18px 0 4px;
 }
 
-/* Cards */
+.section.articles-listing-container .articles-listing .al-sort .al-sort-panel {
+  padding: 0;
+  margin-top: 4px;
+  max-width: 450px;
+  min-width: 228px;
+  top: 100%;
+  box-shadow: 0 4px 6px 0 #0000001a;
+}
+
+.section.articles-listing-container .articles-listing .al-check-item:hover,
+.section.articles-listing-container .articles-listing .al-sort-option:hover,
+.section.articles-listing-container .articles-listing .al-sort-option.active {
+  border-radius: 0;
+}
+
 .section.articles-listing-container .articles-listing .al-card {
   padding: 18px;
 }
 
 .section.articles-listing-container .articles-listing .al-card-media {
+  display: block;
   margin-bottom: 17px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+.section.articles-listing-container .articles-listing .al-card-media picture,
+.section.articles-listing-container .articles-listing .al-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .section.articles-listing-container .articles-listing .al-card-title {
@@ -756,7 +524,6 @@ main .section.latest-news-container {
   font-size: 1rem;
 }
 
-/* Load more */
 .section.articles-listing-container .articles-listing .al-loadmore {
   margin: 30px auto 0;
   padding: 8px 33px;
@@ -769,10 +536,60 @@ main .section.latest-news-container {
   color: #fff;
 }
 
-/* Filter / sort modal */
-.section.articles-listing-container .articles-listing .al-modal-sort-title {
+.section.articles-listing-container .articles-listing .al-radio-item input {
+  height: 30px;
+  width: 30px;
+}
+
+.section.articles-listing-container .articles-listing .al-collapse {
+  border-color: #000;
+}
+
+.section.articles-listing-container .articles-listing .al-collapse-btn {
+  margin: 0;
+  padding: 8px 0;
   font-size: 1rem;
-  font-weight: normal;
+}
+
+.section.articles-listing-container .articles-listing .al-collapse-btn::after {
+  height: 6px;
+  width: 6px;
+  margin-right: 5px;
+}
+
+.section.articles-listing-container .articles-listing .al-modal-view {
+  margin: 13px 0;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.section.articles-listing-container .articles-listing .al-modal-close {
+  margin: 0;
+  padding: 8px 10px;
+  font-size: 0.875rem;
+}
+
+.section.articles-listing-container .articles-listing .al-modal-sheet {
+  max-height: calc(100vh - 62px);
+  position: relative;
+  transform: none;
+  max-width: 320px;
+  margin: 25px;
+  padding: 16px;
+}
+
+.section.articles-listing-container .articles-listing .al-modal-head {
+  border-color: #000;
+}
+
+.section.articles-listing-container .articles-listing .al-modal-sheet .al-keyword {
+  margin: 20px 0;
+}
+
+.section.articles-listing-container .articles-listing .al-modal-sort {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
 }
 
 .section.articles-listing-container .articles-listing .al-radio-item {
@@ -780,86 +597,23 @@ main .section.latest-news-container {
   font-size: 1rem;
 }
 
-.section.articles-listing-container .articles-listing .al-collapse-btn {
-  margin: 0;
-  padding: 6px 0;
+.section.articles-listing-container .articles-listing .al-modal-sort-title {
   font-size: 1rem;
+  font-weight: normal;
 }
-
-.section.articles-listing-container .articles-listing .al-modal-view {
-  margin: 13px 0;
-  padding: 0;
-}
-
-.section.articles-listing-container .articles-listing .al-modal-close {
-  margin: 0;
-}
-
-.section.articles-listing-container .articles-listing .al-modal-head {
-  padding-bottom: 0;
-}
-
-/* ==========================================================================
-   Tablet (>= 768px)
-   ========================================================================== */
 
 @media (width >= 768px) {
-  .newsroom-landing.hero-container .hero-content h1 {
-    font-size: 2.5rem;
-    line-height: 2.75rem;
+  .section.articles-listing-container {
+    padding: 50px 0;
   }
 
-  .section.press-kits-listing-container > div,
-  .section.latest-news-container > div,
-  .section.more-articles-container > div,
   .section.articles-listing-container > div {
     padding: 0 30px;
   }
 
-  .section.press-kits-listing-container .press-kits-listing .pkl-card {
-    flex: 0 0 22%;
-    flex-direction: column;
-  }
-
-  /* Headings */
-
-   .section.latest-news-container h2 {
-    padding: 40px 0 35px;
-  }
-
-  .section.latest-news-container h2,
-  .section.articles-listing-container h2,
-  .section.highlight.more-articles-container h2 {
+  .section.articles-listing-container h2 {
     font-size: 2.5rem;
     line-height: 2.75rem;
-  }
-
-  /* Latest news */
-  .section.latest-news-container .latest-news .lnl-grid {
-    gap: 44px 30px;
-  }
-
-  .section.latest-news-container .latest-news .lnl-card-title {
-    font-size: 1.25rem;
-  }
-
-  /* More articles */
-  .section.more-articles-container .more-articles .ma-card {
-    flex-direction: column;
-    padding: 40px 0;
-  }
-
-  .section.more-articles-container .more-articles .ma-card-media {
-    width: 100%;
-  }
-
-  .section.more-articles-container .more-articles .ma-card-cta {
-    padding-top: 20px;
-  }
-
-  /* Articles listing */
-  .section.articles-listing-container {
-    padding: 50px 0;
   }
 
   .section.articles-listing-container .articles-listing .al-grid {
@@ -889,6 +643,30 @@ main .section.latest-news-container {
     margin: 40px auto 0;
   }
 
+  .section.articles-listing-container .articles-listing .al-modal-view {
+    margin-top: 20px;
+    padding: 16px;
+  }
+
+  .section.articles-listing-container .articles-listing .al-modal-close {
+    margin: 12px 0;
+  }
+
+  .section.articles-listing-container .articles-listing .al-modal-head {
+    padding-bottom: 16px;
+  }
+}
+
+@media (width >= 1024px) {
+  .section.articles-listing-container .articles-listing .al-keyword {
+    max-width: 200px;
+    height: 32px;
+  }
+
+  .section.articles-listing-container .articles-listing .al-modal-head {
+    padding-bottom: 0;
+  }
+
   .section.articles-listing-container .articles-listing .al-modal-sort-title {
     font-size: 1.375rem;
   }
@@ -903,59 +681,12 @@ main .section.latest-news-container {
     padding: 16px 0;
     font-size: 1.1rem;
   }
-
-  .section.articles-listing-container .articles-listing .al-modal-view {
-    margin-top: 20px;
-    padding: 16px;
-  }
-
-  .section.articles-listing-container .articles-listing .al-modal-close {
-    margin: 12px 0;
-  }
-
-  .section.articles-listing-container .articles-listing .al-modal-head {
-    padding-bottom: 16px;
-  }
-
-  .section.articles-listing-container .articles-listing .al-keyword {
-  max-width: 200px;
-  height: 32px;
 }
-
-}
-
-/* ==========================================================================
-   Desktop (>= 1280px)
-   ========================================================================== */
 
 @media (width >= 1280px) {
-  .newsroom-landing.hero-container .hero-content h1 {
-    font-size: 3.125rem;
-    line-height: 1.1;
-  }
-
-  .section.press-kits-listing-container .press-kits-listing .pkl-card {
-    flex-direction: row;
-  }
-
-  /* Headings */
-  .section.latest-news-container h2,
-  .section.articles-listing-container h2,
-  .section.highlight.more-articles-container h2 {
+  .section.articles-listing-container h2 {
     font-size: 3.125rem;
     line-height: 3.25rem;
-  }
-
-  .section.highlight.more-articles-container h2 {
-    padding: 45px 0 20px;
-  }
-
-  .section.latest-news-container .latest-news .lnl-card-title {
-    font-size: 1.375rem;
-  }
-
-  .section.more-articles-container .more-articles .ma-card {
-    flex-direction: row;
   }
 
   .section.articles-listing-container .articles-listing .al-grid {
@@ -963,8 +694,13 @@ main .section.latest-news-container {
     width: 100%;
     margin-top: 16px;
   }
-  
+
   .section.articles-listing-container .articles-listing .al-toolbar button {
     padding: 12px 20px;
+  }
+
+  .section.articles-listing-container .articles-listing .al-toolbar .al-sort-option {
+    padding: 7px 16px;
+    margin: 0;
   }
 }

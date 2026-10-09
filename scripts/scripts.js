@@ -85,7 +85,6 @@ function decorateSections(main) {
             .map((style) => toClassName(style.trim()));
           styles.forEach((style) => section.classList.add(style));
         } else if (key === 'id') {
-          // anchor target for in-page links (e.g. anchor-nav)
           section.id = toClassName(meta.id);
         } else {
           section.dataset[toCamelCase(key)] = meta[key];
@@ -118,6 +117,10 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
     doc.body.dataset.breadcrumbs = true;
+  }
+  // set before first paint so styles.css reserves the header height without the newsroom bar
+  if (getMetadata('newsroom') === 'false') {
+    doc.body.dataset.noNewsroom = 'true';
   }
   const main = doc.querySelector('main');
   if (main) {

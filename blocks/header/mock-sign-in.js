@@ -57,17 +57,24 @@ export function loadMockData() {
   return dataPromise;
 }
 
-export function getSession() {
+// localStorage throws when the browser blocks site data, so every access is guarded
+function storage(action) {
   try {
-    const session = JSON.parse(localStorage.getItem(SESSION_KEY));
-    if (session && session.expires > Date.now()) return session;
-  } catch (e) { /* unreadable storage counts as signed out */ }
-  localStorage.removeItem(SESSION_KEY);
-  return null;
+    return action(window.localStorage);
+  } catch (e) {
+    return null;
+  }
 }
 
 export function clearSession() {
-  localStorage.removeItem(SESSION_KEY);
+  storage((s) => s.removeItem(SESSION_KEY));
+}
+
+export function getSession() {
+  const session = storage((s) => JSON.parse(s.getItem(SESSION_KEY)));
+  if (session && session.expires > Date.now()) return session;
+  clearSession();
+  return null;
 }
 
 function saveSession(user) {
@@ -78,7 +85,8 @@ function saveSession(user) {
     mobile: `+${user.country} •••• ${user.mobile.slice(-4)}`,
     expires: Date.now() + SESSION_HOURS * 60 * 60 * 1000,
   };
-  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  // without storage the session still lasts for this page view
+  storage((s) => s.setItem(SESSION_KEY, JSON.stringify(session)));
   return session;
 }
 

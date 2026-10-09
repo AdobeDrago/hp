@@ -498,11 +498,10 @@ export default async function decorate(block) {
   const navTools = nav.querySelector('.nav-tools');
   let navNewsroom = nav.querySelector('.nav-newsroom');
 
+  // scripts.js has already flagged the body so the reserved header height excludes the bar
   if (navNewsroom && getMetadata('newsroom') === 'false') {
     navNewsroom.remove();
     navNewsroom = null;
-    // lets styles.css shrink the reserved header height when the newsroom bar is absent
-    document.body.dataset.noNewsroom = 'true';
   }
 
   if (navSections) decorateSections(navSections);

@@ -1,7 +1,5 @@
 /* HP global header — mobile-first */
 
-/* Reserve the header's true height (white bar + black secondary bar) so the
-   secondary bar no longer overlaps the first section of the page. */
 header .nav-wrapper {
   background-color: #fff;
   width: 100%;

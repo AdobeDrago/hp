@@ -17,14 +17,15 @@ header nav {
   box-sizing: border-box;
   display: grid;
   grid-template:
-    'brand tools hamburger' var(--nav-height, 55px)
+    'brand tools hamburger' calc(var(--nav-height, 55px) - 1px)
     'sections sections sections' 1fr / 1fr auto auto;
   align-items: center;
-  gap: 0 16px;
+  gap: 0;
   margin: auto;
   max-width: 1600px;
   height: var(--nav-height, 55px);
-  padding: 0 16px;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0 10px 0 16px;
   font-family: forma-djr-micro, forma-djr, 'Helvetica Neue', helvetica, arial, sans-serif;
 }
 
@@ -36,8 +37,11 @@ header nav .nav-hamburger {
 }
 
 header nav .nav-hamburger button {
-  height: 32px;
-  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  width: 48px;
   margin: 0;
   border: 0;
   border-radius: 0;
@@ -53,8 +57,8 @@ header nav .nav-hamburger-icon::after {
   box-sizing: border-box;
   display: block;
   position: relative;
-  width: 20px;
-  height: 2px;
+  width: 18px;
+  height: 1px;
   background: #000;
 }
 
@@ -65,8 +69,8 @@ header nav .nav-hamburger-icon::after {
   left: 0;
 }
 
-header nav .nav-hamburger-icon::before { top: -6px; }
-header nav .nav-hamburger-icon::after { top: 6px; }
+header nav .nav-hamburger-icon::before { top: -5.5px; }
+header nav .nav-hamburger-icon::after { top: 5.5px; }
 
 header nav[aria-expanded='true'] .nav-hamburger-icon { background: transparent; }
 
@@ -85,6 +89,8 @@ header nav .nav-brand {
   grid-area: brand;
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 48px;
 }
 
 header nav .nav-brand p { margin: 0; }
@@ -590,7 +596,6 @@ header nav .nav-cta-btn {
   }
 
   header nav[aria-expanded='true'] .nav-sections {
-    border-top: 1px solid #d9d1d1;
     padding: 0 16px 40px;
   }
 
@@ -773,10 +778,10 @@ header nav .nav-cta-btn {
     height: 36px;
     width: auto;
     margin: 0;
-    border: 1px solid #c2c2c2;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
     padding: 0 12px;
-    background: #f0f0f0;
+    background: #fafafa;
   }
 
   header nav.nav-search-open .nav-search-form input {
@@ -826,6 +831,14 @@ header nav .nav-cta-btn {
 }
 
 @media (441px <= width < 1115px) {
+  header nav { padding: 0 32px; }
+
+  /* open search keeps the logo visible on tablets (hp.com) */
+  header nav.nav-search-open .nav-search {
+    left: 80px;
+    padding: 0 32px 0 16px;
+  }
+
   header nav[aria-expanded='true'] .nav-sections {
     left: auto;
     box-sizing: border-box;
@@ -837,7 +850,6 @@ header nav .nav-cta-btn {
     position: fixed;
     inset: var(--nav-height, 55px) 0 0;
     z-index: 24;
-    border-top: 1px solid #d9d1d1;
     background-color: rgb(26 26 26 / 50%);
     backdrop-filter: blur(8px);
   }
@@ -866,12 +878,7 @@ header nav .nav-cta-btn {
   /* account panel 3px under the 55px bar (hp.com) */
   header nav .nav-account-flyout { top: calc(100% + 7px); }
 
-  /* 48px logo box with the 32px mark centred, as on hp.com */
-  header nav .nav-brand {
-    justify-content: center;
-    width: 48px;
-    margin-right: 22px;
-  }
+  header nav .nav-brand { margin-right: 22px; }
 
   header nav .nav-brand a {
     width: 48px;
@@ -1229,10 +1236,10 @@ header nav .nav-cta-btn {
     box-sizing: border-box;
     width: 912px;
     height: 38px;
-    border: 1px solid #c2c2c2;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
     padding: 0 12px;
-    background: #f0f0f0;
+    background: #fafafa;
   }
 
   header nav.nav-search-open .nav-search-form input {
@@ -1444,7 +1451,7 @@ header .nav-wrapper .nav-newsroom p:last-child a:hover {
 @media (width < 1024px) {
   header nav .nav-account-flyout {
     position: fixed;
-    top: calc(var(--nav-height, 64px) + 1px);
+    top: var(--nav-height, 64px);
     right: 0;
     bottom: 0;
     width: 100%;
@@ -1458,7 +1465,7 @@ header .nav-wrapper .nav-newsroom p:last-child a:hover {
 
   header nav .nav-account-close {
     position: fixed;
-    top: calc((var(--nav-height, 64px) - 48px) / 2);
+    top: calc((var(--nav-height, 64px) - 49px) / 2);
     right: 16px;
     z-index: 41;
     width: 48px;
@@ -1483,7 +1490,6 @@ header .nav-wrapper .nav-newsroom p:last-child a:hover {
     position: fixed;
     inset: var(--nav-height, 55px) 0 0;
     z-index: 24;
-    border-top: 1px solid #d9d1d1;
     background-color: rgb(26 26 26 / 50%);
     backdrop-filter: blur(8px);
   }

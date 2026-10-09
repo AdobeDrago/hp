@@ -36,10 +36,11 @@
   --heading-font-size-s: 24px;
   --heading-font-size-xs: 22px;
 
-  /* nav heights */
-  --nav-height: 64px;
+  /* nav heights: white bar 64px + 1px bottom border (hp.com), then the
+     62px newsroom bar */
+  --nav-height: 65px;
   --breadcrumbs-height: 34px;
-  --header-height: 126px;
+  --header-height: 127px;
 }
 
 @media (width >= 1115px) {

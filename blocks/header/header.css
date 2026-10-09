@@ -152,10 +152,12 @@ header nav .nav-account {
 
 header nav .nav-account-open .nav-signin-btn { color: #024ad8; }
 
+/* card: 4px below the 64px header bar (the 28px icon sits 18px above the
+   bar's bottom edge), right edge just past the icon - as on hp.com */
 header nav .nav-account-flyout {
   display: none;
   position: absolute;
-  top: calc(100% + 12px);
+  top: calc(100% + 22px);
   right: -4px;
   z-index: 40;
   box-sizing: border-box;
@@ -178,7 +180,7 @@ header nav .nav-account-flyout::before {
   bottom: 100%;
   left: 0;
   right: 0;
-  height: 16px;
+  height: 24px;
 }
 
 header nav .nav-account-open .nav-account-flyout { display: block; }
@@ -966,7 +968,7 @@ header nav .nav-cta-btn {
     width: 100%;
     background: #fff;
     border-top: 1px solid #e6e6e6;
-    padding: 32px 48px;
+    padding: 16px 0 32px;
     box-sizing: border-box;
     visibility: hidden;
     opacity: 0;
@@ -976,10 +978,14 @@ header nav .nav-cta-btn {
     z-index: 25;
   }
 
+  /* hp.com: a centred block - 198px link column + four 184px cards, 8px
+     apart (966px; 270px cards from 1680px) - not edge-to-edge content */
   header nav .nav-drop[aria-expanded='true'] .nav-panel {
     display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 40px;
+    grid-template-columns: 198px auto;
+    justify-content: center;
+    align-items: start;
+    column-gap: 8px;
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
@@ -1009,20 +1015,90 @@ header nav .nav-cta-btn {
     pointer-events: none;
   }
 
+  /* left column: deals link (tag icon), divider, "Featured" + links */
   header nav .nav-panel-featured {
     order: 0;
-    margin-bottom: 0;
-    padding-top: 8px;
-    border-right: 1px solid #e6e6e6;
-    padding-right: 24px;
+    margin: 0;
+    padding: 0;
+    border-right: 0;
   }
 
+  header nav .nav-panel-featured > ul:first-child {
+    margin-bottom: 16px;
+    border-bottom: 1px solid #d9d1d1;
+    padding-bottom: 16px;
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  header nav .nav-panel-featured a {
+    display: block;
+    padding: 0;
+    font-size: 14px;
+    line-height: 18px;
+    color: #485571;
+  }
+
+  header nav .nav-panel-featured > ul:first-child a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  header nav .nav-panel-featured > ul:first-child a::before {
+    content: '';
+    flex: none;
+    width: 24px;
+    height: 24px;
+    background-color: currentcolor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'%3E%3Cpath d='M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l7.9 7.9a1 1 0 0 1 0 1.4l-7.4 7.4a1 1 0 0 1-1.4 0z'/%3E%3Ccircle cx='8' cy='8' r='1.5'/%3E%3C/svg%3E") center / 24px 24px no-repeat;
+  }
+
+  header nav .nav-featured-heading {
+    margin: 0;
+    border-top: 0;
+    padding: 0 0 6px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 22px;
+    color: #000;
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  header nav .nav-panel-featured > p + ul {
+    margin-top: 3px;
+  }
+
+  header nav .nav-panel-featured li + li {
+    margin-top: 13px;
+  }
+
+  /* cards: 184x150 rounded image with the title 8px below; works for both
+     nav shapes (title inside the link, or DA's linked-picture paragraph +
+     title paragraph), with the link stretched over the whole card */
   header nav .nav-panel-cards { order: 0; }
 
+  /* stylelint-disable-next-line no-descending-specificity */
   header nav .nav-panel-cards ul {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(4, 184px);
+    gap: 8px;
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  header nav .nav-panel-cards li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  header nav .nav-panel-cards li > p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 18px;
+    color: #1a1a1a;
   }
 
   /* stylelint-disable-next-line no-descending-specificity */
@@ -1030,13 +1106,39 @@ header nav .nav-cta-btn {
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
-    font-size: 15px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #1a1a1a;
+  }
+
+  header nav .nav-panel-cards a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  header nav .nav-panel-cards picture {
+    display: block;
+    line-height: 0;
   }
 
   header nav .nav-panel-cards img {
+    display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 184 / 150;
+    border-radius: 10px;
+    object-fit: cover;
+    background: transparent;
+  }
+
+  header nav .nav-panel-cards li:hover > p { text-decoration: underline; }
+}
+
+/* hp.com: wider mega-menu cards (270px) from 1680px */
+@media (width >= 1680px) {
+  header nav .nav-panel-cards ul {
+    grid-template-columns: repeat(4, 270px);
   }
 }
 
@@ -1193,4 +1295,69 @@ header .nav-wrapper .nav-newsroom p:last-child a:hover {
   header .nav-wrapper .nav-newsroom-toggle { display: none; }
 
   header .nav-wrapper .nav-newsroom .nav-newsroom-brand { margin-right: 0; }
+}
+
+/* ===== Account panel by breakpoint (hp.com) =====
+   1024-1114px: square card with 20/16/16px padding.
+   < 1024px: a sheet under the header bar - full width up to 767px, a
+   360px panel on the right from 768px - over a dimmed, blurred page; the
+   bar keeps only the logo and the close "x". */
+@media (1024px <= width < 1115px) {
+  header nav .nav-account-flyout {
+    border-radius: 0;
+    padding: 20px 16px 16px;
+  }
+}
+
+@media (width < 1024px) {
+  header nav .nav-account-flyout {
+    position: fixed;
+    top: calc(var(--nav-height, 64px) + 1px);
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: none;
+    overflow-y: auto;
+    border-radius: 0;
+    padding: 16px;
+  }
+
+  header nav .nav-account-flyout::before { content: none; }
+
+  /* the close "x" moves into the header bar, where the tools were */
+  header nav .nav-account-close {
+    position: fixed;
+    top: calc((var(--nav-height, 64px) - 48px) / 2);
+    right: 16px;
+    z-index: 41;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    visibility: visible;
+  }
+
+  header nav:has(.nav-account-open) .nav-tools-group > :not(.nav-account),
+  header nav:has(.nav-account-open) .nav-signin-btn,
+  header nav:has(.nav-account-open) .nav-hamburger {
+    visibility: hidden;
+  }
+
+  header nav .nav-account-links { gap: 0; }
+
+  header nav .nav-account-link { min-height: 44px; }
+
+  header .nav-wrapper:has(.nav-account-open) .nav-overlay {
+    display: block;
+    position: fixed;
+    inset: var(--nav-height, 55px) 0 0;
+    z-index: 24;
+    border-top: 1px solid #d9d1d1;
+    background-color: rgb(26 26 26 / 50%);
+    backdrop-filter: blur(8px);
+  }
+}
+
+@media (768px <= width < 1024px) {
+  header nav .nav-account-flyout { width: 360px; }
 }

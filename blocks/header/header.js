@@ -48,6 +48,28 @@ function closeAllPanels(nav) {
 }
 
 /**
+ * Opens/closes the account flyout.
+ * @param {Element} account The .nav-account wrapper
+ * @param {Boolean} open Whether the flyout should be open
+ */
+function setAccountOpen(account, open) {
+  if (!account) return;
+  account.classList.toggle('nav-account-open', open);
+  const btn = account.querySelector('.nav-signin-btn');
+  if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  // below 1024px the panel is a sheet over the page (hp.com): only one
+  // overlay at a time, so close the mobile menu / search when it opens
+  const nav = account.closest('nav');
+  if (open && nav && !isDesktop.matches) {
+    if (nav.getAttribute('aria-expanded') === 'true') {
+      nav.setAttribute('aria-expanded', 'false');
+      document.body.style.overflowY = '';
+    }
+    if (nav.classList.contains('nav-search-open')) nav.querySelector('.nav-search-close')?.click();
+  }
+}
+
+/**
  * Opens/closes the search. Below 1280px the open search takes over the
  * header bar (brand and the other tools hide), as on hp.com; on desktop the
  * search field is always shown and this has no visual effect.
@@ -65,6 +87,7 @@ function setSearchOpen(nav, open) {
   form.hidden = !open; // desktop CSS shows the field regardless
   if (close) close.hidden = !open;
   if (open) {
+    setAccountOpen(nav.querySelector('.nav-account'), false);
     // only one overlay at a time: close the mobile menu if it's open
     if (nav.getAttribute('aria-expanded') === 'true') {
       nav.setAttribute('aria-expanded', 'false');
@@ -168,18 +191,6 @@ function buildAccountFlyout(list) {
   flyout.prepend(head);
   if (linkList.children.length) flyout.append(linkList);
   return flyout;
-}
-
-/**
- * Opens/closes the account flyout.
- * @param {Element} account The .nav-account wrapper
- * @param {Boolean} open Whether the flyout should be open
- */
-function setAccountOpen(account, open) {
-  if (!account) return;
-  account.classList.toggle('nav-account-open', open);
-  const btn = account.querySelector('.nav-signin-btn');
-  if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 }
 
 function decorateTools(navTools) {
@@ -425,6 +436,7 @@ function toggleMobileMenu(nav, forceClose = false) {
   const expanded = nav.getAttribute('aria-expanded') === 'true';
   const open = forceClose ? false : !expanded;
   if (open && nav.classList.contains('nav-search-open')) setSearchOpen(nav, false);
+  if (open) setAccountOpen(nav.querySelector('.nav-account'), false);
   nav.setAttribute('aria-expanded', open ? 'true' : 'false');
   document.body.style.overflowY = open && !isDesktop.matches ? 'hidden' : '';
   const button = nav.querySelector('.nav-hamburger button');
@@ -548,7 +560,10 @@ export default async function decorate(block) {
   const overlay = document.createElement('div');
   overlay.className = 'nav-overlay';
   overlay.setAttribute('aria-hidden', 'true');
-  overlay.addEventListener('click', () => toggleMobileMenu(nav, true));
+  overlay.addEventListener('click', () => {
+    toggleMobileMenu(nav, true);
+    setAccountOpen(nav.querySelector('.nav-account'), false);
+  });
   navWrapper.append(overlay);
 
   // The newsroom sub-bar spans full width below the centered global header.

@@ -1,4 +1,7 @@
 import { getMetadata } from '../../scripts/aem.js';
+import {
+  LABELS, loadMockData, openSignInDialog, getSession, clearSession,
+} from './mock-sign-in.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 1115px)');
@@ -196,6 +199,70 @@ function buildAccountFlyout(list) {
   return flyout;
 }
 
+/**
+ * Demo sign-in (see mock-sign-in.js): the flyout's primary "Sign in" button
+ * opens the mobile-number dialog when the mock-users sheet is published —
+ * otherwise it keeps linking to HP ID — and a stored session switches the
+ * flyout to its signed-in view (initials, greeting, Sign out).
+ * @param {Element} account The .nav-account wrapper
+ * @param {Element} flyout The account flyout
+ */
+function wireMockSignIn(account, flyout) {
+  const trigger = account.querySelector('.nav-signin-btn');
+  const primary = flyout.querySelector('.nav-account-btn.primary');
+  if (!primary) return;
+
+  const badge = document.createElement('span');
+  badge.className = 'nav-signin-initials';
+  badge.setAttribute('aria-hidden', 'true');
+  trigger.append(badge);
+
+  const user = document.createElement('div');
+  user.className = 'nav-account-user';
+  const initials = document.createElement('span');
+  initials.className = 'nav-account-initials';
+  initials.setAttribute('aria-hidden', 'true');
+  const name = document.createElement('p');
+  name.className = 'nav-account-name';
+  const signOut = document.createElement('button');
+  signOut.type = 'button';
+  signOut.className = 'nav-account-btn secondary nav-account-signout';
+  user.append(initials, name, signOut);
+  flyout.querySelector('.nav-account-head').after(user);
+
+  const render = (session, labels = LABELS) => {
+    account.classList.toggle('nav-account-signed-in', !!session);
+    if (!session) return;
+    badge.textContent = session.initials;
+    initials.textContent = session.initials;
+    name.textContent = labels.greeting.replace('{name}', session.firstName);
+    signOut.textContent = labels.signOut;
+  };
+
+  const session = getSession();
+  if (session) loadMockData().then((data) => render(session, data?.labels));
+
+  primary.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const data = await loadMockData();
+    if (!data) {
+      window.location.href = primary.href;
+      return;
+    }
+    setAccountOpen(account, false);
+    const signedIn = await openSignInDialog(data);
+    if (signedIn) render(signedIn, data.labels);
+    trigger.focus();
+  });
+
+  signOut.addEventListener('click', () => {
+    clearSession();
+    render(null);
+    setAccountOpen(account, false);
+    trigger.focus();
+  });
+}
+
 function decorateTools(navTools) {
   const links = [...navTools.querySelectorAll('a')];
   const cart = links.find((a) => /cart/i.test(a.textContent) || /cart/i.test(a.href));
@@ -294,6 +361,7 @@ function decorateTools(navTools) {
       setAccountOpen(account, false);
       signInBtn.focus();
     });
+    wireMockSignIn(account, flyout);
   }
 
   group.append(searchWrap, cartBtn, account);

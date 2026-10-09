@@ -304,6 +304,72 @@ header nav .nav-account-icon {
   stroke-linejoin: round;
 }
 
+/* demo sign-in (mock-sign-in.js): signed-in state of the icon and flyout */
+header nav .nav-signin-initials,
+header nav .nav-account-user { display: none; }
+
+header nav .nav-account-signed-in .nav-account-greeting,
+header nav .nav-account-signed-in .nav-account-btn.primary,
+header nav .nav-account-signed-in .nav-account-btn.secondary:not(.nav-account-signout),
+header nav .nav-account-signed-in .nav-account-benefit { display: none; }
+
+/* the initials circle covers the profile icon while signed in */
+header nav .nav-account-signed-in .nav-signin-btn { position: relative; }
+
+header nav .nav-account-signed-in .nav-signin-initials {
+  position: absolute;
+  inset: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+header nav .nav-account-signed-in .nav-account-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+header nav .nav-account-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+header nav .nav-account-name {
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000;
+}
+
+header nav .nav-account-btn.nav-account-signout {
+  width: 100%;
+  margin: 0;
+  font: inherit;
+  font-size: 16px;
+  line-height: 22px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+
 header nav .nav-search-form {
   position: absolute;
   right: 0;
@@ -1436,4 +1502,160 @@ header .nav-wrapper .nav-newsroom p:last-child a:hover {
 
 @media (768px <= width < 1024px) {
   header nav .nav-account-flyout { width: 360px; }
+}
+
+/* demo sign-in dialog — appended to <body>, so not scoped under the header */
+.mock-sign-in {
+  box-sizing: border-box;
+  width: min(480px, calc(100vw - 32px));
+  max-width: none;
+  border: 0;
+  border-radius: 16px;
+  padding: 0;
+  background: #fff;
+  box-shadow: rgb(77 93 133 / 22%) 0 1px 1.5px 0, rgb(26 53 84 / 11%) 0 7px 11.5px 0;
+  color: #1a1a1a;
+  font-family: var(--body-font-family);
+}
+
+.mock-sign-in::backdrop { background: rgb(0 0 0 / 45%); }
+
+.mock-sign-in-card {
+  position: relative;
+  padding: 40px 48px;
+}
+
+.mock-sign-in-title {
+  margin: 0 0 24px;
+  padding-right: 32px;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.mock-sign-in .mock-sign-in-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.mock-sign-in .mock-sign-in-close svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: #1a1a1a;
+  stroke-width: 1.5;
+}
+
+.mock-sign-in-error {
+  margin: 0 0 16px;
+  color: #be1a1a;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.mock-sign-in-error:empty { display: none; }
+
+.mock-sign-in-row {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 16px;
+}
+
+.mock-sign-in-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 18px;
+  color: #485571;
+}
+
+.mock-sign-in-input,
+.mock-sign-in-country {
+  box-sizing: border-box;
+  width: 100%;
+  height: 48px;
+  border: 1px solid #767676;
+  border-radius: 8px;
+  padding: 0 12px;
+  background: #fff;
+  color: #1a1a1a;
+  font: inherit;
+  font-size: 16px;
+}
+
+.mock-sign-in-input:focus,
+.mock-sign-in-country:focus {
+  border-color: #024ad8;
+  outline: 2px solid #024ad8;
+  outline-offset: -1px;
+}
+
+.mock-sign-in-intro {
+  margin: 0 0 24px;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.mock-sign-in-hint {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 18px;
+  color: #485571;
+}
+
+.mock-sign-in .mock-sign-in-submit {
+  display: block;
+  width: 100%;
+  height: 48px;
+  margin: 32px 0 0;
+  border: 0;
+  border-radius: 8px;
+  padding: 0 16px;
+  background: #024ad8;
+  color: #fff;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.mock-sign-in .mock-sign-in-submit:hover,
+.mock-sign-in .mock-sign-in-submit:focus {
+  background: #0e3191;
+}
+
+.mock-sign-in .mock-sign-in-link {
+  display: block;
+  margin: 16px auto 0;
+  border: 0;
+  border-radius: 0;
+  padding: 4px;
+  background: none;
+  color: #024ad8;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.mock-sign-in .mock-sign-in-link:hover,
+.mock-sign-in .mock-sign-in-link:focus {
+  background: none;
+  text-decoration: underline;
+}
+
+@media (width < 600px) {
+  .mock-sign-in-card { padding: 32px 24px; }
+
+  .mock-sign-in-title { font-size: 28px; }
+
+  .mock-sign-in-row { grid-template-columns: 96px 1fr; }
 }

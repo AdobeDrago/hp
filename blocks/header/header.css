@@ -806,7 +806,8 @@ header nav .nav-cta-btn {
 
   header nav .nav-hamburger { display: none; }
 
-  header nav .nav-brand { margin-right: 28px; }
+  /* first menu item starts at 114px, as on hp.com */
+  header nav .nav-brand { margin-right: 34px; }
 
   header nav .nav-brand a {
     width: 40px;
@@ -1142,8 +1143,10 @@ header nav .nav-cta-btn {
   }
 }
 
+/* hp.com: 20px between menu items (8px margins + the 4px menu gap), so the
+   bar fits at 1280px without pushing the account icon off-screen */
 @media (width >= 1200px) {
-  header nav .nav-menu-trigger { margin: 0 14px; }
+  header nav .nav-menu-trigger { margin: 0 8px; }
 }
 
 /* ===== Newsroom secondary bar (full-width black bar below header) ===== */
@@ -1298,12 +1301,15 @@ header .nav-wrapper .nav-newsroom p:last-child a:hover {
 }
 
 /* ===== Account panel by breakpoint (hp.com) =====
-   1024-1114px: square card with 20/16/16px padding.
+   1115px+: the rounded card (opens on hover).
+   1024-1114px: square, full-height panel with 20/16/16px padding (hover).
    < 1024px: a sheet under the header bar - full width up to 767px, a
    360px panel on the right from 768px - over a dimmed, blurred page; the
-   bar keeps only the logo and the close "x". */
+   bar keeps only the logo and the close "x" (opens on tap/click only). */
 @media (1024px <= width < 1115px) {
   header nav .nav-account-flyout {
+    height: calc(100vh - var(--nav-height, 64px) - 4px);
+    overflow-y: auto;
     border-radius: 0;
     padding: 20px 16px 16px;
   }

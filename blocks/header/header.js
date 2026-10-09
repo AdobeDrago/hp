@@ -2,6 +2,9 @@ import { getMetadata } from '../../scripts/aem.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 1280px)');
+// account panel opens on hover from 1024px with a mouse/trackpad (hp.com);
+// below that, and on touch, it opens on tap/click only
+const accountHover = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
 
 // the default fragment this site uses for its header; any page can point at
 // a different one (or at another site's) via a "Header" metadata row
@@ -274,17 +277,18 @@ function decorateTools(navTools) {
 
     let closeTimer;
     account.addEventListener('mouseenter', () => {
-      if (!isDesktop.matches) return;
+      if (!accountHover.matches) return;
       clearTimeout(closeTimer);
       setAccountOpen(account, true);
     });
     account.addEventListener('mouseleave', () => {
-      if (!isDesktop.matches) return;
+      if (!accountHover.matches) return;
       closeTimer = setTimeout(() => setAccountOpen(account, false), 150);
     });
     signInBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      setAccountOpen(account, !account.classList.contains('nav-account-open'));
+      // with hover the pointer has already opened it, so a click keeps it open
+      setAccountOpen(account, accountHover.matches || !account.classList.contains('nav-account-open'));
     });
     flyout.querySelector('.nav-account-close').addEventListener('click', () => {
       setAccountOpen(account, false);

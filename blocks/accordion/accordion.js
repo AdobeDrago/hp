@@ -4,21 +4,13 @@
  * https://www.hlx.live/developer/block-collection/accordion
  */
 
-// hp.com FAQ rows open/close with a 0.3s ease-in-out height transition
 const FAQ_ANIMATION = { duration: 300, easing: 'ease-in-out' };
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-/**
- * Animates a <details> row between its closed and open heights. The open
- * state itself stays native (keyboard, find-in-page and AT keep working);
- * only the summary click is intercepted to run the height animation.
- * @param {HTMLDetailsElement} details the accordion item
- */
 function animateToggle(details) {
   const summary = details.querySelector('summary');
   let animation = null;
 
-  // measure a state's height without painting it
   const heightWhen = (open) => {
     const was = details.open;
     details.open = open;
@@ -27,7 +19,6 @@ function animateToggle(details) {
     return h;
   };
 
-  // the "x" is the summary's ::after; hit-test the pointer against its box
   const onCloseIcon = (e) => {
     const icon = getComputedStyle(summary, '::after');
     const box = summary.getBoundingClientRect();
@@ -39,8 +30,6 @@ function animateToggle(details) {
 
   summary.addEventListener('click', (e) => {
     const isOpen = animation ? details.classList.contains('is-opening') : details.open;
-    // as on hp.com: once open, a pointer click only closes the row on the "x"
-    // (keyboard activation, e.detail === 0, still toggles from the summary)
     if (isOpen && e.detail > 0 && !onCloseIcon(e)) {
       e.preventDefault();
       return;

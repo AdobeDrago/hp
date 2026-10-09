@@ -178,8 +178,6 @@ main .anchor-nav-cta a.button:focus-visible {
   text-decoration: none;
 }
 
-/* small phones (up to 380px, as on hp.com): the CTA drops below a 44px
-   dropdown row */
 @media (width <= 380px) {
   .anchor-nav > div {
     grid-template-columns: minmax(0, 1fr);

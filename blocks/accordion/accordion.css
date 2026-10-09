@@ -139,12 +139,10 @@
   cursor: pointer;
 }
 
-/* while a row animates closed it is still [open]: turn the "x" back now */
 .accordion.faq details.is-closing summary::after {
   transform: none;
 }
 
-/* open rows only close from the "x" (accordion.js), so only it is clickable */
 .accordion.faq details[open],
 .accordion.faq details[open] summary {
   cursor: auto;

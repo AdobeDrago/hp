@@ -128,8 +128,6 @@
 
 .cards.spotlight .cards-card-image {
   justify-self: center;
-
-  /* 48px icons, shrinking to the icon column on narrow tablets (hp.com) */
   width: min(48px, 100%);
 }
 
@@ -278,8 +276,6 @@
   padding: 46px 0 74px;
 }
 
-/* grey band stops at the 1680px page container (centered), as on hp.com;
-   it still spans the section's full height, padding included */
 .cards-container:has(.cards.grid) {
   background: linear-gradient(#f5f5f5, #f5f5f5) center / min(100%, 1680px) 100% no-repeat;
 }
@@ -368,8 +364,6 @@
   font-size: 24px;
   font-weight: 500;
   line-height: 1;
-
-  /* a word wider than a narrow column wraps instead of overflowing the page */
   overflow-wrap: break-word;
 }
 
@@ -445,8 +439,6 @@
     padding: 0 32px;
   }
 
-  /* minmax(0, 1fr): equal columns even when a title word is wider than
-     the column (e.g. "workstations"), instead of one column growing */
   .cards.grid > ul {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -551,13 +543,11 @@
  * breakpoints). No CTA.
  */
 
-/* grey band stops at the 1680px page container (centered), as on hp.com */
 .cards-container:has(.cards.feature) {
   background: linear-gradient(#f5f5f5, #f5f5f5) center / min(100%, 1680px) 100% no-repeat;
   padding: 46px 0 67px;
 }
 
-/* border-box: gutters sit inside the 1680px container, not outside it */
 .cards-container:has(.cards.feature) .cards-wrapper {
   box-sizing: border-box;
   max-width: 1680px;

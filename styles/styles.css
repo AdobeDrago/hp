@@ -288,8 +288,6 @@ main .section.highlight {
   padding: 40px 0;
 }
 
-/* dark (hp.com FAQs band): near-black band capped at the 1680px page
-   container (centered) and spanning the section's full height, white headings */
 main .section.dark {
   background: linear-gradient(#1a1a1a, #1a1a1a) center / min(100%, 1680px) 100% no-repeat;
   color: var(--background-color);
@@ -301,7 +299,6 @@ main .section.dark :is(h1, h2, h3, h4, h5, h6) {
   color: var(--background-color);
 }
 
-/* hp.com indents the heading 4px past the gutter until 1115px */
 main .section.dark .default-content-wrapper h2 {
   margin: 0 0 28px 4px;
   font-size: 36px;

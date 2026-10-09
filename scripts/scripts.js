@@ -47,8 +47,6 @@ function autolinkModals(doc) {
  */
 function decorateSections(main) {
   main.querySelectorAll(':scope > div').forEach((section) => {
-    // a section that held only page metadata is empty once the metadata is
-    // lifted into <meta> tags; drop it so it doesn't add a blank gap
     if (!section.children.length && !section.textContent.trim()) {
       section.remove();
       return;

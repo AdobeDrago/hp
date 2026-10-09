@@ -95,6 +95,21 @@
           }
         },
         {
+          "title": "Anchor Nav",
+          "id": "anchor-nav",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Anchor Nav",
+                  "model": "anchor-nav"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Cards",
           "id": "cards",
           "model": "cards",
@@ -207,6 +222,43 @@
           }
         },
         {
+          "title": "Footnotes",
+          "id": "footnotes",
+          "model": "footnotes",
+          "filter": "footnotes",
+          "plugins": {
+            "da": {
+              "name": "footnotes",
+              "rows": 1,
+              "columns": 0,
+              "fields": [
+                {
+                  "name": "title",
+                  "selector": "div:nth-child(1)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Footnote Item",
+          "id": "footnote-item",
+          "model": "footnote-item",
+          "plugins": {
+            "da": {
+              "name": "footnote-item",
+              "rows": 1,
+              "columns": 0,
+              "fields": [
+                {
+                  "name": "text",
+                  "selector": "div:nth-child(1)"
+                }
+              ]
+            }
+          }
+        },
+        {
           "title": "Fragment",
           "id": "fragment",
           "model": "fragment",
@@ -247,6 +299,36 @@
                   "selector": "div>div>h1"
                 }
               ]
+            }
+          }
+        },
+        {
+          "title": "Media Feature",
+          "id": "media-feature",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Media Feature",
+                  "model": "media-feature"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Promo",
+          "id": "promo",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Promo",
+                  "model": "promo"
+                }
+              }
             }
           }
         },
@@ -369,6 +451,21 @@
                   "selector": "div>div>picture>img[src]"
                 }
               ]
+            }
+          }
+        },
+        {
+          "title": "Widget",
+          "id": "widget",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Widget",
+                  "model": "widget"
+                }
+              }
             }
           }
         }

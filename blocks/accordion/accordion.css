@@ -59,3 +59,132 @@
   border-top: 1px solid #dadada;
   background-color: var(--background-color);
 }
+
+.accordion.faq {
+  --faq-pad: 16px;
+  --faq-icon-gap: 33px;
+  --faq-icon-top: 9px;
+  --faq-icon-right: 9px;
+  --faq-gap: 8px;
+
+  margin-bottom: -12px;
+  padding-top: 12px;
+}
+
+.accordion.faq details {
+  border: 0;
+  border-radius: 16px;
+  background-color: #fff;
+  color: #1a1a1a;
+  box-shadow: 0 3px 12px 3px rgb(0 0 0 / 0%);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-out;
+}
+
+.accordion.faq details + details {
+  margin-top: var(--faq-gap);
+}
+
+.accordion.faq details:hover {
+  box-shadow: 0 3px 12px 3px rgb(26 26 26 / 20%);
+}
+
+.accordion.faq details summary {
+  padding: var(--faq-pad) calc(var(--faq-pad) + var(--faq-icon-gap)) var(--faq-pad) var(--faq-pad);
+  overflow: visible;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.accordion.faq details[open] summary {
+  padding-bottom: 0;
+}
+
+.accordion.faq details[open] summary,
+.accordion.faq details summary:focus,
+.accordion.faq details summary:hover {
+  background-color: transparent;
+}
+
+.accordion.faq details summary p,
+.accordion.faq details .accordion-item-body p {
+  margin: 0;
+}
+
+.accordion.faq details summary::after {
+  top: var(--faq-icon-top);
+  right: var(--faq-icon-right);
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231a1a1a' d='M11.874 3.018a.518.518 0 0 0-.36.368c-.011.05-.013.566-.013 4.086v4.03H7.472c-3.56 0-4.036.002-4.088.014a.516.516 0 0 0-.368.364.505.505 0 0 0 .369.606c.05.012.566.014 4.087.014h4.03v4.029c0 3.52 0 4.037.013 4.087.04.174.188.323.364.369a.505.505 0 0 0 .606-.37c.012-.049.014-.565.014-4.086v-4.03h4.03c3.52 0 4.036-.001 4.086-.013a.516.516 0 0 0 .37-.364.505.505 0 0 0-.37-.606c-.05-.012-.566-.014-4.086-.014h-4.03v-4.03c0-3.52-.002-4.036-.014-4.086a.516.516 0 0 0-.364-.37.6.6 0 0 0-.247.002z'/%3E%3C/svg%3E") center / 24px 24px no-repeat;
+  transform: none;
+  transition: transform 0.3s ease-out;
+}
+
+/* the X is the only part of an open row that closes it, hence the pointer */
+.accordion.faq details[open] summary::after {
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+.accordion.faq details.is-closing summary::after {
+  transform: none;
+}
+
+/* the rest of an open row does not close it, so no pointer cursor */
+.accordion.faq details[open],
+.accordion.faq details[open] summary {
+  cursor: auto;
+}
+
+.accordion.faq details .accordion-item-body {
+  padding: 16px var(--faq-pad) calc(var(--faq-pad) + 24px);
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.accordion.faq details[open] .accordion-item-body {
+  border-top: 0;
+  background-color: transparent;
+}
+
+@media (width >= 441px) {
+  .accordion.faq {
+    --faq-pad: 32px;
+    --faq-icon-gap: 48px;
+    --faq-icon-top: 28px;
+    --faq-icon-right: 28px;
+    --faq-gap: 16px;
+
+    margin-bottom: 6px;
+    padding-top: 36px;
+  }
+
+  .accordion.faq details summary {
+    font-size: 20px;
+  }
+}
+
+@media (width >= 1115px) {
+  .accordion.faq {
+    --faq-pad: 36px;
+    --faq-icon-gap: 52px;
+    --faq-icon-top: 34px;
+    --faq-icon-right: 32px;
+
+    margin-bottom: 12px;
+    padding-top: 48px;
+  }
+
+  .accordion.faq details summary {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .accordion.faq details .accordion-item-body {
+    font-size: 16px;
+  }
+}

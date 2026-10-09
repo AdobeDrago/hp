@@ -2,8 +2,13 @@
 coverage/*
 logs/*
 node_modules/*
+exports/*
 
 helix-importer-ui
 .DS_Store
 *.bak
 .idea
+
+.hlx/.da-token.json
+
+content

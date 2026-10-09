@@ -9,6 +9,7 @@
     "id": "section",
     "components": [
       "accordion",
+      "anchor-nav",
       "cards",
       "carousel",
       "columns",
@@ -17,6 +18,9 @@
       "form",
       "hero",
       "image",
+      "media-feature",
+      "promo",
+      "widget",
       "quote",
       "search",
       "tabs",
@@ -59,6 +63,12 @@
     "components": [
       "text",
       "image"
+    ]
+  },
+  {
+    "id": "footnotes",
+    "components": [
+      "footnote-item"
     ]
   },
   {

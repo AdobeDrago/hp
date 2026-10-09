@@ -36,10 +36,19 @@
   --heading-font-size-s: 24px;
   --heading-font-size-xs: 22px;
 
-  /* nav heights */
-  --nav-height: 64px;
+  /* nav heights: white bar 64px + 1px bottom border (hp.com), then the
+     62px newsroom bar */
+  --nav-height: 65px;
   --breadcrumbs-height: 34px;
-  --header-height: var(--nav-height);
+  --header-height: 127px;
+}
+
+@media (width >= 1115px) {
+  :root {
+    /* white bar as on hp.com: 54px + 1px bottom border, then the 64px newsroom bar */
+    --nav-height: 55px;
+    --header-height: 119px;
+  }
 }
 
 /* fallback font: Arial stands in for Forma DJR before it loads (as on hp.com) */
@@ -98,6 +107,10 @@ footer .footer[data-block-status="loaded"] {
   body[data-breadcrumbs] {
     --header-height: calc(var(--nav-height) + var(--breadcrumbs-height));
   }
+}
+
+body[data-no-newsroom] {
+  --header-height: var(--nav-height);
 }
 
 h1,
@@ -249,10 +262,68 @@ main > .section:first-of-type {
   }
 }
 
+:where(body.ai-solutions) main > .section > div {
+  box-sizing: border-box;
+  max-width: 1680px;
+  padding: 0 16px;
+}
+
+@media (width >= 441px) {
+  :where(body.ai-solutions) main > .section > div {
+    padding: 0 32px;
+  }
+}
+
+@media (width >= 1115px) {
+  :where(body.ai-solutions) main > .section > div {
+    padding: 0 36px;
+  }
+}
+
 /* section metadata */
 main .section.light,
 main .section.highlight {
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;
+}
+
+main .section.dark {
+  background: linear-gradient(#1a1a1a, #1a1a1a) center / min(100%, 1680px) 100% no-repeat;
+  color: var(--background-color);
+  margin: 0;
+  padding: 24px 0 36px;
+}
+
+main .section.dark :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--background-color);
+}
+
+main .section.dark .default-content-wrapper h2 {
+  /* 4px nudge matches hp.com's heading inset on mobile */
+  margin: 0 0 28px 4px;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+@media (width >= 441px) {
+  main .section.dark {
+    padding-top: 34px;
+  }
+
+  main .section.dark .default-content-wrapper h2 {
+    font-size: 44px;
+  }
+}
+
+@media (width >= 1115px) {
+  main .section.dark {
+    padding-top: 44px;
+  }
+
+  main .section.dark .default-content-wrapper h2 {
+    margin-left: 0;
+    font-size: 56px;
+  }
 }

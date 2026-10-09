@@ -47,6 +47,10 @@ function autolinkModals(doc) {
  */
 function decorateSections(main) {
   main.querySelectorAll(':scope > div').forEach((section) => {
+    if (!section.children.length && !section.textContent.trim()) {
+      section.remove();
+      return;
+    }
     const wrappers = [];
     let defaultContent = false;
     [...section.children].forEach((e) => {
@@ -84,6 +88,8 @@ function decorateSections(main) {
             .filter((style) => style)
             .map((style) => toClassName(style.trim()));
           styles.forEach((style) => section.classList.add(style));
+        } else if (key === 'id') {
+          section.id = toClassName(meta.id);
         } else {
           section.dataset[toCamelCase(key)] = meta[key];
         }
@@ -115,6 +121,10 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
     doc.body.dataset.breadcrumbs = true;
+  }
+  // set before first paint so styles.css reserves the header height without the newsroom bar
+  if (getMetadata('newsroom') === 'false') {
+    doc.body.dataset.noNewsroom = 'true';
   }
   const main = doc.querySelector('main');
   if (main) {

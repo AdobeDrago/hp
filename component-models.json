@@ -79,6 +79,51 @@
     ]
   },
   {
+    "id": "anchor-nav",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "links_items",
+        "label": "Links",
+        "description": "One link per line, e.g. Benefits, Portfolio, Featured Products, FAQs - each becomes a jump-nav item.",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "cta_link",
+        "label": "CTA button",
+        "description": "A single link. Bold it for a solid button, italicize it for an outline button.",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "cards",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "description": "No style = plain photo + text grid. Spotlight = first row is a full-bleed background photo + heading, followed by small icon + text rows (e.g. a benefits list). Grid = heading row above boxed, bordered cards with image, title, description and a button. Showcase = heading row above centered, borderless cards for a simple image + title + button (e.g. featured products).",
+        "options": [
+          {
+            "name": "Spotlight",
+            "value": "spotlight"
+          },
+          {
+            "name": "Grid",
+            "value": "grid"
+          },
+          {
+            "name": "Showcase",
+            "value": "showcase"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -145,6 +190,31 @@
     ]
   },
   {
+    "id": "footnotes",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": "Footnotes and Disclaimers",
+        "description": "Optional. Defaults to \"Footnotes and Disclaimers\" when left blank."
+      }
+    ]
+  },
+  {
+    "id": "footnote-item",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "fragment",
     "fields": [
       {
@@ -183,6 +253,106 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "media-feature",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "img_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "img_imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "content_title",
+        "label": "Title"
+      },
+      {
+        "component": "select",
+        "name": "content_titleType",
+        "label": "Title Type",
+        "valueType": "string",
+        "value": "h2",
+        "options": [
+          {
+            "name": "H2",
+            "value": "h2"
+          },
+          {
+            "name": "H3",
+            "value": "h3"
+          }
+        ]
+      },
+      {
+        "component": "richtext",
+        "name": "content_description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "content_cta1",
+        "label": "Primary CTA",
+        "description": "A single link, bolded - e.g. Watch Video.",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "content_cta2",
+        "label": "Secondary CTA",
+        "description": "A single link, italicized - e.g. Learn.",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "promo",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "img_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "img_imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "content_content",
+        "label": "Content",
+        "description": "Optional logo image, heading, paragraph(s), optional italic note, and 1-2 CTA links.",
+        "valueType": "string"
+      },
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string[]",
+        "options": [
+          {
+            "name": "Dark",
+            "value": "dark"
+          }
+        ]
       }
     ]
   },
@@ -276,6 +446,18 @@
         "component": "reference",
         "name": "posterImage",
         "label": "Poster Image",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "widget",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "link",
+        "label": "Widget Link",
+        "description": "A single link to the widget asset path, e.g. /widgets/roi-calculator/index.html — loads <name>.html/.css/.js from /widgets/<path>/.",
         "valueType": "string"
       }
     ]

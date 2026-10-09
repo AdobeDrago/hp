@@ -1,0 +1,150 @@
+main > .section.footnotes-container {
+  margin: 0;
+}
+
+.footnotes-container .footnotes-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.footnotes {
+  --footnotes-padding: 16px;
+
+  box-sizing: border-box;
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: var(--footnotes-padding);
+  background-color: #f5f5f5;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.footnotes.footnotes-empty {
+  display: none;
+}
+
+.footnotes-panel {
+  overflow: hidden;
+  border-radius: 16px;
+  padding: var(--footnotes-padding);
+  background-color: #fff;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.footnotes-collapsed .footnotes-panel:hover {
+  box-shadow: 0 3px 12px 3px rgb(26 26 26 / 20%);
+}
+
+.footnotes-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  cursor: pointer;
+}
+
+.footnotes-title {
+  margin: 0;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.footnotes-icon {
+  align-self: flex-start;
+  padding: 2px;
+}
+
+.footnotes-icon svg {
+  display: block;
+}
+
+.footnotes-collapsed .footnotes-icon-collapse,
+.footnotes:not(.footnotes-collapsed) .footnotes-icon-expand {
+  display: none;
+}
+
+.footnotes-content {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.footnotes-collapsed .footnotes-content {
+  display: none;
+}
+
+.footnotes-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footnotes-list-dynamic {
+  counter-reset: item;
+}
+
+.footnotes-list-dynamic > li {
+  display: table;
+  counter-increment: item;
+}
+
+.footnotes-list-static {
+  padding-top: 16px;
+}
+
+.footnotes-list-static > li + li,
+.footnotes-list-static:not(:empty) + .footnotes-list-dynamic {
+  margin-top: 20px;
+}
+
+.footnotes-item-content p {
+  margin: 0;
+}
+
+.footnotes-list-dynamic > li::before {
+  content: counter(item) ".";
+  display: table-cell;
+  padding-right: 4.375px;
+}
+
+.footnotes-list-dynamic .footnotes-item-content {
+  display: inline;
+}
+
+.footnotes-content a:any-link {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.footnotes-content a.footnotes-item-backlink:any-link {
+  position: relative;
+  margin-left: 4px;
+  text-decoration: none;
+}
+
+.footnotes-content a.footnotes-item-backlink::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+}
+
+@media (width >= 441px) {
+  .footnotes {
+    --footnotes-padding: 32px;
+  }
+}
+
+@media (width >= 1115px) {
+  .footnotes {
+    --footnotes-padding: 36px;
+  }
+
+  .footnotes-title {
+    font-size: 16px;
+  }
+}

@@ -1,12 +1,35 @@
+import { getMetadata } from '../../scripts/aem.js';
+
+const DEFAULT_FOOTER_FRAGMENT = '/footer';
+
 /**
- * Fetches the footer fragment. Metadata-independent dual-fetch:
- * /content first (localhost / aem up), then root (DA/EDS production).
+ * Fetches a footer fragment by path (same-site absolute path, or a full
+ * cross-origin URL to reuse another site's footer content), resolving it
+ * against the same content root as the current page (/content/ for pages
+ * served from /content/ - localhost / aem up - the site root otherwise, so
+ * neither environment requests a 404), and fixes up any page-relative media
+ * references so they still resolve from here.
+ * @param {string} path Path or URL to the fragment, without the .plain.html suffix
+ * @returns {string|null} The fragment's inner HTML, or null if it couldn't be loaded
  */
-async function fetchFooterHtml() {
-  let resp = await fetch('/content/footer.plain.html');
-  if (!resp.ok) resp = await fetch('/footer.plain.html');
+async function fetchFooterHtml(path) {
+  const isAbsolute = /^https?:\/\//i.test(path);
+  const root = !isAbsolute && window.location.pathname.startsWith('/content/') ? '/content' : '';
+  const resolvedPath = `${root}${path}`;
+  const resp = await fetch(`${resolvedPath}.plain.html`);
   if (!resp.ok) return null;
-  return resp.text();
+  const container = document.createElement('div');
+  container.innerHTML = await resp.text();
+
+  const resetAttributeBase = (tag, attr) => {
+    container.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
+      elem[attr] = new URL(elem.getAttribute(attr), new URL(resolvedPath, window.location)).href;
+    });
+  };
+  resetAttributeBase('img', 'src');
+  resetAttributeBase('source', 'srcset');
+
+  return container.innerHTML;
 }
 
 /**
@@ -28,7 +51,8 @@ function decorateSocialList(list) {
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
-  const html = await fetchFooterHtml();
+  const path = getMetadata('footer') || DEFAULT_FOOTER_FRAGMENT;
+  const html = await fetchFooterHtml(path);
   block.textContent = '';
   if (!html) return;
 
@@ -62,14 +86,34 @@ export default async function decorate(block) {
     const list = country.querySelector('ul');
     if (trigger && list) {
       list.classList.add('footer-country-list');
-      country.setAttribute('aria-expanded', 'false');
+      list.id = 'footer-country-list';
+      country.dataset.expanded = 'false';
       trigger.classList.add('footer-country-trigger');
+      const control = trigger.querySelector('a') || trigger;
+      if (control === trigger) {
+        trigger.setAttribute('role', 'button');
+        trigger.tabIndex = 0;
+      }
+      control.setAttribute('aria-expanded', 'false');
+      control.setAttribute('aria-controls', list.id);
+      const toggle = () => {
+        const open = country.dataset.expanded !== 'true';
+        country.dataset.expanded = open;
+        control.setAttribute('aria-expanded', open);
+      };
       trigger.addEventListener('click', (e) => {
         // toggle the overlay rather than following the current-locale link
         if (e.target.closest('a')) e.preventDefault();
-        const open = country.getAttribute('aria-expanded') === 'true';
-        country.setAttribute('aria-expanded', open ? 'false' : 'true');
+        toggle();
       });
+      if (control === trigger) {
+        trigger.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggle();
+          }
+        });
+      }
     }
   }
 
@@ -99,19 +143,31 @@ export default async function decorate(block) {
 
     // Mobile accordion: every link column (not the social one) collapses under
     // its heading. The heading becomes a toggle button; desktop CSS keeps it open.
-    groups.forEach((col) => {
+    groups.forEach((col, i) => {
       if (col === last) return;
       const heading = col.querySelector('h2');
       const listEl = col.querySelector('ul');
       if (!heading || !listEl) return;
       col.classList.add('footer-column-accordion');
-      col.setAttribute('aria-expanded', 'false');
+      col.dataset.expanded = 'false';
+      listEl.id = listEl.id || `footer-column-list-${i}`;
+      let control = heading.querySelector('a');
+      if (!control) {
+        control = document.createElement('button');
+        control.type = 'button';
+        control.className = 'footer-column-toggle';
+        control.append(...heading.childNodes);
+        heading.append(control);
+      }
+      control.setAttribute('aria-expanded', 'false');
+      control.setAttribute('aria-controls', listEl.id);
       heading.addEventListener('click', (e) => {
         if (window.matchMedia('(min-width: 900px)').matches) return;
         // On mobile the heading toggles the accordion instead of navigating.
         e.preventDefault();
-        const open = col.getAttribute('aria-expanded') === 'true';
-        col.setAttribute('aria-expanded', open ? 'false' : 'true');
+        const open = col.dataset.expanded !== 'true';
+        col.dataset.expanded = open;
+        control.setAttribute('aria-expanded', open);
       });
     });
   }

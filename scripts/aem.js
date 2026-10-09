@@ -357,13 +357,6 @@ const GTM_ATTR_PREFIX = 'data-gtm-';
 const GTM_CLICK_EVENT = 'link_click';
 const GTM_KEY_PATTERN = /^[a-z][a-z0-9_-]*$/;
 
-/**
- * Splits an authored link title into the visible title and GTM values.
- * Supports a plain title ("Laptops") or pipe-separated pairs:
- * "title=Laptops|id=l3-laptops|category=globalNavigation|value=laptops"
- * @param {string} rawTitle the link's title attribute
- * @returns {{ title: string, gtm: Object<string, string> }}
- */
 function parseLinkTitle(rawTitle = '') {
   const gtm = {};
   const plainParts = [];
@@ -390,10 +383,6 @@ function decorateGtmLink(a) {
   a.title = title || a.textContent.trim();
 }
 
-/**
- * Adds GTM attributes to links outside main (header, footer) without button styling.
- * @param {Element} element container element
- */
 function decorateGtmLinks(element) {
   element.querySelectorAll('a').forEach(decorateGtmLink);
 }
@@ -436,7 +425,6 @@ function decorateButtons(element) {
   });
 }
 
-// Pushes link_click with every data-gtm-* value, so data-gtm-id is sent as link_id
 function pushLinkClick(a) {
   const payload = { event: GTM_CLICK_EVENT };
   a.getAttributeNames()
@@ -451,12 +439,7 @@ function pushLinkClick(a) {
   window.dataLayer.push(payload);
 }
 
-/**
- * Tracks clicks on links that have data-gtm-* attributes.
- * One delegated listener, so links added later (header, footer) are covered too.
- */
 function initLinkTracking() {
-  // capture phase, so the push happens even if another handler stops propagation
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a');
     if (a?.getAttributeNames().some((name) => name.startsWith(GTM_ATTR_PREFIX))) {

@@ -212,7 +212,6 @@ main .section.latest-news-container {
   object-fit: cover;
 }
 
-/* Section heading */
 .section.latest-news-container h2 {
   margin: 0;
   padding: 25px 0;

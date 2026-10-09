@@ -10,8 +10,6 @@ const MEDIA_TYPES = [
 ];
 
 // HP's fixed 46-topic taxonomy (slug -> label); articles store slugs in `topic`.
-// Order matches the reference site's dropdown (most-used topics first, not
-// alphabetical) rather than being resorted - so the two line up row-for-row.
 const TOPICS = [
   ['print', 'Print'], ['community', 'Community'], ['megatrends', 'Megatrends'],
   ['healthcare', 'Healthcare'], ['urbanization', 'Urbanization'], ['mobility', 'Mobility'],
@@ -39,9 +37,6 @@ const LABELS = new Map([
   ...TOPICS.map((t) => [t.value, t.label]),
 ]);
 
-// authors can pin this listing to one content type (e.g. a dedicated Press
-// Releases page) by adding a line of text naming it, matched against either
-// form so "Press Release" or "Press Releases" both work.
 const MEDIA_TYPE_BY_TEXT = new Map(
   MEDIA_TYPES.flatMap((m) => [[m.value.toLowerCase(), m.value], [m.label.toLowerCase(), m.value]]),
 );
@@ -118,8 +113,6 @@ function card(it, level) {
   body.append(h);
   const desc = (it.description || '').trim();
   if (desc && desc.toLowerCase() !== 'null') body.append(el('p', 'al-card-desc', desc));
-  // visible label stays "Read"; the hidden title makes each link's text unique
-  // and descriptive for screen readers and crawlers
   const cta = el('a', 'al-card-cta', 'Read');
   cta.append(el('span', 'al-sr-only', `: ${it.title}`));
   cta.href = it.path;
@@ -229,9 +222,6 @@ export default async function decorate(block) {
   const link = block.querySelector('a[href]');
   const source = link ? link.getAttribute('href') : DEFAULT_SOURCE;
 
-  // an optional authored line (e.g. "Press Releases") pins the listing to
-  // that one content type instead of the full newsroom archive, for a page
-  // dedicated to a single type.
   const pinnedType = [...block.querySelectorAll('p, div, li')]
     .map((n) => MEDIA_TYPE_BY_TEXT.get(n.textContent.trim().toLowerCase()))
     .find(Boolean);
@@ -270,17 +260,12 @@ export default async function decorate(block) {
   const sheet = modal(pinnedType);
   block.append(toolbar, chips, grid, loadMore, sheet);
 
-  // a pinned listing page titles itself (e.g. "Press Releases") unless the
-  // author already placed a heading in the section; it becomes the page h1
-  // when the page has none.
   const section = block.closest('.section');
   let heading = section?.querySelector('h1, h2');
   if (pinnedType && !heading) {
     heading = el(document.querySelector('main h1') ? 'h2' : 'h1', 'al-title', LABELS.get(pinnedType));
     block.prepend(heading);
   }
-  // card titles sit one level below the listing's heading so the outline never
-  // skips a level (h1 "Press Releases" -> h2 cards, h2 "Archive" -> h3 cards)
   const cardLevel = heading ? Number(heading.tagName[1]) + 1 : 3;
 
   const items = await loadItems(source);

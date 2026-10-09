@@ -3,7 +3,6 @@
   --al-accent: #0067b0;
 }
 
-/* ===== section layout ===== */
 .section.articles-listing-container {
   margin: 0;
   padding: 30px 0;
@@ -14,8 +13,6 @@
   padding: 0 20px;
 }
 
-/* authored section heading (e.g. "Archive") or the block's own title on a
-   pinned listing page (e.g. "Press Releases") */
 .section.articles-listing-container .default-content-wrapper h2,
 .articles-listing .al-title {
   margin: 0 0 21px;
@@ -149,9 +146,6 @@
   background: #e8e8e8;
 }
 
-/* no visible checkbox glyph - the whole row is the click target (the label
-   already toggles its input) and the active set shows up as chips instead,
-   matching the reference site's dropdown */
 .articles-listing .al-check {
   display: none;
 }
@@ -217,7 +211,6 @@
   border-bottom: 1px solid var(--al-line);
 }
 
-/* reserve image space up front so lazy-loaded images never push content (CLS) */
 .articles-listing .al-card-media {
   display: block;
   margin-bottom: 17px;
@@ -234,7 +227,6 @@
   object-fit: cover;
 }
 
-/* body fills the card so every Read button in a row lines up at the bottom */
 .articles-listing .al-card-body {
   flex: 1;
   display: flex;
@@ -249,8 +241,6 @@
   line-height: 1.375rem;
 }
 
-/* the clamp sits on the link itself so its tap area ends with the visible
-   lines instead of reaching down over the Read button */
 .articles-listing .al-card-title a {
   display: -webkit-box;
   overflow: hidden;
@@ -264,7 +254,6 @@
 
 .articles-listing .al-card-title a:hover { text-decoration: underline; }
 
-/* title -> desc 10px, last text -> Read 16px (desc is hidden on mobile) */
 .articles-listing .al-card-desc {
   display: none;
   margin: -6px 0 16px;
@@ -478,7 +467,6 @@
   }
 }
 
-/* ===== tablet ===== */
 @media (width >= 768px) {
   .section.articles-listing-container {
     padding: 50px 0;
@@ -545,7 +533,6 @@
   }
 }
 
-/* ===== desktop ===== */
 @media (width >= 1280px) {
   .section.articles-listing-container .default-content-wrapper h2,
   .articles-listing .al-title {

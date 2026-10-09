@@ -49,6 +49,7 @@ main > .section:has(.press-kits-listing) {
 .press-kits-listing .pkl-track {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  min-height: 100px;
 }
 
 /* ===== card ===== */
@@ -122,6 +123,7 @@ main > .section:has(.press-kits-listing) {
   }
 
   .press-kits-listing .pkl-track {
+    min-height: 185px;
     display: flex;
     grid-template-columns: none;
     overflow-x: auto;

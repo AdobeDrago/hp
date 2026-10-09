@@ -1,7 +1,7 @@
 import { getMetadata } from '../../scripts/aem.js';
 
 // media query match that indicates mobile/tablet width
-const isDesktop = window.matchMedia('(min-width: 1280px)');
+const isDesktop = window.matchMedia('(min-width: 1115px)');
 // account panel opens on hover from 1024px with a mouse/trackpad (hp.com);
 // below that, and on touch, it opens on tap/click only
 const accountHover = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
@@ -73,9 +73,9 @@ function setAccountOpen(account, open) {
 }
 
 /**
- * Opens/closes the search. Below 1280px the open search takes over the
- * header bar (brand and the other tools hide), as on hp.com; on desktop the
- * search field is always shown and this has no visual effect.
+ * Opens/closes the search. Below 1280px the search is an icon and the open
+ * search takes over the header bar, as on hp.com; from 1280px the search
+ * field is always shown and this has no visual effect.
  * @param {Element} nav The nav element
  * @param {Boolean} open Whether the search should be open
  */
@@ -98,7 +98,7 @@ function setSearchOpen(nav, open) {
       closeAllPanels(nav);
     }
     form.querySelector('input').focus();
-  } else if (!isDesktop.matches) {
+  } else if (searchBtn.offsetParent) {
     searchBtn.focus();
   }
 }
@@ -538,10 +538,8 @@ export default async function decorate(block) {
     if (e.code === 'Escape') {
       closeAllPanels(nav);
       setAccountOpen(nav.querySelector('.nav-account'), false);
-      if (!isDesktop.matches) {
-        if (nav.classList.contains('nav-search-open')) setSearchOpen(nav, false);
-        toggleMobileMenu(nav, true);
-      }
+      if (nav.classList.contains('nav-search-open')) setSearchOpen(nav, false);
+      if (!isDesktop.matches) toggleMobileMenu(nav, true);
     }
   });
 

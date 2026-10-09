@@ -320,10 +320,10 @@ header nav .nav-search-form {
 
 header nav .nav-search-form[hidden] { display: none; }
 
-/* mobile-only close for the expanded search (shown in the < 1280px block) */
+/* close for the expanded search (shown in the < 1115px and 1115-1279px blocks) */
 header nav .nav-search-close { display: none; }
 
-/* backdrop behind the tablet menu drawer (shown in the 441-1279px block) */
+/* backdrop behind the tablet menu drawer (shown in the 441-1114px block) */
 header .nav-overlay { display: none; }
 
 header nav .nav-search-form input {
@@ -495,9 +495,9 @@ header nav .nav-cta-btn {
   text-decoration: none;
 }
 
-/* ===== Mobile / tablet (below 1280px): hamburger menu + expanding search,
+/* ===== Mobile / tablet (below 1115px): hamburger menu + expanding search,
    matched to hp.com's open states ===== */
-@media (width < 1280px) {
+@media (width < 1115px) {
   header nav { position: relative; }
 
   /* no blue tap flash on menu items/buttons (hp.com sets it transparent);
@@ -765,9 +765,9 @@ header nav .nav-cta-btn {
   }
 }
 
-/* ===== Tablet (441px - 1279px): the menu is a 340px drawer on the right over
+/* ===== Tablet (441px - 1114px): the menu is a 340px drawer on the right over
    a blurred, dimmed page, as on hp.com (phones keep the full-width menu) ===== */
-@media (441px <= width < 1280px) {
+@media (441px <= width < 1115px) {
   header nav[aria-expanded='true'] .nav-sections {
     left: auto;
     box-sizing: border-box;
@@ -785,9 +785,9 @@ header nav .nav-cta-btn {
   }
 }
 
-/* ===== Desktop (min-width: 1280px) — below this the mobile hamburger nav
-   shows, so the wide global nav never squishes on tablet / small laptops ===== */
-@media (width >= 1280px) {
+/* ===== Desktop (min-width: 1115px, as on hp.com) — below this the mobile
+   hamburger nav shows, so the wide global nav never squishes on tablet ===== */
+@media (width >= 1115px) {
   /* Sticky header: pulled up by the white bar's height so, on scroll, the white
      global bar scrolls away and the black secondary bar pins to the top. */
   header {
@@ -817,41 +817,6 @@ header nav .nav-cta-btn {
   header nav .nav-brand img {
     width: 36px;
     height: 36px;
-  }
-
-  /* search shows as an always-open pill input (no toggle button) */
-  header nav .nav-search-btn { display: none; }
-
-  header nav .nav-search-form,
-  header nav .nav-search-form[hidden] {
-    display: flex;
-    position: static;
-    inset: auto;
-    width: clamp(220px, 22vw, 260px);
-    padding: 0;
-    border: 1px solid #b3b3b3;
-    border-radius: 6px;
-    background: #fafafa;
-  }
-
-  header nav .nav-search-form input {
-    padding: 3px 14px;
-    font-size: 14px;
-    background: #fafafa;
-  }
-
-  header nav .nav-search-form input::placeholder {
-    color: #767676;
-  }
-
-  header nav .nav-search-submit svg {
-    width: 18px;
-    height: 18px;
-    fill: #191919;
-  }
-
-  header nav .nav-search-submit {
-    width: 40px;
   }
 
   header nav .nav-sections,
@@ -899,7 +864,7 @@ header nav .nav-cta-btn {
     width: auto;
     height: 48px;
     box-sizing: border-box;
-    margin: 0 10px;
+    margin: 0 8px; /* 20px apart with the 4px menu gap, as on hp.com */
     padding: 15px 2px;
     font-size: 14px;
     font-weight: 400;
@@ -1143,10 +1108,115 @@ header nav .nav-cta-btn {
   }
 }
 
-/* hp.com: 20px between menu items (8px margins + the 4px menu gap), so the
-   bar fits at 1280px without pushing the account icon off-screen */
-@media (width >= 1200px) {
-  header nav .nav-menu-trigger { margin: 0 8px; }
+/* search from 1280px: an always-open pill input (no toggle button) */
+@media (width >= 1280px) {
+  header nav .nav-search-btn { display: none; }
+
+  header nav .nav-search-form,
+  header nav .nav-search-form[hidden] {
+    display: flex;
+    position: static;
+    inset: auto;
+    width: clamp(220px, 22vw, 260px);
+    padding: 0;
+    border: 1px solid #b3b3b3;
+    border-radius: 6px;
+    background: #fafafa;
+  }
+
+  header nav .nav-search-form input {
+    padding: 3px 14px;
+    font-size: 14px;
+    background: #fafafa;
+  }
+
+  header nav .nav-search-form input::placeholder {
+    color: #767676;
+  }
+
+  header nav .nav-search-submit svg {
+    width: 18px;
+    height: 18px;
+    fill: #191919;
+  }
+
+  header nav .nav-search-submit {
+    width: 40px;
+  }
+}
+
+/* search at 1115-1279px (hp.com): the pill doesn't fit beside the menu, so
+   it's an icon; opening it swaps the menu and tools for a centred 912px field
+   with a close "x" 20px to its right (the logo stays) */
+@media (1115px <= width < 1280px) {
+  header nav.nav-search-open { position: relative; }
+
+  header nav.nav-search-open .nav-sections,
+  header nav.nav-search-open .nav-tools-group > :not(.nav-search),
+  header nav.nav-search-open .nav-search-btn {
+    visibility: hidden;
+  }
+
+  header nav.nav-search-open .nav-search { position: static; }
+
+  header nav.nav-search-open .nav-search-form {
+    position: absolute;
+    top: calc((var(--nav-height, 64px) - 38px) / 2);
+    left: calc(50% - 456px);
+    right: auto;
+    box-sizing: border-box;
+    width: 912px;
+    height: 38px;
+    border: 1px solid #c2c2c2;
+    border-radius: 8px;
+    padding: 0 12px;
+    background: #f0f0f0;
+  }
+
+  header nav.nav-search-open .nav-search-form input {
+    padding: 0 2px;
+    background: transparent;
+    font-size: 14px;
+    line-height: 18px;
+    color: #000;
+  }
+
+  header nav.nav-search-open .nav-search-form input::placeholder { color: #757575; }
+
+  header nav.nav-search-open .nav-search-submit {
+    display: flex;
+    margin: 0;
+  }
+
+  header nav.nav-search-open .nav-search-submit svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  header nav.nav-search-open .nav-search-close {
+    position: absolute;
+    top: calc((var(--nav-height, 64px) - 48px) / 2);
+    left: calc(50% + 476px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  header nav.nav-search-open .nav-search-close svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #000;
+    stroke-width: 1.5;
+  }
 }
 
 /* ===== Newsroom secondary bar (full-width black bar below header) ===== */
@@ -1278,7 +1348,7 @@ header .nav-wrapper .nav-newsroom p:last-child a:hover {
   text-decoration: none;
 }
 
-@media (width >= 1280px) {
+@media (width >= 1115px) {
   header .nav-wrapper .nav-newsroom {
     /* Background stays full-bleed (element is full width); the horizontal
        padding constrains the content to a centered max-width column. */

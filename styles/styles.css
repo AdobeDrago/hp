@@ -40,12 +40,12 @@
   --nav-height: 64px;
   --breadcrumbs-height: 34px;
 
-  /* rendered header: white nav bar + black newsroom bar (128px from 1280px).
+  /* rendered header: white nav bar + black newsroom bar (128px from 1115px).
      Reserved up front so the page doesn't shift when the header loads. */
   --header-height: 126px;
 }
 
-@media (width >= 1280px) {
+@media (width >= 1115px) {
   :root {
     --header-height: 128px;
   }

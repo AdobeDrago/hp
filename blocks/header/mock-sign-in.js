@@ -1,3 +1,5 @@
+export const CLOSE_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>';
+
 const DATA_URL = '/mock-users.json';
 const SESSION_KEY = 'hp-mock-session';
 const SESSION_HOURS = 8;
@@ -105,7 +107,7 @@ export function openSignInDialog({ users, labels }) {
     const close = el('button', 'mock-sign-in-close');
     close.type = 'button';
     close.setAttribute('aria-label', labels.close);
-    close.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>';
+    close.innerHTML = CLOSE_ICON;
     close.addEventListener('click', () => dialog.close());
 
     const title = el('h2', 'mock-sign-in-title', labels.title);

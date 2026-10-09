@@ -3,8 +3,6 @@ import { getMetadata } from '../../scripts/aem.js';
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 1280px)');
 
-// the default fragment this site uses for its header; any page can point at
-// a different one (or at another site's) via a "Header" metadata row
 const DEFAULT_HEADER_FRAGMENT = '/nav';
 
 /**
@@ -162,9 +160,6 @@ function decorateSections(navSections) {
         h.textContent = node.textContent;
         featuredCol.append(h);
       } else if (node.tagName === 'UL') {
-        // keep the <li>s inside their <ul> - spreading them into a bare div
-        // is invalid HTML and makes some browsers mis-nest the rest of the
-        // header while parsing it back
         const hasImages = node.querySelector('img');
         if (hasImages) {
           cardsCol.append(node);

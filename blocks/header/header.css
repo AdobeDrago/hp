@@ -142,6 +142,166 @@ header nav .nav-search {
   align-items: center;
 }
 
+/* account flyout (hp.com "Welcome!" panel), built from the nested list
+   under "Sign In" in the nav fragment (see buildAccountFlyout) */
+header nav .nav-account {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+header nav .nav-account-open .nav-signin-btn { color: #024ad8; }
+
+header nav .nav-account-flyout {
+  display: none;
+  position: absolute;
+  top: calc(100% + 12px);
+  right: -4px;
+  z-index: 40;
+  box-sizing: border-box;
+  width: 290px;
+  max-width: calc(100vw - 32px);
+  border-radius: 16px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: rgb(77 93 133 / 22%) 0 1px 1.5px 0, rgb(26 53 84 / 11%) 0 7px 11.5px 0;
+  color: #1a1a1a;
+  text-align: center;
+  font-family: forma-djr-micro, forma-djr, 'Helvetica Neue', helvetica, arial, sans-serif;
+}
+
+/* invisible bridge over the gap above the panel, so moving the mouse from
+   the icon into the panel keeps it open */
+header nav .nav-account-flyout::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: 16px;
+}
+
+header nav .nav-account-open .nav-account-flyout { display: block; }
+
+header nav .nav-account-head {
+  position: relative;
+  min-height: 40px;
+}
+
+header nav .nav-account-greeting {
+  margin: 0;
+  padding: 0 32px;
+  font-size: 20px;
+  line-height: 40px;
+  color: #000;
+}
+
+header nav .nav-account-close {
+  position: absolute;
+  top: 8px;
+  right: -4px;
+  display: flex;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+header nav .nav-account-close svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: #1a1a1a;
+  stroke-width: 1.5;
+}
+
+header nav .nav-account-btn {
+  display: block;
+  box-sizing: border-box;
+  height: 36px;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 16px;
+  line-height: 22px;
+  text-decoration: none;
+}
+
+header nav .nav-account-btn + .nav-account-btn { margin-top: 12px; }
+
+header nav .nav-account-btn.primary {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+header nav .nav-account-btn.primary:hover,
+header nav .nav-account-btn.primary:focus-visible {
+  background: #3d3d3d;
+  color: #fff;
+  text-decoration: none;
+}
+
+header nav .nav-account-btn.secondary {
+  background: #fff;
+  color: #1a1a1a;
+}
+
+header nav .nav-account-btn.secondary:hover,
+header nav .nav-account-btn.secondary:focus-visible {
+  background: rgb(133 133 133 / 10%);
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+header nav .nav-account-benefit {
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 18px;
+  color: #485571;
+}
+
+header nav .nav-account-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0 0;
+  border-top: 1px solid #d9d1d1;
+  padding: 20px 0 0;
+  list-style: none;
+  text-align: left;
+}
+
+header nav .nav-account-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 18px;
+  line-height: 22px;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+header nav .nav-account-link:hover,
+header nav .nav-account-link:focus-visible {
+  color: #1a1a1a;
+  text-decoration: underline;
+}
+
+header nav .nav-account-icon {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 header nav .nav-search-form {
   position: absolute;
   right: 0;
@@ -823,6 +983,18 @@ header nav .nav-cta-btn {
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
+  }
+
+  /* invisible hover bridge over the gap between the menu item (ends 8px
+     above the bar's bottom) and the panel, so moving the mouse down into
+     the panel keeps it open instead of closing it on the way */
+  header nav .nav-panel::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    height: 12px;
   }
 
   /* dim + blur the page content behind an open megamenu (sits above the

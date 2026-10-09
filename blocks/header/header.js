@@ -81,10 +81,113 @@ function setSearchOpen(nav, open) {
  * Builds the tools (search, cart, sign-in) region controls.
  * @param {Element} navTools The tools section element
  */
+// 24px outline icons for the account flyout links, picked by link target
+const ACCOUNT_ICONS = {
+  orders: '<path d="M2.5 4.5h2.2l2.1 10.2h10.6l2.1-7.2H6"/><circle cx="9" cy="18.5" r="1.4"/><circle cx="16.5" cy="18.5" r="1.4"/>',
+  subscriptions: '<rect x="7.5" y="7.5" width="13" height="13" rx="1.5"/><path d="M4.5 16.5v-11a1 1 0 0 1 1-1h11M14 11v6M11 14h6"/>',
+  devices: '<rect x="2.5" y="4" width="15" height="10.5" rx="1"/><path d="M6 18h6M9 14.5V18"/><rect x="14.5" y="10.5" width="7" height="9.5" rx="1"/><path d="M17 17.5h2"/>',
+  account: '<circle cx="12" cy="8" r="3.6"/><path d="M4.8 20c.9-3.6 3.8-5.6 7.2-5.6s6.3 2 7.2 5.6"/>',
+};
+
+function accountIcon(href) {
+  let key = 'account';
+  if (/order/i.test(href)) key = 'orders';
+  else if (/subscription/i.test(href)) key = 'subscriptions';
+  else if (/device/i.test(href)) key = 'devices';
+  return `<svg class="nav-account-icon" viewBox="0 0 24 24" aria-hidden="true">${ACCOUNT_ICONS[key]}</svg>`;
+}
+
+/**
+ * Builds the account flyout (hp.com "Welcome!" panel) from the nested list
+ * authored under the "Sign In" item of the nav fragment:
+ *   - plain text: the first is the greeting, later ones the benefit line
+ *   - **bold link**: primary button (Sign in)
+ *   - *italic link*: secondary button (Create an account)
+ *   - other links: account links (Account, Orders, ...), each with an icon
+ * Reads authored content only; returns null when nothing is authored.
+ * @param {Element} list The nested <ul> under the Sign In item
+ * @returns {Element|null} The flyout element
+ */
+function buildAccountFlyout(list) {
+  const items = [...list.children];
+  if (!items.length) return null;
+
+  const flyout = document.createElement('div');
+  flyout.className = 'nav-account-flyout';
+  flyout.id = 'nav-account-flyout';
+
+  const head = document.createElement('div');
+  head.className = 'nav-account-head';
+  const close = document.createElement('button');
+  close.type = 'button';
+  close.className = 'nav-account-close';
+  close.setAttribute('aria-label', 'Close');
+  close.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>';
+
+  const linkList = document.createElement('ul');
+  linkList.className = 'nav-account-links';
+  let greeting = null;
+
+  items.forEach((li) => {
+    const a = li.querySelector('a');
+    if (!a) {
+      const text = li.textContent.trim();
+      if (!text) return;
+      if (!greeting) {
+        greeting = document.createElement('p');
+        greeting.className = 'nav-account-greeting';
+        greeting.textContent = text;
+      } else {
+        const p = document.createElement('p');
+        p.className = 'nav-account-benefit';
+        p.textContent = text;
+        flyout.append(p);
+      }
+      return;
+    }
+    const btn = document.createElement('a');
+    btn.href = a.getAttribute('href');
+    btn.textContent = a.textContent.trim();
+    if (a.closest('strong')) {
+      btn.className = 'nav-account-btn primary';
+      flyout.append(btn);
+    } else if (a.closest('em')) {
+      btn.className = 'nav-account-btn secondary';
+      flyout.append(btn);
+    } else {
+      btn.className = 'nav-account-link';
+      btn.insertAdjacentHTML('afterbegin', accountIcon(btn.href));
+      const item = document.createElement('li');
+      item.append(btn);
+      linkList.append(item);
+    }
+  });
+
+  if (greeting) head.append(greeting);
+  head.append(close);
+  flyout.prepend(head);
+  if (linkList.children.length) flyout.append(linkList);
+  return flyout;
+}
+
+/**
+ * Opens/closes the account flyout.
+ * @param {Element} account The .nav-account wrapper
+ * @param {Boolean} open Whether the flyout should be open
+ */
+function setAccountOpen(account, open) {
+  if (!account) return;
+  account.classList.toggle('nav-account-open', open);
+  const btn = account.querySelector('.nav-signin-btn');
+  if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
 function decorateTools(navTools) {
   const links = [...navTools.querySelectorAll('a')];
   const cart = links.find((a) => /cart/i.test(a.textContent) || /cart/i.test(a.href));
   const signIn = links.find((a) => /sign\s*in/i.test(a.textContent));
+  const signInList = signIn && signIn.closest('li') && signIn.closest('li').querySelector(':scope > ul');
+  const flyout = signInList ? buildAccountFlyout(signInList) : null;
 
   const group = document.createElement('div');
   group.className = 'nav-tools-group';
@@ -145,7 +248,40 @@ function decorateTools(navTools) {
   signInBtn.setAttribute('aria-label', 'Sign In');
   signInBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.73 2a10 10 0 0 0-9.63 8.62 8.48 8.48 0 0 0-.1 1.26c0 .56.02.86.08 1.35a10 10 0 0 0 13.6 8.07 10 10 0 0 0 6.26-8.22c.05-.39.05-.52.05-1.08 0-.64-.01-.88-.1-1.43a10 10 0 0 0-5.75-7.67 9.98 9.98 0 0 0-3.8-.9h-.61Zm.72 1.01a9 9 0 0 1 3.53 17.06 8.98 8.98 0 0 1-3.55.92c-.23.01-.85 0-1.04-.01a9 9 0 0 1-8.35-9.76 9 9 0 0 1 8.49-8.2c.2-.02.72-.02.92 0Zm-.66 2.5a3.5 3.5 0 0 0-2.7 1.54 3.48 3.48 0 0 0-.4 3.07 3.47 3.47 0 0 0 1.3 1.74 3.53 3.53 0 0 0 1.16.54c.32.07.5.1.85.1s.55-.03.86-.1a3.5 3.5 0 0 0 2.62-3.02 4.3 4.3 0 0 0 0-.76 3.5 3.5 0 0 0-3.3-3.11 2.6 2.6 0 0 0-.39 0Zm.5 1a2.53 2.53 0 0 1 1.66.92 2.5 2.5 0 0 1-1.17 3.94 2.27 2.27 0 0 1-.78.13c-.3 0-.52-.04-.78-.13a2.44 2.44 0 0 1-.98-.6 2.48 2.48 0 0 1-.7-2.2 2.79 2.79 0 0 1 .52-1.15c.08-.09.27-.29.37-.37a2.53 2.53 0 0 1 1.28-.53c.14-.02.43-.02.58 0Zm-.46 7a5.48 5.48 0 0 0-3.66 1.55 5.4 5.4 0 0 0-1.23 1.78.63.63 0 0 0-.02.14.5.5 0 0 0 .37.5.66.66 0 0 0 .13.02.47.47 0 0 0 .35-.15.42.42 0 0 0 .1-.15c.2-.42.4-.75.68-1.1a6.38 6.38 0 0 1 .6-.57 4.53 4.53 0 0 1 2.19-.98c.32-.05.74-.06 1.05-.03a4.48 4.48 0 0 1 2.83 1.34c.38.4.66.8.9 1.34a.5.5 0 0 0 .47.3.5.5 0 0 0 .48-.62 3.87 3.87 0 0 0-.31-.64 5.28 5.28 0 0 0-.87-1.13 5.44 5.44 0 0 0-3.66-1.6 3.88 3.88 0 0 0-.4 0Z"/></svg>';
 
-  group.append(searchWrap, cartBtn, signInBtn);
+  // account: with an authored flyout the icon opens the "Welcome!" panel
+  // (on hover on desktop, on click/tap everywhere), as on hp.com; without
+  // one it stays a plain link to the account page
+  let account = signInBtn;
+  if (flyout) {
+    account = document.createElement('div');
+    account.className = 'nav-account';
+    signInBtn.setAttribute('role', 'button');
+    signInBtn.setAttribute('aria-haspopup', 'true');
+    signInBtn.setAttribute('aria-expanded', 'false');
+    signInBtn.setAttribute('aria-controls', flyout.id);
+    account.append(signInBtn, flyout);
+
+    let closeTimer;
+    account.addEventListener('mouseenter', () => {
+      if (!isDesktop.matches) return;
+      clearTimeout(closeTimer);
+      setAccountOpen(account, true);
+    });
+    account.addEventListener('mouseleave', () => {
+      if (!isDesktop.matches) return;
+      closeTimer = setTimeout(() => setAccountOpen(account, false), 150);
+    });
+    signInBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      setAccountOpen(account, !account.classList.contains('nav-account-open'));
+    });
+    flyout.querySelector('.nav-account-close').addEventListener('click', () => {
+      setAccountOpen(account, false);
+      signInBtn.focus();
+    });
+  }
+
+  group.append(searchWrap, cartBtn, account);
   navTools.textContent = '';
   navTools.append(group);
 }
@@ -243,17 +379,29 @@ function decorateSections(navSections) {
   navSections.textContent = '';
   navSections.append(menu);
 
-  // desktop hover + click behavior
+  // desktop hover + click behavior, with a short hover intent: while a panel
+  // is open, passing over a neighbouring item on the way down into the panel
+  // (e.g. heading for a card on the right) must not swap or close it
+  const HOVER_INTENT_MS = 200;
+  let pending;
+  const openPanel = (li) => {
+    clearTimeout(pending);
+    closeAllPanels(menu);
+    li.setAttribute('aria-expanded', 'true');
+  };
   menu.querySelectorAll('.nav-drop').forEach((li) => {
     const trigger = li.querySelector('.nav-menu-trigger');
     li.addEventListener('mouseenter', () => {
-      if (isDesktop.matches) {
-        closeAllPanels(li.closest('.nav-menu'));
-        li.setAttribute('aria-expanded', 'true');
-      }
+      if (!isDesktop.matches) return;
+      clearTimeout(pending);
+      const openLi = menu.querySelector('.nav-drop[aria-expanded="true"]');
+      if (!openLi || openLi === li) openPanel(li);
+      else pending = setTimeout(() => openPanel(li), HOVER_INTENT_MS);
     });
     li.addEventListener('mouseleave', () => {
-      if (isDesktop.matches) li.setAttribute('aria-expanded', 'false');
+      if (!isDesktop.matches) return;
+      clearTimeout(pending);
+      pending = setTimeout(() => li.setAttribute('aria-expanded', 'false'), HOVER_INTENT_MS);
     });
     trigger.addEventListener('click', (e) => {
       // On desktop the panel is hover-driven; the click toggles it and must not
@@ -365,12 +513,15 @@ export default async function decorate(block) {
   // close panels when clicking outside
   document.addEventListener('click', (e) => {
     if (isDesktop.matches && !nav.contains(e.target)) closeAllPanels(nav);
+    const account = nav.querySelector('.nav-account');
+    if (account && !account.contains(e.target)) setAccountOpen(account, false);
   });
 
   // close on escape
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Escape') {
       closeAllPanels(nav);
+      setAccountOpen(nav.querySelector('.nav-account'), false);
       if (!isDesktop.matches) {
         if (nav.classList.contains('nav-search-open')) setSearchOpen(nav, false);
         toggleMobileMenu(nav, true);

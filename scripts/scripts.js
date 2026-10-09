@@ -47,6 +47,10 @@ function autolinkModals(doc) {
  */
 function decorateSections(main) {
   main.querySelectorAll(':scope > div').forEach((section) => {
+    if (!section.children.length && !section.textContent.trim()) {
+      section.remove();
+      return;
+    }
     const wrappers = [];
     let defaultContent = false;
     [...section.children].forEach((e) => {

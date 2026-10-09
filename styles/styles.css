@@ -263,17 +263,18 @@ main > .section:first-of-type {
 }
 
 :where(body.ai-solutions) main > .section > div {
+  box-sizing: border-box;
   max-width: 1680px;
   padding: 0 16px;
 }
 
-@media (width >= 768px) {
+@media (width >= 441px) {
   :where(body.ai-solutions) main > .section > div {
     padding: 0 32px;
   }
 }
 
-@media (width >= 1200px) {
+@media (width >= 1115px) {
   :where(body.ai-solutions) main > .section > div {
     padding: 0 36px;
   }
@@ -288,7 +289,7 @@ main .section.highlight {
 }
 
 main .section.dark {
-  background-color: #1a1a1a;
+  background: linear-gradient(#1a1a1a, #1a1a1a) center / min(100%, 1680px) 100% no-repeat;
   color: var(--background-color);
   margin: 0;
   padding: 24px 0 36px;
@@ -299,7 +300,8 @@ main .section.dark :is(h1, h2, h3, h4, h5, h6) {
 }
 
 main .section.dark .default-content-wrapper h2 {
-  margin: 0 0 28px;
+  /* 4px nudge matches hp.com's heading inset on mobile */
+  margin: 0 0 28px 4px;
   font-size: 36px;
   font-weight: 500;
   line-height: 1;
@@ -321,6 +323,7 @@ main .section.dark .default-content-wrapper h2 {
   }
 
   main .section.dark .default-content-wrapper h2 {
+    margin-left: 0;
     font-size: 56px;
   }
 }

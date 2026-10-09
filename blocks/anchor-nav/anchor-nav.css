@@ -169,7 +169,7 @@ main .anchor-nav-cta a.button:focus-visible {
   text-decoration: none;
 }
 
-@media (width < 441px) {
+@media (width <= 380px) {
   .anchor-nav > div {
     grid-template-columns: minmax(0, 1fr);
   }

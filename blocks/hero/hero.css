@@ -135,12 +135,12 @@
 
 .hero.split .hero-content {
   box-sizing: border-box;
-  padding: 28px 16px;
+  padding: 1.75rem 1rem;
   background: none;
 }
 
 .hero.split .hero-content > * {
-  margin: 0 0 16px;
+  margin: 0 0 1rem;
   padding: 0;
   border-top: 0;
   color: inherit;
@@ -148,18 +148,18 @@
 }
 
 .hero.split .hero-content > p:first-child {
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 .hero.split .hero-content h1 {
-  font-size: 44px;
-  line-height: 44px;
+  font-size: 2.75rem;
+  line-height: 2.75rem;
 }
 
 .hero.split .hero-content h2 {
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
 }
 
 .hero.split .hero-content > :has(+ .hero-logos) {
@@ -170,8 +170,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 16px;
-  margin: 36px 0 0;
+  gap: 1rem;
+  margin: 2.25rem 0 0;
 }
 
 .hero.split .hero-logos a {
@@ -186,23 +186,23 @@
 .hero.split .hero-logos img {
   width: auto;
   max-width: none;
-  height: 32px;
+  height: 2rem;
 }
 
 .hero.split .hero-media {
   position: relative;
   box-sizing: border-box;
-  height: 270px;
-  padding-left: 16px;
+  height: 16.875rem;
+  padding-left: 1rem;
   overflow: hidden;
 }
 
 .hero.split .hero-media picture {
   display: block;
   width: 100%;
-  min-width: 468px;
+  min-width: 29.25rem;
   height: 100%;
-  clip-path: polygon(98.28px 0, 100% 0, 661px 100%, 0 100%);
+  clip-path: polygon(6.1425rem 0, 100% 0, 41.3125rem 100%, 0 100%);
 }
 
 .hero.split .hero-media img {
@@ -213,68 +213,68 @@
   object-position: 50% 50%;
 }
 
-@media (width >= 441px) {
+@media (width >= 768px) {
   .hero.split .hero-content {
-    padding: 36px 32px;
+    padding: 2.25rem 2rem;
   }
 
   .hero.split .hero-content > p:first-child {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 
   .hero.split .hero-content h1 {
-    font-size: 56px;
-    line-height: 56px;
+    font-size: 3.5rem;
+    line-height: 3.5rem;
   }
 
   .hero.split .hero-content h2 {
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
   }
 
   .hero.split .hero-media {
-    height: 336px;
-    padding-left: 32px;
+    height: 21rem;
+    padding-left: 2rem;
   }
 
   .hero.split .hero-media picture {
-    width: 786px;
+    width: 49.125rem;
     min-width: 0;
-    clip-path: polygon(117.6px 0, 100% 0, calc(100% - 117.6px) 100%, 0 100%);
+    clip-path: polygon(7.35rem 0, 100% 0, calc(100% - 7.35rem) 100%, 0 100%);
   }
 }
 
-@media (width >= 1115px) {
+@media (width >= 1280px) {
   .hero.split.block {
     flex-direction: row;
-    min-height: 500px;
-    padding-left: max(36px, calc((100% - 1680px) / 2 + 36px));
+    min-height: 31.25rem;
+    padding-left: max(2.25rem, calc((100% - 105rem) / 2 + 2.25rem));
   }
 
   .hero.split .hero-content {
     display: flex;
-    flex: 0 0 calc((100% - 36px) * 0.4266);
+    flex: 0 0 calc((100% - 2.25rem) * 0.4266);
     flex-direction: column;
     justify-content: center;
-    max-width: 680px;
-    min-height: 500px;
-    padding: 80px 24px 80px 0;
+    max-width: 42.5rem;
+    min-height: 31.25rem;
+    padding: 5rem 1.5rem 5rem 0;
   }
 
   .hero.split .hero-content > p:first-child {
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 1rem;
+    line-height: 1.25rem;
   }
 
   .hero.split .hero-content h1 {
-    font-size: 72px;
-    line-height: 72px;
+    font-size: 4.5rem;
+    line-height: 4.5rem;
   }
 
   .hero.split .hero-content h2 {
-    font-size: 24px;
-    line-height: 28px;
+    font-size: 1.5rem;
+    line-height: 1.75rem;
   }
 
   .hero.split .hero-media {
@@ -288,8 +288,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 1101.3px;
+    width: 68.8312rem;
     min-width: 0;
-    clip-path: polygon(175px 0, 100% 0, 926.3px 100%, 0 100%);
+    clip-path: polygon(10.9375rem 0, 100% 0, 57.8937rem 100%, 0 100%);
   }
 }

@@ -20,8 +20,8 @@ main > .section.anchor-nav-container {
   z-index: 10;
   background-color: var(--background-color);
   color: #1a1a1a;
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 1rem;
+  line-height: 1.375rem;
 }
 
 .anchor-nav.anchor-nav-pinned {
@@ -35,14 +35,15 @@ main > .section.anchor-nav-container {
   position: relative;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
-  max-width: 1680px;
-  min-height: 68px;
+  max-width: 105rem;
+  min-height: 4.25rem;
   margin: 0 auto;
-  border-top: 1px solid #e8e8e8;
-  border-bottom: 1px solid #e8e8e8;
-  padding: 0 16px;
+  border-top: 0.0625rem solid #e8e8e8;
+  border-bottom: 0.0625rem solid #e8e8e8;
+  padding: 0 1rem;
+  background-color: var(--background-color);
 }
 
 .anchor-nav .anchor-nav-toggle {
@@ -50,16 +51,16 @@ main > .section.anchor-nav-container {
   align-items: center;
   justify-self: start;
   max-width: 100%;
-  min-height: 68px;
+  min-height: 2.75rem;
   margin: 0;
   border: 0;
-  border-radius: 6px;
+  border-radius: 0.375rem;
   padding: 0;
   background: none;
   color: inherit;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 500;
-  line-height: 24px;
+  line-height: 1.5rem;
   text-align: start;
   white-space: nowrap;
   cursor: pointer;
@@ -72,7 +73,7 @@ main > .section.anchor-nav-container {
 
 .anchor-nav-toggle-title {
   overflow: hidden;
-  margin-right: 10px;
+  margin-right: 0.625rem;
   text-overflow: ellipsis;
 }
 
@@ -87,11 +88,12 @@ main > .section.anchor-nav-container {
 
 .anchor-nav-links {
   display: none;
-  position: absolute;
+  position: static;
   top: 100%;
   left: 0;
   right: 0;
-  border-bottom: 1px solid #e8e8e8;
+  margin: 0 -1rem;
+  border-bottom: 0;
   background-color: var(--background-color);
 }
 
@@ -103,15 +105,15 @@ main > .section.anchor-nav-container {
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 1rem;
+  line-height: 1.5rem;
   white-space: nowrap;
 }
 
 .anchor-nav-links li {
   position: relative;
   display: flex;
-  padding: 0 6px;
+  padding: 0 0.375rem;
   transition: background 0.1s ease-in, color 0.1s ease-in;
 }
 
@@ -122,10 +124,10 @@ main > .section.anchor-nav-container {
 .anchor-nav-links a:any-link {
   display: block;
   width: 100%;
-  border-radius: 6px;
-  padding: 0 10px;
+  border-radius: 0.375rem;
+  padding: 0 0.625rem;
   color: #1a1a1a;
-  line-height: 44px;
+  line-height: 2.75rem;
   text-decoration: none;
 }
 
@@ -143,9 +145,9 @@ main > .section.anchor-nav-container {
 .anchor-nav-cta {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-left: 40px;
-  padding: 12px 0;
+  gap: 1rem;
+  margin-left: 0;
+  padding: 1rem 0;
 }
 
 .anchor-nav-cta p {
@@ -157,16 +159,16 @@ main .anchor-nav-cta a.button:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 36px;
+  min-height: 2.25rem;
   margin: 0;
   border: 0;
-  border-radius: 8px;
-  padding: 6px 12px;
-  background-color: rgb(2 74 216);
+  border-radius: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  background-color: #024ad8;
   color: #fff;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
-  line-height: 20px;
+  line-height: 1.25rem;
   text-decoration: none;
   transition: color 0.3s, background-color 0.3s, border-color 0.3s;
 }
@@ -179,83 +181,68 @@ main .anchor-nav-cta a.button:focus-visible {
 }
 
 main .anchor-nav-cta a.button:focus-visible {
-  outline: 2px solid #0e3191;
-  outline-offset: -2px;
-  box-shadow: inset 0 0 0 4px #fff;
+  outline: 0.125rem solid #0e3191;
+  outline-offset: -0.125rem;
+  box-shadow: inset 0 0 0 0.25rem #fff;
 }
 
-@media (width <= 380px) {
-  .anchor-nav:not(.anchor-nav-pinned) > div {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .anchor-nav:not(.anchor-nav-pinned) .anchor-nav-toggle {
-    min-height: 44px;
-  }
-
-  .anchor-nav:not(.anchor-nav-pinned) .anchor-nav-cta {
-    margin-left: 0;
-    padding: 16px 0;
-  }
+.anchor-nav-open::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: #1a1a1a80;
+  backdrop-filter: blur(1rem);
 }
 
-@media (360px <= width <= 380px) {
-  .anchor-nav-pinned .anchor-nav-cta {
-    margin-left: 16px;
-  }
-}
-
-@media (width < 360px) {
-  .anchor-nav > div {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .anchor-nav .anchor-nav-toggle {
-    min-height: 44px;
-  }
-
+@media (width >= 375px) {
   .anchor-nav-links {
-    position: static;
-    margin: 0 -16px;
-    border-bottom: 0;
+    position: absolute;
+    margin: 0;
+    border-bottom: 0.0625rem solid #e8e8e8;
   }
 
-  .anchor-nav-cta {
-    margin-left: 0;
-    padding: 16px 0;
-  }
-}
-
-@media (width < 900px) {
-  .anchor-nav > div {
-    background-color: var(--background-color);
+  .anchor-nav-pinned > div {
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
-  .anchor-nav-open::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background-color: rgb(26 26 26 / 50%);
-    backdrop-filter: blur(16px);
+  .anchor-nav-pinned .anchor-nav-toggle {
+    min-height: 4.25rem;
+  }
+
+  .anchor-nav-pinned .anchor-nav-cta {
+    margin-left: 1rem;
+    padding: 0.75rem 0;
   }
 }
 
-@media (width >= 441px) {
+@media (width >= 768px) {
   .anchor-nav > div {
-    padding: 0 32px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 0 2rem;
   }
 
   .anchor-nav .anchor-nav-toggle {
-    font-size: 20px;
+    min-height: 4.25rem;
+    font-size: 1.25rem;
+  }
+
+  .anchor-nav .anchor-nav-cta {
+    margin-left: 2.5rem;
+    padding: 0.75rem 0;
   }
 }
 
-@media (width >= 900px) {
+@media (width >= 1024px) {
   .anchor-nav > div {
     display: flex;
     align-items: stretch;
     justify-content: space-between;
+    background-color: transparent;
+  }
+
+  .anchor-nav-open::after {
+    content: none;
   }
 
   .anchor-nav .anchor-nav-toggle {
@@ -272,20 +259,20 @@ main .anchor-nav-cta a.button:focus-visible {
 
   .anchor-nav-links ul {
     display: flex;
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 
   .anchor-nav-links li,
   .anchor-nav-links li.active {
     display: flex;
-    padding: 6px 0;
+    padding: 0.375rem 0;
   }
 
   .anchor-nav-links li::after {
     content: '';
     position: absolute;
     inset: auto 0 0;
-    height: 2px;
+    height: 0.125rem;
     background: transparent;
     transition: background 0.1s ease-in;
   }
@@ -294,8 +281,8 @@ main .anchor-nav-cta a.button:focus-visible {
     display: flex;
     align-items: center;
     width: auto;
-    padding: 0 20px;
-    line-height: 24px;
+    padding: 0 1.25rem;
+    line-height: 1.5rem;
   }
 
   .anchor-nav-links li:has(> a:hover)::after,
@@ -322,12 +309,12 @@ main .anchor-nav-cta a.button:focus-visible {
   }
 
   .anchor-nav-cta {
-    gap: 20px;
+    gap: 1.25rem;
   }
 }
 
-@media (width >= 1200px) {
+@media (width >= 1280px) {
   .anchor-nav > div {
-    padding: 0 36px;
+    padding: 0 2.25rem;
   }
 }

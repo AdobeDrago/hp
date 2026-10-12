@@ -61,22 +61,22 @@
 }
 
 .accordion.faq {
-  --faq-pad: 16px;
-  --faq-icon-gap: 33px;
-  --faq-icon-top: 9px;
-  --faq-icon-right: 9px;
-  --faq-gap: 8px;
+  --faq-pad: 1rem;
+  --faq-icon-gap: 2.0625rem;
+  --faq-icon-top: 0.5625rem;
+  --faq-icon-right: 0.5625rem;
+  --faq-gap: 0.5rem;
 
-  margin-bottom: -12px;
-  padding-top: 12px;
+  margin-bottom: -0.75rem;
+  padding-top: 0.75rem;
 }
 
 .accordion.faq details {
   border: 0;
-  border-radius: 16px;
+  border-radius: 1rem;
   background-color: #fff;
   color: #1a1a1a;
-  box-shadow: 0 3px 12px 3px rgb(0 0 0 / 0%);
+  box-shadow: 0 0.1875rem 0.75rem 0.1875rem #0000;
   cursor: pointer;
   transition: box-shadow 0.3s ease-out;
 }
@@ -86,15 +86,15 @@
 }
 
 .accordion.faq details:hover {
-  box-shadow: 0 3px 12px 3px rgb(26 26 26 / 20%);
+  box-shadow: 0 0.1875rem 0.75rem 0.1875rem #1a1a1a33;
 }
 
 .accordion.faq details summary {
   padding: var(--faq-pad) calc(var(--faq-pad) + var(--faq-icon-gap)) var(--faq-pad) var(--faq-pad);
   overflow: visible;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 500;
-  line-height: 24px;
+  line-height: 1.5rem;
 }
 
 .accordion.faq details[open] summary {
@@ -120,11 +120,11 @@
   position: absolute;
   top: var(--faq-icon-top);
   right: var(--faq-icon-right);
-  width: 36px;
-  height: 36px;
+  width: 2.25rem;
+  height: 2.25rem;
   border: 0;
   border-radius: 50%;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231a1a1a' d='M11.874 3.018a.518.518 0 0 0-.36.368c-.011.05-.013.566-.013 4.086v4.03H7.472c-3.56 0-4.036.002-4.088.014a.516.516 0 0 0-.368.364.505.505 0 0 0 .369.606c.05.012.566.014 4.087.014h4.03v4.029c0 3.52 0 4.037.013 4.087.04.174.188.323.364.369a.505.505 0 0 0 .606-.37c.012-.049.014-.565.014-4.086v-4.03h4.03c3.52 0 4.036-.001 4.086-.013a.516.516 0 0 0 .37-.364.505.505 0 0 0-.37-.606c-.05-.012-.566-.014-4.086-.014h-4.03v-4.03c0-3.52-.002-4.036-.014-4.086a.516.516 0 0 0-.364-.37.6.6 0 0 0-.247.002z'/%3E%3C/svg%3E") center / 24px 24px no-repeat;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231a1a1a' d='M11.874 3.018a.518.518 0 0 0-.36.368c-.011.05-.013.566-.013 4.086v4.03H7.472c-3.56 0-4.036.002-4.088.014a.516.516 0 0 0-.368.364.505.505 0 0 0 .369.606c.05.012.566.014 4.087.014h4.03v4.029c0 3.52 0 4.037.013 4.087.04.174.188.323.364.369a.505.505 0 0 0 .606-.37c.012-.049.014-.565.014-4.086v-4.03h4.03c3.52 0 4.036-.001 4.086-.013a.516.516 0 0 0 .37-.364.505.505 0 0 0-.37-.606c-.05-.012-.566-.014-4.086-.014h-4.03v-4.03c0-3.52-.002-4.036-.014-4.086a.516.516 0 0 0-.364-.37.6.6 0 0 0-.247.002z'/%3E%3C/svg%3E") center / 1.5rem 1.5rem no-repeat;
   transform: none;
   transition: transform 0.3s ease-out;
 }
@@ -149,9 +149,9 @@
 }
 
 .accordion.faq details .accordion-item-body {
-  padding: 16px var(--faq-pad) calc(var(--faq-pad) + 24px);
-  font-size: 14px;
-  line-height: 24px;
+  padding: 1rem var(--faq-pad) calc(var(--faq-pad) + 1.5rem);
+  font-size: 0.875rem;
+  line-height: 1.5rem;
 }
 
 .accordion.faq details[open] .accordion-item-body {
@@ -159,40 +159,40 @@
   background-color: transparent;
 }
 
-@media (width >= 441px) {
+@media (width >= 768px) {
   .accordion.faq {
-    --faq-pad: 32px;
-    --faq-icon-gap: 48px;
-    --faq-icon-top: 28px;
-    --faq-icon-right: 28px;
-    --faq-gap: 16px;
+    --faq-pad: 2rem;
+    --faq-icon-gap: 3rem;
+    --faq-icon-top: 1.75rem;
+    --faq-icon-right: 1.75rem;
+    --faq-gap: 1rem;
 
-    margin-bottom: 6px;
-    padding-top: 36px;
+    margin-bottom: 0.375rem;
+    padding-top: 2.25rem;
   }
 
   .accordion.faq details summary {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 }
 
-@media (width >= 1115px) {
+@media (width >= 1280px) {
   .accordion.faq {
-    --faq-pad: 36px;
-    --faq-icon-gap: 52px;
-    --faq-icon-top: 34px;
-    --faq-icon-right: 32px;
+    --faq-pad: 2.25rem;
+    --faq-icon-gap: 3.25rem;
+    --faq-icon-top: 2.125rem;
+    --faq-icon-right: 2rem;
 
-    margin-bottom: 12px;
-    padding-top: 48px;
+    margin-bottom: 0.75rem;
+    padding-top: 3rem;
   }
 
   .accordion.faq details summary {
-    font-size: 24px;
-    line-height: 28px;
+    font-size: 1.5rem;
+    line-height: 1.75rem;
   }
 
   .accordion.faq details .accordion-item-body {
-    font-size: 16px;
+    font-size: 1rem;
   }
 }

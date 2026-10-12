@@ -28,15 +28,15 @@
   --heading-font-size-m: 27px;
   --heading-font-size-s: 24px;
   --heading-font-size-xs: 22px;
-  --nav-height: 65px;
+  --nav-height: 4.0625rem;
   --breadcrumbs-height: 34px;
-  --header-height: 127px;
+  --header-height: 7.9375rem;
 }
 
-@media (width >= 1115px) {
+@media (width >= 1280px) {
   :root {
-    --nav-height: 55px;
-    --header-height: 119px;
+    --nav-height: 3.4375rem;
+    --header-height: 7.4375rem;
   }
 }
 
@@ -250,19 +250,19 @@ main > .section:first-of-type {
 
 :where(body.ai-solutions) main > .section > div {
   box-sizing: border-box;
-  max-width: 1680px;
-  padding: 0 16px;
+  max-width: 105rem;
+  padding: 0 1rem;
 }
 
-@media (width >= 441px) {
+@media (width >= 768px) {
   :where(body.ai-solutions) main > .section > div {
-    padding: 0 32px;
+    padding: 0 2rem;
   }
 }
 
-@media (width >= 1115px) {
+@media (width >= 1280px) {
   :where(body.ai-solutions) main > .section > div {
-    padding: 0 36px;
+    padding: 0 2.25rem;
   }
 }
 
@@ -274,10 +274,10 @@ main .section.highlight {
 }
 
 main .section.dark {
-  background: linear-gradient(#1a1a1a, #1a1a1a) center / min(100%, 1680px) 100% no-repeat;
+  background: linear-gradient(#1a1a1a, #1a1a1a) center / min(100%, 105rem) 100% no-repeat;
   color: var(--background-color);
   margin: 0;
-  padding: 24px 0 36px;
+  padding: 1.5rem 0 2.25rem;
 }
 
 main .section.dark :is(h1, h2, h3, h4, h5, h6) {
@@ -285,29 +285,29 @@ main .section.dark :is(h1, h2, h3, h4, h5, h6) {
 }
 
 main .section.dark .default-content-wrapper h2 {
-  margin: 0 0 28px 4px;
-  font-size: 36px;
+  margin: 0 0 1.75rem 0.25rem;
+  font-size: 2.25rem;
   font-weight: 500;
   line-height: 1;
 }
 
-@media (width >= 441px) {
+@media (width >= 768px) {
   main .section.dark {
-    padding-top: 34px;
+    padding-top: 2.125rem;
   }
 
   main .section.dark .default-content-wrapper h2 {
-    font-size: 44px;
+    font-size: 2.75rem;
   }
 }
 
-@media (width >= 1115px) {
+@media (width >= 1280px) {
   main .section.dark {
-    padding-top: 44px;
+    padding-top: 2.75rem;
   }
 
   main .section.dark .default-content-wrapper h2 {
     margin-left: 0;
-    font-size: 56px;
+    font-size: 3.5rem;
   }
 }

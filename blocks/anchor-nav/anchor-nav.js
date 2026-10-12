@@ -1,4 +1,4 @@
-const isDesktop = window.matchMedia('(min-width: 900px)');
+const isDesktop = window.matchMedia('(min-width: 1024px)');
 
 const DEFAULT_TITLE = 'Overview';
 const CHEVRON = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4.394 8.512a.518.518 0 0 0-.249.14.495.495 0 0 0-.081.59c.014.03 1.04 1.063 3.83 3.853 3.418 3.419 3.818 3.815 3.87 3.843.154.08.317.08.476-.001.06-.031.28-.249 3.86-3.83 2.624-2.622 3.806-3.81 3.824-3.841a.5.5 0 0 0-.07-.614.52.52 0 0 0-.353-.153.602.602 0 0 0-.224.055c-.059.027-.215.181-3.669 3.635L12 15.796l-3.608-3.607c-3.454-3.454-3.61-3.608-3.67-3.635a.5.5 0 0 0-.328-.042z"/></svg>';

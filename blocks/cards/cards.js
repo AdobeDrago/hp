@@ -28,7 +28,7 @@ export default function decorate(block) {
     const img = imageCell && imageCell.querySelector('img');
     if (img) {
       imageCell.replaceChildren(createOptimizedPicture(img.src, img.alt, true, [
-        { media: '(min-width: 900px)', width: '1600' },
+        { media: '(min-width: 1024px)', width: '1600' },
         { width: '750' },
       ]));
     }

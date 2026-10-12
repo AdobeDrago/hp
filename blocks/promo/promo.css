@@ -1,19 +1,19 @@
 
 .promo-container {
-  --container-padding: 16px;
+  --container-padding: 1rem;
   --light-color: #f5f5f5;
   --border-color: #e8e8e8;
 }
 
-@media (width >= 441px) {
+@media (width >= 768px) {
   .promo-container {
-    --container-padding: 32px;
+    --container-padding: 2rem;
   }
 }
 
-@media (width >= 1115px) {
+@media (width >= 1280px) {
   .promo-container {
-    --container-padding: 36px;
+    --container-padding: 2.25rem;
   }
 }
 
@@ -24,7 +24,7 @@ main > .section.promo-container {
 
 .promo-container .promo-wrapper {
   display: flow-root;
-  max-width: 1680px;
+  max-width: 105rem;
   margin: 0 auto;
   padding: 0;
 }
@@ -36,7 +36,7 @@ main > .section.promo-container {
 .promo {
   display: flex;
   flex-direction: column;
-  padding: 30px var(--container-padding);
+  padding: 1.875rem var(--container-padding);
   background-color: var(--light-color);
   color: #1a1a1a;
 }
@@ -55,17 +55,17 @@ main > .section.promo-container {
   height: auto;
   aspect-ratio: 816 / 600;
   object-fit: cover;
-  border-radius: 16px;
+  border-radius: 1rem;
 }
 
 .promo .promo-content {
-  padding: 20px 0 30px;
+  padding: 1.25rem 0 1.875rem;
 }
 
 .promo .promo-content > div {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 16px;
+  column-gap: 1rem;
 }
 
 .promo .promo-content > div > :not(.button-container) {
@@ -73,21 +73,21 @@ main > .section.promo-container {
 }
 
 .promo .promo-content h2 {
-  margin: 8px 0 0;
-  font-size: 36px;
+  margin: 0.5rem 0 0;
+  font-size: 2.25rem;
   font-weight: 500;
   line-height: 1;
 }
 
 .promo .promo-content p {
-  margin: 8px 0 0;
-  font-size: 18px;
+  margin: 0.5rem 0 0;
+  font-size: 1.125rem;
   font-weight: 500;
-  line-height: 24px;
+  line-height: 1.5rem;
 }
 
 .promo .promo-content p + p:where(:not(.button-container)) {
-  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 
 .promo .promo-content p:has(> picture) {
@@ -97,7 +97,7 @@ main > .section.promo-container {
 
 .promo .promo-content img {
   width: auto;
-  height: 66px;
+  height: 4.125rem;
 }
 
 .promo .promo-content sup {
@@ -108,12 +108,12 @@ main > .section.promo-container {
 /* footnote references (1, 2...) link to the footnotes, so they look like
    links: hp.com link blue, underlined */
 .promo .promo-content a[href^="#footnote"] {
-  margin-left: 2px;
+  margin-left: 0.125rem;
   color: #024ad8;
   font-size: 0.5em;
   line-height: 0;
   text-decoration: underline;
-  text-underline-offset: 1px;
+  text-underline-offset: 0.0625rem;
   vertical-align: super;
 }
 
@@ -127,7 +127,7 @@ main > .section.promo-container {
 }
 
 .promo .promo-content .button-container {
-  margin: 16px 0 0;
+  margin: 1rem 0 0;
 }
 
 .promo a.button:any-link {
@@ -135,15 +135,15 @@ main > .section.promo-container {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 112px;
-  min-height: 48px;
+  min-width: 7rem;
+  min-height: 3rem;
   margin: 0;
   border: 0;
-  border-radius: 8px;
-  padding: 12px 16px;
-  font-size: 16px;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
   font-weight: 400;
-  line-height: 20px;
+  line-height: 1.25rem;
   background-color: #024ad8;
   color: #fff;
   transition: color 0.3s, background-color 0.3s, border-color 0.3s;
@@ -159,13 +159,13 @@ main > .section.promo-container {
 /* hp.com keyboard focus on the blue buttons: dark-blue edge with a white
    inner ring (compact and dark promos have black / grey buttons) */
 .promo:not(.compact, .dark) a.button:not(.secondary):focus-visible {
-  outline: 2px solid #0e3191;
-  outline-offset: -2px;
-  box-shadow: inset 0 0 0 4px #fff;
+  outline: 0.125rem solid #0e3191;
+  outline-offset: -0.125rem;
+  box-shadow: inset 0 0 0 0.25rem #fff;
 }
 
 .promo a.button.secondary:any-link {
-  border: 1px solid #1a1a1a;
+  border: 0.0625rem solid #1a1a1a;
   background-color: transparent;
   color: #1a1a1a;
 }
@@ -173,22 +173,22 @@ main > .section.promo-container {
 .promo a.button.secondary:hover,
 .promo a.button.secondary:focus-visible {
   border-color: #3d3d3d;
-  background-color: rgb(133 133 133 / 10%);
+  background-color: #8585851a;
   color: #3d3d3d;
 }
 
 .promo:where(.offset) {
-  padding-block: 8px;
+  padding-block: 0.5rem;
 }
 
 .promo:where(.offset) .promo-content {
   /* pulls the content 8px from the right edge to match hp.com on mobile */
-  margin-right: calc(8px - var(--container-padding));
-  padding-top: 26px;
+  margin-right: calc(0.5rem - var(--container-padding));
+  padding-top: 1.625rem;
 }
 
 .promo:where(.offset) .promo-content p:not(.button-container) {
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .promo:where(.large) {
@@ -205,24 +205,24 @@ main > .section.promo-container {
 }
 
 .promo:where(.large) .promo-content {
-  padding: 0 0 30px;
+  padding: 0 0 1.875rem;
 }
 
 .promo:where(.large) .promo-content h2 {
-  font-size: 44px;
+  font-size: 2.75rem;
 }
 
 .promo:where(.large) .promo-content p:not(.button-container) {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 24px;
+  line-height: 1.5rem;
 }
 
 .promo:where(.compact) {
   margin: var(--container-padding);
   padding: 0;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 1rem;
   background-color: var(--background-color);
 }
 
@@ -232,12 +232,12 @@ main > .section.promo-container {
 }
 
 .promo:where(.compact) .promo-content {
-  padding: 24px var(--container-padding);
+  padding: 1.5rem var(--container-padding);
 }
 
 .promo:where(.compact) .promo-content h2 {
-  margin: 0 0 8px;
-  font-size: 24px;
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
 }
 
 .promo:where(.compact) a.button.primary {
@@ -251,9 +251,9 @@ main > .section.promo-container {
   color: #fff;
 }
 
-@media (width >= 441px) {
+@media (width >= 768px) {
   .promo {
-    padding: 40px var(--container-padding);
+    padding: 2.5rem var(--container-padding);
   }
 
   .promo .promo-media img {
@@ -261,24 +261,24 @@ main > .section.promo-container {
   }
 
   .promo .promo-content {
-    padding: 20px 0 40px;
+    padding: 1.25rem 0 2.5rem;
   }
 
   .promo .promo-content h2 {
-    margin-top: 16px;
-    font-size: 44px;
+    margin-top: 1rem;
+    font-size: 2.75rem;
   }
 
   .promo .promo-content p {
-    margin-top: 16px;
-    font-size: 20px;
+    margin-top: 1rem;
+    font-size: 1.25rem;
   }
 
   .promo:where(.offset) {
     flex-direction: row;
     align-items: flex-start;
-    gap: 20px;
-    padding: 60px 36px 80px;
+    gap: 1.25rem;
+    padding: 3.75rem 2.25rem 5rem;
   }
 
   .promo:where(.offset) .promo-media {
@@ -293,24 +293,24 @@ main > .section.promo-container {
 
   .promo:where(.offset) .promo-content {
     margin-right: 0;
-    padding: 40px 0;
+    padding: 2.5rem 0;
   }
 
   .promo:where(.offset) .promo-content h2 {
-    margin-top: 12px;
+    margin-top: 0.75rem;
   }
 
   .promo:where(.offset) .promo-content p:not(.button-container) {
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
   }
 
   .promo:where(.large) .promo-content {
-    padding: 0 0 40px;
+    padding: 0 0 2.5rem;
   }
 
   .promo:where(.large) .promo-content h2 {
-    font-size: 56px;
+    font-size: 3.5rem;
   }
 
   .promo:where(.compact) {
@@ -323,19 +323,19 @@ main > .section.promo-container {
 
   .promo:where(.compact) .promo-content h2 {
     margin-top: 0;
-    font-size: 28px;
+    font-size: 1.75rem;
   }
 
   .promo:where(:not(.compact)) .promo-media:first-child {
-    padding-right: 20px;
+    padding-right: 1.25rem;
   }
 }
 
-@media (width >= 1115px) {
+@media (width >= 1280px) {
   .promo {
     flex-direction: row;
     align-items: stretch;
-    padding: 50px var(--container-padding);
+    padding: 3.125rem var(--container-padding);
   }
 
   .promo .promo-media {
@@ -351,30 +351,30 @@ main > .section.promo-container {
     flex: 0 0 50%;
     flex-direction: column;
     justify-content: center;
-    padding: 0 48px 40px 0;
+    padding: 0 3rem 2.5rem 0;
   }
 
   .promo .promo-content h2 {
-    font-size: 56px;
+    font-size: 3.5rem;
   }
 
   .promo .promo-content p {
-    font-size: 24px;
-    line-height: 28px;
+    font-size: 1.5rem;
+    line-height: 1.75rem;
   }
 
   .promo .promo-content p + p:where(:not(.button-container)) {
-    margin-top: 28px;
+    margin-top: 1.75rem;
   }
 
   .promo .promo-content p:has(> picture) {
-    margin-bottom: 15px;
+    margin-bottom: 0.9375rem;
   }
 
   .promo:where(.offset) {
     align-items: flex-start;
-    gap: 24px;
-    padding: 62px var(--container-padding) 82px;
+    gap: 1.5rem;
+    padding: 3.875rem var(--container-padding) 5.125rem;
   }
 
   .promo:where(.offset) .promo-media,
@@ -384,24 +384,24 @@ main > .section.promo-container {
 
   .promo:where(.offset) .promo-content {
     justify-content: flex-start;
-    padding: 130px 0 40px;
+    padding: 8.125rem 0 2.5rem;
   }
 
   .promo:where(.offset) .promo-content h2 {
-    margin-top: 16px;
+    margin-top: 1rem;
   }
 
   .promo:where(.offset) .promo-content p:not(.button-container) {
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
   .promo:where(.large) .promo-content h2 {
-    font-size: 72px;
+    font-size: 4.5rem;
   }
 
   .promo:where(.large) .promo-content p:not(.button-container) {
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   .promo:where(.compact) {
@@ -413,7 +413,7 @@ main > .section.promo-container {
   }
 
   .promo:where(.compact) .promo-media img {
-    min-height: 280px;
+    min-height: 17.5rem;
   }
 
   .promo:where(.compact) .promo-content {
@@ -421,19 +421,19 @@ main > .section.promo-container {
   }
 
   .promo:where(.compact) .promo-content h2 {
-    font-size: 32px;
+    font-size: 2rem;
   }
 
   .promo:where(:not(.compact)) .promo-media:first-child {
-    padding-right: 25px;
+    padding-right: 1.5625rem;
   }
 }
 
 .promo.dark {
   position: relative;
   display: block;
-  height: 580px;
-  margin: 30px 0 46px;
+  height: 36.25rem;
+  margin: 1.875rem 0 2.875rem;
   padding: 0;
   background-color: transparent;
   color: #fff;
@@ -454,7 +454,7 @@ main > .section.promo-container {
   aspect-ratio: auto;
   object-fit: cover;
   object-position: 80% 50%;
-  border-radius: 16px;
+  border-radius: 1rem;
 }
 
 .promo.dark .promo-content {
@@ -465,19 +465,19 @@ main > .section.promo-container {
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  max-width: 368px;
-  padding: 200px 0 16px var(--container-padding);
+  max-width: 23rem;
+  padding: 12.5rem 0 1rem var(--container-padding);
 }
 
 .promo.dark .promo-content h2,
 .promo.dark .promo-content p:not(.button-wrapper) {
   box-sizing: border-box;
-  padding-left: 4px;
+  padding-left: 0.25rem;
   color: #fff;
 }
 
 .promo.dark .promo-content p:not(.button-wrapper) {
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .promo.dark a.button.primary {
@@ -502,13 +502,13 @@ main > .section.promo-container {
 .promo.dark a.button.secondary:hover,
 .promo.dark a.button.secondary:focus-visible {
   border-color: #c2c2c2;
-  background-color: rgb(133 133 133 / 20%);
+  background-color: #85858533;
   color: #c2c2c2;
 }
 
 @media (width >= 768px) {
   .promo.dark {
-    margin: 40px 0 56px;
+    margin: 2.5rem 0 3.5rem;
   }
 
   .promo.dark .promo-media img {
@@ -516,35 +516,35 @@ main > .section.promo-container {
   }
 
   .promo.dark .promo-content {
-    max-width: 719px;
-    padding: 12px 0 16px var(--container-padding);
+    max-width: 44.9375rem;
+    padding: 0.75rem 0 1rem var(--container-padding);
   }
 
   .promo.dark .promo-content h2 {
-    margin-top: 12px;
+    margin-top: 0.75rem;
   }
 
   .promo.dark .promo-content p:not(.button-wrapper) {
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
   }
 }
 
-@media (width >= 1200px) {
+@media (width >= 1280px) {
   .promo.dark {
-    margin: 50px 0 66px;
+    margin: 3.125rem 0 4.125rem;
   }
 
   .promo.dark .promo-content {
-    padding: 16px 0 16px var(--container-padding);
+    padding: 1rem 0 1rem var(--container-padding);
   }
 
   .promo.dark .promo-content h2 {
-    margin-top: 16px;
+    margin-top: 1rem;
   }
 
   .promo.dark .promo-content p:not(.button-wrapper) {
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 }

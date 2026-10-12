@@ -1,10 +1,17 @@
 import { loadCSS } from '../../scripts/aem.js';
 
+const SAFE_SEGMENT = /^[a-z0-9-]+$/;
+
 function parseWidgetHref(pathname) {
   const pathSegments = pathname.split('/').filter((p) => p);
-  const widgetName = pathSegments[pathSegments.length - 1].split('.')[0];
+  const widgetName = (pathSegments[pathSegments.length - 1] || '').split('.')[0];
   const widgetPath = pathSegments.slice(1, -1).join('/');
   return { widgetPath, widgetName };
+}
+
+function isSafeWidget(widgetPath, widgetName) {
+  return SAFE_SEGMENT.test(widgetName)
+    && widgetPath.split('/').filter((p) => p).every((p) => SAFE_SEGMENT.test(p));
 }
 
 function widgetUrl(widgetPath, widgetName, extension) {
@@ -34,15 +41,16 @@ function applyWidgetShell(widget, source, widgetName, searchParams) {
 
 export default async function decorate(widget) {
   const source = widget.querySelector('a[href]');
-  // nothing authored to load; avoids a TypeError on source.href below
   if (!source) return;
   const { pathname, searchParams } = new URL(source.href);
   const { widgetPath, widgetName } = parseWidgetHref(pathname);
+  if (!isSafeWidget(widgetPath, widgetName)) return;
 
   try {
     applyWidgetShell(widget, source, widgetName, searchParams);
 
     const resp = await fetch(widgetUrl(widgetPath, widgetName, 'html'));
+    if (!resp.ok) throw new Error(`widget markup returned ${resp.status}`);
     widget.innerHTML = await resp.text();
 
     const cssLoaded = loadCSS(widgetUrl(widgetPath, widgetName, 'css'));

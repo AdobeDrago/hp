@@ -14,10 +14,11 @@ import {
   readBlockConfig,
   toClassName,
   toCamelCase,
-  initLinkTracking,
 } from './aem.js';
+import { decorateGtmLinks, initLinkTracking } from './gtm.js';
 
 export const NX_ORIGIN = 'https://da.live/nx';
+
 /**
  * load fonts.css and set a session storage flag
  */
@@ -71,13 +72,11 @@ function decorateSections(main) {
       wrappers[wrappers.length - 1].append(e);
     });
 
-    // Add wrapped content back
     wrappers.forEach((wrapper) => section.append(wrapper));
     section.classList.add('section');
     section.dataset.sectionStatus = 'initialized';
     section.style.display = 'none';
 
-    // Process section metadata
     const sectionMeta = section.querySelector('div.section-metadata');
     if (sectionMeta) {
       const meta = readBlockConfig(sectionMeta);
@@ -105,7 +104,7 @@ function decorateSections(main) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
-  // hopefully forward compatible button decoration
+  decorateGtmLinks(main);
   decorateButtons(main);
   decorateIcons(main);
   decorateSections(main);
@@ -122,7 +121,6 @@ async function loadEager(doc) {
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
     doc.body.dataset.breadcrumbs = true;
   }
-  // set before first paint so styles.css reserves the header height without the newsroom bar
   if (getMetadata('newsroom') === 'false') {
     doc.body.dataset.noNewsroom = 'true';
   }
@@ -137,7 +135,6 @@ async function loadEager(doc) {
   sampleRUM.enhance();
 
   try {
-    /* if desktop (proxy for fast connection) or fonts already loaded, load fonts.css */
     if (window.innerWidth >= 900 || sessionStorage.getItem('fonts-loaded')) {
       loadFonts();
     }
@@ -173,7 +170,6 @@ async function loadLazy(doc) {
  */
 function loadDelayed() {
   window.setTimeout(() => import('./delayed.js'), 3000);
-  // load anything that can be postponed to the latest here
 }
 
 async function loadSidekick() {
@@ -194,7 +190,6 @@ async function loadPage() {
   loadSidekick();
 }
 
-// UE Editor support before page load
 if (/\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname)) {
   // eslint-disable-next-line import/no-unresolved
   await import(`${window.hlx.codeBasePath}/ue/scripts/ue.js`).then(({ default: ue }) => ue());

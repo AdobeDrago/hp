@@ -11,6 +11,10 @@ main > .section.anchor-nav-container {
   padding: 0;
 }
 
+.anchor-nav-placeholder {
+  height: var(--anchor-nav-placeholder-height, 0);
+}
+
 .anchor-nav {
   position: relative;
   z-index: 10;
@@ -169,7 +173,34 @@ main .anchor-nav-cta a.button:focus-visible {
   text-decoration: none;
 }
 
+main .anchor-nav-cta a.button:focus-visible {
+  outline: 2px solid #0e3191;
+  outline-offset: -2px;
+  box-shadow: inset 0 0 0 4px #fff;
+}
+
 @media (width <= 380px) {
+  .anchor-nav:not(.anchor-nav-pinned) > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .anchor-nav:not(.anchor-nav-pinned) .anchor-nav-toggle {
+    min-height: 44px;
+  }
+
+  .anchor-nav:not(.anchor-nav-pinned) .anchor-nav-cta {
+    margin-left: 0;
+    padding: 16px 0;
+  }
+}
+
+@media (360px <= width <= 380px) {
+  .anchor-nav-pinned .anchor-nav-cta {
+    margin-left: 16px;
+  }
+}
+
+@media (width < 360px) {
   .anchor-nav > div {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -178,15 +209,40 @@ main .anchor-nav-cta a.button:focus-visible {
     min-height: 44px;
   }
 
+  .anchor-nav-links {
+    position: static;
+    margin: 0 -16px;
+    border-bottom: 0;
+  }
+
   .anchor-nav-cta {
     margin-left: 0;
     padding: 16px 0;
   }
 }
 
+@media (width < 900px) {
+  .anchor-nav > div {
+    background-color: var(--background-color);
+  }
+
+  .anchor-nav-open::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-color: rgb(26 26 26 / 50%);
+    backdrop-filter: blur(16px);
+  }
+}
+
 @media (width >= 441px) {
   .anchor-nav > div {
     padding: 0 32px;
+  }
+
+  .anchor-nav .anchor-nav-toggle {
+    font-size: 20px;
   }
 }
 

@@ -394,7 +394,7 @@ function decorateGtmLinks(element) {
  */
 function decorateButtons(element) {
   element.querySelectorAll('a').forEach((a) => {
-    decorateGtmLink(a);
+    a.title = a.title || a.textContent;
     if (a.href !== a.textContent) {
       const up = a.parentElement;
       const twoup = a.parentElement.parentElement;
@@ -424,29 +424,6 @@ function decorateButtons(element) {
       }
     }
   });
-}
-
-function pushLinkClick(a) {
-  const payload = { event: GTM_CLICK_EVENT };
-  a.getAttributeNames()
-    .filter((name) => name.startsWith(GTM_ATTR_PREFIX))
-    .forEach((name) => {
-      payload[`link_${name.slice(GTM_ATTR_PREFIX.length)}`] = a.getAttribute(name);
-    });
-  payload.link_url = a.href;
-  payload.link_text = a.textContent.trim();
-
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push(payload);
-}
-
-function initLinkTracking() {
-  document.addEventListener('click', (e) => {
-    const a = e.target.closest('a');
-    if (a?.getAttributeNames().some((name) => name.startsWith(GTM_ATTR_PREFIX))) {
-      pushLinkClick(a);
-    }
-  }, true);
 }
 
 /**
@@ -734,13 +711,11 @@ export {
   decorateBlock,
   decorateBlocks,
   decorateButtons,
-  decorateGtmLinks,
   decorateIcons,
   decorateSections,
   decorateTemplateAndTheme,
   fetchPlaceholders,
   getMetadata,
-  initLinkTracking,
   loadBlock,
   loadCSS,
   loadFooter,

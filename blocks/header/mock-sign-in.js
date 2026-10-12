@@ -29,9 +29,12 @@ const fill = (text, values) => text.replace(/\{(\w+)\}/g, (m, k) => values[k] ??
 
 let dataPromise;
 
+const DEMO_HOSTS = /^(localhost|127\.0\.0\.1)$|\.(aem|hlx)\.page$/;
+const isDemoHost = () => DEMO_HOSTS.test(window.location.hostname);
+
 export function loadMockData() {
   if (!dataPromise) {
-    dataPromise = fetch(DATA_URL)
+    dataPromise = (isDemoHost() ? fetch(DATA_URL) : Promise.resolve({ ok: false }))
       .then((resp) => (resp.ok ? resp.json() : null))
       .then((json) => {
         if (!json) return null;
@@ -57,7 +60,6 @@ export function loadMockData() {
   return dataPromise;
 }
 
-// localStorage throws when the browser blocks site data, so every access is guarded
 function storage(action) {
   try {
     return action(window.localStorage);
@@ -85,7 +87,6 @@ function saveSession(user) {
     mobile: `+${user.country} •••• ${user.mobile.slice(-4)}`,
     expires: Date.now() + SESSION_HOURS * 60 * 60 * 1000,
   };
-  // without storage the session still lasts for this page view
   storage((s) => s.setItem(SESSION_KEY, JSON.stringify(session)));
   return session;
 }

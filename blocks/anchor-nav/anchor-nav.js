@@ -17,7 +17,6 @@ function getTarget(link) {
   try {
     return document.getElementById(decodeURIComponent(hash.slice(1)));
   } catch (e) {
-    // malformed %-escape in an authored hash: treat as no target
     return null;
   }
 }
@@ -29,20 +28,28 @@ function setOpen(block, toggle, open) {
 
 function setupPinning(block, placeholder, title) {
   const links = [...block.querySelectorAll('.anchor-nav-links a')];
+  let inPageHeight = block.offsetHeight;
 
   function update() {
     const offset = getHeaderOffset();
     const shouldPin = placeholder.getBoundingClientRect().top <= offset;
+    if (!shouldPin && !block.classList.contains('anchor-nav-open')) inPageHeight = block.offsetHeight;
 
-    placeholder.style.height = shouldPin ? `${block.offsetHeight}px` : '0';
+    placeholder.style.setProperty('--anchor-nav-placeholder-height', shouldPin ? `${inPageHeight}px` : '0px');
     block.style.setProperty('--anchor-nav-top', `${offset}px`);
     block.classList.toggle('anchor-nav-pinned', shouldPin);
 
-    const limit = offset + block.offsetHeight + 1;
+    if (!block.classList.contains('anchor-nav-open')) {
+      document.documentElement.style.scrollPaddingTop = `${offset + block.offsetHeight + 16}px`;
+    }
+
+    const limit = offset + inPageHeight + 1;
     let active = null;
     links.forEach((link) => {
       const target = getTarget(link);
-      if (target && target.getBoundingClientRect().top <= limit) active = link;
+      const start = target && target.getBoundingClientRect().top
+        - (parseFloat(getComputedStyle(target).marginTop) || 0);
+      if (target && start <= limit) active = link;
     });
     links.forEach((link) => {
       const isActive = link === active;
@@ -99,7 +106,16 @@ export default function decorate(block) {
   toggle.append(title);
   toggle.insertAdjacentHTML('beforeend', CHEVRON);
   toggle.addEventListener('click', () => {
-    setOpen(block, toggle, !block.classList.contains('anchor-nav-open'));
+    const open = !block.classList.contains('anchor-nav-open');
+    if (open && !block.classList.contains('anchor-nav-pinned')) {
+      const placeholder = block.previousElementSibling;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({
+        top: placeholder.getBoundingClientRect().top + window.scrollY - getHeaderOffset() + 1,
+        behavior: reduceMotion ? 'auto' : 'smooth',
+      });
+    }
+    setOpen(block, toggle, open);
   });
   row.prepend(toggle);
 
@@ -111,26 +127,45 @@ export default function decorate(block) {
   });
   isDesktop.addEventListener('change', () => setOpen(block, toggle, false));
 
+  document.addEventListener('click', (e) => {
+    if (!block.classList.contains('anchor-nav-open')) return;
+    if (e.target === block || !block.contains(e.target)) setOpen(block, toggle, false);
+  });
+
+  let cancelSettle = () => {};
+
   ul.addEventListener('click', (e) => {
     const link = e.target.closest('a');
     const target = link && getTarget(link);
     if (!target) return;
     e.preventDefault();
     setOpen(block, toggle, false);
+    window.history.pushState(null, '', link.getAttribute('href'));
+    cancelSettle();
+
+    const delta = () => target.getBoundingClientRect().top - getHeaderOffset() - block.offsetHeight;
+    if (Math.abs(delta()) <= 1) return;
     const scrollToTarget = (behavior) => {
-      const top = target.getBoundingClientRect().top + window.scrollY
-        - getHeaderOffset() - block.offsetHeight;
-      window.scrollTo({ top, behavior });
+      window.scrollTo({ top: window.scrollY + delta(), behavior });
     };
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     scrollToTarget(reduceMotion ? 'auto' : 'smooth');
+
+    const userInput = ['wheel', 'touchstart', 'keydown'];
+    let timer;
     const settle = () => {
-      const delta = target.getBoundingClientRect().top - getHeaderOffset() - block.offsetHeight;
-      if (Math.abs(delta) > 1) scrollToTarget('auto');
+      cancelSettle();
+      if (Math.abs(delta()) > 1) scrollToTarget('auto');
     };
-    if ('onscrollend' in window) window.addEventListener('scrollend', settle, { once: true });
-    else setTimeout(settle, 1000);
-    window.history.pushState(null, '', link.getAttribute('href'));
+    cancelSettle = () => {
+      window.removeEventListener('scrollend', settle);
+      clearTimeout(timer);
+      userInput.forEach((type) => window.removeEventListener(type, cancelSettle));
+      cancelSettle = () => {};
+    };
+    userInput.forEach((type) => window.addEventListener(type, cancelSettle, { passive: true }));
+    if ('onscrollend' in window) window.addEventListener('scrollend', settle);
+    else timer = setTimeout(settle, 1000);
   });
 
   const placeholder = document.createElement('div');

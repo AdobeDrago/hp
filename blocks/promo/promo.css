@@ -105,11 +105,25 @@ main > .section.promo-container {
   line-height: 0;
 }
 
+/* footnote references (1, 2...) link to the footnotes, so they look like
+   links: hp.com link blue, underlined */
 .promo .promo-content a[href^="#footnote"] {
-  color: inherit;
+  margin-left: 2px;
+  color: #024ad8;
   font-size: 0.5em;
   line-height: 0;
+  text-decoration: underline;
+  text-underline-offset: 1px;
   vertical-align: super;
+}
+
+.promo .promo-content a[href^="#footnote"]:hover {
+  color: #103fb2;
+}
+
+.promo.dark .promo-content a[href^="#footnote"],
+.promo.dark .promo-content a[href^="#footnote"]:hover {
+  color: inherit;
 }
 
 .promo .promo-content .button-container {
@@ -140,6 +154,14 @@ main > .section.promo-container {
   background-color: #103fb2;
   color: #fff;
   text-decoration: none;
+}
+
+/* hp.com keyboard focus on the blue buttons: dark-blue edge with a white
+   inner ring (compact and dark promos have black / grey buttons) */
+.promo:not(.compact, .dark) a.button:not(.secondary):focus-visible {
+  outline: 2px solid #0e3191;
+  outline-offset: -2px;
+  box-shadow: inset 0 0 0 4px #fff;
 }
 
 .promo a.button.secondary:any-link {

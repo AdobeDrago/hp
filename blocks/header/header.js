@@ -1,29 +1,18 @@
-import { decorateGtmLinks, getMetadata } from '../../scripts/aem.js';
+import { getMetadata } from '../../scripts/aem.js';
+import { decorateGtmLinks } from '../../scripts/gtm.js';
 import {
   CLOSE_ICON, LABELS, loadMockData, openSignInDialog, getSession, clearSession,
 } from './mock-sign-in.js';
 
-// media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 1115px)');
 const accountHover = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
 
-// icon markup for the tools bar
 const SEARCH_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.097 3.012a6.534 6.534 0 0 0-2.354.6 6.582 6.582 0 0 0-1.53 1.002 9.052 9.052 0 0 0-.598.597 6.511 6.511 0 0 0-1.123 1.803 6.53 6.53 0 0 0 .06 5.11 6.533 6.533 0 0 0 3.292 3.31 6.521 6.521 0 0 0 4.525.292 6.51 6.51 0 0 0 2.236-1.187c.057-.047.11-.09.117-.094.009-.005.837.817 3.002 2.982 2.7 2.698 2.995 2.991 3.046 3.017.201.1.432.061.586-.098a.497.497 0 0 0 .087-.576c-.026-.05-.319-.346-3.018-3.046-2.804-2.805-2.989-2.992-2.976-3.008l.129-.161a6.475 6.475 0 0 0 1.418-3.931 6.47 6.47 0 0 0-.562-2.778 6.53 6.53 0 0 0-2.707-2.988 6.475 6.475 0 0 0-2.841-.847 9.95 9.95 0 0 0-.79.001Zm.716.997a5.49 5.49 0 0 1 4.238 2.404 5.507 5.507 0 0 1 .499 5.265 5.52 5.52 0 0 1-2.586 2.74 5.479 5.479 0 0 1-1.997.562c-.23.022-.703.022-.934 0a5.5 5.5 0 0 1 .204-10.974c.115-.007.44-.005.576.003Z"/></svg>';
 const CART_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.38 4.01a.52.52 0 0 0-.32.26.44.44 0 0 0-.06.23.5.5 0 0 0 .4.49h.7c.69 0 .75.01.89.05.32.1.58.35.68.67l.83 5.37.85 5.41A2 2 0 0 0 8.48 18l.34.01a.56.56 0 0 1-.1.02 2.04 2.04 0 0 0-.45.12 2 2 0 0 0-1.25 1.55 2.82 2.82 0 0 0 0 .62 2 2 0 0 0 2.24 1.67 2 2 0 0 0 1.67-1.48c.05-.18.06-.3.06-.5s-.01-.33-.06-.5a2 2 0 0 0-1.68-1.48.23.23 0 0 1-.07-.02 360.1 360.1 0 0 1 3.32 0h3.32a.74.74 0 0 1-.12.02 1.98 1.98 0 0 0-1.14.59 1.98 1.98 0 0 0-.49.86 1.57 1.57 0 0 0-.06.53c0 .26 0 .33.06.53a2 2 0 0 0 1.67 1.45c.16.02.46.02.6-.01a2 2 0 0 0 1.52-1.24c.15-.38.18-.85.07-1.26a2 2 0 0 0-1.7-1.46h-.05c0-.01.32-.02.95-.02h.96l.06-.02a.5.5 0 0 0 .34-.39.5.5 0 0 0-.35-.56c-.05-.02-.22-.02-5.03-.02H8.12l-.08-.03a1.01 1.01 0 0 1-.7-.67 12.23 12.23 0 0 1-.14-.79l4.93-.01c4.57 0 4.93 0 5.01-.02a2 2 0 0 0 1.09-.54 1.98 1.98 0 0 0 .5-.77 682.89 682.89 0 0 0 1.35-4.97.97.97 0 0 0-.1-.65 1 1 0 0 0-.65-.53L19.25 8H6.05l-.19-1.17a84.06 84.06 0 0 0-.2-1.27 2.05 2.05 0 0 0-.36-.78 2.03 2.03 0 0 0-1.1-.72C3.97 4 4 4 3.17 4l-.8.01ZM19.1 9.02l-.65 2.42c-.62 2.32-.65 2.4-.7 2.5a1 1 0 0 1-.7.54c-.08.02-.3.02-5.02.02H7.08l-.42-2.75L6.23 9H19.1v.02ZM9.24 19.03A1 1 0 0 1 10 20a.92.92 0 0 1-.06.33 1.01 1.01 0 0 1-.7.64A.73.73 0 0 1 9 21a.72.72 0 0 1-.25-.02 1 1 0 0 1 .05-1.95c.12-.02.33-.02.44.01Zm6.91-.02c.14.02.3.08.41.16.07.05.2.18.26.25A.99.99 0 0 1 17 20a.98.98 0 0 1-.3.71.97.97 0 0 1-.46.26 1.28 1.28 0 0 1-.38.02A1 1 0 0 1 15 20a.99.99 0 0 1 .43-.82 1.11 1.11 0 0 1 .41-.17 1.46 1.46 0 0 1 .31 0Z"/></svg>';
 const USER_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.73 2a10 10 0 0 0-9.63 8.62 8.48 8.48 0 0 0-.1 1.26c0 .56.02.86.08 1.35a10 10 0 0 0 13.6 8.07 10 10 0 0 0 6.26-8.22c.05-.39.05-.52.05-1.08 0-.64-.01-.88-.1-1.43a10 10 0 0 0-5.75-7.67 9.98 9.98 0 0 0-3.8-.9h-.61Zm.72 1.01a9 9 0 0 1 3.53 17.06 8.98 8.98 0 0 1-3.55.92c-.23.01-.85 0-1.04-.01a9 9 0 0 1-8.35-9.76 9 9 0 0 1 8.49-8.2c.2-.02.72-.02.92 0Zm-.66 2.5a3.5 3.5 0 0 0-2.7 1.54 3.48 3.48 0 0 0-.4 3.07 3.47 3.47 0 0 0 1.3 1.74 3.53 3.53 0 0 0 1.16.54c.32.07.5.1.85.1s.55-.03.86-.1a3.5 3.5 0 0 0 2.62-3.02 4.3 4.3 0 0 0 0-.76 3.5 3.5 0 0 0-3.3-3.11 2.6 2.6 0 0 0-.39 0Zm.5 1a2.53 2.53 0 0 1 1.66.92 2.5 2.5 0 0 1-1.17 3.94 2.27 2.27 0 0 1-.78.13c-.3 0-.52-.04-.78-.13a2.44 2.44 0 0 1-.98-.6 2.48 2.48 0 0 1-.7-2.2 2.79 2.79 0 0 1 .52-1.15c.08-.09.27-.29.37-.37a2.53 2.53 0 0 1 1.28-.53c.14-.02.43-.02.58 0Zm-.46 7a5.48 5.48 0 0 0-3.66 1.55 5.4 5.4 0 0 0-1.23 1.78.63.63 0 0 0-.02.14.5.5 0 0 0 .37.5.66.66 0 0 0 .13.02.47.47 0 0 0 .35-.15.42.42 0 0 0 .1-.15c.2-.42.4-.75.68-1.1a6.38 6.38 0 0 1 .6-.57 4.53 4.53 0 0 1 2.19-.98c.32-.05.74-.06 1.05-.03a4.48 4.48 0 0 1 2.83 1.34c.38.4.66.8.9 1.34a.5.5 0 0 0 .47.3.5.5 0 0 0 .48-.62 3.87 3.87 0 0 0-.31-.64 5.28 5.28 0 0 0-.87-1.13 5.44 5.44 0 0 0-3.66-1.6 3.88 3.88 0 0 0-.4 0Z"/></svg>';
 
 const DEFAULT_HEADER_FRAGMENT = '/nav';
 
-/**
- * Fetches a header fragment by path (same-site absolute path, or a full
- * cross-origin URL to reuse another site's header content), resolving it
- * against the same content root as the current page (/content/ for pages
- * served from /content/ - localhost / aem up - the site root otherwise, so
- * neither environment requests a 404), and fixes up any page-relative media
- * references so they still resolve from here.
- * @param {string} path Path or URL to the fragment, without the .plain.html suffix
- * @returns {string|null} The fragment's inner HTML, or null if it couldn't be loaded
- */
 async function fetchNavHtml(path) {
   const isAbsolute = /^https?:\/\//i.test(path);
   const root = !isAbsolute && window.location.pathname.startsWith('/content/') ? '/content' : '';
@@ -44,14 +33,14 @@ async function fetchNavHtml(path) {
   return container.innerHTML;
 }
 
-/**
- * Closes any open desktop dropdown panel.
- * @param {Element} nav The nav element
- */
 function closeAllPanels(nav) {
   nav.querySelectorAll('.nav-drop[aria-expanded="true"]').forEach((li) => {
     li.setAttribute('aria-expanded', 'false');
   });
+}
+
+function setBodyScrollLock(lock) {
+  document.body.classList.toggle('nav-scroll-lock', lock);
 }
 
 function setAccountOpen(account, open) {
@@ -63,7 +52,7 @@ function setAccountOpen(account, open) {
   if (open && nav && !isDesktop.matches) {
     if (nav.getAttribute('aria-expanded') === 'true') {
       nav.setAttribute('aria-expanded', 'false');
-      document.body.style.overflowY = '';
+      setBodyScrollLock(false);
     }
     if (nav.classList.contains('nav-search-open')) nav.querySelector('.nav-search-close')?.click();
   }
@@ -83,7 +72,7 @@ function setSearchOpen(nav, open) {
     setAccountOpen(nav.querySelector('.nav-account'), false);
     if (nav.getAttribute('aria-expanded') === 'true') {
       nav.setAttribute('aria-expanded', 'false');
-      document.body.style.overflowY = '';
+      setBodyScrollLock(false);
       closeAllPanels(nav);
     }
     form.querySelector('input').focus();
@@ -92,10 +81,6 @@ function setSearchOpen(nav, open) {
   }
 }
 
-/**
- * Builds the tools (search, cart, sign-in) region controls.
- * @param {Element} navTools The tools section element
- */
 const ACCOUNT_ICONS = {
   orders: '<path d="M2.5 4.5h2.2l2.1 10.2h10.6l2.1-7.2H6"/><circle cx="9" cy="18.5" r="1.4"/><circle cx="16.5" cy="18.5" r="1.4"/>',
   subscriptions: '<rect x="7.5" y="7.5" width="13" height="13" rx="1.5"/><path d="M4.5 16.5v-11a1 1 0 0 1 1-1h11M14 11v6M11 14h6"/>',
@@ -195,7 +180,6 @@ function wireMockSignIn(account, flyout) {
   signOut.className = 'nav-account-btn secondary nav-account-signout';
   user.append(initials, name);
   flyout.querySelector('.nav-account-head').after(user);
-  // as on hp.com, Sign out sits last, under its own divider below the links
   const divider = document.createElement('span');
   divider.className = 'nav-account-divider';
   flyout.append(divider, signOut);
@@ -243,7 +227,6 @@ function decorateTools(navTools) {
   const group = document.createElement('div');
   group.className = 'nav-tools-group';
 
-  // search (expandable input built in JS — not in the fragment)
   const searchWrap = document.createElement('div');
   searchWrap.className = 'nav-search';
   const searchBtn = document.createElement('button');
@@ -284,14 +267,12 @@ function decorateTools(navTools) {
   searchClose.addEventListener('click', () => setSearchOpen(navTools.closest('nav'), false));
   searchWrap.append(searchBtn, searchForm, searchClose);
 
-  // cart
   const cartBtn = document.createElement('a');
   cartBtn.className = 'nav-tool-btn nav-cart-btn';
   cartBtn.href = cart ? cart.href : 'https://www.hp.com/us-en/shop/cart';
   cartBtn.setAttribute('aria-label', 'Cart');
   cartBtn.innerHTML = CART_ICON;
 
-  // sign in
   const signInBtn = document.createElement('a');
   signInBtn.className = 'nav-tool-btn nav-signin-btn';
   signInBtn.href = signIn ? signIn.href : 'https://account.hp.com/';
@@ -334,11 +315,6 @@ function decorateTools(navTools) {
   navTools.append(group);
 }
 
-/**
- * Structures a single top-level menu section into a trigger + megamenu panel.
- * Reads content authored in the nav fragment; invents no copy.
- * @param {Element} sectionsWrapper The container holding the raw section content
- */
 function decorateSections(navSections) {
   const wrapper = navSections.querySelector(':scope > div') || navSections;
   const nodes = [...wrapper.children];
@@ -355,14 +331,12 @@ function decorateSections(navSections) {
       const label = topLink ? topLink.textContent : node.textContent;
       const href = topLink ? topLink.getAttribute('href') : '';
 
-      // match by href: the heading id changes whenever an author edits the label
       if (/\/business-solutions\.html$/i.test(href)) {
         businessCta = { href, label };
         current = null;
         return;
       }
 
-      // start a new top-level menu item
       current = document.createElement('li');
       current.className = 'nav-drop';
       current.setAttribute('aria-expanded', 'false');
@@ -437,11 +411,9 @@ function decorateSections(navSections) {
     li.addEventListener('mouseleave', () => {
       if (!isDesktop.matches) return;
       clearTimeout(pending);
-      pending = setTimeout(() => li.setAttribute('aria-expanded', 'false'), HOVER_INTENT_MS);
+      pending = setTimeout(() => closeAllPanels(menu), HOVER_INTENT_MS);
     });
     trigger.addEventListener('click', (e) => {
-      // On desktop the panel is hover-driven; the click toggles it and must not
-      // navigate. On mobile the trigger acts as an accordion toggle.
       e.preventDefault();
       const expanded = li.getAttribute('aria-expanded') === 'true';
       const menuEl = li.closest('.nav-menu');
@@ -452,27 +424,18 @@ function decorateSections(navSections) {
   });
 }
 
-/**
- * Toggles the mobile menu open/closed.
- * @param {Element} nav The nav element
- * @param {Boolean} forceClose When true, always close
- */
 function toggleMobileMenu(nav, forceClose = false) {
   const expanded = nav.getAttribute('aria-expanded') === 'true';
   const open = forceClose ? false : !expanded;
   if (open && nav.classList.contains('nav-search-open')) setSearchOpen(nav, false);
   if (open) setAccountOpen(nav.querySelector('.nav-account'), false);
   nav.setAttribute('aria-expanded', open ? 'true' : 'false');
-  document.body.style.overflowY = open && !isDesktop.matches ? 'hidden' : '';
+  setBodyScrollLock(open && !isDesktop.matches);
   const button = nav.querySelector('.nav-hamburger button');
   if (button) button.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
   if (!open) closeAllPanels(nav);
 }
 
-/**
- * loads and decorates the header, mainly the nav
- * @param {Element} block The header block element
- */
 export default async function decorate(block) {
   const path = getMetadata('header') || DEFAULT_HEADER_FRAGMENT;
   const html = await fetchNavHtml(path);
@@ -493,12 +456,10 @@ export default async function decorate(block) {
     if (section) section.classList.add(`nav-${c}`);
   });
 
-  const navBrand = nav.querySelector('.nav-brand');
   const navSections = nav.querySelector('.nav-sections');
   const navTools = nav.querySelector('.nav-tools');
   let navNewsroom = nav.querySelector('.nav-newsroom');
 
-  // scripts.js has already flagged the body so the reserved header height excludes the bar
   if (navNewsroom && getMetadata('newsroom') === 'false') {
     navNewsroom.remove();
     navNewsroom = null;
@@ -506,13 +467,10 @@ export default async function decorate(block) {
 
   if (navSections) decorateSections(navSections);
   if (navTools) decorateTools(navTools);
-  // The newsroom sub-bar keeps its authored links as-is; styling makes it the
-  // black secondary bar below the global header.
   if (navNewsroom) {
     const brandP = navNewsroom.querySelector(':scope > p:first-child');
     if (brandP) brandP.classList.add('nav-newsroom-brand');
 
-    // On mobile the link list collapses behind a chevron next to the brand.
     const linksUl = navNewsroom.querySelector('ul');
     if (brandP && linksUl) {
       const toggle = document.createElement('button');
@@ -530,7 +488,6 @@ export default async function decorate(block) {
     }
   }
 
-  // hamburger for mobile
   const hamburger = document.createElement('div');
   hamburger.className = 'nav-hamburger';
   hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
@@ -539,14 +496,12 @@ export default async function decorate(block) {
   hamburger.addEventListener('click', () => toggleMobileMenu(nav));
   nav.prepend(hamburger);
 
-  // close panels when clicking outside
   document.addEventListener('click', (e) => {
     if (isDesktop.matches && !nav.contains(e.target)) closeAllPanels(nav);
     const account = nav.querySelector('.nav-account');
     if (account && !account.contains(e.target)) setAccountOpen(account, false);
   });
 
-  // close on escape
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Escape') {
       closeAllPanels(nav);
@@ -556,14 +511,13 @@ export default async function decorate(block) {
     }
   });
 
-  // viewport resize handling: reset state when crossing the breakpoint
   isDesktop.addEventListener('change', () => {
     closeAllPanels(nav);
     toggleMobileMenu(nav, true);
     if (nav.classList.contains('nav-search-open')) setSearchOpen(nav, false);
     const button = nav.querySelector('.nav-hamburger button');
     if (button) button.setAttribute('aria-label', 'Open navigation');
-    document.body.style.overflowY = '';
+    setBodyScrollLock(false);
   });
 
   const navWrapper = document.createElement('div');
@@ -579,7 +533,6 @@ export default async function decorate(block) {
   });
   navWrapper.append(overlay);
 
-  // The newsroom sub-bar spans full width below the centered global header.
   if (navNewsroom) {
     navNewsroom.remove();
     navWrapper.append(navNewsroom);
@@ -587,5 +540,4 @@ export default async function decorate(block) {
 
   decorateGtmLinks(navWrapper);
   block.append(navWrapper);
-  if (navBrand) { /* brand kept as-is */ }
 }

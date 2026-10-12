@@ -141,6 +141,7 @@ function facetDropdown(title, group, options) {
   const btn = el('button', 'al-facet-btn', title);
   btn.type = 'button';
   btn.dataset.facet = group;
+  btn.setAttribute('aria-expanded', 'false');
   const panel = el('div', 'al-facet-panel');
   panel.hidden = true;
   panel.append(checkList(group, options));
@@ -152,6 +153,7 @@ function sortDropdown() {
   const root = el('div', 'al-sort');
   const btn = el('button', 'al-sort-btn', 'SORT');
   btn.type = 'button';
+  btn.setAttribute('aria-expanded', 'false');
   const panel = el('div', 'al-sort-panel');
   panel.hidden = true;
   SORTS.forEach((s) => {
@@ -272,7 +274,10 @@ export default async function decorate(block) {
 
   function closePanels() {
     block.querySelectorAll('.al-facet-panel, .al-sort-panel').forEach((p) => { p.hidden = true; });
-    block.querySelectorAll('.al-facet-btn, .al-sort-btn').forEach((b) => b.classList.remove('open'));
+    block.querySelectorAll('.al-facet-btn, .al-sort-btn').forEach((b) => {
+      b.classList.remove('open');
+      b.setAttribute('aria-expanded', 'false');
+    });
   }
 
   function renderChips() {
@@ -349,6 +354,7 @@ export default async function decorate(block) {
       closePanels();
       panel.hidden = !willOpen;
       facetBtn.classList.toggle('open', willOpen);
+      facetBtn.setAttribute('aria-expanded', String(willOpen));
       return;
     }
     if (sortBtn) {
@@ -357,6 +363,7 @@ export default async function decorate(block) {
       closePanels();
       panel.hidden = !willOpen;
       sortBtn.classList.toggle('open', willOpen);
+      sortBtn.setAttribute('aria-expanded', String(willOpen));
       return;
     }
     const sortOption = t.closest('.al-sort-option');
@@ -383,9 +390,20 @@ export default async function decorate(block) {
       const body = collapseBtn.nextElementSibling;
       body.hidden = !body.hidden;
       collapseBtn.classList.toggle('open', !body.hidden);
-      return;
     }
-    if (!t.closest('.al-facet') && !t.closest('.al-sort')) closePanels();
+  });
+
+  // as on hp.com, an open dropdown closes on a click anywhere outside it
+  // and on Escape (focus goes back to its button)
+  document.addEventListener('click', (e) => {
+    if (!block.contains(e.target) || !e.target.closest('.al-facet, .al-sort')) closePanels();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const openBtn = block.querySelector('.al-facet-btn.open, .al-sort-btn.open');
+    if (!openBtn) return;
+    closePanels();
+    openBtn.focus();
   });
 
   apply();

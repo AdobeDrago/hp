@@ -29,12 +29,16 @@ function setOpen(block, toggle, open) {
 
 function setupPinning(block, placeholder, title) {
   const links = [...block.querySelectorAll('.anchor-nav-links a')];
+  // the bar is shorter once pinned on phones (one row instead of two), so
+  // the placeholder keeps its in-page height and the content doesn't jump
+  let inPageHeight = block.offsetHeight;
 
   function update() {
     const offset = getHeaderOffset();
     const shouldPin = placeholder.getBoundingClientRect().top <= offset;
+    if (!shouldPin && !block.classList.contains('anchor-nav-open')) inPageHeight = block.offsetHeight;
 
-    placeholder.style.height = shouldPin ? `${block.offsetHeight}px` : '0';
+    placeholder.style.height = shouldPin ? `${inPageHeight}px` : '0';
     block.style.setProperty('--anchor-nav-top', `${offset}px`);
     block.classList.toggle('anchor-nav-pinned', shouldPin);
 
@@ -43,11 +47,14 @@ function setupPinning(block, placeholder, title) {
       document.documentElement.style.scrollPaddingTop = `${offset + block.offsetHeight + 16}px`;
     }
 
-    const limit = offset + block.offsetHeight + 1;
+    const limit = offset + inPageHeight + 1;
     let active = null;
     links.forEach((link) => {
       const target = getTarget(link);
-      if (target && target.getBoundingClientRect().top <= limit) active = link;
+      // a section starts where its top margin does (hp.com: right below the bar)
+      const start = target && target.getBoundingClientRect().top
+        - (parseFloat(getComputedStyle(target).marginTop) || 0);
+      if (target && start <= limit) active = link;
     });
     links.forEach((link) => {
       const isActive = link === active;
@@ -104,7 +111,18 @@ export default function decorate(block) {
   toggle.append(title);
   toggle.insertAdjacentHTML('beforeend', CHEVRON);
   toggle.addEventListener('click', () => {
-    setOpen(block, toggle, !block.classList.contains('anchor-nav-open'));
+    const open = !block.classList.contains('anchor-nav-open');
+    // opened from the middle of the page, the bar first scrolls up to its
+    // pinned spot at the top of the screen (hp.com)
+    if (open && !block.classList.contains('anchor-nav-pinned')) {
+      const placeholder = block.previousElementSibling;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({
+        top: placeholder.getBoundingClientRect().top + window.scrollY - getHeaderOffset() + 1,
+        behavior: reduceMotion ? 'auto' : 'smooth',
+      });
+    }
+    setOpen(block, toggle, open);
   });
   row.prepend(toggle);
 

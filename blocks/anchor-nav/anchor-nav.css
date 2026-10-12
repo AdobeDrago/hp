@@ -176,10 +176,25 @@ main .anchor-nav-cta a.button:focus-visible {
   box-shadow: inset 0 0 0 4px #fff;
 }
 
-/* phones: the section title and Contact Sales share one row, the opened
-   list drops below both */
+/* phones (hp.com): in the page the bar stacks Contact Sales below the
+   title; pinned to the top it's one row with the opened list below both */
 @media (width <= 380px) {
-  .anchor-nav-cta {
+  .anchor-nav:not(.anchor-nav-pinned) > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .anchor-nav:not(.anchor-nav-pinned) .anchor-nav-toggle {
+    min-height: 44px;
+  }
+
+  .anchor-nav:not(.anchor-nav-pinned) .anchor-nav-cta {
+    margin-left: 0;
+    padding: 16px 0;
+  }
+}
+
+@media (360px <= width <= 380px) {
+  .anchor-nav-pinned .anchor-nav-cta {
     margin-left: 16px;
   }
 }

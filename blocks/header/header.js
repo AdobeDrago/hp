@@ -236,10 +236,22 @@ export default async function decorate(block) {
       toggle.setAttribute('aria-expanded', 'false');
       toggle.innerHTML = '<span class="nav-newsroom-chevron" aria-hidden="true"></span>';
       brandP.append(toggle);
+      const setNewsroomOpen = (open) => {
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navNewsroom.classList.toggle('nav-newsroom-open', open);
+      };
       toggle.addEventListener('click', () => {
-        const open = toggle.getAttribute('aria-expanded') === 'true';
-        toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
-        navNewsroom.classList.toggle('nav-newsroom-open', !open);
+        setNewsroomOpen(toggle.getAttribute('aria-expanded') !== 'true');
+      });
+      // a tap on the dimmed backdrop (the bar's ::after) targets the bar itself
+      navNewsroom.addEventListener('click', (e) => {
+        if (e.target === navNewsroom) setNewsroomOpen(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape' && navNewsroom.classList.contains('nav-newsroom-open')) {
+          setNewsroomOpen(false);
+          toggle.focus();
+        }
       });
     }
   }

@@ -80,7 +80,7 @@ ${block.innerHTML}
   const standaloneGetMetadata = await readFile(path.join(rootDir, 'scripts/export-fragments.standalone-shim.js'), 'utf8');
   const blockSource = await readFile(path.join(rootDir, blockPath), 'utf8');
   const standaloneSource = blockSource.includes('getMetadata')
-    ? standaloneGetMetadata + blockSource.replace(/^import .*getMetadata.*\n/m, '')
+    ? standaloneGetMetadata + blockSource.replace(/^import .*scripts\/(aem|gtm)\.js.*\n/gm, '')
     : blockSource;
 
   const outDir = path.join(rootDir, 'exports');

@@ -17,7 +17,6 @@ function getTarget(link) {
   try {
     return document.getElementById(decodeURIComponent(hash.slice(1)));
   } catch (e) {
-    // malformed %-escape in an authored hash: treat as no target
     return null;
   }
 }
@@ -29,8 +28,6 @@ function setOpen(block, toggle, open) {
 
 function setupPinning(block, placeholder, title) {
   const links = [...block.querySelectorAll('.anchor-nav-links a')];
-  // the bar is shorter once pinned on phones (one row instead of two), so
-  // the placeholder keeps its in-page height and the content doesn't jump
   let inPageHeight = block.offsetHeight;
 
   function update() {
@@ -38,11 +35,10 @@ function setupPinning(block, placeholder, title) {
     const shouldPin = placeholder.getBoundingClientRect().top <= offset;
     if (!shouldPin && !block.classList.contains('anchor-nav-open')) inPageHeight = block.offsetHeight;
 
-    placeholder.style.height = shouldPin ? `${inPageHeight}px` : '0';
+    placeholder.style.setProperty('--anchor-nav-placeholder-height', shouldPin ? `${inPageHeight}px` : '0px');
     block.style.setProperty('--anchor-nav-top', `${offset}px`);
     block.classList.toggle('anchor-nav-pinned', shouldPin);
 
-    // in-page jumps (e.g. footnote references) land below the pinned bars
     if (!block.classList.contains('anchor-nav-open')) {
       document.documentElement.style.scrollPaddingTop = `${offset + block.offsetHeight + 16}px`;
     }
@@ -51,7 +47,6 @@ function setupPinning(block, placeholder, title) {
     let active = null;
     links.forEach((link) => {
       const target = getTarget(link);
-      // a section starts where its top margin does (hp.com: right below the bar)
       const start = target && target.getBoundingClientRect().top
         - (parseFloat(getComputedStyle(target).marginTop) || 0);
       if (target && start <= limit) active = link;
@@ -112,8 +107,6 @@ export default function decorate(block) {
   toggle.insertAdjacentHTML('beforeend', CHEVRON);
   toggle.addEventListener('click', () => {
     const open = !block.classList.contains('anchor-nav-open');
-    // opened from the middle of the page, the bar first scrolls up to its
-    // pinned spot at the top of the screen (hp.com)
     if (open && !block.classList.contains('anchor-nav-pinned')) {
       const placeholder = block.previousElementSibling;
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -134,7 +127,6 @@ export default function decorate(block) {
   });
   isDesktop.addEventListener('change', () => setOpen(block, toggle, false));
 
-  // a tap on the backdrop (the block's ::after) or anywhere outside closes it
   document.addEventListener('click', (e) => {
     if (!block.classList.contains('anchor-nav-open')) return;
     if (e.target === block || !block.contains(e.target)) setOpen(block, toggle, false);

@@ -4,3 +4,6 @@ function getMetadata(name, doc = document) {
   const nodes = [...doc.head.querySelectorAll(`meta[${attr}="${name}"]`)];
   return nodes.map((m) => m.content).join(', ') || '';
 }
+
+// eslint-disable-next-line no-unused-vars
+function decorateGtmLinks() {}

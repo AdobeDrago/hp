@@ -1,17 +1,8 @@
-import { decorateGtmLinks, getMetadata } from '../../scripts/aem.js';
+import { getMetadata } from '../../scripts/aem.js';
+import { decorateGtmLinks } from '../../scripts/gtm.js';
 
 const DEFAULT_FOOTER_FRAGMENT = '/footer';
 
-/**
- * Fetches a footer fragment by path (same-site absolute path, or a full
- * cross-origin URL to reuse another site's footer content), resolving it
- * against the same content root as the current page (/content/ for pages
- * served from /content/ - localhost / aem up - the site root otherwise, so
- * neither environment requests a 404), and fixes up any page-relative media
- * references so they still resolve from here.
- * @param {string} path Path or URL to the fragment, without the .plain.html suffix
- * @returns {string|null} The fragment's inner HTML, or null if it couldn't be loaded
- */
 async function fetchFooterHtml(path) {
   const isAbsolute = /^https?:\/\//i.test(path);
   const root = !isAbsolute && window.location.pathname.startsWith('/content/') ? '/content' : '';
@@ -32,12 +23,6 @@ async function fetchFooterHtml(path) {
   return container.innerHTML;
 }
 
-/**
- * Tags the "Stay connected" list for social-icon styling and mirrors each
- * icon's alt text onto its link as an aria-label. Icon images come from the
- * fragment — footer.js never invents copy or link destinations.
- * @param {Element} list The "Stay connected" list element
- */
 function decorateSocialList(list) {
   list.classList.add('footer-social');
   list.querySelectorAll('a').forEach((a) => {
@@ -46,10 +31,6 @@ function decorateSocialList(list) {
   });
 }
 
-/**
- * loads and decorates the footer
- * @param {Element} block The footer block element
- */
 export default async function decorate(block) {
   const path = getMetadata('footer') || DEFAULT_FOOTER_FRAGMENT;
   const html = await fetchFooterHtml(path);
@@ -63,14 +44,11 @@ export default async function decorate(block) {
   footer.className = 'footer-inner';
   while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
 
-  // section classing: [0] country row, [1] link columns, [2] legal + copyright
   const sections = [...footer.children];
   if (sections[0]) sections[0].classList.add('footer-country');
   if (sections[1]) sections[1].classList.add('footer-columns');
   if (sections[2]) sections[2].classList.add('footer-legal');
 
-  // the "Your privacy choices" legal link carries a small toggle icon (source
-  // renders it as a CSS background); tag it so footer.css can draw the icon.
   const legal = footer.querySelector('.footer-legal');
   if (legal) {
     const privacy = [...legal.querySelectorAll('a')]
@@ -78,8 +56,6 @@ export default async function decorate(block) {
     if (privacy) privacy.classList.add('footer-privacy-icon');
   }
 
-  // country/region selector: the second paragraph is the current locale (button),
-  // the following list is the full country overlay (hidden until toggled).
   const country = footer.querySelector('.footer-country');
   if (country) {
     const trigger = country.querySelector('p:nth-of-type(2)');
@@ -102,7 +78,6 @@ export default async function decorate(block) {
         control.setAttribute('aria-expanded', open);
       };
       trigger.addEventListener('click', (e) => {
-        // toggle the overlay rather than following the current-locale link
         if (e.target.closest('a')) e.preventDefault();
         toggle();
       });
@@ -117,7 +92,6 @@ export default async function decorate(block) {
     }
   }
 
-  // wrap each column heading + its following list into a column group
   const columns = footer.querySelector('.footer-columns');
   if (columns) {
     const groups = [];
@@ -135,14 +109,11 @@ export default async function decorate(block) {
     columns.textContent = '';
     groups.forEach((g) => columns.append(g));
 
-    // the last column is "Stay connected" — turn its list into social icons
     const last = groups[groups.length - 1];
     const socialList = last?.querySelector('ul');
     if (socialList) decorateSocialList(socialList);
     if (last) last.classList.add('footer-column-social');
 
-    // Mobile accordion: every link column (not the social one) collapses under
-    // its heading. The heading becomes a toggle button; desktop CSS keeps it open.
     groups.forEach((col, i) => {
       if (col === last) return;
       const heading = col.querySelector('h2');
@@ -163,7 +134,6 @@ export default async function decorate(block) {
       control.setAttribute('aria-controls', listEl.id);
       heading.addEventListener('click', (e) => {
         if (window.matchMedia('(min-width: 900px)').matches) return;
-        // On mobile the heading toggles the accordion instead of navigating.
         e.preventDefault();
         const open = col.dataset.expanded !== 'true';
         col.dataset.expanded = open;

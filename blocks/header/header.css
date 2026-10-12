@@ -89,7 +89,7 @@ header nav .nav-brand a {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: #0096d6;
+  background: transparent;
   font-size: 14px;
   line-height: 18.62px;
   color: #1a1a1a;

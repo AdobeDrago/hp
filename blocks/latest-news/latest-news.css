@@ -112,3 +112,127 @@ main > .section:has(.latest-news) {
     font-size: 1.35rem;
   }
 }
+
+.section.latest-news-container {
+  margin: 0;
+}
+
+main .section.latest-news-container {
+  border-bottom: 0;
+}
+
+.section.latest-news-container > div {
+  max-width: 1220px;
+  padding: 0 20px;
+}
+
+.section.latest-news-container h2 {
+  margin: 0;
+  padding: 25px 0;
+  font-size: 2rem;
+  font-weight: normal;
+  line-height: 2.125rem;
+}
+
+.section.latest-news-container .latest-news {
+  padding-bottom: 60px;
+}
+
+.section.latest-news-container .latest-news .lnl-grid {
+  gap: 25px 30px;
+}
+
+.section.latest-news-container .latest-news .lnl-card-media {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+.section.latest-news-container .latest-news .lnl-card-media picture,
+.section.latest-news-container .latest-news .lnl-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.section.latest-news-container .latest-news .lnl-card-body {
+  padding: 20px;
+}
+
+.section.latest-news-container .latest-news .lnl-card-title {
+  font-size: 1.375rem;
+  font-weight: normal;
+  line-height: 1.75rem;
+}
+
+.section.latest-news-container .latest-news .lnl-card-desc {
+  margin: 0 0 40px;
+  color: #000;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
+}
+
+.section.latest-news-container .latest-news .lnl-card-cta {
+  position: relative;
+  gap: 8px;
+  font-size: 1rem;
+}
+
+.section.latest-news-container .latest-news .lnl-card-cta::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 4px;
+  left: 38px;
+  width: 0;
+  max-width: calc(100% - 38px);
+  height: 1px;
+  border-bottom: 1px solid;
+  transition: width 0.2s linear;
+}
+
+.section.latest-news-container .latest-news .lnl-card-cta:hover::before,
+.section.latest-news-container .latest-news .lnl-card-cta:focus-visible::before {
+  width: 100%;
+}
+
+.section.latest-news-container .latest-news .lnl-card-cta-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.section.latest-news-container .latest-news .lnl-card-cta:hover .lnl-card-cta-icon {
+  transform: none;
+}
+
+@media (width >= 768px) {
+  .section.latest-news-container > div {
+    padding: 0 30px;
+  }
+
+  .section.latest-news-container h2 {
+    padding: 40px 0 35px;
+    font-size: 2.5rem;
+    line-height: 2.75rem;
+  }
+
+  .section.latest-news-container .latest-news .lnl-grid {
+    gap: 44px 30px;
+  }
+
+  .section.latest-news-container .latest-news .lnl-card-title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (width >= 1280px) {
+  .section.latest-news-container h2 {
+    font-size: 3.125rem;
+    line-height: 3.25rem;
+  }
+
+  .section.latest-news-container .latest-news .lnl-card-title {
+    font-size: 1.375rem;
+  }
+}

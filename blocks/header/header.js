@@ -437,13 +437,9 @@ function decorateSections(navSections) {
     li.addEventListener('mouseleave', () => {
       if (!isDesktop.matches) return;
       clearTimeout(pending);
-      // close whichever panel is open: the item being left may never have opened
-      // (hover intent still pending) while an earlier one is still showing
       pending = setTimeout(() => closeAllPanels(menu), HOVER_INTENT_MS);
     });
     trigger.addEventListener('click', (e) => {
-      // On desktop the panel is hover-driven; the click toggles it and must not
-      // navigate. On mobile the trigger acts as an accordion toggle.
       e.preventDefault();
       const expanded = li.getAttribute('aria-expanded') === 'true';
       const menuEl = li.closest('.nav-menu');

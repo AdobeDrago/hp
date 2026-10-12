@@ -111,7 +111,6 @@ export default function decorate(block) {
   });
   isDesktop.addEventListener('change', () => setOpen(block, toggle, false));
 
-  // the pending post-scroll correction from the last click, if any
   let cancelSettle = () => {};
 
   ul.addEventListener('click', (e) => {
@@ -124,7 +123,6 @@ export default function decorate(block) {
     cancelSettle();
 
     const delta = () => target.getBoundingClientRect().top - getHeaderOffset() - block.offsetHeight;
-    // already in place: no scroll happens, so no scrollend would ever clear the correction
     if (Math.abs(delta()) <= 1) return;
     const scrollToTarget = (behavior) => {
       window.scrollTo({ top: window.scrollY + delta(), behavior });
@@ -132,8 +130,6 @@ export default function decorate(block) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     scrollToTarget(reduceMotion ? 'auto' : 'smooth');
 
-    // re-aim once the scroll ends (lazy content above may have moved the target),
-    // unless the user starts scrolling themselves
     const userInput = ['wheel', 'touchstart', 'keydown'];
     let timer;
     const settle = () => {

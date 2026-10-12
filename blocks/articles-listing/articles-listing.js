@@ -260,7 +260,10 @@ export default async function decorate(block) {
   const loadMore = el('button', 'al-loadmore', 'Load More');
   loadMore.type = 'button';
   const sheet = modal(pinnedType);
-  block.append(toolbar, chips, grid, loadMore, sheet);
+  const empty = el('p', 'al-empty', 'No results found.');
+  empty.setAttribute('role', 'status');
+  empty.hidden = true;
+  block.append(toolbar, chips, grid, empty, loadMore, sheet);
 
   const section = block.closest('.section');
   let heading = section?.querySelector('h1, h2');
@@ -321,6 +324,8 @@ export default async function decorate(block) {
     grid.textContent = '';
     results.slice(0, state.shown).forEach((it) => grid.append(card(it, cardLevel)));
     loadMore.hidden = state.shown >= results.length;
+    grid.hidden = !results.length;
+    empty.hidden = results.length > 0;
     renderChips();
     syncControls();
   }

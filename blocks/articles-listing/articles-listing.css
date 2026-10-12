@@ -315,6 +315,21 @@
   color: #fff;
 }
 
+/* nothing matches the filters (hp.com): a message instead of the grid
+   and the Load More button */
+.articles-listing .al-empty {
+  margin: 30px 0 0;
+  color: #000;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.articles-listing .al-grid[hidden],
+.articles-listing .al-empty[hidden],
+.articles-listing .al-loadmore[hidden] {
+  display: none;
+}
+
 /* mobile-only controls hidden on desktop */
 .articles-listing .al-mobile-trigger,
 .articles-listing .al-modal { display: none; }

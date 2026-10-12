@@ -6,11 +6,6 @@ function isEmbedUrl(url) {
   return /youtube\.com|youtu\.be|vimeo\.com/i.test(url);
 }
 
-/**
- * Opens a lightbox playing the given video URL.
- * @param {string} src video file or embed URL
- * @param {HTMLElement} trigger element that opened the modal, to restore focus to on close
- */
 function openVideoModal(src, trigger) {
   const overlay = document.createElement('div');
   overlay.className = 'media-feature-video-modal';
@@ -62,10 +57,6 @@ function openVideoModal(src, trigger) {
   closeBtn.focus();
 }
 
-/**
- * decorate the block
- * @param {Element} block the block
- */
 export default function decorate(block) {
   const row = block.firstElementChild;
   const [imageCell, contentCell] = row.children;
@@ -84,7 +75,6 @@ export default function decorate(block) {
   }
 
   contentCell.querySelectorAll('a').forEach((a) => {
-    // a CTA pointing at a video file or embed opens a lightbox instead of navigating
     if (VIDEO_PATTERN.test(a.href)) {
       a.addEventListener('click', (e) => {
         e.preventDefault();
@@ -110,7 +100,6 @@ export default function decorate(block) {
     }
   });
 
-  // group CTA buttons so they sit side by side instead of stacking
   const buttons = contentCell.querySelectorAll('p.button-container');
   if (buttons.length) {
     const ctaWrapper = document.createElement('div');

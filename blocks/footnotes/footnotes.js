@@ -3,10 +3,6 @@ const ICON_COLLAPSE = '<svg width="24" height="24" viewBox="0 0 24 24" fill="non
 
 const DEFAULT_TITLE = 'Footnotes and Disclaimers';
 
-// Dynamic footnote references are authored anywhere in page content as a link
-// `<a href="#footnote-<key>" title="<footnote text>">1</a>`. All refs sharing
-// the same <key> collapse into a single numbered entry, numbered in the order
-// the key is first encountered on the page.
 const DYNAMIC_REF_SELECTOR = 'a[href^="#footnote-"]';
 
 function buildItem(id) {
@@ -103,7 +99,6 @@ export default function decorate(block) {
   header.className = 'footnotes-header';
   header.setAttribute('tabindex', '0');
   header.setAttribute('role', 'button');
-  // expanded on load, as on hp.com
   header.setAttribute('aria-expanded', 'true');
   header.setAttribute('aria-controls', content.id);
   header.append(title, icon);

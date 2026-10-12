@@ -103,7 +103,6 @@ footer .footer-column-accordion h2 {
   cursor: pointer;
 }
 
-/* heading toggle for link-less headings: renders as the heading text */
 footer .footer-column-toggle,
 footer .footer-column-toggle:hover,
 footer .footer-column-toggle:focus {

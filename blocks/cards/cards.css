@@ -26,16 +26,6 @@
   object-fit: cover;
 }
 
-/*
- * "spotlight" variant (hp.com Benefits): an inset, rounded panel with a
- * background photo that already fades to black on the right, a heading/intro
- * and a vertical list of icon + text items in the right-hand column -
- * authored as the block's first row (background image + heading/intro),
- * followed by one row per list item (icon + description).
- * hp.com breakpoints: 441px and 1115px. Below 441px hp.com swaps in a
- * portrait photo that fades to black at the bottom; the landscape photo is
- * cropped into the top of the panel with a fade to recreate it.
- */
 .cards-container:has(.cards.spotlight) {
   margin-bottom: 30px;
 }
@@ -128,7 +118,7 @@
 
 .cards.spotlight .cards-card-image {
   justify-self: center;
-  width: 48px;
+  width: min(48px, 100%);
 }
 
 .cards.spotlight .cards-card-image img {
@@ -198,7 +188,7 @@
 
   .cards.spotlight > ul {
     gap: 26px;
-    margin-top: 20px;
+    margin-top: 12px;
   }
 
   .cards.spotlight .cards-card-body {
@@ -247,10 +237,6 @@
   }
 }
 
-/*
- * Shared heading/intro row for variants whose first row is text-only (no
- * header image) - used by "grid", "showcase" and "feature" below.
- */
 .cards-header {
   margin-bottom: 24px;
 }
@@ -261,14 +247,6 @@
   margin-top: 0;
 }
 
-/*
- * "grid" (hp.com Portfolio) and "showcase" (hp.com Featured products) share
- * the same rhythm: heading/intro row, then borderless cards with a rounded
- * image, title, optional copy and a blue "Learn" button. "grid" is a light
- * grey full-bleed band with 3 left-aligned cards (1 column on mobile);
- * "showcase" is white with 2 centered product cards at every width.
- * hp.com breakpoints: 441px and 1115px.
- */
 .cards-container:has(.cards.grid),
 .cards-container:has(.cards.showcase) {
   margin: 0;
@@ -276,7 +254,7 @@
 }
 
 .cards-container:has(.cards.grid) {
-  background-color: #f5f5f5;
+  background: linear-gradient(#f5f5f5, #f5f5f5) center / min(100%, 1680px) 100% no-repeat;
 }
 
 .cards-container:has(.cards.grid) .cards-wrapper,
@@ -318,7 +296,7 @@
 }
 
 .cards.showcase > ul {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -363,6 +341,7 @@
   font-size: 24px;
   font-weight: 500;
   line-height: 1;
+  overflow-wrap: break-word;
 }
 
 .cards.grid .cards-card-body p,
@@ -438,7 +417,7 @@
   }
 
   .cards.grid > ul {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .cards.grid > ul,
@@ -533,18 +512,13 @@
   }
 }
 
-/*
- * "feature" variant: text header row (h2) then a borderless row of
- * photo + title + description items on a light grey full-bleed band -
- * 1 column on mobile, 2 at 441px, 4 at 1280px (matching hp.com's
- * breakpoints). No CTA.
- */
 .cards-container:has(.cards.feature) {
-  background-color: #f5f5f5;
+  background: linear-gradient(#f5f5f5, #f5f5f5) center / min(100%, 1680px) 100% no-repeat;
   padding: 46px 0 67px;
 }
 
 .cards-container:has(.cards.feature) .cards-wrapper {
+  box-sizing: border-box;
   max-width: 1680px;
   padding: 0 16px;
 }
@@ -593,6 +567,7 @@
   font-size: 24px;
   font-weight: 500;
   line-height: 1;
+  overflow-wrap: break-word;
 }
 
 .cards.feature .cards-card-body p {
@@ -603,7 +578,7 @@
 
 @media (width >= 441px) {
   .cards-container:has(.cards.feature) {
-    padding: 34px 0 78px;
+    padding: 34px 0 72px;
   }
 
   .cards-container:has(.cards.feature) .cards-wrapper {
@@ -619,7 +594,7 @@
   }
 
   .cards.feature > ul {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 32px 20px;
   }
 
@@ -640,7 +615,7 @@
   }
 }
 
-@media (width >= 1280px) {
+@media (width >= 1115px) {
   .cards-container:has(.cards.feature) {
     padding: 44px 0 78px;
   }
@@ -662,7 +637,7 @@
   }
 
   .cards.feature > ul {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 40px 24px;
   }
 

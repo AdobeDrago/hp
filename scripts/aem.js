@@ -353,48 +353,12 @@ function wrapTextNodes(block) {
   });
 }
 
-const GTM_ATTR_PREFIX = 'data-gtm-';
-const GTM_CLICK_EVENT = 'link_click';
-const GTM_KEY_PATTERN = /^[a-z][a-z0-9_-]*$/;
-
-function parseLinkTitle(rawTitle = '') {
-  const gtm = {};
-  const plainParts = [];
-
-  rawTitle.split('|').forEach((part) => {
-    const [key, ...rest] = part.split('=');
-    const name = key.trim().toLowerCase();
-    const value = rest.join('=').trim();
-
-    if (rest.length && GTM_KEY_PATTERN.test(name)) {
-      if (value) gtm[name] = value;
-    } else if (part.trim()) {
-      plainParts.push(part.trim());
-    }
-  });
-
-  const { title, ...attrs } = gtm;
-  return { title: title || plainParts.join(' | '), gtm: attrs };
-}
-
-function decorateGtmLink(a) {
-  const { title, gtm } = parseLinkTitle(a.getAttribute('title') || '');
-  Object.entries(gtm).forEach(([key, value]) => a.setAttribute(`${GTM_ATTR_PREFIX}${key}`, value));
-  if (title) a.title = title;
-  else a.removeAttribute('title');
-}
-
-function decorateGtmLinks(element) {
-  element.querySelectorAll('a').forEach(decorateGtmLink);
-}
-
 /**
  * Decorates paragraphs containing a single link as buttons.
  * @param {Element} element container element
  */
 function decorateButtons(element) {
   element.querySelectorAll('a').forEach((a) => {
-    a.title = a.title || a.textContent;
     if (a.href !== a.textContent) {
       const up = a.parentElement;
       const twoup = a.parentElement.parentElement;

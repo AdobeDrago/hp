@@ -39,7 +39,7 @@
   /* nav heights */
   --nav-height: 64px;
   --breadcrumbs-height: 34px;
-  --header-height: var(--nav-height);
+  --header-height: 126px;
 }
 
 /* fallback font: Arial stands in for Forma DJR before it loads (as on hp.com) */
@@ -92,6 +92,12 @@ footer .footer {
 header .header[data-block-status="loaded"],
 footer .footer[data-block-status="loaded"] {
   visibility: visible;
+}
+
+@media (width >= 1280px) {
+  :root {
+    --header-height: 128px;
+  }
 }
 
 @media (width >= 900px) {

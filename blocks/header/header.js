@@ -239,11 +239,12 @@ function decorateTools(navTools) {
   const searchForm = document.createElement('form');
   searchForm.className = 'nav-search-form';
   searchForm.setAttribute('role', 'search');
-  searchForm.action = 'https://www.hp.com/us-en/shop/SearchDisplay';
+  searchForm.action = getMetadata('search-results-page') || '/search';
   searchForm.hidden = true;
   const searchInput = document.createElement('input');
   searchInput.type = 'search';
-  searchInput.name = 'searchTerm';
+  searchInput.name = 'q';
+  searchInput.setAttribute('autocomplete', 'off');
   searchInput.placeholder = 'What are you looking for?';
   searchInput.setAttribute('aria-label', 'Search');
   const searchSubmit = document.createElement('button');
@@ -266,6 +267,12 @@ function decorateTools(navTools) {
   });
   searchClose.addEventListener('click', () => setSearchOpen(navTools.closest('nav'), false));
   searchWrap.append(searchBtn, searchForm, searchClose);
+
+  // load the results panel on first use
+  searchInput.addEventListener('focus', async () => {
+    const { default: initSearchPanel } = await import('./search-suggest.js');
+    initSearchPanel(navTools.closest('nav'), searchForm, searchInput);
+  }, { once: true });
 
   const cartBtn = document.createElement('a');
   cartBtn.className = 'nav-tool-btn nav-cart-btn';

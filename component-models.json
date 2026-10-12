@@ -379,16 +379,22 @@
     "fields": [
       {
         "component": "text",
-        "name": "searchUrlText",
-        "label": "Search URL Text",
-        "valueType": "string"
+        "valueType": "string",
+        "name": "client-guid",
+        "label": "HawkSearch Client GUID"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "searchUrl",
-        "label": "Search URL",
-        "required": true
+        "name": "support-api-key",
+        "label": "HP Support API key"
+      },
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "results-per-page",
+        "label": "Results per page",
+        "value": "24"
       }
     ]
   },

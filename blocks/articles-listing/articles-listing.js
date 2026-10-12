@@ -9,7 +9,6 @@ const MEDIA_TYPES = [
   { value: 'Press Blog', label: 'Press Blogs' },
 ];
 
-// HP's fixed 46-topic taxonomy (slug -> label); articles store slugs in `topic`.
 const TOPICS = [
   ['print', 'Print'], ['community', 'Community'], ['megatrends', 'Megatrends'],
   ['healthcare', 'Healthcare'], ['urbanization', 'Urbanization'], ['mobility', 'Mobility'],
@@ -228,6 +227,7 @@ export default async function decorate(block) {
   const source = link ? link.getAttribute('href') : DEFAULT_SOURCE;
 
   const pinnedType = [...block.querySelectorAll('p, div, li')]
+    .filter((n) => !n.querySelector('p, div, li'))
     .map((n) => MEDIA_TYPE_BY_TEXT.get(n.textContent.trim().toLowerCase()))
     .find(Boolean);
 
@@ -269,7 +269,10 @@ export default async function decorate(block) {
   block.append(toolbar, chips, grid, empty, loadMore, sheet);
 
   const section = block.closest('.section');
-  let heading = section?.querySelector('h1, h2');
+  let heading = [...(section?.querySelectorAll('h1, h2') || [])]
+    .filter((h) => !block.contains(h)
+      && h.compareDocumentPosition(block) === Node.DOCUMENT_POSITION_FOLLOWING)
+    .pop();
   if (pinnedType && !heading) {
     heading = el(document.querySelector('main h1') ? 'h2' : 'h1', 'al-title', LABELS.get(pinnedType));
     block.prepend(heading);

@@ -147,12 +147,15 @@
 .newsroom-landing.hero-container .hero-content p {
   max-width: 1220px;
   margin: auto;
-  padding: 15px 30px;
   border: none;
+  text-align: left;
+}
+
+.newsroom-landing.hero-container .hero-content h1 {
+  padding: 15px 30px;
   font-size: 1.875rem;
   font-weight: normal;
   line-height: 2.125rem;
-  text-align: left;
 }
 
 .newsroom-landing.hero-container .hero-content p {
@@ -161,6 +164,7 @@
   gap: 8px;
   padding: 17px 30px;
   font-size: 1rem;
+  line-height: 1.35;
 }
 
 .newsroom-landing.hero-container .hero-content p::before {

@@ -460,7 +460,7 @@ export default async function decorate(block) {
   const navTools = nav.querySelector('.nav-tools');
   let navNewsroom = nav.querySelector('.nav-newsroom');
 
-  if (navNewsroom && getMetadata('newsroom') === 'false') {
+  if (navNewsroom && document.body.dataset.noNewsroom === 'true') {
     navNewsroom.remove();
     navNewsroom = null;
   }

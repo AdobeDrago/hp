@@ -351,6 +351,7 @@ export default {
     main.appendChild(hr);
     const meta = WebImporter.Blocks.getMetadata(document) || {};
     meta.template = PAGE_TEMPLATE.name;
+    meta.newsroom = 'false';
     main.append(WebImporter.Blocks.getMetadataBlock(document, meta));
     WebImporter.rules.transformBackgroundImages(main, document);
     WebImporter.rules.adjustImageUrls(main, url, params.originalURL);

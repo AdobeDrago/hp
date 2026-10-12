@@ -135,6 +135,11 @@ main > .section.anchor-nav-container {
   text-decoration: none;
 }
 
+.anchor-nav-links li:has(> a:hover),
+.anchor-nav-links li:has(> a:focus-visible) {
+  background: #c9e0fc;
+}
+
 .anchor-nav-cta {
   display: flex;
   align-items: center;
@@ -304,6 +309,16 @@ main .anchor-nav-cta a.button:focus-visible {
 
   .anchor-nav-links li.active::after {
     background: #0e3191;
+  }
+
+  .anchor-nav-links li.active a:hover,
+  .anchor-nav-links li.active a:focus-visible {
+    color: #103fb2;
+  }
+
+  .anchor-nav-links li.active:has(> a:hover)::after,
+  .anchor-nav-links li.active:has(> a:focus-visible)::after {
+    background: #103fb2;
   }
 
   .anchor-nav-cta {

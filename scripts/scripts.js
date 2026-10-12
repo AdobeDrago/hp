@@ -121,7 +121,8 @@ async function loadEager(doc) {
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
     doc.body.dataset.breadcrumbs = true;
   }
-  if (getMetadata('newsroom') === 'false') {
+  const newsroom = getMetadata('newsroom').toLowerCase();
+  if (newsroom === 'false' || (newsroom !== 'true' && getMetadata('template') === 'ai-solutions')) {
     doc.body.dataset.noNewsroom = 'true';
   }
   const main = doc.querySelector('main');

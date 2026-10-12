@@ -166,12 +166,13 @@ function sortDropdown() {
   return root;
 }
 
-function collapsible(title, body) {
+function collapsible(title, body, open = false) {
   const root = el('div', 'al-collapse');
-  const btn = el('button', 'al-collapse-btn', title);
+  const btn = el('button', `al-collapse-btn${open ? ' open' : ''}`, title);
   btn.type = 'button';
+  btn.setAttribute('aria-expanded', String(open));
   const wrap = el('div', 'al-collapse-body');
-  wrap.hidden = true;
+  wrap.hidden = !open;
   wrap.append(body);
   root.append(btn, wrap);
   return root;
@@ -193,8 +194,8 @@ function modal(pinnedType) {
   kw.type = 'search';
   kw.placeholder = 'Filter by keyword';
 
-  const sortWrap = el('div', 'al-modal-sort');
-  sortWrap.append(el('div', 'al-modal-sort-title', 'SORT'));
+  // SORT folds open/closed like the filters below it, open to start (hp.com)
+  const radios = el('div', 'al-radios');
   SORTS.forEach((s) => {
     const label = el('label', 'al-radio-item');
     const input = el('input', 'al-sort-radio');
@@ -202,8 +203,10 @@ function modal(pinnedType) {
     input.name = 'al-sort';
     input.value = s.id;
     label.append(input, el('span', null, s.label));
-    sortWrap.append(label);
+    radios.append(label);
   });
+  const sortWrap = collapsible('SORT', radios, true);
+  sortWrap.classList.add('al-modal-sort');
 
   const view = el('button', 'al-modal-view', 'View items');
   view.type = 'button';
@@ -395,6 +398,7 @@ export default async function decorate(block) {
       const body = collapseBtn.nextElementSibling;
       body.hidden = !body.hidden;
       collapseBtn.classList.toggle('open', !body.hidden);
+      collapseBtn.setAttribute('aria-expanded', String(!body.hidden));
     }
   });
 

@@ -425,15 +425,11 @@
   }
 
   .articles-listing .al-modal-sort {
-    padding: 8px 0 4px;
     border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
   }
 
-  .articles-listing .al-modal-sort-title {
-    margin-bottom: 8px;
-    font-size: 1rem;
-    font-weight: normal;
+  .articles-listing .al-radios {
+    padding-bottom: 4px;
   }
 
   .articles-listing .al-radio-item {
@@ -442,11 +438,29 @@
     gap: 14px;
     padding: 8px 0;
     font-size: 1rem;
+    cursor: pointer;
   }
 
+  /* hp.com radios: black ring, black dot when chosen */
   .articles-listing .al-radio-item input {
+    flex: none;
     width: 30px;
     height: 30px;
+    margin: 0;
+    border: 1px solid #000;
+    border-radius: 50%;
+    appearance: none;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .articles-listing .al-radio-item input:checked {
+    background: radial-gradient(circle, #000 0 8.5px, transparent 9px);
+  }
+
+  .articles-listing .al-radio-item input:focus-visible {
+    outline: 2px solid #000;
+    outline-offset: 2px;
   }
 
   .articles-listing .al-collapse {
@@ -467,32 +481,43 @@
     cursor: pointer;
   }
 
+  /* hp.com's thin 12x6 chevron, flipped up when the row is open */
   .articles-listing .al-collapse-btn::after {
     content: '';
-    width: 6px;
+    flex: none;
+    width: 12px;
     height: 6px;
-    margin-right: 5px;
-    border-right: 2px solid #111;
-    border-bottom: 2px solid #111;
-    transform: rotate(45deg);
+    margin-right: 6px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 6'%3E%3Cpath d='M1 .75 6 5.25 11 .75' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
   }
 
-  .articles-listing .al-collapse-btn.open::after { transform: rotate(-135deg); }
+  .articles-listing .al-collapse-btn.open::after { transform: rotate(180deg); }
 
   .articles-listing .al-collapse-body .al-check-item { padding: 10px 4px; }
 
+  /* a clear button (the Archive's Load More style), so it reads as one */
   .articles-listing .al-modal-view {
     display: block;
-    width: 100%;
-    margin: 13px 0;
-    padding: 0;
-    border: 0;
-    background: none;
+    min-width: 160px;
+    margin: 16px auto 4px;
+    padding: 0 32px;
+    border: 1px solid #2a2c2e;
+    border-radius: 0;
+    background: #fff;
+    color: #2a2c2e;
     font: inherit;
-    font-weight: 500;
     font-size: 1rem;
+    font-weight: 500;
+    line-height: 41px;
     text-align: center;
     cursor: pointer;
+    transition: background-color 0.2s linear, color 0.2s linear;
+  }
+
+  .articles-listing .al-modal-view:hover,
+  .articles-listing .al-modal-view:active {
+    background: #000;
+    color: #fff;
   }
 }
 
@@ -545,7 +570,6 @@
 
   .articles-listing .al-modal-view {
     margin-top: 20px;
-    padding: 16px;
   }
 }
 

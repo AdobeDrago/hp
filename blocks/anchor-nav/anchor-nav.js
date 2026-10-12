@@ -38,6 +38,11 @@ function setupPinning(block, placeholder, title) {
     block.style.setProperty('--anchor-nav-top', `${offset}px`);
     block.classList.toggle('anchor-nav-pinned', shouldPin);
 
+    // in-page jumps (e.g. footnote references) land below the pinned bars
+    if (!block.classList.contains('anchor-nav-open')) {
+      document.documentElement.style.scrollPaddingTop = `${offset + block.offsetHeight + 16}px`;
+    }
+
     const limit = offset + block.offsetHeight + 1;
     let active = null;
     links.forEach((link) => {

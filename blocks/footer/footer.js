@@ -1,4 +1,4 @@
-import { getMetadata } from '../../scripts/aem.js';
+import { decorateGtmLinks, getMetadata } from '../../scripts/aem.js';
 
 const DEFAULT_FOOTER_FRAGMENT = '/footer';
 
@@ -172,5 +172,6 @@ export default async function decorate(block) {
     });
   }
 
+  decorateGtmLinks(footer);
   block.append(footer);
 }

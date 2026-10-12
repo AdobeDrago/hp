@@ -1,4 +1,4 @@
-import { getMetadata } from '../../scripts/aem.js';
+import { decorateGtmLinks, getMetadata } from '../../scripts/aem.js';
 import {
   CLOSE_ICON, LABELS, loadMockData, openSignInDialog, getSession, clearSession,
 } from './mock-sign-in.js';
@@ -587,6 +587,7 @@ export default async function decorate(block) {
     navWrapper.append(navNewsroom);
   }
 
+  decorateGtmLinks(navWrapper);
   block.append(navWrapper);
   if (navBrand) { /* brand kept as-is */ }
 }

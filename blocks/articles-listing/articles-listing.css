@@ -280,9 +280,13 @@
   font-weight: 500;
   line-height: 33px;
   text-decoration: none;
+  transition: 0.2s ease;
 }
 
-.articles-listing .al-card-cta:hover { background: #333; }
+.articles-listing .al-card-cta:hover { 
+  background: #5a5a5a;
+  transition: 0.2s ease; 
+}
 
 .articles-listing .al-sr-only {
   position: absolute;

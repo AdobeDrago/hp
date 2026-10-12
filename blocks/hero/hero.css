@@ -163,11 +163,16 @@
   align-items: center;
   gap: 8px;
   padding: 17px 30px;
-  font-size: 1rem;
-  line-height: 1.35;
 }
 
-.newsroom-landing.hero-container .hero-content p::before {
+.newsroom-landing.hero-container .hero-content p a {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.35;
+  position: relative;
+}
+
+.newsroom-landing.hero-container .hero-content a::before {
   content: "";
   flex-shrink: 0;
   width: 30px;
@@ -178,6 +183,23 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 55%;
+}
+
+.newsroom-landing.hero-container .hero-content p a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 4px;
+  left: 44px;
+  width: 0;
+  max-width: calc(100% - 44px);
+  height: 1px;
+  border-bottom: 1px solid;
+  transition: width 0.2s linear;
+}
+
+.newsroom-landing.hero-container .hero-content p a:hover::after {
+  width: 100%;
 }
 
 @media (width >= 768px) {

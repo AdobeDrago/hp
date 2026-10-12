@@ -158,7 +158,6 @@ main > .section:has(.more-articles) {
   display: block;
   width: 138px;
   overflow: hidden;
-  aspect-ratio: 16 / 9;
 }
 
 .section.more-articles-container .more-articles .ma-card-media picture,

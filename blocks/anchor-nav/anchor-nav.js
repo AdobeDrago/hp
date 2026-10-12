@@ -111,6 +111,12 @@ export default function decorate(block) {
   });
   isDesktop.addEventListener('change', () => setOpen(block, toggle, false));
 
+  // a tap on the backdrop (the block's ::after) or anywhere outside closes it
+  document.addEventListener('click', (e) => {
+    if (!block.classList.contains('anchor-nav-open')) return;
+    if (e.target === block || !block.contains(e.target)) setOpen(block, toggle, false);
+  });
+
   let cancelSettle = () => {};
 
   ul.addEventListener('click', (e) => {

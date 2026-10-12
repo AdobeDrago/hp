@@ -13,18 +13,7 @@ function animateToggle(details) {
     return h;
   };
 
-  const onCloseIcon = (e) => {
-    const icon = getComputedStyle(summary, '::after');
-    const [iconRight, iconTop, iconWidth, iconHeight] = [
-      icon.right, icon.top, icon.width, icon.height,
-    ].map(parseFloat);
-    if ([iconRight, iconTop, iconWidth, iconHeight].some(Number.isNaN)) return true;
-    const box = summary.getBoundingClientRect();
-    const right = box.right - iconRight;
-    const top = box.top + iconTop;
-    return e.clientX >= right - iconWidth && e.clientX <= right
-      && e.clientY >= top && e.clientY <= top + iconHeight;
-  };
+  const onCloseIcon = (e) => !!e.target.closest('.accordion-item-icon');
 
   summary.addEventListener('click', (e) => {
     const isOpen = animation ? details.classList.contains('is-opening') : details.open;
@@ -65,7 +54,13 @@ export default function decorate(block) {
     const details = document.createElement('details');
     details.className = 'accordion-item';
     details.append(summary, body);
-    if (animate) animateToggle(details);
+    if (animate) {
+      const icon = document.createElement('span');
+      icon.className = 'accordion-item-icon';
+      icon.setAttribute('aria-hidden', 'true');
+      summary.append(icon);
+      animateToggle(details);
+    }
     row.replaceWith(details);
   });
 }

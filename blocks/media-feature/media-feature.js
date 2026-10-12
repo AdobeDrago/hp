@@ -1,12 +1,39 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
-const VIDEO_PATTERN = /\.(mp4|webm|ogg)(\?.*)?$|youtube\.com|youtu\.be|vimeo\.com/i;
+const VIDEO_FILE = /\.(mp4|webm|ogg)$/i;
+const YOUTUBE_HOSTS = ['youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtube-nocookie.com', 'www.youtube-nocookie.com'];
+const VIMEO_HOSTS = ['vimeo.com', 'www.vimeo.com', 'player.vimeo.com'];
 
-function isEmbedUrl(url) {
-  return /youtube\.com|youtu\.be|vimeo\.com/i.test(url);
+function parseVideo(href) {
+  let url;
+  try {
+    url = new URL(href);
+  } catch (e) {
+    return null;
+  }
+  if (!['http:', 'https:'].includes(url.protocol)) return null;
+
+  const { hostname, pathname, searchParams } = url;
+  const segments = pathname.split('/').filter(Boolean);
+
+  if (hostname === 'youtu.be' && segments[0]) {
+    return { embed: true, src: `https://www.youtube.com/embed/${encodeURIComponent(segments[0])}` };
+  }
+  if (YOUTUBE_HOSTS.includes(hostname)) {
+    if (segments[0] === 'embed') return { embed: true, src: url.href };
+    const id = searchParams.get('v');
+    return id ? { embed: true, src: `https://www.youtube.com/embed/${encodeURIComponent(id)}` } : null;
+  }
+  if (VIMEO_HOSTS.includes(hostname)) {
+    if (hostname === 'player.vimeo.com') return { embed: true, src: url.href };
+    const id = segments.find((part) => /^\d+$/.test(part));
+    return id ? { embed: true, src: `https://player.vimeo.com/video/${id}` } : null;
+  }
+  if (VIDEO_FILE.test(pathname)) return { embed: false, src: url.href };
+  return null;
 }
 
-function openVideoModal(src, trigger) {
+function openVideoModal({ embed, src }, trigger) {
   const overlay = document.createElement('div');
   overlay.className = 'media-feature-video-modal';
   overlay.setAttribute('role', 'dialog');
@@ -22,10 +49,10 @@ function openVideoModal(src, trigger) {
   closeBtn.setAttribute('aria-label', 'Close video');
   closeBtn.innerHTML = '&times;';
 
-  const media = isEmbedUrl(src) ? document.createElement('iframe') : document.createElement('video');
+  const media = document.createElement(embed ? 'iframe' : 'video');
   media.className = 'media-feature-video-modal-media';
   media.src = src;
-  if (media.tagName === 'IFRAME') {
+  if (embed) {
     media.title = 'Video player';
     media.allow = 'autoplay; fullscreen; picture-in-picture';
     media.allowFullscreen = true;
@@ -39,6 +66,15 @@ function openVideoModal(src, trigger) {
 
   function onKeydown(e) {
     if (e.key === 'Escape') close(); // eslint-disable-line no-use-before-define
+    if (e.key !== 'Tab') return;
+    const [first, last] = [closeBtn, media];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   }
 
   function close() {
@@ -75,10 +111,11 @@ export default function decorate(block) {
   }
 
   contentCell.querySelectorAll('a').forEach((a) => {
-    if (VIDEO_PATTERN.test(a.href)) {
+    const video = parseVideo(a.href);
+    if (video) {
       a.addEventListener('click', (e) => {
         e.preventDefault();
-        openVideoModal(a.href, a);
+        openVideoModal(video, a);
       });
     }
 

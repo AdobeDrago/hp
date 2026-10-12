@@ -113,6 +113,11 @@
 }
 
 .accordion.faq details summary::after {
+  content: none;
+}
+
+.accordion.faq details .accordion-item-icon {
+  position: absolute;
   top: var(--faq-icon-top);
   right: var(--faq-icon-right);
   width: 36px;
@@ -129,12 +134,12 @@
   overflow: hidden;
 }
 
-.accordion.faq details[open] summary::after {
+.accordion.faq details[open] .accordion-item-icon {
   transform: rotate(45deg);
   cursor: pointer;
 }
 
-.accordion.faq details.is-closing summary::after {
+.accordion.faq details.is-closing .accordion-item-icon {
   transform: none;
 }
 

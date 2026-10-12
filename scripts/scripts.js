@@ -18,6 +18,10 @@ import {
 import { decorateGtmLinks, initLinkTracking } from './gtm.js';
 
 export const NX_ORIGIN = 'https://da.live/nx';
+
+/**
+ * load fonts.css and set a session storage flag
+ */
 async function loadFonts() {
   await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
   try {
@@ -38,6 +42,10 @@ function autolinkModals(doc) {
   });
 }
 
+/**
+ * Decorates all sections in a container element.
+ * @param {Element} main The container element
+ */
 function decorateSections(main) {
   main.querySelectorAll(':scope > div').forEach((section) => {
     if (!section.children.length && !section.textContent.trim()) {
@@ -90,6 +98,10 @@ function decorateSections(main) {
   });
 }
 
+/**
+ * Decorates the main element.
+ * @param {Element} main The main element
+ */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   decorateGtmLinks(main);
@@ -99,6 +111,10 @@ export function decorateMain(main) {
   decorateBlocks(main);
 }
 
+/**
+ * Loads everything needed to get to LCP.
+ * @param {Element} doc The container element
+ */
 async function loadEager(doc) {
   doc.documentElement.lang = 'en';
   decorateTemplateAndTheme();
@@ -127,6 +143,10 @@ async function loadEager(doc) {
   }
 }
 
+/**
+ * Loads everything that doesn't need to be delayed.
+ * @param {Element} doc The container element
+ */
 async function loadLazy(doc) {
   autolinkModals(doc);
 
@@ -144,6 +164,10 @@ async function loadLazy(doc) {
   loadFonts();
 }
 
+/**
+ * Loads everything that happens a lot later,
+ * without impacting the user experience.
+ */
 function loadDelayed() {
   window.setTimeout(() => import('./delayed.js'), 3000);
 }

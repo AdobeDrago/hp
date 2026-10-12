@@ -111,26 +111,44 @@ export default function decorate(block) {
   });
   isDesktop.addEventListener('change', () => setOpen(block, toggle, false));
 
+  // the pending post-scroll correction from the last click, if any
+  let cancelSettle = () => {};
+
   ul.addEventListener('click', (e) => {
     const link = e.target.closest('a');
     const target = link && getTarget(link);
     if (!target) return;
     e.preventDefault();
     setOpen(block, toggle, false);
+    window.history.pushState(null, '', link.getAttribute('href'));
+    cancelSettle();
+
+    const delta = () => target.getBoundingClientRect().top - getHeaderOffset() - block.offsetHeight;
+    // already in place: no scroll happens, so no scrollend would ever clear the correction
+    if (Math.abs(delta()) <= 1) return;
     const scrollToTarget = (behavior) => {
-      const top = target.getBoundingClientRect().top + window.scrollY
-        - getHeaderOffset() - block.offsetHeight;
-      window.scrollTo({ top, behavior });
+      window.scrollTo({ top: window.scrollY + delta(), behavior });
     };
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     scrollToTarget(reduceMotion ? 'auto' : 'smooth');
+
+    // re-aim once the scroll ends (lazy content above may have moved the target),
+    // unless the user starts scrolling themselves
+    const userInput = ['wheel', 'touchstart', 'keydown'];
+    let timer;
     const settle = () => {
-      const delta = target.getBoundingClientRect().top - getHeaderOffset() - block.offsetHeight;
-      if (Math.abs(delta) > 1) scrollToTarget('auto');
+      cancelSettle();
+      if (Math.abs(delta()) > 1) scrollToTarget('auto');
     };
-    if ('onscrollend' in window) window.addEventListener('scrollend', settle, { once: true });
-    else setTimeout(settle, 1000);
-    window.history.pushState(null, '', link.getAttribute('href'));
+    cancelSettle = () => {
+      window.removeEventListener('scrollend', settle);
+      clearTimeout(timer);
+      userInput.forEach((type) => window.removeEventListener(type, cancelSettle));
+      cancelSettle = () => {};
+    };
+    userInput.forEach((type) => window.addEventListener(type, cancelSettle, { passive: true }));
+    if ('onscrollend' in window) window.addEventListener('scrollend', settle);
+    else timer = setTimeout(settle, 1000);
   });
 
   const placeholder = document.createElement('div');

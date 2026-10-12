@@ -437,7 +437,9 @@ function decorateSections(navSections) {
     li.addEventListener('mouseleave', () => {
       if (!isDesktop.matches) return;
       clearTimeout(pending);
-      pending = setTimeout(() => li.setAttribute('aria-expanded', 'false'), HOVER_INTENT_MS);
+      // close whichever panel is open: the item being left may never have opened
+      // (hover intent still pending) while an earlier one is still showing
+      pending = setTimeout(() => closeAllPanels(menu), HOVER_INTENT_MS);
     });
     trigger.addEventListener('click', (e) => {
       // On desktop the panel is hover-driven; the click toggles it and must not

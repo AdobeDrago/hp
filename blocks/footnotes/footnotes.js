@@ -17,7 +17,7 @@ function buildItem(id) {
 
 function decorateDynamicRefs(block, dynamicList) {
   const allRefs = [...document.querySelectorAll(DYNAMIC_REF_SELECTOR)];
-  const refs = allRefs.filter((ref) => !block.contains(ref));
+  const refs = allRefs.filter((ref) => !ref.closest('.footnotes') && !ref.dataset.footnoteRef);
   const entries = new Map();
 
   refs.forEach((ref, index) => {
@@ -33,8 +33,10 @@ function decorateDynamicRefs(block, dynamicList) {
 
     const refId = `footnote-ref-${key}-${index}`;
     ref.id = refId;
+    ref.dataset.footnoteRef = key;
     ref.setAttribute('href', `#${entry.id}`);
     ref.setAttribute('aria-describedby', entry.id);
+    ref.setAttribute('aria-label', `Footnote ${entry.number}`);
     ref.textContent = entry.number;
   });
 

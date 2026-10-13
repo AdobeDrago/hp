@@ -137,11 +137,11 @@ main > .section:has(.press-kits-listing) {
   }
 
   .press-kits-listing .pkl-card {
-    flex: 0 0 min(52%, 210px);
     flex-direction: column;
     gap: 16px;
     padding: 0 24px;
     scroll-snap-align: start;
+    flex: 0 0 30%;
   }
 
   .press-kits-listing .pkl-card:first-child {
@@ -175,7 +175,7 @@ main > .section:has(.press-kits-listing) {
 }
 
 .section.press-kits-listing-container .press-kits-listing .pkl-card {
-  padding: 0 12px;
+  padding: 0 20px;
 }
 
 .section.press-kits-listing-container .press-kits-listing .pkl-card:first-child {
@@ -219,5 +219,7 @@ main > .section:has(.press-kits-listing) {
   .section.press-kits-listing-container .press-kits-listing .pkl-card {
     flex-direction: row;
      column-gap: 12px;
+     padding: 0 12px;
   }
+  
 }

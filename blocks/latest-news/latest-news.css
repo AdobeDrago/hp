@@ -42,6 +42,7 @@ main > .section:has(.latest-news) {
   flex-direction: column;
   padding: 28px 32px 36px;
   border: 1px solid var(--lnl-line);
+  border-top: 0 solid #000;
 }
 
 .latest-news .lnl-card-title {

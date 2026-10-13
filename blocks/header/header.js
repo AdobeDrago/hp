@@ -1,8 +1,8 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { decorateGtmLinks } from '../../scripts/gtm.js';
 import {
-  CLOSE_ICON, LABELS, loadMockData, openSignInDialog, getSession, clearSession,
-} from './mock-sign-in.js';
+  CLOSE_ICON, loadDemoUser, isSignedIn, setSignedIn,
+} from './demo-user.js';
 
 const isDesktop = window.matchMedia('(min-width: 1280px)');
 const accountHover = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
@@ -164,7 +164,7 @@ function buildAccountFlyout(list) {
   return flyout;
 }
 
-function wireMockSignIn(account, flyout) {
+function wireDemoSignIn(account, flyout) {
   const trigger = account.querySelector('.nav-signin-btn');
   const primary = flyout.querySelector('.nav-account-btn.primary');
   if (!primary) return;
@@ -190,33 +190,33 @@ function wireMockSignIn(account, flyout) {
   divider.className = 'nav-account-divider';
   flyout.append(divider, signOut);
 
-  const render = (session, labels = LABELS) => {
-    account.classList.toggle('nav-account-signed-in', !!session);
-    if (!session) return;
-    badge.textContent = session.initials;
-    initials.textContent = session.initials;
-    name.textContent = labels.greeting.replace('{name}', session.firstName);
+  const render = (data) => {
+    account.classList.toggle('nav-account-signed-in', !!data);
+    if (!data) return;
+    const { user: { firstName, initials: userInitials }, labels } = data;
+    badge.textContent = userInitials;
+    initials.textContent = userInitials;
+    name.textContent = labels.greeting.replace('{name}', firstName);
     signOut.textContent = labels.signOut;
   };
 
-  const session = getSession();
-  if (session) loadMockData().then((data) => render(session, data?.labels));
+  if (isSignedIn()) loadDemoUser().then((data) => { if (data) render(data); });
 
   primary.addEventListener('click', async (e) => {
     e.preventDefault();
-    const data = await loadMockData();
+    const data = await loadDemoUser();
     if (!data) {
       window.location.href = primary.href;
       return;
     }
-    setAccountOpen(account, false);
-    const signedIn = await openSignInDialog(data);
-    if (signedIn) render(signedIn, data.labels);
-    trigger.focus();
+    setSignedIn(true);
+    render(data);
+    setAccountOpen(account, true);
+    signOut.focus();
   });
 
   signOut.addEventListener('click', () => {
-    clearSession();
+    setSignedIn(false);
     render(null);
     setAccountOpen(account, false);
     trigger.focus();
@@ -315,7 +315,7 @@ function decorateTools(navTools) {
       setAccountOpen(account, false);
       signInBtn.focus();
     });
-    wireMockSignIn(account, flyout);
+    wireDemoSignIn(account, flyout);
   }
 
   group.append(searchWrap, cartBtn, account);

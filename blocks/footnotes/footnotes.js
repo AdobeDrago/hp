@@ -5,6 +5,28 @@ const DEFAULT_TITLE = 'Footnotes and Disclaimers';
 
 const DYNAMIC_REF_SELECTOR = 'a[href^="#footnote-"]';
 
+const ICON_EXTERNAL = '<svg class="footnotes-external-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M13.5 9v4.5h-11v-11H7M10 2.5h3.5V6M13.5 2.5 7.5 8.5"/></svg>';
+
+// URLs in the footnote text (trailing punctuation stays outside the link)
+const URL_PATTERN = /https?:\/\/[^\s]*[^\s.,;:)]/g;
+
+function appendLinkified(target, text) {
+  let last = 0;
+  text.replace(URL_PATTERN, (url, offset) => {
+    target.append(text.slice(last, offset));
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = url;
+    target.append(link);
+    link.insertAdjacentHTML('afterend', ICON_EXTERNAL);
+    last = offset + url.length;
+    return url;
+  });
+  target.append(text.slice(last));
+}
+
 function buildItem(id) {
   const li = document.createElement('li');
   li.className = 'footnotes-item';
@@ -42,16 +64,7 @@ function decorateDynamicRefs(block, dynamicList) {
 
   entries.forEach((entry) => {
     const li = buildItem(entry.id);
-    li.querySelector('.footnotes-item-content').textContent = entry.text;
-    const backlinks = refs.filter((ref) => ref.getAttribute('href') === `#${entry.id}`);
-    backlinks.forEach((ref) => {
-      const backlink = document.createElement('a');
-      backlink.className = 'footnotes-item-backlink';
-      backlink.href = `#${ref.id}`;
-      backlink.textContent = '↑';
-      backlink.setAttribute('aria-label', `Back to reference ${entry.number}`);
-      li.append(backlink);
-    });
+    appendLinkified(li.querySelector('.footnotes-item-content'), entry.text);
     dynamicList.append(li);
   });
 }

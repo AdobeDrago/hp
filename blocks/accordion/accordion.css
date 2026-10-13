@@ -148,8 +148,9 @@
   cursor: auto;
 }
 
+/* the answer keeps the question's right inset, clear of the icon (hp.com) */
 .accordion.faq details .accordion-item-body {
-  padding: 1rem var(--faq-pad) calc(var(--faq-pad) + 1.5rem);
+  padding: 1rem calc(var(--faq-pad) + var(--faq-icon-gap)) calc(var(--faq-pad) + 1.5rem) var(--faq-pad);
   font-size: 0.875rem;
   line-height: 1.5rem;
 }

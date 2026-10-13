@@ -1,5 +1,5 @@
 main > .section.media-feature-container {
-  margin: 1.875rem 0 0.625rem;
+  margin: 1.875rem 0 2.875rem;
 }
 
 .media-feature-container .media-feature-wrapper {
@@ -124,7 +124,7 @@ main > .section.media-feature-container {
 
 @media (width >= 768px) {
   main > .section.media-feature-container {
-    margin: 2.5rem 0 1.25rem;
+    margin: 2.5rem 0 3.5rem;
   }
 
   .media-feature-inner {
@@ -161,7 +161,7 @@ main > .section.media-feature-container {
 
 @media (width >= 1280px) {
   main > .section.media-feature-container {
-    margin: 3.125rem 0 1.875rem;
+    margin: 3.125rem 0 4.125rem;
   }
 
   .media-feature-content {

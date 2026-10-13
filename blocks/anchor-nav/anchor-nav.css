@@ -259,7 +259,7 @@ main .anchor-nav-cta a.button:focus-visible {
 
   .anchor-nav-links ul {
     display: flex;
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
 
   .anchor-nav-links li,
@@ -316,5 +316,9 @@ main .anchor-nav-cta a.button:focus-visible {
 @media (width >= 1280px) {
   .anchor-nav > div {
     padding: 0 2.25rem;
+  }
+
+  .anchor-nav-links ul {
+    font-size: 1.125rem;
   }
 }

@@ -117,20 +117,12 @@ main > .section.footnotes-container {
   text-decoration: underline;
 }
 
-.footnotes-content a.footnotes-item-backlink:any-link {
-  position: relative;
+/* external-link icon after footnote URLs (hp.com) */
+.footnotes-external-icon {
+  width: 0.875rem;
+  height: 0.875rem;
   margin-left: 0.25rem;
-  text-decoration: none;
-}
-
-.footnotes-content a.footnotes-item-backlink::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1.5rem;
-  height: 1.5rem;
-  transform: translate(-50%, -50%);
+  vertical-align: -0.125rem;
 }
 
 @media (width >= 768px) {

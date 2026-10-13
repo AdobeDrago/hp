@@ -202,14 +202,14 @@ body.media-feature-modal-open {
   max-height: none;
   margin: 0;
   border: 0;
-  padding: 1.5rem;
-  background-color: #000000b3;
+  padding: 5.25rem 1rem 1.5rem;
+  background-color: #1a1a1a80;
+  backdrop-filter: blur(1rem);
+  overflow-y: auto;
 }
 
 .media-feature-video-modal[open] {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
 }
 
 .media-feature-video-modal::backdrop {
@@ -217,9 +217,13 @@ body.media-feature-modal-open {
 }
 
 .media-feature-video-modal-dialog {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.625rem;
   width: 100%;
-  max-width: 60rem;
+  max-width: 40rem;
+  margin: 0 auto;
 }
 
 .media-feature-video-modal-media {
@@ -227,28 +231,47 @@ body.media-feature-modal-open {
   width: 100%;
   aspect-ratio: 16 / 9;
   border: 0;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   background-color: #000;
 }
 
 .media-feature-video-modal .media-feature-video-modal-close {
-  position: absolute;
-  top: -2.75rem;
-  right: 0;
-  width: 2rem;
-  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
   margin: 0;
   border: 0;
   border-radius: 50%;
   padding: 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-size: 1.25rem;
-  line-height: 1;
+  background-color: transparent;
+  color: #e8e8e8;
   cursor: pointer;
+}
+
+.media-feature-video-modal .media-feature-video-modal-close svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.5;
 }
 
 .media-feature-video-modal .media-feature-video-modal-close:hover,
 .media-feature-video-modal .media-feature-video-modal-close:focus-visible {
-  background-color: var(--background-color);
+  background-color: transparent;
+  color: #fff;
+}
+
+@media (width >= 441px) {
+  .media-feature-video-modal {
+    padding: 1.5rem 2rem;
+  }
+}
+
+@media (width >= 1115px) {
+  .media-feature-video-modal {
+    padding-top: 2.75rem;
+  }
 }

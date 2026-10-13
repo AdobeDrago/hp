@@ -45,7 +45,7 @@ function openVideoModal({ embed, src }, trigger) {
   closeBtn.type = 'button';
   closeBtn.className = 'media-feature-video-modal-close';
   closeBtn.setAttribute('aria-label', 'Close video');
-  closeBtn.innerHTML = '&times;';
+  closeBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>';
 
   const media = document.createElement(embed ? 'iframe' : 'video');
   media.className = 'media-feature-video-modal-media';

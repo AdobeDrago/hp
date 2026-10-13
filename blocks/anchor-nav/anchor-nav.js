@@ -33,23 +33,26 @@ function setupPinning(block, placeholder, title) {
   function update() {
     const offset = getHeaderOffset();
     const shouldPin = placeholder.getBoundingClientRect().top <= offset;
-    if (!shouldPin && !block.classList.contains('anchor-nav-open')) inPageHeight = block.offsetHeight;
+    const open = block.classList.contains('anchor-nav-open');
+    if (!shouldPin && !open) inPageHeight = block.offsetHeight;
+    const starts = links.map((link) => {
+      const target = getTarget(link);
+      return target && target.getBoundingClientRect().top
+        - (parseFloat(getComputedStyle(target).marginTop) || 0);
+    });
 
     placeholder.style.setProperty('--anchor-nav-placeholder-height', shouldPin ? `${inPageHeight}px` : '0px');
     block.style.setProperty('--anchor-nav-top', `${offset}px`);
     block.classList.toggle('anchor-nav-pinned', shouldPin);
 
-    if (!block.classList.contains('anchor-nav-open')) {
+    if (!open) {
       document.documentElement.style.scrollPaddingTop = `${offset + block.offsetHeight + 16}px`;
     }
 
     const limit = offset + inPageHeight + 1;
     let active = null;
-    links.forEach((link) => {
-      const target = getTarget(link);
-      const start = target && target.getBoundingClientRect().top
-        - (parseFloat(getComputedStyle(target).marginTop) || 0);
-      if (target && start <= limit) active = link;
+    links.forEach((link, i) => {
+      if (starts[i] !== null && starts[i] <= limit) active = link;
     });
     links.forEach((link) => {
       const isActive = link === active;
@@ -60,12 +63,21 @@ function setupPinning(block, placeholder, title) {
     title.textContent = active ? active.textContent : DEFAULT_TITLE;
   }
 
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  isDesktop.addEventListener('change', update);
+  let frame = 0;
+  const scheduleUpdate = () => {
+    if (frame) return;
+    frame = requestAnimationFrame(() => {
+      frame = 0;
+      update();
+    });
+  };
 
-  requestAnimationFrame(() => requestAnimationFrame(update));
-  window.addEventListener('load', update);
+  window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  window.addEventListener('resize', scheduleUpdate);
+  isDesktop.addEventListener('change', scheduleUpdate);
+
+  requestAnimationFrame(scheduleUpdate);
+  window.addEventListener('load', scheduleUpdate);
 }
 
 export default function decorate(block) {

@@ -49,7 +49,10 @@ async function loadRelatedLinksFallback() {
   section.dataset.sectionStatus = 'loaded';
 }
 
-loadRelatedLinksFallback();
+loadRelatedLinksFallback().catch((error) => {
+  // eslint-disable-next-line no-console
+  console.error('failed to load related links', error);
+});
 
 // OneTrust category that covers analytics (Performance cookies)
 const ANALYTICS_CONSENT_GROUP = 'C0002';

@@ -1,12 +1,13 @@
-import { fetchPlaceholders, getMetadata, readBlockConfig } from '../../scripts/aem.js';
+import { fetchPlaceholders, readBlockConfig } from '../../scripts/aem.js';
 import {
-  createElement, createImage, getField, formatPrice, getSearchLocale,
+  HAWK_SEARCH_API, createElement, createImage, getField, formatPrice,
+  fetchSupport, getClientGuid, supportProductUrl, supportSearchUrl,
 } from '../../scripts/search-utils.js';
 
-const SEARCH_API = 'https://hp.searchapi-na.hawksearch.com/api/v2/search';
-const SUPPORT_API = 'https://css.api.hp.com/knowledge/v2/typeahead/search';
-const DEFAULT_CLIENT_GUID = 'bdeebee3d2b74c8ea58522bb1db61f8e';
-const SUPPORT_URL = 'https://support.hp.com';
+const SUPPORT_LIMIT = 24;
+
+// gives each search block on a page its own ids
+let blockCount = 0;
 
 const TABS = [
   { type: 'product', label: 'Shop', placeholder: 'searchShop' },
@@ -15,17 +16,17 @@ const TABS = [
 ];
 
 const SORT_OPTIONS = [
-  { value: 'score', label: 'Best match' },
-  { value: 'priceasc', label: 'Price: low to high' },
-  { value: 'pricedsc', label: 'Price: high to low' },
-  { value: 'new', label: 'Newest' },
-  { value: 'rating', label: 'Top rated' },
+  { value: 'score', label: 'Best match', placeholder: 'searchSortBest' },
+  { value: 'priceasc', label: 'Price: low to high', placeholder: 'searchSortPriceAsc' },
+  { value: 'pricedsc', label: 'Price: high to low', placeholder: 'searchSortPriceDesc' },
+  { value: 'new', label: 'Newest', placeholder: 'searchSortNewest' },
+  { value: 'rating', label: 'Top rated', placeholder: 'searchSortRating' },
 ];
 
 async function fetchResults(clientGuid, {
-  keyword, type, page, perPage, sortBy,
+  keyword, type, page, sortBy,
 }, signal) {
-  const resp = await fetch(SEARCH_API, {
+  const resp = await fetch(HAWK_SEARCH_API, {
     method: 'POST',
     signal,
     headers: {
@@ -36,32 +37,12 @@ async function fetchResults(clientGuid, {
       Keyword: keyword,
       Query: `type:${type}`,
       PageNo: page,
-      MaxPerPage: perPage,
-      SortBy: sortBy,
+      // the sort options are product sorts; other tabs always use relevance
+      SortBy: type === 'product' ? sortBy : 'score',
     }),
   });
   if (!resp.ok) throw new Error(`search failed: ${resp.status}`);
   return resp.json();
-}
-
-async function fetchSupport(apiKey, keyword, signal) {
-  if (!apiKey) return [];
-  const params = new URLSearchParams({
-    q: keyword,
-    resultLimit: 24,
-    languageCode: getSearchLocale().language,
-    store: 'tmsstore',
-    printFields: 'productid,productname,seofriendlyname',
-    filters: 'class:(pm_series_value OR pm_name_value OR pm_number_value)',
-    excludeDescendants: true,
-  });
-  const resp = await fetch(`${SUPPORT_API}?${params}`, {
-    signal,
-    headers: { 'x-api-key': apiKey },
-  });
-  // returns an empty 200 when the key is missing or wrong
-  const text = await resp.text();
-  return text ? JSON.parse(text).results || [] : [];
 }
 
 function buildProductCard(doc) {
@@ -115,18 +96,20 @@ function buildContentCard(doc) {
 
 function buildSupportCard(product) {
   const link = createElement('a', 'search-card search-support', product.productname);
-  const { locale } = getSearchLocale();
-  link.href = `${SUPPORT_URL}/${locale}/product/${product.seofriendlyname}/${product.productid}`;
+  link.href = supportProductUrl(product);
   return link;
 }
 
 export default async function decorate(block) {
   const config = readBlockConfig(block);
-  const clientGuid = config['client-guid'] || getMetadata('search-client-guid') || DEFAULT_CLIENT_GUID;
-  const supportApiKey = config['support-api-key'] || getMetadata('support-api-key');
-  const perPage = parseInt(config['results-per-page'], 10) || 24;
+  const clientGuid = config['client-guid'] || getClientGuid();
   const placeholders = await fetchPlaceholders();
   const label = (key, fallback) => placeholders[key] || fallback;
+
+  blockCount += 1;
+  const id = `search-${blockCount}`;
+  // q/type/page/sort are page-wide, so only the first search block reads and writes them
+  const syncUrl = blockCount === 1;
 
   block.innerHTML = `
     <form class="search-box" role="search">
@@ -138,7 +121,9 @@ export default async function decorate(block) {
       <p class="search-summary" aria-live="polite"></p>
       <label class="search-sort-label"><span></span> <select class="search-sort"></select></label>
     </div>
-    <ul class="search-results" id="search-results" role="tabpanel"></ul>
+    <div class="search-panel" id="${id}-panel" role="tabpanel">
+      <ul class="search-results"></ul>
+    </div>
     <nav class="search-pagination"></nav>
   `;
 
@@ -148,42 +133,59 @@ export default async function decorate(block) {
   const summary = block.querySelector('.search-summary');
   const sortLabel = block.querySelector('.search-sort-label');
   const sortSelect = block.querySelector('.search-sort');
+  const tabPanel = block.querySelector('.search-panel');
   const results = block.querySelector('.search-results');
   const pagination = block.querySelector('.search-pagination');
 
+  form.setAttribute('aria-label', label('searchResultsFormLabel', 'Search results'));
   input.placeholder = label('searchPlaceholder', 'What are you looking for?');
   input.setAttribute('aria-label', input.placeholder);
   form.querySelector('.search-submit').textContent = label('searchButton', 'Search');
   sortLabel.querySelector('span').textContent = label('searchSortBy', 'Sort by');
   pagination.setAttribute('aria-label', label('searchPages', 'Search results pages'));
-  SORT_OPTIONS.forEach((option) => sortSelect.add(new Option(option.label, option.value)));
+  SORT_OPTIONS.forEach((option) => {
+    sortSelect.add(new Option(label(option.placeholder, option.label), option.value));
+  });
 
-  const params = new URLSearchParams(window.location.search);
-  const state = {
-    keyword: (params.get('q') || '').trim(),
-    type: TABS.some((tab) => tab.type === params.get('type')) ? params.get('type') : 'product',
-    page: parseInt(params.get('page'), 10) || 1,
-    sortBy: 'score',
+  // the url is the source of truth, so links, reloads and back/forward all restore a search
+  function readStateFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const sort = params.get('sort');
+    return {
+      keyword: (params.get('q') || '').trim(),
+      type: TABS.some((tab) => tab.type === params.get('type')) ? params.get('type') : 'product',
+      page: Math.max(parseInt(params.get('page'), 10) || 1, 1),
+      sortBy: SORT_OPTIONS.some((option) => option.value === sort) ? sort : 'score',
+    };
+  }
+  const state = syncUrl ? readStateFromUrl() : {
+    keyword: '', type: 'product', page: 1, sortBy: 'score',
   };
   let controller;
 
   TABS.forEach((tab) => {
     const button = createElement('button', 'search-tab', label(tab.placeholder, tab.label));
     button.type = 'button';
-    button.id = `search-tab-${tab.type}`;
+    button.id = `${id}-tab-${tab.type}`;
     button.dataset.type = tab.type;
     button.setAttribute('role', 'tab');
-    button.setAttribute('aria-controls', results.id);
+    button.setAttribute('aria-controls', tabPanel.id);
     tabList.append(button);
   });
 
-  function updateUrl() {
+  // user actions add a history entry; corrections (first load, page clamp) replace it
+  function updateUrl(addHistory) {
+    if (!syncUrl) return;
     const url = new URL(window.location.href);
     url.searchParams.set('q', state.keyword);
     url.searchParams.set('type', state.type);
     if (state.page > 1) url.searchParams.set('page', state.page);
     else url.searchParams.delete('page');
-    window.history.replaceState({}, '', url);
+    if (state.sortBy !== 'score') url.searchParams.set('sort', state.sortBy);
+    else url.searchParams.delete('sort');
+    if (url.href === window.location.href) return;
+    if (addHistory) window.history.pushState(null, '', url);
+    else window.history.replaceState(window.history.state, '', url);
   }
 
   function updateTabs() {
@@ -192,7 +194,7 @@ export default async function decorate(block) {
       button.setAttribute('aria-selected', selected);
       button.tabIndex = selected ? 0 : -1;
     });
-    results.setAttribute('aria-labelledby', `search-tab-${state.type}`);
+    tabPanel.setAttribute('aria-labelledby', `${id}-tab-${state.type}`);
     sortLabel.hidden = state.type !== 'product';
   }
 
@@ -200,19 +202,20 @@ export default async function decorate(block) {
     pagination.textContent = '';
     if (totalPages < 2) return;
 
-    const first = Math.max(1, state.page - 2);
+    // keep five page buttons, even near the start or end
+    const first = Math.max(1, Math.min(state.page - 2, totalPages - 4));
     const last = Math.min(totalPages, first + 4);
-    const addButton = (text, page, disabled) => {
+    const addButton = (text, page, disabled, isPageNumber = false) => {
       const button = createElement('button', '', text);
       button.type = 'button';
       button.disabled = disabled;
-      if (text === String(state.page)) button.setAttribute('aria-current', 'page');
+      if (isPageNumber && page === state.page) button.setAttribute('aria-current', 'page');
       button.addEventListener('click', () => goToPage(page));
       pagination.append(button);
     };
 
     addButton(label('searchPrevious', 'Prev'), state.page - 1, state.page === 1);
-    for (let page = first; page <= last; page += 1) addButton(String(page), page, false);
+    for (let page = first; page <= last; page += 1) addButton(String(page), page, false, true);
     addButton(label('searchNext', 'Next'), state.page + 1, state.page === totalPages);
   }
 
@@ -220,14 +223,24 @@ export default async function decorate(block) {
     summary.textContent = `${label('searchNoResults', 'No results found for')} "${state.keyword}"`;
     if (state.type === 'support') {
       const link = createElement('a', '', label('searchSupportLink', 'Search HP Support'));
-      link.href = `${SUPPORT_URL}/${getSearchLocale().locale}/search?q=${encodeURIComponent(state.keyword)}`;
+      link.href = supportSearchUrl(state.keyword);
       summary.append('. ', link);
     }
   }
 
-  async function runSearch(scroll = false) {
+  async function runSearch(scroll = false, addHistory = false) {
     updateTabs();
     if (!state.keyword) {
+      if (controller) controller.abort();
+      // drop the old ?q= too, or a reload would bring the previous results back
+      if (syncUrl) {
+        const url = new URL(window.location.href);
+        ['q', 'page', 'sort'].forEach((param) => url.searchParams.delete(param));
+        window.history.replaceState(window.history.state, '', url);
+      }
+      block.classList.remove('is-loading');
+      results.textContent = '';
+      pagination.textContent = '';
       summary.textContent = label('searchEnterTerm', 'Enter a search term to see results.');
       return;
     }
@@ -236,7 +249,7 @@ export default async function decorate(block) {
     controller = new AbortController();
     const { signal } = controller;
     block.classList.add('is-loading');
-    updateUrl();
+    updateUrl(addHistory);
 
     try {
       let cards;
@@ -244,15 +257,21 @@ export default async function decorate(block) {
       let totalPages = 0;
 
       if (state.type === 'support') {
-        const products = await fetchSupport(supportApiKey, state.keyword, signal);
+        const products = await fetchSupport(state.keyword, SUPPORT_LIMIT, signal);
         cards = products.map(buildSupportCard);
         total = products.length;
       } else {
-        const data = await fetchResults(clientGuid, { ...state, perPage }, signal);
+        const data = await fetchResults(clientGuid, state, signal);
         const buildCard = state.type === 'product' ? buildProductCard : buildContentCard;
         cards = (data.Results || []).map((result) => buildCard(result.Document));
         total = data.Pagination?.NofResults || 0;
         totalPages = data.Pagination?.NofPages || 0;
+        // a ?page= past the end (old link, fewer results now) goes to the last page instead
+        if (totalPages && state.page > totalPages) {
+          state.page = totalPages;
+          runSearch(scroll);
+          return;
+        }
       }
 
       results.replaceChildren(...cards.map((card) => {
@@ -261,7 +280,14 @@ export default async function decorate(block) {
         return li;
       }));
 
-      if (total) {
+      if (state.type === 'support' && total >= SUPPORT_LIMIT) {
+        // the support api only returns its top matches, so don't present them as the full count
+        const topFor = label('searchTopSupportFor', 'Top support matches for');
+        summary.textContent = `${topFor} "${state.keyword}"`;
+        const more = createElement('a', '', label('searchSupportLink', 'Search HP Support'));
+        more.href = supportSearchUrl(state.keyword);
+        summary.append('. ', more);
+      } else if (total) {
         const resultsFor = label('searchResultsFor', 'results for');
         summary.textContent = `${total.toLocaleString()} ${resultsFor} "${state.keyword}"`;
       } else {
@@ -270,7 +296,7 @@ export default async function decorate(block) {
 
       renderPagination(totalPages, (page) => {
         state.page = page;
-        runSearch(true);
+        runSearch(true, true);
       });
       if (scroll) block.scrollIntoView({ behavior: 'smooth' });
     } catch (error) {
@@ -287,14 +313,14 @@ export default async function decorate(block) {
     e.preventDefault();
     state.keyword = input.value.trim();
     state.page = 1;
-    runSearch();
+    runSearch(false, true);
   });
 
-  function selectTab(tab) {
+  function selectTab(tab, addHistory = true) {
     if (tab.dataset.type === state.type) return;
     state.type = tab.dataset.type;
     state.page = 1;
-    runSearch();
+    runSearch(false, addHistory);
   }
 
   tabList.addEventListener('click', (e) => {
@@ -316,15 +342,26 @@ export default async function decorate(block) {
     if (!next) return;
     e.preventDefault();
     next.focus();
-    selectTab(next);
+    // arrowing across tabs shouldn't leave a back-button step for each one
+    selectTab(next, false);
   });
 
   sortSelect.addEventListener('change', () => {
     state.sortBy = sortSelect.value;
     state.page = 1;
-    runSearch();
+    runSearch(false, true);
   });
 
+  if (syncUrl) {
+    window.addEventListener('popstate', () => {
+      Object.assign(state, readStateFromUrl());
+      input.value = state.keyword;
+      sortSelect.value = state.sortBy;
+      runSearch();
+    });
+  }
+
   input.value = state.keyword;
+  sortSelect.value = state.sortBy;
   runSearch();
 }

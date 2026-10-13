@@ -239,7 +239,9 @@ function decorateTools(navTools) {
   const searchForm = document.createElement('form');
   searchForm.className = 'nav-search-form';
   searchForm.setAttribute('role', 'search');
-  searchForm.action = getMetadata('search-results-page') || '/search';
+  searchForm.setAttribute('aria-label', 'Site search');
+  // search-suggest.js swaps in the locale-aware page once it loads
+  searchForm.action = getMetadata('search-results-page') || '/us-en/newsroom/search';
   searchForm.hidden = true;
   const searchInput = document.createElement('input');
   searchInput.type = 'search';
@@ -267,6 +269,16 @@ function decorateTools(navTools) {
   });
   searchClose.addEventListener('click', () => setSearchOpen(navTools.closest('nav'), false));
   searchWrap.append(searchBtn, searchForm, searchClose);
+
+  // fall back to the page's locale if someone submits before the panel code has loaded
+  searchForm.addEventListener('submit', async (e) => {
+    if (searchForm.dataset.ready || getMetadata('search-results-page')) return;
+    e.preventDefault();
+    if (!searchInput.value.trim()) return;
+    const { default: getPageLocale } = await import('../../scripts/locale.js');
+    searchForm.action = `/${getPageLocale()}/newsroom/search`;
+    searchForm.submit();
+  });
 
   // load the results panel on first use
   searchInput.addEventListener('focus', async () => {

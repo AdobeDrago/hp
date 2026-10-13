@@ -1,19 +1,14 @@
-import { fetchPlaceholders, getMetadata, loadCSS } from '../../scripts/aem.js';
+import { fetchPlaceholders, loadCSS } from '../../scripts/aem.js';
+import { pushEvent } from '../../scripts/gtm.js';
 import {
-  createElement, createImage, getField, formatPrice, getSearchLocale,
+  HAWK_AUTOCOMPLETE_API, createElement, createImage, getField, formatPrice,
+  fetchSupport, getResultsPage, getClientGuid, safeDecode, supportProductUrl,
 } from '../../scripts/search-utils.js';
-
-const AUTOCOMPLETE_API = 'https://hp.searchapi-na.hawksearch.com/api/v2/autocomplete';
-const SUPPORT_API = 'https://css.api.hp.com/knowledge/v2/typeahead/search';
-const DEFAULT_CLIENT_GUID = 'bdeebee3d2b74c8ea58522bb1db61f8e';
-const DEFAULT_RESULTS_PAGE = '/search';
-const SUPPORT_URL = 'https://support.hp.com';
 
 const MIN_CHARS = 2;
 
 function pushSearchEvent(event, term) {
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event, search_term: term });
+  pushEvent({ event, search_term: term });
 }
 
 // autocomplete items keep their fields under Results.Document
@@ -35,7 +30,7 @@ function buildSuggestionLabel(value) {
 }
 
 async function fetchSuggestions(clientGuid, keyword, signal) {
-  const resp = await fetch(AUTOCOMPLETE_API, {
+  const resp = await fetch(HAWK_AUTOCOMPLETE_API, {
     method: 'POST',
     signal,
     headers: {
@@ -51,36 +46,22 @@ async function fetchSuggestions(clientGuid, keyword, signal) {
   return resp.json();
 }
 
-async function fetchSupport(apiKey, keyword, signal) {
-  if (!apiKey) return [];
-  const params = new URLSearchParams({
-    q: keyword,
-    resultLimit: 3,
-    languageCode: getSearchLocale().language,
-    store: 'tmsstore',
-    printFields: 'productid,productname,seofriendlyname',
-    filters: 'class:(pm_series_value OR pm_name_value OR pm_number_value)',
-    excludeDescendants: true,
-  });
-  const resp = await fetch(`${SUPPORT_API}?${params}`, {
-    signal,
-    headers: { 'x-api-key': apiKey },
-  });
-  // returns an empty 200 when the key is missing or wrong
-  const text = await resp.text();
-  return text ? JSON.parse(text).results || [] : [];
-}
-
-function buildSection(title, count, seeAllUrl, seeAllLabel) {
+// listbox may only own groups and options, so headings are role="none" and only name their group
+function buildSection(key, title, count, seeAllUrl, seeAllLabel) {
   const section = createElement('section', 'nav-search-section');
+  const head = createElement('div', 'nav-search-heading');
   const heading = createElement('h3', '', title);
+  heading.id = `nav-search-${key}`;
+  heading.setAttribute('role', 'none');
   if (count) heading.append(createElement('span', '', `(${count})`));
   const seeAll = createElement('a', '', seeAllLabel);
   seeAll.href = seeAllUrl;
-  heading.append(seeAll);
+  head.append(heading, seeAll);
+  section.setAttribute('role', 'group');
+  section.setAttribute('aria-labelledby', heading.id);
 
   const list = createElement('ul');
-  section.append(heading, list);
+  section.append(head, list);
   return { section, list };
 }
 
@@ -120,8 +101,7 @@ function buildContentCard(item) {
 
 function buildSupportCard(product) {
   const link = createElement('a', 'nav-search-card nav-search-support', product.productname);
-  const { locale } = getSearchLocale();
-  link.href = `${SUPPORT_URL}/${locale}/product/${product.seofriendlyname}/${product.productid}`;
+  link.href = supportProductUrl(product);
   return link;
 }
 
@@ -131,35 +111,64 @@ export default async function initSearchPanel(nav, form, input) {
     fetchPlaceholders(),
     loadCSS(`${window.hlx.codeBasePath}/blocks/header/search-suggest.css`),
   ]);
-  const clientGuid = getMetadata('search-client-guid') || DEFAULT_CLIENT_GUID;
-  const supportApiKey = getMetadata('support-api-key');
-  const resultsPage = getMetadata('search-results-page') || DEFAULT_RESULTS_PAGE;
+  const clientGuid = getClientGuid();
+  const resultsPage = getResultsPage();
+  form.action = resultsPage;
+  form.dataset.ready = 'true';
   const resultsUrl = (keyword, type = 'product') => `${resultsPage}?q=${encodeURIComponent(keyword)}&type=${type}`;
   const label = (key, fallback) => placeholders[key] || fallback;
+  form.setAttribute('aria-label', label('searchSiteLabel', 'Site search'));
 
   const panel = createElement('div', 'nav-search-panel');
   panel.id = 'nav-search-panel';
   panel.hidden = true;
+  panel.setAttribute('role', 'listbox');
+  panel.setAttribute('aria-label', label('searchSuggestionsLabel', 'Search suggestions'));
   const backdrop = createElement('div', 'nav-search-backdrop');
   backdrop.hidden = true;
   nav.append(panel, backdrop);
+  input.setAttribute('role', 'combobox');
+  input.setAttribute('aria-autocomplete', 'list');
+  input.setAttribute('aria-expanded', 'false');
   input.setAttribute('aria-controls', panel.id);
 
   let controller;
   let debounceTimer;
+  let activeIndex = -1;
+
+  const getOptions = () => [...panel.querySelectorAll('[role="option"]')];
+
+  // focus stays in the input; the highlighted option is announced via aria-activedescendant
+  function setActive(index) {
+    const options = getOptions();
+    options.forEach((option) => option.classList.remove('is-active'));
+    activeIndex = index;
+    const active = options[index];
+    if (active) {
+      active.classList.add('is-active');
+      active.scrollIntoView({ block: 'nearest' });
+      input.setAttribute('aria-activedescendant', active.id);
+    } else {
+      input.removeAttribute('aria-activedescendant');
+    }
+  }
 
   function hidePanel() {
     clearTimeout(debounceTimer);
     if (controller) controller.abort();
     panel.classList.remove('is-loading');
+    panel.removeAttribute('aria-busy');
     panel.hidden = true;
     backdrop.hidden = true;
+    input.setAttribute('aria-expanded', 'false');
+    setActive(-1);
   }
 
   function showPanel() {
     nav.style.setProperty('--search-panel-top', `${nav.getBoundingClientRect().bottom}px`);
     panel.hidden = false;
     backdrop.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
   }
 
   function renderPanel(keyword, data, support) {
@@ -169,7 +178,7 @@ export default async function initSearchPanel(nav, form, input) {
     const suggestionList = createElement('ul');
     (data.Popular || []).forEach((term) => {
       const link = createElement('a');
-      link.href = resultsUrl(decodeURIComponent(term.RawValue));
+      link.href = resultsUrl(safeDecode(term.RawValue));
       link.append(buildSuggestionLabel(term.Value));
       const li = createElement('li');
       li.append(link);
@@ -178,12 +187,16 @@ export default async function initSearchPanel(nav, form, input) {
     const allResults = createElement('a', 'nav-search-all', label('searchSeeAllResults', 'See all results'));
     allResults.href = resultsUrl(keyword);
     const suggestionsTitle = createElement('h3', '', label('searchSuggestions', 'Suggestions'));
+    suggestionsTitle.id = 'nav-search-suggestions';
+    suggestionsTitle.setAttribute('role', 'none');
+    suggestions.setAttribute('role', 'group');
+    suggestions.setAttribute('aria-labelledby', suggestionsTitle.id);
     suggestions.append(suggestionsTitle, suggestionList, allResults);
 
     const results = createElement('div', 'nav-search-results');
-    const addSection = (title, count, url, cards) => {
+    const addSection = (key, title, count, url, cards) => {
       if (!cards.length) return;
-      const { section, list } = buildSection(title, count, url, seeAll);
+      const { section, list } = buildSection(key, title, count, url, seeAll);
       cards.forEach((card) => {
         const li = createElement('li');
         li.append(card);
@@ -196,18 +209,21 @@ export default async function initSearchPanel(nav, form, input) {
     // skip articles with no url
     const articles = (data.Content || []).filter((c) => itemField(c, 'pdp_url') || c.Url).slice(0, 3);
     addSection(
+      'shop',
       label('searchShop', 'Shop'),
       data.ProductCount,
       resultsUrl(keyword),
       products.map(buildProductCard),
     );
     addSection(
+      'explore',
       label('searchExplore', 'Explore'),
       data.ContentCount,
       resultsUrl(keyword, 'content'),
       articles.map(buildContentCard),
     );
     addSection(
+      'support',
       label('searchSupport', 'Support'),
       0,
       resultsUrl(keyword, 'support'),
@@ -223,6 +239,14 @@ export default async function initSearchPanel(nav, form, input) {
     const inner = createElement('div', 'nav-search-panel-inner');
     inner.append(suggestions, results);
     panel.replaceChildren(inner);
+    panel.querySelectorAll('ul, li, .nav-search-heading, .nav-search-panel-inner, .nav-search-results')
+      .forEach((el) => el.setAttribute('role', 'none'));
+    panel.querySelectorAll('a').forEach((link, i) => {
+      link.id = `nav-search-option-${i}`;
+      link.setAttribute('role', 'option');
+      link.tabIndex = -1;
+    });
+    setActive(-1);
     panel.classList.remove('is-loading');
     showPanel();
   }
@@ -242,7 +266,7 @@ export default async function initSearchPanel(nav, form, input) {
 
     const [suggestions, support] = await Promise.allSettled([
       fetchSuggestions(clientGuid, keyword, signal),
-      fetchSupport(supportApiKey, keyword, signal),
+      fetchSupport(keyword, 3, signal),
     ]);
     if (signal.aborted) return;
     panel.removeAttribute('aria-busy');
@@ -283,8 +307,21 @@ export default async function initSearchPanel(nav, form, input) {
     if (nav.classList.contains('nav-search-open')) nav.querySelector('.nav-search-close')?.click();
   });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') hidePanel();
+  // header.js closes the bar on Escape below 1680px; this covers the always-visible box above that
+  input.addEventListener('keydown', (e) => {
+    const options = getOptions();
+    if (e.key === 'ArrowDown' && !panel.hidden && options.length) {
+      e.preventDefault();
+      setActive((activeIndex + 1) % options.length);
+    } else if (e.key === 'ArrowUp' && !panel.hidden && options.length) {
+      e.preventDefault();
+      setActive(activeIndex <= 0 ? options.length - 1 : activeIndex - 1);
+    } else if (e.key === 'Enter' && options[activeIndex]) {
+      e.preventDefault();
+      options[activeIndex].click();
+    } else if (e.key === 'Escape') {
+      hidePanel();
+    }
   });
 
   // close along with the header search, whatever closed it

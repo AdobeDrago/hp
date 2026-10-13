@@ -1,3 +1,5 @@
+/* HP blue #024ad8 and the border greys have no site token yet; --link-color is a different blue */
+
 /* search results panel */
 header nav .nav-search-backdrop {
   position: fixed;
@@ -14,7 +16,7 @@ header nav .nav-search-panel {
   max-height: calc(100vh - var(--search-panel-top, 55px));
   overflow-y: auto;
   overscroll-behavior: contain;
-  background: #fff;
+  background: var(--background-color);
   border-top: 1px solid #e0e0e0;
   z-index: 41;
 }
@@ -32,21 +34,29 @@ header nav .nav-search-panel-inner {
 }
 
 header nav .nav-search-panel h3 {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
   margin: 0 0 12px;
   font-size: 18px;
   font-weight: 400;
 }
 
-header nav .nav-search-panel h3 span {
-  font-size: 14px;
-  color: #767676;
+header nav .nav-search-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-header nav .nav-search-panel h3 a {
-  margin-left: 12px;
+header nav .nav-search-heading h3 {
+  margin: 0;
+}
+
+header nav .nav-search-panel h3 span {
+  margin-left: 4px;
+  font-size: 14px;
+  color: var(--dark-color);
+}
+
+header nav .nav-search-heading a {
   font-size: 13px;
   color: #024ad8;
   text-decoration: underline;
@@ -68,16 +78,16 @@ header nav .nav-search-suggestions li a {
   display: block;
   padding: 6px 0;
   font-size: 15px;
-  color: #767676;
+  color: var(--dark-color);
   text-decoration: none;
 }
 
 header nav .nav-search-suggestions li a strong {
-  color: #191919;
+  color: var(--text-color);
 }
 
 header nav .nav-search-suggestions li a:hover {
-  color: #191919;
+  color: var(--text-color);
 }
 
 header nav .nav-search-suggestions .nav-search-all {
@@ -85,7 +95,7 @@ header nav .nav-search-suggestions .nav-search-all {
   padding: 10px 16px;
   border-radius: 4px;
   background: #024ad8;
-  color: #fff;
+  color: var(--background-color);
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
@@ -116,12 +126,12 @@ header nav .nav-search-card {
   box-sizing: border-box;
   padding: 8px;
   border: 1px solid #e0e0e0;
-  color: #191919;
+  color: var(--text-color);
   text-decoration: none;
 }
 
 header nav .nav-search-card:hover {
-  border-color: #191919;
+  border-color: var(--text-color);
 }
 
 header nav .nav-search-card p {
@@ -143,7 +153,7 @@ header nav .nav-search-card-text {
   margin-top: 4px;
   font-size: 12px;
   line-height: 1.35;
-  color: #555;
+  color: var(--dark-color);
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
@@ -166,7 +176,7 @@ header nav .nav-search-content img {
 header nav .nav-search-msrp {
   margin-top: 12px;
   font-size: 12px;
-  color: #767676;
+  color: var(--dark-color);
 }
 
 header nav .nav-search-price {
@@ -186,6 +196,7 @@ header nav .nav-search-empty {
   font-size: 15px;
 }
 
+/* 1115px matches the header's own desktop breakpoint in header.css */
 @media (width >= 1115px) {
   header nav .nav-search-panel-inner {
     grid-template-columns: 260px 1fr;
@@ -226,7 +237,7 @@ header nav .nav-search-loading {
   margin: 0;
   padding: 24px 16px;
   font-size: 15px;
-  color: #555;
+  color: var(--dark-color);
 }
 
 @keyframes nav-search-loading {
@@ -239,4 +250,10 @@ header nav .nav-search-loading {
     animation: none;
     background: #024ad8;
   }
+}
+
+/* option highlighted with the arrow keys */
+header nav .nav-search-panel [role='option'].is-active {
+  outline: 2px solid #024ad8;
+  outline-offset: -2px;
 }

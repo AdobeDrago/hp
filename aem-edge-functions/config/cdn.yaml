@@ -1,6 +1,24 @@
 kind: 'CDN'
 version: '1'
 data:
+  trafficFilters:
+    rules:
+      # /api/support-search spends HP's support API quota, so cap each client IP.
+      # One shopper typing peaks at ~4 req/s (250ms debounce); 20 leaves room for several
+      # shoppers behind one office/mobile IP while still stopping scrapers.
+      # limit = requests per second averaged over the window; penalty = seconds blocked.
+      - name: rate-limit-support-search
+        when:
+          reqProperty: path
+          equals: /api/support-search
+        rateLimit:
+          limit: 20
+          window: 10
+          penalty: 60
+          count: all
+          groupBy:
+            - reqProperty: clientIp
+        action: block
   originSelectors:
     rules:
       # Route all newsroom pages (landing + articles) to the related-links edge
@@ -9,6 +27,14 @@ data:
         when:
           reqProperty: path
           matches: '^/us-en/newsroom(/.*)?$'
+        action:
+          type: selectAemOrigin
+          originName: edgefunction-related-links
+      # Support catalog search for the site's search UI; the function adds the API key.
+      - name: route-support-search-to-edge-function
+        when:
+          reqProperty: path
+          equals: /api/support-search
         action:
           type: selectAemOrigin
           originName: edgefunction-related-links

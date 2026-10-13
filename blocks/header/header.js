@@ -524,10 +524,21 @@ export default async function decorate(block) {
     if (account && !account.contains(e.target)) setAccountOpen(account, false);
   });
 
+  nav.addEventListener('keydown', (e) => {
+    if (e.key === ' ' && e.target.matches('a[role="button"]')) {
+      e.preventDefault();
+      e.target.click();
+    }
+  });
+
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Escape') {
       closeAllPanels(nav);
-      setAccountOpen(nav.querySelector('.nav-account'), false);
+      const account = nav.querySelector('.nav-account');
+      const flyout = account && account.querySelector('.nav-account-flyout');
+      const focusInFlyout = flyout && flyout.contains(document.activeElement);
+      setAccountOpen(account, false);
+      if (focusInFlyout) account.querySelector('.nav-signin-btn').focus();
       if (nav.classList.contains('nav-search-open')) setSearchOpen(nav, false);
       if (!isDesktop.matches) toggleMobileMenu(nav, true);
     }

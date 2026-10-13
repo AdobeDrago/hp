@@ -34,10 +34,8 @@ function parseVideo(href) {
 }
 
 function openVideoModal({ embed, src }, trigger) {
-  const overlay = document.createElement('div');
+  const overlay = document.createElement('dialog');
   overlay.className = 'media-feature-video-modal';
-  overlay.setAttribute('role', 'dialog');
-  overlay.setAttribute('aria-modal', 'true');
   overlay.setAttribute('aria-label', 'Video player');
 
   const dialog = document.createElement('div');
@@ -64,51 +62,42 @@ function openVideoModal({ embed, src }, trigger) {
   dialog.append(closeBtn, media);
   overlay.append(dialog);
 
-  function onKeydown(e) {
-    if (e.key === 'Escape') close(); // eslint-disable-line no-use-before-define
-    if (e.key !== 'Tab') return;
-    const [first, last] = [closeBtn, media];
-    if (e.shiftKey && document.activeElement === first) {
-      e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault();
-      first.focus();
-    }
-  }
-
-  function close() {
-    overlay.remove();
-    document.removeEventListener('keydown', onKeydown);
-    trigger.focus();
-  }
-
   overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) close();
+    if (e.target === overlay) overlay.close();
   });
-  closeBtn.addEventListener('click', close);
-  document.addEventListener('keydown', onKeydown);
+  closeBtn.addEventListener('click', () => overlay.close());
+  overlay.addEventListener('close', () => {
+    overlay.remove();
+    document.body.classList.remove('media-feature-modal-open');
+    trigger.focus();
+  });
 
   document.body.append(overlay);
+  document.body.classList.add('media-feature-modal-open');
+  overlay.showModal();
   closeBtn.focus();
 }
 
 export default function decorate(block) {
   const row = block.firstElementChild;
+  if (!row) return;
   const [imageCell, contentCell] = row.children;
 
   row.className = 'media-feature-inner';
 
-  imageCell.className = 'media-feature-image';
-  contentCell.className = 'media-feature-content';
-
-  const img = imageCell.querySelector('img');
-  if (img) {
-    imageCell.replaceChildren(createOptimizedPicture(img.src, img.alt, true, [
-      { media: '(min-width: 1024px)', width: '1200' },
-      { width: '750' },
-    ]));
+  if (imageCell) {
+    imageCell.className = 'media-feature-image';
+    const img = imageCell.querySelector('img');
+    if (img) {
+      imageCell.replaceChildren(createOptimizedPicture(img.src, img.alt, false, [
+        { media: '(min-width: 1024px)', width: '1200' },
+        { width: '750' },
+      ]));
+    }
   }
+
+  if (!contentCell) return;
+  contentCell.className = 'media-feature-content';
 
   contentCell.querySelectorAll('a').forEach((a) => {
     const video = parseVideo(a.href);

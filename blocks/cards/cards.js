@@ -29,7 +29,7 @@ export default function decorate(block) {
     const textCell = cells.find((cell) => cell !== imageCell);
     if (imageCell) {
       const img = imageCell.querySelector('img');
-      imageCell.replaceChildren(createOptimizedPicture(img.src, img.alt, true, [
+      imageCell.replaceChildren(createOptimizedPicture(img.src, img.alt, false, [
         { media: '(min-width: 1024px)', width: '1600' },
         { width: '750' },
       ]));

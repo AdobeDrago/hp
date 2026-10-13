@@ -187,15 +187,33 @@ main > .section.media-feature-container {
   }
 }
 
+body.media-feature-modal-open {
+  overflow: hidden;
+}
+
 .media-feature-video-modal {
   position: fixed;
   inset: 0;
   z-index: 100;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  padding: 1.5rem;
+  background-color: #000000b3;
+}
+
+.media-feature-video-modal[open] {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
-  background-color: #000000b3;
+}
+
+.media-feature-video-modal::backdrop {
+  background: transparent;
 }
 
 .media-feature-video-modal-dialog {

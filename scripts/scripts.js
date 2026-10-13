@@ -99,6 +99,21 @@ function decorateSections(main) {
 }
 
 /**
+ * The authoring UI's layout view (da.live dapreview) renders the raw Document
+ * Authoring source, which publishing would otherwise tidy up: it drops the page
+ * metadata table and wraps each loose link in block cells in its own paragraph.
+ * @param {Element} main The main element
+ */
+function tidyLivePreview(main) {
+  main.querySelectorAll('div.metadata').forEach((block) => block.remove());
+  main.querySelectorAll(':scope > div > div[class] > div > div > a').forEach((link) => {
+    const p = document.createElement('p');
+    link.before(p);
+    p.append(link);
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -129,6 +144,7 @@ async function loadEager(doc) {
   }
   const main = doc.querySelector('main');
   if (main) {
+    if (doc.body.classList.contains('da-preview')) tidyLivePreview(main);
     decorateMain(main);
     initLinkTracking();
     doc.body.classList.add('appear');

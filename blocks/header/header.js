@@ -78,6 +78,9 @@ function setSearchOpen(nav, open) {
   nav.classList.toggle('nav-search-open', open);
   form.hidden = !open;
   if (close) close.hidden = !open;
+  // keep the clear button in step with the field, whatever changed its value
+  const clear = form.querySelector('.nav-search-clear');
+  if (clear) clear.hidden = !form.querySelector('input').value;
   if (open) {
     setAccountOpen(nav.querySelector('.nav-account'), false);
     if (nav.getAttribute('aria-expanded') === 'true') {

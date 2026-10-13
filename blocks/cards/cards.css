@@ -26,13 +26,10 @@
   object-fit: cover;
 }
 
-/* the spotlight owns the gap under the anchor nav (30px, 37px from 768) */
-main > .section.anchor-nav-container:has(+ .section .cards.spotlight) {
-  margin-bottom: 0;
-}
-
+/* no top margin: the gap above comes from the section before it
+   (the anchor nav on the AI PCs page) */
 .cards-container:has(.cards.spotlight) {
-  margin: 1.875rem 0;
+  margin: 0 0 1.875rem;
 }
 
 .cards-container:has(.cards.spotlight) .cards-wrapper {
@@ -169,7 +166,7 @@ main > .section.anchor-nav-container:has(+ .section .cards.spotlight) {
 
 @media (width >= 768px) {
   .cards-container:has(.cards.spotlight) {
-    margin: 2.3125rem 0;
+    margin-bottom: 2.3125rem;
   }
 
   .cards.spotlight {

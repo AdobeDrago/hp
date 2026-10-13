@@ -104,8 +104,8 @@ function decorateSections(main) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
-  decorateGtmLinks(main);
   decorateButtons(main);
+  decorateGtmLinks(main);
   decorateIcons(main);
   decorateSections(main);
   decorateBlocks(main);
@@ -116,6 +116,8 @@ export function decorateMain(main) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
+  // available from page load, as on hp.com; GTM reads queued pushes once consent loads it
+  window.dataLayer = window.dataLayer || [];
   doc.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
@@ -130,7 +132,8 @@ async function loadEager(doc) {
     decorateMain(main);
     initLinkTracking();
     doc.body.classList.add('appear');
-    await loadSection(main.querySelector('.section'), waitForFirstImage);
+    const firstSection = main.querySelector('.section');
+    if (firstSection) await loadSection(firstSection, waitForFirstImage);
   }
 
   sampleRUM.enhance();

@@ -54,11 +54,15 @@ loadRelatedLinksFallback().catch((error) => {
   console.error('failed to load related links', error);
 });
 
-// OneTrust category that covers analytics (Performance cookies)
-const ANALYTICS_CONSENT_GROUP = 'C0002';
+// OneTrust category that covers analytics (HP: "Performance & Analytics Cookies")
+const ANALYTICS_CONSENT_GROUP = '2';
+const DEV_HOSTS = /^localhost$|\.aem\.(page|live)$/;
+
+let gtmLoaded = false;
 
 function loadGtm(id) {
-  if (!id || window.google_tag_manager?.[id]) return;
+  if (!id || gtmLoaded || window.google_tag_manager?.[id]) return;
+  gtmLoaded = true;
 
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
@@ -70,6 +74,8 @@ function loadGtm(id) {
 }
 
 function hasAnalyticsConsent() {
+  // OneTrust is not loaded on local dev or EDS preview/live hosts, so treat them as consented
+  if (DEV_HOSTS.test(window.location.hostname)) return true;
   return (window.OnetrustActiveGroups || '').split(',').includes(ANALYTICS_CONSENT_GROUP);
 }
 

@@ -1,0 +1,277 @@
+main > .section.media-feature-container {
+  margin: 1.875rem 0 0.625rem;
+}
+
+.media-feature-container .media-feature-wrapper {
+  max-width: 105rem;
+  padding: 0;
+}
+
+.media-feature {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  color: #fff;
+}
+
+.media-feature-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 36.1875rem;
+}
+
+.media-feature-image {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 1rem;
+  line-height: 0;
+}
+
+.media-feature-image picture {
+  display: block;
+  height: 100%;
+}
+
+.media-feature-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 80% 50%;
+}
+
+.media-feature-content {
+  position: relative;
+  box-sizing: border-box;
+  width: 23rem;
+  max-width: 100%;
+  padding: 12.5rem 0 1rem 1.25rem;
+}
+
+.media-feature-content h1,
+.media-feature-content h2,
+.media-feature-content h3 {
+  margin: 0.5rem 0 0;
+  color: inherit;
+  font-size: 2.25rem;
+  font-weight: 500;
+  line-height: 2.25rem;
+}
+
+.media-feature-content p {
+  margin: 0.5rem 0 0;
+  color: inherit;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+
+.media-feature-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0 0 -0.25rem;
+}
+
+.media-feature-content .media-feature-cta .button-container {
+  display: flex;
+  margin: 0;
+}
+
+.media-feature-cta strong,
+.media-feature-cta em {
+  display: contents;
+}
+
+.media-feature .media-feature-cta a.button:any-link {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 7rem;
+  min-height: 3rem;
+  margin: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #e8e8e8;
+  color: #1a1a1a;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+.media-feature .media-feature-cta a.button:hover,
+.media-feature .media-feature-cta a.button:focus-visible {
+  background-color: #c2c2c2;
+  color: #1a1a1a;
+}
+
+.media-feature .media-feature-cta a.button.secondary:any-link {
+  border: 0.0625rem solid #e8e8e8;
+  background-color: transparent;
+  color: #e8e8e8;
+}
+
+.media-feature .media-feature-cta a.button.secondary:hover,
+.media-feature .media-feature-cta a.button.secondary:focus-visible {
+  border-color: #c2c2c2;
+  background-color: #85858533;
+  color: #c2c2c2;
+}
+
+@media (width >= 768px) {
+  main > .section.media-feature-container {
+    margin: 2.5rem 0 1.25rem;
+  }
+
+  .media-feature-inner {
+    min-height: 36.25rem;
+  }
+
+  .media-feature-image img {
+    object-position: 50% 50%;
+  }
+
+  .media-feature-content {
+    width: 44.9375rem;
+    padding: 0.75rem 0 1rem 2.1875rem;
+  }
+
+  .media-feature-content h1,
+  .media-feature-content h2,
+  .media-feature-content h3 {
+    margin-top: 0.75rem;
+    font-size: 2.75rem;
+    line-height: 2.75rem;
+  }
+
+  .media-feature-content p {
+    margin-top: 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+
+  .media-feature-cta {
+    margin: 1.75rem 0 0 -0.1875rem;
+  }
+}
+
+@media (width >= 1280px) {
+  main > .section.media-feature-container {
+    margin: 3.125rem 0 1.875rem;
+  }
+
+  .media-feature-content {
+    padding: 1rem 0 1rem 2.5rem;
+  }
+
+  .media-feature-content h1,
+  .media-feature-content h2,
+  .media-feature-content h3 {
+    margin-top: 1rem;
+    font-size: 3.5rem;
+    line-height: 3.5rem;
+  }
+
+  .media-feature-content p {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+
+  .media-feature-cta {
+    margin: 2rem 0 0 -0.25rem;
+  }
+}
+
+body.media-feature-modal-open {
+  overflow: hidden;
+}
+
+.media-feature-video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  padding: 5.25rem 1rem 1.5rem;
+  background-color: #1a1a1a80;
+  backdrop-filter: blur(1rem);
+  overflow-y: auto;
+}
+
+.media-feature-video-modal[open] {
+  display: block;
+}
+
+.media-feature-video-modal::backdrop {
+  background: transparent;
+}
+
+.media-feature-video-modal-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.625rem;
+  width: 100%;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.media-feature-video-modal-media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 1rem;
+  background-color: #000;
+}
+
+.media-feature-video-modal .media-feature-video-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  background-color: transparent;
+  color: #e8e8e8;
+  cursor: pointer;
+}
+
+.media-feature-video-modal .media-feature-video-modal-close svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.5;
+}
+
+.media-feature-video-modal .media-feature-video-modal-close:hover,
+.media-feature-video-modal .media-feature-video-modal-close:focus-visible {
+  background-color: transparent;
+  color: #fff;
+}
+
+@media (width >= 441px) {
+  .media-feature-video-modal {
+    padding: 1.5rem 2rem;
+  }
+}
+
+@media (width >= 1115px) {
+  .media-feature-video-modal {
+    padding-top: 2.75rem;
+  }
+}

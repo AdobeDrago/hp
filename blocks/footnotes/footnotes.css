@@ -1,0 +1,150 @@
+main > .section.footnotes-container {
+  margin: 0;
+}
+
+.footnotes-container .footnotes-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.footnotes {
+  --footnotes-padding: 1rem;
+
+  box-sizing: border-box;
+  max-width: 105rem;
+  margin: 0 auto;
+  padding: var(--footnotes-padding);
+  background-color: #f5f5f5;
+  color: #1a1a1a;
+  font-size: 1rem;
+  line-height: 1.375rem;
+}
+
+.footnotes.footnotes-empty {
+  display: none;
+}
+
+.footnotes-panel {
+  overflow: hidden;
+  border-radius: 1rem;
+  padding: var(--footnotes-padding);
+  background-color: #fff;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.footnotes-collapsed .footnotes-panel:hover {
+  box-shadow: 0 0.1875rem 0.75rem 0.1875rem #1a1a1a33;
+}
+
+.footnotes-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  cursor: pointer;
+}
+
+.footnotes-title {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.footnotes-icon {
+  align-self: flex-start;
+  padding: 0.125rem;
+}
+
+.footnotes-icon svg {
+  display: block;
+}
+
+.footnotes-collapsed .footnotes-icon-collapse,
+.footnotes:not(.footnotes-collapsed) .footnotes-icon-expand {
+  display: none;
+}
+
+.footnotes-content {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.footnotes-collapsed .footnotes-content {
+  display: none;
+}
+
+.footnotes-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footnotes-list-dynamic {
+  counter-reset: item;
+}
+
+.footnotes-list-dynamic > li {
+  display: table;
+  counter-increment: item;
+}
+
+.footnotes-list-static {
+  padding-top: 1rem;
+}
+
+.footnotes-list-static > li + li,
+.footnotes-list-static:not(:empty) + .footnotes-list-dynamic {
+  margin-top: 1.25rem;
+}
+
+.footnotes-item-content p {
+  margin: 0;
+}
+
+.footnotes-list-dynamic > li::before {
+  content: counter(item) ".";
+  display: table-cell;
+  padding-right: 0.2734rem;
+}
+
+.footnotes-list-dynamic .footnotes-item-content {
+  display: inline;
+}
+
+.footnotes-content a:any-link {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.footnotes-content a.footnotes-item-backlink:any-link {
+  position: relative;
+  margin-left: 0.25rem;
+  text-decoration: none;
+}
+
+.footnotes-content a.footnotes-item-backlink::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  transform: translate(-50%, -50%);
+}
+
+@media (width >= 768px) {
+  .footnotes {
+    --footnotes-padding: 2rem;
+  }
+}
+
+@media (width >= 1280px) {
+  .footnotes {
+    --footnotes-padding: 2.25rem;
+  }
+
+  .footnotes-title {
+    font-size: 1rem;
+  }
+}

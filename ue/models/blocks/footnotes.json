@@ -1,0 +1,76 @@
+{
+  "definitions": [
+    {
+      "title": "Footnotes",
+      "id": "footnotes",
+      "model": "footnotes",
+      "filter": "footnotes",
+      "plugins": {
+        "da": {
+          "name": "footnotes",
+          "rows": 1,
+          "columns": 0,
+          "fields": [
+            {
+              "name": "title",
+              "selector": "div:nth-child(1)"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "title": "Footnote Item",
+      "id": "footnote-item",
+      "model": "footnote-item",
+      "plugins": {
+        "da": {
+          "name": "footnote-item",
+          "rows": 1,
+          "columns": 0,
+          "fields": [
+            {
+              "name": "text",
+              "selector": "div:nth-child(1)"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "footnotes",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Title",
+          "value": "Footnotes and Disclaimers",
+          "description": "Optional. Defaults to \"Footnotes and Disclaimers\" when left blank."
+        }
+      ]
+    },
+    {
+      "id": "footnote-item",
+      "fields": [
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "text",
+          "label": "Text",
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "footnotes",
+      "components": [
+        "footnote-item"
+      ]
+    }
+  ]
+}

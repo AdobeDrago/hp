@@ -15,6 +15,7 @@ import {
   toClassName,
   toCamelCase,
 } from './aem.js';
+import { decorateGtmLinks, initLinkTracking } from './gtm.js';
 
 export const NX_ORIGIN = 'https://da.live/nx';
 
@@ -47,6 +48,10 @@ function autolinkModals(doc) {
  */
 function decorateSections(main) {
   main.querySelectorAll(':scope > div').forEach((section) => {
+    if (!section.children.length && !section.textContent.trim()) {
+      section.remove();
+      return;
+    }
     const wrappers = [];
     let defaultContent = false;
     [...section.children].forEach((e) => {
@@ -67,13 +72,11 @@ function decorateSections(main) {
       wrappers[wrappers.length - 1].append(e);
     });
 
-    // Add wrapped content back
     wrappers.forEach((wrapper) => section.append(wrapper));
     section.classList.add('section');
     section.dataset.sectionStatus = 'initialized';
     section.style.display = 'none';
 
-    // Process section metadata
     const sectionMeta = section.querySelector('div.section-metadata');
     if (sectionMeta) {
       const meta = readBlockConfig(sectionMeta);
@@ -84,6 +87,8 @@ function decorateSections(main) {
             .filter((style) => style)
             .map((style) => toClassName(style.trim()));
           styles.forEach((style) => section.classList.add(style));
+        } else if (key === 'id') {
+          section.id = toClassName(meta.id);
         } else {
           section.dataset[toCamelCase(key)] = meta[key];
         }
@@ -99,8 +104,8 @@ function decorateSections(main) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
-  // hopefully forward compatible button decoration
   decorateButtons(main);
+  decorateGtmLinks(main);
   decorateIcons(main);
   decorateSections(main);
   decorateBlocks(main);
@@ -111,22 +116,29 @@ export function decorateMain(main) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
+  // available from page load, as on hp.com; GTM reads queued pushes once consent loads it
+  window.dataLayer = window.dataLayer || [];
   doc.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
     doc.body.dataset.breadcrumbs = true;
   }
+  const newsroom = getMetadata('newsroom').toLowerCase();
+  if (newsroom === 'false' || (newsroom !== 'true' && getMetadata('template') === 'ai-solutions')) {
+    doc.body.dataset.noNewsroom = 'true';
+  }
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
+    initLinkTracking();
     doc.body.classList.add('appear');
-    await loadSection(main.querySelector('.section'), waitForFirstImage);
+    const firstSection = main.querySelector('.section');
+    if (firstSection) await loadSection(firstSection, waitForFirstImage);
   }
 
   sampleRUM.enhance();
 
   try {
-    /* if desktop (proxy for fast connection) or fonts already loaded, load fonts.css */
     if (window.innerWidth >= 900 || sessionStorage.getItem('fonts-loaded')) {
       loadFonts();
     }
@@ -162,7 +174,6 @@ async function loadLazy(doc) {
  */
 function loadDelayed() {
   window.setTimeout(() => import('./delayed.js'), 3000);
-  // load anything that can be postponed to the latest here
 }
 
 async function loadSidekick() {
@@ -183,7 +194,6 @@ async function loadPage() {
   loadSidekick();
 }
 
-// UE Editor support before page load
 if (/\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname)) {
   // eslint-disable-next-line import/no-unresolved
   await import(`${window.hlx.codeBasePath}/ue/scripts/ue.js`).then(({ default: ue }) => ue());

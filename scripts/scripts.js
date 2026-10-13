@@ -116,6 +116,8 @@ export function decorateMain(main) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
+  // available from page load, as on hp.com; GTM reads queued pushes once consent loads it
+  window.dataLayer = window.dataLayer || [];
   doc.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {

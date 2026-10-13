@@ -177,8 +177,12 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  loadHeader(doc.querySelector('header'));
-  loadFooter(doc.querySelector('footer'));
+  // the authoring UI's layout view can re-run loadPage before an earlier run
+  // gets here, so only add each block once
+  const header = doc.querySelector('header');
+  const footer = doc.querySelector('footer');
+  if (header && !header.querySelector(':scope > .header')) loadHeader(header);
+  if (footer && !footer.querySelector(':scope > .footer')) loadFooter(footer);
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();

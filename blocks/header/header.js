@@ -284,6 +284,7 @@ function decorateTools(navTools) {
   searchInput.addEventListener('input', () => {
     searchClear.hidden = !searchInput.value;
   });
+
   searchClear.addEventListener('click', () => {
     searchInput.value = '';
     searchClear.hidden = true;

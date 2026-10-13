@@ -65,7 +65,7 @@ async function writeStandaloneModule(sourcePath, outName, outDir, written = []) 
   });
 
   const shim = usesProjectScripts
-    ? await readFile(path.join(rootDir, 'scripts/export-fragments.standalone-shim.js'), 'utf8')
+    ? await readFile(path.join(rootDir, 'scripts/export-fragments.helpers.js'), 'utf8')
     : '';
   await writeFile(path.join(outDir, outName), shim + stripped);
   written.push(outName);

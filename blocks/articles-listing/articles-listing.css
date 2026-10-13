@@ -19,12 +19,11 @@
   padding: 0 0 20px;
   border-bottom: 1px solid #000;
   color: #000;
-  font-size: 2rem;
+  font-size: 1.875rem;
   font-weight: normal;
   line-height: 2.125rem;
 }
 
-/* neutralize the global button style (blue pill, white text) inside the block */
 .articles-listing button {
   color: inherit;
 }
@@ -213,7 +212,7 @@
 
 .articles-listing .al-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   padding: 18px;
   border-right: 1px solid var(--al-line);
   border-bottom: 1px solid var(--al-line);
@@ -366,11 +365,11 @@
     grid-template-columns: 1fr;
   }
 
-  .articles-listing .al-card {
+  /* .articles-listing .al-card {
     flex-direction: row-reverse;
     align-items: flex-start;
     gap: 16px;
-  }
+  } */
 
   .articles-listing .al-card-media {
     flex: 0 0 40%;
@@ -548,6 +547,10 @@
     grid-template-columns: repeat(2, 1fr);
     width: 658px;
     margin: 34px auto 0;
+  }
+
+  .articles-listing .al-card {
+    flex-direction: column;
   }
 
   .articles-listing .al-card-title a {

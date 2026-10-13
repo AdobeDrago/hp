@@ -109,8 +109,8 @@ main > .section:has(.press-kits-listing) {
   }
 
   .press-kits-listing .pkl-nav-btn {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
 
   .press-kits-listing .pkl-nav-btn svg {
@@ -168,6 +168,10 @@ main > .section:has(.press-kits-listing) {
 
 .section.press-kits-listing-container .press-kits-listing {
   padding-bottom: 0;
+}
+
+.section.press-kits-listing-container > div {
+  padding: 0 20px;
 }
 
 .section.press-kits-listing-container .press-kits-listing .pkl-card {

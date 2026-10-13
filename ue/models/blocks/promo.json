@@ -40,15 +40,6 @@
           "label": "Content",
           "description": "Optional logo image, heading, paragraph(s), optional italic note, and 1-2 CTA links.",
           "valueType": "string"
-        },
-        {
-          "component": "multiselect",
-          "name": "classes",
-          "label": "Style",
-          "valueType": "string[]",
-          "options": [
-            { "name": "Dark", "value": "dark" }
-          ]
         }
       ]
     }

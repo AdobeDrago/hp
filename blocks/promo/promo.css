@@ -121,11 +121,6 @@ main > .section.promo-container {
   color: #103fb2;
 }
 
-.promo.dark .promo-content a[href^="#footnote"],
-.promo.dark .promo-content a[href^="#footnote"]:hover {
-  color: inherit;
-}
-
 .promo .promo-content .button-container {
   margin: 1rem 0 0;
 }
@@ -157,8 +152,8 @@ main > .section.promo-container {
 }
 
 /* hp.com keyboard focus on the blue buttons: dark-blue edge with a white
-   inner ring (compact and dark promos have black / grey buttons) */
-.promo:not(.compact, .dark) a.button:not(.secondary):focus-visible {
+   inner ring (compact promos have black / grey buttons) */
+.promo:not(.compact) a.button:not(.secondary):focus-visible {
   outline: 0.125rem solid #0e3191;
   outline-offset: -0.125rem;
   box-shadow: inset 0 0 0 0.25rem #fff;
@@ -426,125 +421,5 @@ main > .section.promo-container {
 
   .promo:where(:not(.compact)) .promo-media:first-child {
     padding-right: 1.5625rem;
-  }
-}
-
-.promo.dark {
-  position: relative;
-  display: block;
-  height: 36.25rem;
-  margin: 1.875rem 0 2.875rem;
-  padding: 0;
-  background-color: transparent;
-  color: #fff;
-}
-
-.promo.dark .promo-media {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  align-self: stretch;
-}
-
-.promo.dark .promo-media img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: auto;
-  object-fit: cover;
-  object-position: 80% 50%;
-  border-radius: 1rem;
-}
-
-.promo.dark .promo-content {
-  position: relative;
-  z-index: 1;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-  max-width: 23rem;
-  padding: 12.5rem 0 1rem var(--container-padding);
-}
-
-.promo.dark .promo-content h2,
-.promo.dark .promo-content p:not(.button-wrapper) {
-  box-sizing: border-box;
-  padding-left: 0.25rem;
-  color: #fff;
-}
-
-.promo.dark .promo-content p:not(.button-wrapper) {
-  margin-bottom: 0.5rem;
-}
-
-.promo.dark a.button.primary {
-  border-color: var(--border-color);
-  background-color: var(--border-color);
-  color: var(--text-color);
-}
-
-.promo.dark a.button.primary:hover,
-.promo.dark a.button.primary:focus-visible {
-  border-color: #c2c2c2;
-  background-color: #c2c2c2;
-  color: var(--text-color);
-}
-
-.promo.dark a.button.secondary {
-  border-color: var(--border-color);
-  background-color: transparent;
-  color: var(--border-color);
-}
-
-.promo.dark a.button.secondary:hover,
-.promo.dark a.button.secondary:focus-visible {
-  border-color: #c2c2c2;
-  background-color: #85858533;
-  color: #c2c2c2;
-}
-
-@media (width >= 768px) {
-  .promo.dark {
-    margin: 2.5rem 0 3.5rem;
-  }
-
-  .promo.dark .promo-media img {
-    object-position: 50% 50%;
-  }
-
-  .promo.dark .promo-content {
-    max-width: 44.9375rem;
-    padding: 0.75rem 0 1rem var(--container-padding);
-  }
-
-  .promo.dark .promo-content h2 {
-    margin-top: 0.75rem;
-  }
-
-  .promo.dark .promo-content p:not(.button-wrapper) {
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-}
-
-@media (width >= 1280px) {
-  .promo.dark {
-    margin: 3.125rem 0 4.125rem;
-  }
-
-  .promo.dark .promo-content {
-    padding: 1rem 0 1rem var(--container-padding);
-  }
-
-  .promo.dark .promo-content h2 {
-    margin-top: 1rem;
-  }
-
-  .promo.dark .promo-content p:not(.button-wrapper) {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
   }
 }

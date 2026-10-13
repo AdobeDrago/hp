@@ -24,7 +24,7 @@ function applyWidgetShell(widget, source, widgetName, searchParams) {
   widget.classList.remove('block');
   widget.dataset.source = source.href;
   searchParams.forEach((value, key) => {
-    widget.dataset[key] = value;
+    widget.dataset[key.replace(/-([a-z])/g, (_, char) => char.toUpperCase())] = value;
   });
 
   const wrapper = widget.closest('.widget-wrapper');

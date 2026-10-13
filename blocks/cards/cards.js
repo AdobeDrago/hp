@@ -24,17 +24,22 @@ export default function decorate(block) {
 
   const newChildren = [];
   if (headerRow && isSpotlight) {
-    const [imageCell, textCell] = headerRow.children;
-    const img = imageCell && imageCell.querySelector('img');
-    if (img) {
+    const cells = [...headerRow.children];
+    const imageCell = cells.find((cell) => cell.querySelector('img'));
+    const textCell = cells.find((cell) => cell !== imageCell);
+    if (imageCell) {
+      const img = imageCell.querySelector('img');
       imageCell.replaceChildren(createOptimizedPicture(img.src, img.alt, true, [
         { media: '(min-width: 1024px)', width: '1600' },
         { width: '750' },
       ]));
+      imageCell.className = 'cards-spotlight-bg';
+      newChildren.push(imageCell);
     }
-    imageCell.className = 'cards-spotlight-bg';
-    textCell.className = 'cards-spotlight-header';
-    newChildren.push(imageCell, textCell);
+    if (textCell) {
+      textCell.className = 'cards-spotlight-header';
+      newChildren.push(textCell);
+    }
   } else if (headerRow && hasTextHeader) {
     const headerCells = [...headerRow.children].filter((cell) => cell.textContent.trim());
     const textCell = headerCells[headerCells.length - 1] || headerRow;

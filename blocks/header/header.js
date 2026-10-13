@@ -33,6 +33,11 @@ async function fetchNavHtml(path) {
   return container.innerHTML;
 }
 
+function copyTitle(from, to) {
+  const title = from && from.getAttribute('title');
+  if (title) to.setAttribute('title', title);
+}
+
 function closeAllPanels(nav) {
   nav.querySelectorAll('.nav-drop[aria-expanded="true"]').forEach((li) => {
     li.setAttribute('aria-expanded', 'false');
@@ -136,6 +141,7 @@ function buildAccountFlyout(list) {
     const btn = document.createElement('a');
     btn.href = a.getAttribute('href');
     btn.textContent = a.textContent.trim();
+    copyTitle(a, btn);
     if (a.closest('strong')) {
       btn.className = 'nav-account-btn primary';
       flyout.append(btn);
@@ -271,12 +277,14 @@ function decorateTools(navTools) {
   cartBtn.className = 'nav-tool-btn nav-cart-btn';
   cartBtn.href = cart ? cart.href : 'https://www.hp.com/us-en/shop/cart';
   cartBtn.setAttribute('aria-label', 'Cart');
+  copyTitle(cart, cartBtn);
   cartBtn.innerHTML = CART_ICON;
 
   const signInBtn = document.createElement('a');
   signInBtn.className = 'nav-tool-btn nav-signin-btn';
   signInBtn.href = signIn ? signIn.href : 'https://account.hp.com/';
   signInBtn.setAttribute('aria-label', 'Sign In');
+  copyTitle(signIn, signInBtn);
   signInBtn.innerHTML = USER_ICON;
 
   let account = signInBtn;
@@ -332,7 +340,7 @@ function decorateSections(navSections) {
       const href = topLink ? topLink.getAttribute('href') : '';
 
       if (/\/business-solutions\.html$/i.test(href)) {
-        businessCta = { href, label };
+        businessCta = { href, label, link: topLink };
         current = null;
         return;
       }
@@ -345,6 +353,7 @@ function decorateSections(navSections) {
       trigger.className = 'nav-menu-trigger nav-trigger';
       trigger.href = topLink ? topLink.getAttribute('href') : '#';
       trigger.textContent = label;
+      copyTitle(topLink, trigger);
       trigger.setAttribute('role', 'button');
       trigger.setAttribute('aria-expanded', 'false');
 
@@ -385,6 +394,7 @@ function decorateSections(navSections) {
     ctaBtn.className = 'nav-cta-btn';
     ctaBtn.href = businessCta.href;
     ctaBtn.textContent = businessCta.label;
+    copyTitle(businessCta.link, ctaBtn);
     ctaLi.append(ctaBtn);
     menu.append(ctaLi);
   }

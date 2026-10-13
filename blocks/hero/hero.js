@@ -30,6 +30,13 @@ function decorateSplit(block) {
   const content = document.createElement('div');
   content.className = 'hero-content';
   cells.forEach((cell) => {
+    const hasBareText = [...cell.childNodes]
+      .some((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+    if (hasBareText) {
+      const p = document.createElement('p');
+      p.append(...cell.childNodes);
+      cell.append(p);
+    }
     [...cell.children]
       .filter((el) => el.textContent.trim() !== '' || el.querySelector('picture'))
       .forEach((el) => {

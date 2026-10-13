@@ -133,7 +133,7 @@ export default async function decorate(block) {
       control.setAttribute('aria-expanded', 'false');
       control.setAttribute('aria-controls', listEl.id);
       heading.addEventListener('click', (e) => {
-        if (window.matchMedia('(min-width: 900px)').matches) return;
+        if (window.matchMedia('(min-width: 1024px)').matches) return;
         e.preventDefault();
         const open = col.dataset.expanded !== 'true';
         col.dataset.expanded = open;

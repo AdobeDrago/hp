@@ -104,8 +104,8 @@ function decorateSections(main) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
-  decorateGtmLinks(main);
   decorateButtons(main);
+  decorateGtmLinks(main);
   decorateIcons(main);
   decorateSections(main);
   decorateBlocks(main);
@@ -129,7 +129,8 @@ async function loadEager(doc) {
     decorateMain(main);
     initLinkTracking();
     doc.body.classList.add('appear');
-    await loadSection(main.querySelector('.section'), waitForFirstImage);
+    const firstSection = main.querySelector('.section');
+    if (firstSection) await loadSection(firstSection, waitForFirstImage);
   }
 
   sampleRUM.enhance();

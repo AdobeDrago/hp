@@ -25,7 +25,7 @@ function parseLinkTitle(rawTitle = '') {
 function decorateGtmLink(a) {
   const { title, gtm } = parseLinkTitle(a.getAttribute('title') || '');
   Object.entries(gtm).forEach(([key, value]) => a.setAttribute(`${GTM_ATTR_PREFIX}${key}`, value));
-  if (title) a.title = title;
+  if (title && title !== a.textContent.trim()) a.title = title;
   else a.removeAttribute('title');
 }
 

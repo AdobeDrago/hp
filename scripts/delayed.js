@@ -1,10 +1,13 @@
 import { getMetadata } from './aem.js';
 
-// OneTrust category that covers analytics (Performance cookies)
-const ANALYTICS_CONSENT_GROUP = 'C0002';
+// OneTrust category that covers analytics (HP: "Performance & Analytics Cookies")
+const ANALYTICS_CONSENT_GROUP = '2';
+
+let gtmLoaded = false;
 
 function loadGtm(id) {
-  if (!id || window.google_tag_manager?.[id]) return;
+  if (!id || gtmLoaded || window.google_tag_manager?.[id]) return;
+  gtmLoaded = true;
 
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });

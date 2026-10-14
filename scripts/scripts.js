@@ -188,6 +188,7 @@ async function loadSidekick() {
 }
 
 async function loadPage() {
+  console.trace('loadPage called');
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();

@@ -161,7 +161,12 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  loadHeader(doc.querySelector('header'));
+  const header = doc.querySelector('header');
+  // da.live layout mode re-runs loadPage on the same DOM; start from an empty header
+  if (header) {
+    header.textContent = '';
+    loadHeader(header);
+  }
   loadFooter(doc.querySelector('footer'));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);

@@ -46,7 +46,7 @@
           "name": "classes",
           "label": "Style",
           "valueType": "string",
-          "description": "Large = tall banner with a large heading. Compact = slim banner with black buttons.",
+          "description": "Large = tall banner with a large heading. Compact = slim banner with black buttons. Put the text in the first cell and the image in the second.",
           "options": [
             { "name": "Large", "value": "large" },
             { "name": "Compact", "value": "compact" }

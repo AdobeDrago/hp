@@ -931,7 +931,7 @@
   }
 
   .cards.image:where(.right) .cards-card-image {
-    order: 1;
+    order: 0;
   }
 
   .cards.image:where(.right) .cards-card-image,
@@ -1009,10 +1009,6 @@
     align-items: flex-start;
     gap: 1.5rem;
     padding: 3.875rem var(--container-padding) 5.125rem;
-  }
-
-  .cards.image:where(.right) .cards-card-image {
-    order: 1;
   }
 
   .cards.image:where(.right) .cards-card-image,

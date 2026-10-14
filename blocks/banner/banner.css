@@ -171,7 +171,7 @@ main > .section.banner-container {
 }
 
 .banner:where(.large) .banner-media {
-  order: 1;
+  order: 0;
 }
 
 .banner:where(.large) .banner-media img {
@@ -318,10 +318,6 @@ main > .section.banner-container {
 
   .banner .banner-content p:has(> picture) {
     margin-bottom: 0.9375rem;
-  }
-
-  .banner:where(.large) .banner-media {
-    order: 1;
   }
 
   .banner:where(.large) .banner-content h2 {

@@ -107,7 +107,9 @@ async function resolveItems(links) {
 
 export default async function decorate(block) {
   // gtm id comes from the metadata attribute (data-gtm_id) on an ancestor, else the default
-  const gtmId = block.closest('[data-gtm_id]')?.dataset.gtm_id || DEFAULT_GTM_ID;
+  const gtmHolder = block.closest('[data-gtm_id]');
+  const gtmId = gtmHolder?.dataset.gtm_id || DEFAULT_GTM_ID;
+  gtmHolder?.removeAttribute('data-gtm_id'); // keep the metadata attribute off the wrapper div
   const links = [...block.querySelectorAll('a[href]')];
   block.textContent = '';
 

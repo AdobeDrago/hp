@@ -5,10 +5,8 @@ const DEFAULT_FOOTER_FRAGMENT = '/footer';
 
 async function fetchFooterHtml(path) {
   const isAbsolute = /^https?:\/\//i.test(path);
-  // set by fragments/fragments.js when this runs on a non-EDS site
-  const origin = isAbsolute ? '' : window.hpFragments?.origin || '';
-  const root = !isAbsolute && !origin && window.location.pathname.startsWith('/content/') ? '/content' : '';
-  const resolvedPath = `${origin}${root}${path}`;
+  const root = !isAbsolute && window.location.pathname.startsWith('/content/') ? '/content' : '';
+  const resolvedPath = `${root}${path}`;
   const resp = await fetch(`${resolvedPath}.plain.html`);
   if (!resp.ok) return null;
   const container = document.createElement('div');
@@ -34,8 +32,10 @@ function decorateSocialList(list) {
 }
 
 export default async function decorate(block) {
-  const path = getMetadata('footer') || DEFAULT_FOOTER_FRAGMENT;
-  const html = await fetchFooterHtml(path);
+  // aem-embed (scripts/aem-embed.js) passes the footer content in; EDS pages fetch it
+  const html = block.textContent.trim()
+    ? block.innerHTML
+    : await fetchFooterHtml(getMetadata('footer') || DEFAULT_FOOTER_FRAGMENT);
   block.textContent = '';
   if (!html) return;
 

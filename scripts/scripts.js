@@ -199,9 +199,12 @@ if (/\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname)) {
   await import(`${window.hlx.codeBasePath}/ue/scripts/ue.js`).then(({ default: ue }) => ue());
 }
 
-loadPage();
+// aem-embed (scripts/aem-embed.js) imports this module on non-EDS pages only for
+// its helpers, so the host page itself must not be decorated
+if (!window.hlx.suppressLoadPage) loadPage();
 
 (function da() {
+  if (window.hlx.suppressLoadPage) return;
   const { searchParams } = new URL(window.location.href);
 
   const lp = searchParams.get('dapreview');

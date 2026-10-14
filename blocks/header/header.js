@@ -15,10 +15,8 @@ const DEFAULT_HEADER_FRAGMENT = '/nav';
 
 async function fetchNavHtml(path) {
   const isAbsolute = /^https?:\/\//i.test(path);
-  // set by fragments/fragments.js when this runs on a non-EDS site
-  const origin = isAbsolute ? '' : window.hpFragments?.origin || '';
-  const root = !isAbsolute && !origin && window.location.pathname.startsWith('/content/') ? '/content' : '';
-  const resolvedPath = `${origin}${root}${path}`;
+  const root = !isAbsolute && window.location.pathname.startsWith('/content/') ? '/content' : '';
+  const resolvedPath = `${root}${path}`;
   const resp = await fetch(`${resolvedPath}.plain.html`);
   if (!resp.ok) return null;
   const container = document.createElement('div');
@@ -449,8 +447,10 @@ function toggleMobileMenu(nav, forceClose = false) {
 }
 
 export default async function decorate(block) {
-  const path = getMetadata('header') || DEFAULT_HEADER_FRAGMENT;
-  const html = await fetchNavHtml(path);
+  // aem-embed (scripts/aem-embed.js) passes the nav content in; EDS pages fetch it
+  const html = block.textContent.trim()
+    ? block.innerHTML
+    : await fetchNavHtml(getMetadata('header') || DEFAULT_HEADER_FRAGMENT);
   block.textContent = '';
   if (!html) return;
 
@@ -472,9 +472,11 @@ export default async function decorate(block) {
   const navTools = nav.querySelector('.nav-tools');
   let navNewsroom = nav.querySelector('.nav-newsroom');
 
-  // embedded copies show the newsroom bar only when asked to (data-newsroom="true")
-  const embed = block.closest('[data-hp-fragment]');
-  const hideNewsroom = embed ? embed.dataset.newsroom !== 'true' : document.body.dataset.noNewsroom === 'true';
+  // embedded via <aem-embed type="header">, the bar shows only with newsroom="true"
+  const embed = block.getRootNode().host;
+  const hideNewsroom = embed
+    ? embed.getAttribute('newsroom') !== 'true'
+    : document.body.dataset.noNewsroom === 'true';
   if (navNewsroom && hideNewsroom) {
     navNewsroom.remove();
     navNewsroom = null;
@@ -524,9 +526,12 @@ export default async function decorate(block) {
   nav.prepend(hamburger);
 
   document.addEventListener('click', (e) => {
-    if (isDesktop.matches && !nav.contains(e.target)) closeAllPanels(nav);
+    // composedPath() also sees clicks inside a shadow root (aem-embed), where
+    // e.target is the host element
+    const path = e.composedPath();
+    if (isDesktop.matches && !path.includes(nav)) closeAllPanels(nav);
     const account = nav.querySelector('.nav-account');
-    if (account && !account.contains(e.target)) setAccountOpen(account, false);
+    if (account && !path.includes(account)) setAccountOpen(account, false);
   });
 
   nav.addEventListener('keydown', (e) => {
@@ -541,7 +546,7 @@ export default async function decorate(block) {
       closeAllPanels(nav);
       const account = nav.querySelector('.nav-account');
       const flyout = account && account.querySelector('.nav-account-flyout');
-      const focusInFlyout = flyout && flyout.contains(document.activeElement);
+      const focusInFlyout = flyout && flyout.contains(nav.getRootNode().activeElement);
       setAccountOpen(account, false);
       if (focusInFlyout) account.querySelector('.nav-signin-btn').focus();
       if (nav.classList.contains('nav-search-open')) setSearchOpen(nav, false);

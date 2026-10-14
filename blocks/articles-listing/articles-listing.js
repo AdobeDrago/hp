@@ -3,6 +3,8 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 const DEFAULT_SOURCE = '/us-en/newsroom/query-index.json';
 const BATCH = 9;
 
+const VIEW_ALL = '__all';
+
 const MEDIA_TYPES = [
   { value: 'Press Release', label: 'Press Releases' },
   { value: 'Press Kit', label: 'Press Kits' },
@@ -29,7 +31,8 @@ const TOPICS = [
   ['technology_and_innovation', 'Technology and Innovation'], ['environment', 'Environment'],
   ['global_citizenship', 'Global Citizenship'], ['life_at_hp', 'Life at HP'],
   ['hybrid_work', 'Hybrid Work'],
-].map(([value, label]) => ({ value, label }));
+].map(([value, label]) => ({ value, label }))
+  .sort((a, b) => a.label.localeCompare(b.label));
 
 const LABELS = new Map([
   ...MEDIA_TYPES.map((m) => [m.value, m.label]),
@@ -123,7 +126,10 @@ function card(it, level) {
 /** checkbox list for a facet group */
 function checkList(group, options) {
   const list = el('div', 'al-checklist');
-  options.forEach((o) => {
+  const opts = group === 'media'
+    ? [{ value: VIEW_ALL, label: 'View All' }, ...options]
+    : options;
+  opts.forEach((o) => {
     const label = el('label', 'al-check-item');
     const input = el('input', 'al-check');
     input.type = 'checkbox';
@@ -177,6 +183,21 @@ function collapsible(title, body, open = false) {
   return root;
 }
 
+/** radio list for the mobile sheet's Media Type (single choice, View All first) */
+function mediaRadios() {
+  const radios = el('div', 'al-radios');
+  [{ value: VIEW_ALL, label: 'View All' }, ...MEDIA_TYPES].forEach((o) => {
+    const label = el('label', 'al-radio-item');
+    const input = el('input', 'al-media-radio');
+    input.type = 'radio';
+    input.name = 'al-media';
+    input.value = o.value;
+    label.append(input, el('span', null, o.label));
+    radios.append(label);
+  });
+  return radios;
+}
+
 function modal(pinnedType) {
   const root = el('div', 'al-modal');
   root.hidden = true;
@@ -214,7 +235,7 @@ function modal(pinnedType) {
     head,
     kw,
     sortWrap,
-    ...(pinnedType ? [] : [collapsible('Media Type', checkList('media', MEDIA_TYPES))]),
+    ...(pinnedType ? [] : [collapsible('Media Type', mediaRadios())]),
     collapsible('Topics', checkList('topics', TOPICS)),
     view,
   );
@@ -310,13 +331,18 @@ export default async function decorate(block) {
 
   function syncControls() {
     block.querySelectorAll('input.al-check').forEach((c) => {
-      c.checked = state[c.dataset.group].has(c.value);
+      c.checked = c.value === VIEW_ALL
+        ? state.media.size === 0
+        : state[c.dataset.group].has(c.value);
     });
     block.querySelectorAll('input.al-keyword, .al-keyword').forEach((k) => {
       if (k.value !== state.keyword) k.value = state.keyword;
     });
     block.querySelectorAll('input.al-sort-radio').forEach((r) => {
       r.checked = r.value === state.sort;
+    });
+    block.querySelectorAll('input.al-media-radio').forEach((r) => {
+      r.checked = r.value === VIEW_ALL ? state.media.size === 0 : state.media.has(r.value);
     });
     block.querySelectorAll('.al-sort-option').forEach((o) => {
       o.classList.toggle('active', o.dataset.sort === state.sort);
@@ -346,8 +372,17 @@ export default async function decorate(block) {
   block.addEventListener('change', (e) => {
     const t = e.target;
     if (t.classList.contains('al-check')) {
-      const set = state[t.dataset.group];
-      if (t.checked) set.add(t.value); else set.delete(t.value);
+      if (t.dataset.group === 'media') {
+        state.media.clear();
+        if (t.value !== VIEW_ALL && t.checked) state.media.add(t.value);
+      } else {
+        const set = state[t.dataset.group];
+        if (t.checked) set.add(t.value); else set.delete(t.value);
+      }
+      apply();
+    } else if (t.classList.contains('al-media-radio')) {
+      state.media.clear();
+      if (t.value !== VIEW_ALL) state.media.add(t.value);
       apply();
     } else if (t.classList.contains('al-sort-radio')) {
       state.sort = t.value;
@@ -405,8 +440,6 @@ export default async function decorate(block) {
     }
   });
 
-  // as on hp.com, an open dropdown closes on a click anywhere outside it
-  // and on Escape (focus goes back to its button)
   document.addEventListener('click', (e) => {
     if (!block.contains(e.target) || !e.target.closest('.al-facet, .al-sort')) closePanels();
   });

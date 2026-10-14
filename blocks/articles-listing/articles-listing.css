@@ -139,7 +139,7 @@
   background: #fff;
   font-family: inherit;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.4;
   white-space: nowrap;
   text-align: left;
@@ -333,6 +333,102 @@
   display: none;
 }
 
+/* ===== radios (mobile sheet; hidden with the modal on desktop) ===== */
+.articles-listing .al-radios {
+  padding-bottom: 4px;
+}
+
+.articles-listing .al-radio-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 0;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* hp.com radios: black ring, black dot when chosen */
+.articles-listing .al-radio-item input {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  border: 1px solid #000;
+  border-radius: 50%;
+  appearance: none;
+  background: #fff;
+  cursor: pointer;
+}
+
+.articles-listing .al-radio-item input:checked {
+  background: radial-gradient(circle, #000 0 8.5px, transparent 9px);
+}
+
+.articles-listing .al-radio-item input:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+.articles-listing .al-modal .al-check {
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.articles-listing .al-modal .al-check-item {
+  position: relative;
+}
+
+.articles-listing .al-modal .al-check-item span {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+/* the box */
+.articles-listing .al-modal .al-check-item span::before {
+  content: '';
+  flex: none;
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
+  border: 1px solid #767676;
+  background: #fff;
+}
+
+.articles-listing .al-modal .al-check:checked + span::before {
+  border-color: #000;
+  background: #000;
+}
+
+/* white tick, only when checked */
+.articles-listing .al-modal .al-check-item span::after {
+  content: '';
+  display: none;
+  position: absolute;
+  top: 5px;
+  left: 11px;
+  width: 8px;
+  height: 15px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg);
+}
+
+.articles-listing .al-modal .al-check:checked + span::after {
+  display: block;
+}
+
+.articles-listing .al-modal .al-check:focus-visible + span::before {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
 /* mobile-only controls hidden on desktop */
 .articles-listing .al-mobile-trigger,
 .articles-listing .al-modal { display: none; }
@@ -429,41 +525,6 @@
 
   .articles-listing .al-modal-sort {
     border-top: 1px solid #000;
-  }
-
-  .articles-listing .al-radios {
-    padding-bottom: 4px;
-  }
-
-  .articles-listing .al-radio-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 8px 0;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-
-  /* hp.com radios: black ring, black dot when chosen */
-  .articles-listing .al-radio-item input {
-    flex: none;
-    width: 30px;
-    height: 30px;
-    margin: 0;
-    border: 1px solid #000;
-    border-radius: 50%;
-    appearance: none;
-    background: #fff;
-    cursor: pointer;
-  }
-
-  .articles-listing .al-radio-item input:checked {
-    background: radial-gradient(circle, #000 0 8.5px, transparent 9px);
-  }
-
-  .articles-listing .al-radio-item input:focus-visible {
-    outline: 2px solid #000;
-    outline-offset: 2px;
   }
 
   .articles-listing .al-collapse {
@@ -590,7 +651,6 @@
   .articles-listing .al-grid {
     grid-template-columns: repeat(3, 1fr);
     width: 100%;
-    margin-top: 44px;
   }
 
   .articles-listing .al-sort-option { padding: 7px 16px; }

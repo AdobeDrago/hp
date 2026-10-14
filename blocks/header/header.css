@@ -427,6 +427,29 @@ header nav .nav-search-form input {
   min-width: 0;
 }
 
+header nav .nav-search-form input::-webkit-search-cancel-button { appearance: none; }
+
+/* clear button shows once text is typed (hp.com) */
+header nav .nav-search-clear {
+  display: flex;
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+header nav .nav-search-clear[hidden] { display: none; }
+
+header nav .nav-search-clear svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: #000;
+}
+
 header nav .nav-search-submit {
   border: 0;
   background: transparent;
@@ -705,6 +728,7 @@ header nav.nav-search-open .nav-search-btn { display: none; }
 
 header nav.nav-search-open .nav-search-form {
   position: static;
+  gap: 0.375rem;
   box-sizing: border-box;
   flex: 1;
   height: 2.25rem;
@@ -720,7 +744,7 @@ header nav.nav-search-open .nav-search-form input {
   padding: 0 0.125rem;
   background: transparent;
   font-size: 0.875rem;
-  line-height: 1.125rem;
+  line-height: 1.25rem;
   color: #000;
 }
 
@@ -1163,7 +1187,8 @@ header nav.nav-search-open .nav-search-close svg {
   /* stylelint-enable no-descending-specificity */
 }
 
-@media (1280px <= width < 1680px) {
+/* open search bar on desktop (hp.com) */
+@media (width >= 1280px) {
   header nav.nav-search-open { position: relative; }
 
   header nav.nav-search-open .nav-sections,
@@ -1176,8 +1201,8 @@ header nav.nav-search-open .nav-search-close svg {
 
   header nav.nav-search-open .nav-search-form {
     position: absolute;
-    top: calc((var(--nav-height, 4rem) - 2.375rem) / 2);
-    left: calc(50% - 28.5rem);
+    top: 0.5rem;
+    left: calc(50% - 28.625rem);
     right: auto;
     box-sizing: border-box;
     width: 57rem;
@@ -1192,11 +1217,21 @@ header nav.nav-search-open .nav-search-close svg {
     padding: 0 0.125rem;
     background: transparent;
     font-size: 0.875rem;
-    line-height: 1.125rem;
+    line-height: 1.25rem;
     color: #000;
   }
 
   header nav.nav-search-open .nav-search-form input::placeholder { color: #757575; }
+
+  header nav .nav-search-form:hover {
+    border-color: #c2c2c2;
+    background: #f0f0f0;
+  }
+
+  header nav .nav-search-form:focus-within {
+    border-color: #a3a3a3;
+    background: #f0f0f0;
+  }
 
   header nav.nav-search-open .nav-search-submit {
     display: flex;
@@ -1210,8 +1245,8 @@ header nav.nav-search-open .nav-search-close svg {
 
   header nav.nav-search-open .nav-search-close {
     position: absolute;
-    top: calc((var(--nav-height, 4rem) - 3rem) / 2);
-    left: calc(50% + 29.75rem);
+    top: 0.1875rem;
+    left: calc(50% + 29.625rem);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1232,60 +1267,10 @@ header nav.nav-search-open .nav-search-close svg {
     stroke: #000;
     stroke-width: 1.5;
   }
-}
 
-/* hp.com from 1680px: wider menu spacing, an always-visible search bar
-   and larger mega-menu tiles (270 x 220) */
-@media (width >= 1680px) {
-  header nav .nav-brand { margin-right: 4.4375rem; }
-
-  header nav .nav-menu { gap: 0.75rem; }
-
-  header nav .nav-search { margin-right: 1.25rem; }
-
-  header nav .nav-search-btn { display: none; }
-
-  header nav .nav-search-form,
-  header nav .nav-search-form[hidden] {
-    display: flex;
-    position: static;
-    inset: auto;
-    gap: 0.375rem;
-    box-sizing: border-box;
-    width: 16.6875rem;
-    height: 2.375rem;
-    border: 0.0625rem solid #e0e0e0;
-    border-radius: 0.5rem;
-    padding: 0 0.75rem;
-    background: #fafafa;
-  }
-
-  header nav .nav-search-form input {
-    height: 1.25rem;
-    padding: 0;
-    background: transparent;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    color: #000;
-  }
-
-  header nav .nav-search-form input::placeholder { color: #767676; }
-
-  header nav .nav-search-submit {
-    display: flex;
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: 0;
-  }
-
-  header nav .nav-search-submit svg {
-    width: 1.5rem;
-    height: 1.5rem;
-    fill: #000;
-  }
-
-  header nav .nav-panel-cards ul {
-    grid-template-columns: repeat(4, 16.845rem);
+  header nav.nav-search-open .nav-search-close:hover svg,
+  header nav.nav-search-open .nav-search-close:focus-visible svg {
+    stroke: #024ad8;
   }
 }
 
@@ -1367,7 +1352,13 @@ header .nav-wrapper .nav-newsroom ul {
   width: 100%;
 }
 
-header .nav-wrapper .nav-newsroom.nav-newsroom-open ul { display: flex; }
+/* mobile dropdown: the open list stacks its links (hp.com) */
+header .nav-wrapper .nav-newsroom.nav-newsroom-open ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
 
 header .nav-wrapper .nav-newsroom ul li { list-style: none; }
 
@@ -1406,6 +1397,13 @@ header .nav-wrapper .nav-newsroom ul a:hover {
 
 header .nav-wrapper .nav-newsroom ul a:hover::after { transform: scaleX(1); }
 
+header .nav-wrapper .nav-newsroom.nav-newsroom-open ul a {
+  padding: 0.625rem 0;
+  line-height: 1.5rem;
+}
+
+header .nav-wrapper .nav-newsroom.nav-newsroom-open ul a::after { bottom: 0.375rem; }
+
 header .nav-wrapper .nav-newsroom p:last-child a {
   border: 1px solid #fff;
   background: #fff;
@@ -1421,30 +1419,16 @@ header .nav-wrapper .nav-newsroom p:last-child a:hover {
   text-decoration: none;
 }
 
-/* mobile dropdown: links stacked over a dimmed page, as on hp.com */
-@media (width < 1280px) {
-  header .nav-wrapper .nav-newsroom.nav-newsroom-open ul {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
-  }
 
-  header .nav-wrapper .nav-newsroom.nav-newsroom-open ul a {
-    padding: 10px 0;
-    line-height: 24px;
-  }
-
-  header .nav-wrapper .nav-newsroom.nav-newsroom-open ul a::after { bottom: 6px; }
-
-  header .nav-wrapper .nav-newsroom.nav-newsroom-open::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    height: 100vh;
-    background: rgb(0 0 0 / 75%);
-  }
+/* mobile dropdown: the open list dims the page below, as on hp.com */
+header .nav-wrapper .nav-newsroom.nav-newsroom-open::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background: #000000bf;
 }
 
 @media (width >= 1280px) {
@@ -1467,6 +1451,22 @@ header .nav-wrapper .nav-newsroom p:last-child a:hover {
   header .nav-wrapper .nav-newsroom-toggle { display: none; }
 
   header .nav-wrapper .nav-newsroom .nav-newsroom-brand { margin-right: 0; }
+
+  /* desktop: the links sit in one row, no dropdown overlay */
+  header .nav-wrapper .nav-newsroom.nav-newsroom-open ul {
+    flex-direction: row;
+    align-items: center;
+    gap: 0 2rem;
+  }
+
+  header .nav-wrapper .nav-newsroom.nav-newsroom-open ul a {
+    padding: 0;
+    line-height: inherit;
+  }
+
+  header .nav-wrapper .nav-newsroom.nav-newsroom-open ul a::after { bottom: -0.3125rem; }
+
+  header .nav-wrapper .nav-newsroom.nav-newsroom-open::after { content: none; }
 }
 
 /* phones and tablets: the account flyout is a full-height panel under the nav */

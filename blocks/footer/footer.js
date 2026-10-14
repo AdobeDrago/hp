@@ -143,5 +143,7 @@ export default async function decorate(block) {
   }
 
   decorateGtmLinks(footer);
+  // da.live layout mode re-runs the page load; drop any earlier render
+  block.textContent = '';
   block.append(footer);
 }

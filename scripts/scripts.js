@@ -167,7 +167,11 @@ async function loadLazy(doc) {
     header.textContent = '';
     loadHeader(header);
   }
-  loadFooter(doc.querySelector('footer'));
+  const footer = doc.querySelector('footer');
+  if (footer) {
+    footer.textContent = '';
+    loadFooter(footer);
+  }
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();

@@ -98,6 +98,49 @@
     ]
   },
   {
+    "id": "banner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "img_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "img_imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "content_content",
+        "label": "Content",
+        "description": "Optional logo image, heading, paragraph(s), optional italic note, and 1-2 CTA links.",
+        "valueType": "string"
+      },
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "description": "Large = tall banner with a large heading. Compact = slim banner with black buttons.",
+        "options": [
+          {
+            "name": "Large",
+            "value": "large"
+          },
+          {
+            "name": "Compact",
+            "value": "compact"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "cards",
     "fields": [
       {
@@ -105,19 +148,39 @@
         "name": "classes",
         "label": "Style",
         "valueType": "string",
-        "description": "No style = plain photo + text grid. Spotlight = first row is a full-bleed background photo + heading, followed by small icon + text rows (e.g. a benefits list). Grid = heading row above boxed, bordered cards with image, title, description and a button. Showcase = heading row above centered, borderless cards for a simple image + title + button (e.g. featured products).",
+        "description": "Pick a type and a column count. No style = plain photo + text grid. Icon + 4-up = first row is a full-bleed background photo + heading, followed by small icon + text rows (e.g. a benefits list). Image + 3-up = heading row above boxed, bordered cards with image, title, description and a button. Image + 4-up = heading row above four borderless image cards. Product + 2-up = heading row above centered, borderless cards for a simple image + title + button (e.g. featured products). Image + Left or Image + Right = a single grey band with the image in the first cell and the text in the second (e.g. a feature section), with the image on that side.",
         "options": [
           {
-            "name": "Spotlight",
-            "value": "spotlight"
+            "name": "Icon",
+            "value": "icon"
           },
           {
-            "name": "Grid",
-            "value": "grid"
+            "name": "Image",
+            "value": "image"
           },
           {
-            "name": "Showcase",
-            "value": "showcase"
+            "name": "Product",
+            "value": "product"
+          },
+          {
+            "name": "2-up",
+            "value": "2-up"
+          },
+          {
+            "name": "3-up",
+            "value": "3-up"
+          },
+          {
+            "name": "4-up",
+            "value": "4-up"
+          },
+          {
+            "name": "Left",
+            "value": "left"
+          },
+          {
+            "name": "Right",
+            "value": "right"
           }
         ]
       }
@@ -314,32 +377,6 @@
         "name": "content_cta2",
         "label": "Secondary CTA",
         "description": "A single link, italicized - e.g. Learn.",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "promo",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "img_image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "img_imageAlt",
-        "label": "Alt",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "content_content",
-        "label": "Content",
-        "description": "Optional logo image, heading, paragraph(s), optional italic note, and 1-2 CTA links.",
         "valueType": "string"
       }
     ]

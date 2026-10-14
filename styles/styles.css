@@ -217,13 +217,13 @@ main img {
   height: auto;
 }
 
-.icon {
+span.icon {
   display: inline-block;
   height: 24px;
   width: 24px;
 }
 
-.icon img {
+span.icon img {
   height: 100%;
   width: 100%;
 }

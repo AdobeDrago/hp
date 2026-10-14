@@ -1,0 +1,355 @@
+
+.banner-container {
+  --container-padding: 1rem;
+  --light-color: #f5f5f5;
+  --border-color: #e8e8e8;
+}
+
+@media (width >= 768px) {
+  .banner-container {
+    --container-padding: 2rem;
+  }
+}
+
+@media (width >= 1280px) {
+  .banner-container {
+    --container-padding: 2.25rem;
+  }
+}
+
+main > .section.banner-container {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.banner-container .banner-wrapper {
+  display: flow-root;
+  max-width: 105rem;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.banner-container .banner-wrapper:has(> .banner.compact) {
+  background-color: var(--light-color);
+}
+
+.banner {
+  display: flex;
+  flex-direction: column;
+  padding: 1.875rem var(--container-padding);
+  background-color: var(--light-color);
+  color: #1a1a1a;
+}
+
+.banner .banner-media {
+  order: -1;
+  line-height: 0;
+}
+
+.banner .banner-media picture {
+  display: block;
+}
+
+.banner .banner-media img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 816 / 600;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.banner .banner-content {
+  padding: 1.25rem 0 1.875rem;
+}
+
+.banner .banner-content > div {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1rem;
+}
+
+.banner .banner-content > div > :not(.button-container) {
+  flex: 0 0 100%;
+}
+
+.banner .banner-content h2 {
+  margin: 0.5rem 0 0;
+  font-size: 2.25rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.banner .banner-content p {
+  margin: 0.5rem 0 0;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+
+.banner .banner-content p + p:where(:not(.button-container)) {
+  margin-top: 1.5rem;
+}
+
+.banner .banner-content p:has(> picture) {
+  margin: 0;
+  line-height: 0;
+}
+
+.banner .banner-content img {
+  width: auto;
+  height: 4.125rem;
+}
+
+.banner .banner-content sup {
+  font-size: 0.6em;
+  line-height: 0;
+}
+
+/* footnote references (1, 2...): plain superscripts in the text colour
+   like hp.com (8px, 10px from 768, 12px from 1280) */
+.banner .banner-content a[href^="#footnote"] {
+  color: inherit;
+  font-size: 0.5rem;
+  line-height: 0;
+  text-decoration: none;
+  vertical-align: super;
+}
+
+.banner .banner-content .button-container {
+  margin: 1rem 0 0;
+}
+
+.banner a.button:any-link {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 7rem;
+  min-height: 3rem;
+  margin: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  background-color: #024ad8;
+  color: #fff;
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+.banner a.button:hover,
+.banner a.button:focus-visible {
+  background-color: #103fb2;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* hp.com keyboard focus on the blue buttons: dark-blue edge with a white
+   inner ring (compact banners have black / grey buttons) */
+.banner:not(.compact) a.button:not(.secondary):focus-visible {
+  outline: 0.125rem solid #0e3191;
+  outline-offset: -0.125rem;
+  box-shadow: inset 0 0 0 0.25rem #fff;
+}
+
+.banner a.button.secondary:any-link {
+  border: 0.0625rem solid #1a1a1a;
+  background-color: transparent;
+  color: #1a1a1a;
+}
+
+.banner a.button.secondary:hover,
+.banner a.button.secondary:focus-visible {
+  border-color: #3d3d3d;
+  background-color: #8585851a;
+  color: #3d3d3d;
+}
+
+.banner:where(.large) {
+  background-color: var(--background-color);
+}
+
+.banner:where(.large) .banner-media {
+  order: 1;
+}
+
+.banner:where(.large) .banner-media img {
+  aspect-ratio: 343 / 191;
+  border-radius: 0;
+}
+
+.banner:where(.large) .banner-content {
+  padding: 0 0 1.875rem;
+}
+
+.banner:where(.large) .banner-content h2 {
+  font-size: 2.75rem;
+}
+
+.banner:where(.large) .banner-content p:not(.button-container) {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+}
+
+.banner:where(.compact) {
+  margin: var(--container-padding);
+  padding: 0;
+  overflow: hidden;
+  border-radius: 1rem;
+  background-color: var(--background-color);
+}
+
+.banner:where(.compact) .banner-media img {
+  aspect-ratio: 816 / 320;
+  border-radius: 0;
+}
+
+.banner:where(.compact) .banner-content {
+  padding: 1.5rem var(--container-padding);
+}
+
+.banner:where(.compact) .banner-content h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+}
+
+.banner:where(.compact) a.button.primary {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.banner:where(.compact) a.button.primary:hover,
+.banner:where(.compact) a.button.primary:focus-visible {
+  background-color: #3d3d3d;
+  color: #fff;
+}
+
+@media (width >= 768px) {
+  .banner .banner-content a[href^="#footnote"] {
+    font-size: 0.625rem;
+  }
+
+  .banner {
+    padding: 2.5rem var(--container-padding);
+  }
+
+  .banner .banner-media img {
+    aspect-ratio: auto;
+  }
+
+  .banner .banner-content {
+    padding: 1.25rem 0 2.5rem;
+  }
+
+  .banner .banner-content h2 {
+    margin-top: 1rem;
+    font-size: 2.75rem;
+  }
+
+  .banner .banner-content p {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+  }
+
+  .banner:where(.large) .banner-content {
+    padding: 0 0 2.5rem;
+  }
+
+  .banner:where(.large) .banner-content h2 {
+    font-size: 3.5rem;
+  }
+
+  .banner:where(.compact) {
+    padding: 0;
+  }
+
+  .banner:where(.compact) .banner-content {
+    padding: var(--container-padding);
+  }
+
+  .banner:where(.compact) .banner-content h2 {
+    margin-top: 0;
+    font-size: 1.75rem;
+  }
+
+}
+
+@media (width >= 1280px) {
+  .banner .banner-content a[href^="#footnote"] {
+    font-size: 0.75rem;
+  }
+
+  .banner {
+    flex-direction: row;
+    align-items: stretch;
+    padding: 3.125rem var(--container-padding);
+  }
+
+  .banner .banner-media {
+    box-sizing: border-box;
+    flex: 0 0 50%;
+    align-self: flex-start;
+    order: 0;
+  }
+
+  .banner .banner-content {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 50%;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 3rem 2.5rem 0;
+  }
+
+  .banner .banner-content h2 {
+    font-size: 3.5rem;
+  }
+
+  .banner .banner-content p {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+
+  .banner .banner-content p + p:where(:not(.button-container)) {
+    margin-top: 1.75rem;
+  }
+
+  .banner .banner-content p:has(> picture) {
+    margin-bottom: 0.9375rem;
+  }
+
+  .banner:where(.large) .banner-media {
+    order: 1;
+  }
+
+  .banner:where(.large) .banner-content h2 {
+    font-size: 4.5rem;
+  }
+
+  .banner:where(.large) .banner-content p:not(.button-container) {
+    font-size: 1rem;
+  }
+
+  .banner:where(.compact) {
+    padding: 0;
+  }
+
+  .banner:where(.compact) .banner-media {
+    order: 1;
+  }
+
+  .banner:where(.compact) .banner-media img {
+    min-height: 17.5rem;
+  }
+
+  .banner:where(.compact) .banner-content {
+    padding: var(--container-padding);
+  }
+
+  .banner:where(.compact) .banner-content h2 {
+    font-size: 2rem;
+  }
+
+}

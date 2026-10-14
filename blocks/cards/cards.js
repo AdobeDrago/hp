@@ -1,10 +1,11 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 export default function decorate(block) {
-  const isSpotlight = block.classList.contains('spotlight');
-  const hasTextHeader = ['grid', 'showcase', 'feature'].some((c) => block.classList.contains(c));
+  const isIcon = block.classList.contains('icon');
+  const isSideBySide = ['left', 'right'].some((c) => block.classList.contains(c));
+  const hasTextHeader = !isSideBySide && ['image', 'product'].some((c) => block.classList.contains(c));
   const rows = [...block.children];
-  const headerRow = (isSpotlight || hasTextHeader) ? rows.shift() : null;
+  const headerRow = (isIcon || hasTextHeader) ? rows.shift() : null;
 
   const ul = document.createElement('ul');
   rows.forEach((row) => {
@@ -17,13 +18,13 @@ export default function decorate(block) {
     ul.append(li);
   });
 
-  const iconWidth = isSpotlight ? '64' : '750';
+  const iconWidth = isIcon ? '64' : '750';
   ul.querySelectorAll('picture > img').forEach((img) => {
     img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: iconWidth }]));
   });
 
   const newChildren = [];
-  if (headerRow && isSpotlight) {
+  if (headerRow && isIcon) {
     const cells = [...headerRow.children];
     const imageCell = cells.find((cell) => cell.querySelector('img'));
     const textCell = cells.find((cell) => cell !== imageCell);
@@ -33,11 +34,11 @@ export default function decorate(block) {
         { media: '(min-width: 1024px)', width: '1600' },
         { width: '750' },
       ]));
-      imageCell.className = 'cards-spotlight-bg';
+      imageCell.className = 'cards-icon-bg';
       newChildren.push(imageCell);
     }
     if (textCell) {
-      textCell.className = 'cards-spotlight-header';
+      textCell.className = 'cards-icon-header';
       newChildren.push(textCell);
     }
   } else if (headerRow && hasTextHeader) {

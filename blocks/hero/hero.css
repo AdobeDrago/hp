@@ -170,6 +170,12 @@
   font-weight: 500;
   line-height: 1.35;
   position: relative;
+  transition: 0.2s ease-in;
+}
+
+.newsroom-landing.hero-container .hero-content p a:hover {
+  color: #ccc;
+  transition: 0.2s ease-in;
 }
 
 .newsroom-landing.hero-container .hero-content a::before {
@@ -183,6 +189,13 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 55%;
+  transition: 0.2s ease-in;
+}
+
+.newsroom-landing.hero-container .hero-content a:hover::before {
+  background-color: #ccc;
+  border-color: #ccc;
+  transition: 0.2s ease-in;
 }
 
 .newsroom-landing.hero-container .hero-content p a::after {

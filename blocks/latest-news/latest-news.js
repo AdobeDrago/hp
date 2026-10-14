@@ -33,7 +33,17 @@ async function loadItems(source) {
     && /\/newsroom\/(press-releases|blogs|press-kits)\//.test(it.path));
 }
 
-function card(it) {
+const DEFAULT_GTM_ID = 'newsroom_article_grid';
+
+/** adds GTM link-click tracking attributes; value is the article slug */
+function addGtm(anchor, path, gtmId) {
+  const slug = path.split('/').pop().replace(/\.html$/, '');
+  anchor.dataset.gtmId = gtmId;
+  anchor.dataset.gtmValue = slug;
+  anchor.dataset.gtmCategory = 'linkClick';
+}
+
+function card(it, gtmId) {
   const art = el('article', 'lnl-card');
 
   const desc = (it.description || '').trim();
@@ -41,6 +51,7 @@ function card(it) {
 
   const media = el('a', 'lnl-card-media');
   media.href = it.path;
+  addGtm(media, it.path, gtmId);
   media.setAttribute('aria-label', it.title);
   if (it.image) {
     media.append(createOptimizedPicture(it.image, it.title, false, [{ width: '750' }]));
@@ -51,6 +62,7 @@ function card(it) {
   const h = el('h3', 'lnl-card-title');
   const ha = el('a', null, it.title);
   ha.href = it.path;
+  addGtm(ha, it.path, gtmId);
   h.append(ha);
   body.append(h);
 
@@ -58,6 +70,7 @@ function card(it) {
 
   const cta = el('a', 'lnl-card-cta');
   cta.href = it.path;
+  addGtm(cta, it.path, gtmId);
   cta.setAttribute('aria-label', `Read: ${it.title}`);
   const icon = el('span', 'lnl-card-cta-icon');
   icon.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -69,6 +82,8 @@ function card(it) {
 }
 
 export default async function decorate(block) {
+  // gtm id comes from the metadata attribute (data-gtm_id) on an ancestor, else the default
+  const gtmId = block.closest('[data-gtm_id]')?.dataset.gtm_id || DEFAULT_GTM_ID;
   const link = block.querySelector('a[href]');
   const source = link ? link.getAttribute('href') : DEFAULT_SOURCE;
   block.textContent = '';
@@ -81,5 +96,5 @@ export default async function decorate(block) {
     .sort((a, b) => itemDate(b) - itemDate(a))
     .slice(0, COUNT);
 
-  latest.forEach((it) => grid.append(card(it)));
+  latest.forEach((it) => grid.append(card(it, gtmId)));
 }

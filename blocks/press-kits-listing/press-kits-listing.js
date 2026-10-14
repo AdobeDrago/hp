@@ -46,9 +46,20 @@ async function loadIndex(source) {
   return json.data || [];
 }
 
-function card(it) {
+const DEFAULT_GTM_ID = 'kits_link_placement';
+
+/** adds GTM link-click tracking attributes; value is the article slug */
+function addGtm(anchor, path, gtmId) {
+  const slug = path.split('/').pop().replace(/\.html$/, '');
+  anchor.dataset.gtmId = gtmId;
+  anchor.dataset.gtmValue = slug;
+  anchor.dataset.gtmCategory = 'linkClick';
+}
+
+function card(it, gtmId) {
   const a = el('a', 'pkl-card');
   a.href = it.path;
+  addGtm(a, it.path, gtmId);
 
   const media = el('span', 'pkl-card-media');
   if (it.image) {
@@ -95,6 +106,8 @@ async function resolveItems(links) {
 }
 
 export default async function decorate(block) {
+  // gtm id comes from the metadata attribute (data-gtm_id) on an ancestor, else the default
+  const gtmId = block.closest('[data-gtm_id]')?.dataset.gtm_id || DEFAULT_GTM_ID;
   const links = [...block.querySelectorAll('a[href]')];
   block.textContent = '';
 
@@ -107,7 +120,7 @@ export default async function decorate(block) {
   block.append(nav, track);
 
   const items = await resolveItems(links);
-  items.forEach((it) => track.append(card(it)));
+  items.forEach((it) => track.append(card(it, gtmId)));
 
   // ===== carousel (only functional when the track overflows, i.e. mobile) =====
   const scrollByCard = (dir) => {

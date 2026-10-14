@@ -11,6 +11,11 @@ const SEARCH_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.097
 const CART_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.38 4.01a.52.52 0 0 0-.32.26.44.44 0 0 0-.06.23.5.5 0 0 0 .4.49h.7c.69 0 .75.01.89.05.32.1.58.35.68.67l.83 5.37.85 5.41A2 2 0 0 0 8.48 18l.34.01a.56.56 0 0 1-.1.02 2.04 2.04 0 0 0-.45.12 2 2 0 0 0-1.25 1.55 2.82 2.82 0 0 0 0 .62 2 2 0 0 0 2.24 1.67 2 2 0 0 0 1.67-1.48c.05-.18.06-.3.06-.5s-.01-.33-.06-.5a2 2 0 0 0-1.68-1.48.23.23 0 0 1-.07-.02 360.1 360.1 0 0 1 3.32 0h3.32a.74.74 0 0 1-.12.02 1.98 1.98 0 0 0-1.14.59 1.98 1.98 0 0 0-.49.86 1.57 1.57 0 0 0-.06.53c0 .26 0 .33.06.53a2 2 0 0 0 1.67 1.45c.16.02.46.02.6-.01a2 2 0 0 0 1.52-1.24c.15-.38.18-.85.07-1.26a2 2 0 0 0-1.7-1.46h-.05c0-.01.32-.02.95-.02h.96l.06-.02a.5.5 0 0 0 .34-.39.5.5 0 0 0-.35-.56c-.05-.02-.22-.02-5.03-.02H8.12l-.08-.03a1.01 1.01 0 0 1-.7-.67 12.23 12.23 0 0 1-.14-.79l4.93-.01c4.57 0 4.93 0 5.01-.02a2 2 0 0 0 1.09-.54 1.98 1.98 0 0 0 .5-.77 682.89 682.89 0 0 0 1.35-4.97.97.97 0 0 0-.1-.65 1 1 0 0 0-.65-.53L19.25 8H6.05l-.19-1.17a84.06 84.06 0 0 0-.2-1.27 2.05 2.05 0 0 0-.36-.78 2.03 2.03 0 0 0-1.1-.72C3.97 4 4 4 3.17 4l-.8.01ZM19.1 9.02l-.65 2.42c-.62 2.32-.65 2.4-.7 2.5a1 1 0 0 1-.7.54c-.08.02-.3.02-5.02.02H7.08l-.42-2.75L6.23 9H19.1v.02ZM9.24 19.03A1 1 0 0 1 10 20a.92.92 0 0 1-.06.33 1.01 1.01 0 0 1-.7.64A.73.73 0 0 1 9 21a.72.72 0 0 1-.25-.02 1 1 0 0 1 .05-1.95c.12-.02.33-.02.44.01Zm6.91-.02c.14.02.3.08.41.16.07.05.2.18.26.25A.99.99 0 0 1 17 20a.98.98 0 0 1-.3.71.97.97 0 0 1-.46.26 1.28 1.28 0 0 1-.38.02A1 1 0 0 1 15 20a.99.99 0 0 1 .43-.82 1.11 1.11 0 0 1 .41-.17 1.46 1.46 0 0 1 .31 0Z"/></svg>';
 const USER_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.73 2a10 10 0 0 0-9.63 8.62 8.48 8.48 0 0 0-.1 1.26c0 .56.02.86.08 1.35a10 10 0 0 0 13.6 8.07 10 10 0 0 0 6.26-8.22c.05-.39.05-.52.05-1.08 0-.64-.01-.88-.1-1.43a10 10 0 0 0-5.75-7.67 9.98 9.98 0 0 0-3.8-.9h-.61Zm.72 1.01a9 9 0 0 1 3.53 17.06 8.98 8.98 0 0 1-3.55.92c-.23.01-.85 0-1.04-.01a9 9 0 0 1-8.35-9.76 9 9 0 0 1 8.49-8.2c.2-.02.72-.02.92 0Zm-.66 2.5a3.5 3.5 0 0 0-2.7 1.54 3.48 3.48 0 0 0-.4 3.07 3.47 3.47 0 0 0 1.3 1.74 3.53 3.53 0 0 0 1.16.54c.32.07.5.1.85.1s.55-.03.86-.1a3.5 3.5 0 0 0 2.62-3.02 4.3 4.3 0 0 0 0-.76 3.5 3.5 0 0 0-3.3-3.11 2.6 2.6 0 0 0-.39 0Zm.5 1a2.53 2.53 0 0 1 1.66.92 2.5 2.5 0 0 1-1.17 3.94 2.27 2.27 0 0 1-.78.13c-.3 0-.52-.04-.78-.13a2.44 2.44 0 0 1-.98-.6 2.48 2.48 0 0 1-.7-2.2 2.79 2.79 0 0 1 .52-1.15c.08-.09.27-.29.37-.37a2.53 2.53 0 0 1 1.28-.53c.14-.02.43-.02.58 0Zm-.46 7a5.48 5.48 0 0 0-3.66 1.55 5.4 5.4 0 0 0-1.23 1.78.63.63 0 0 0-.02.14.5.5 0 0 0 .37.5.66.66 0 0 0 .13.02.47.47 0 0 0 .35-.15.42.42 0 0 0 .1-.15c.2-.42.4-.75.68-1.1a6.38 6.38 0 0 1 .6-.57 4.53 4.53 0 0 1 2.19-.98c.32-.05.74-.06 1.05-.03a4.48 4.48 0 0 1 2.83 1.34c.38.4.66.8.9 1.34a.5.5 0 0 0 .47.3.5.5 0 0 0 .48-.62 3.87 3.87 0 0 0-.31-.64 5.28 5.28 0 0 0-.87-1.13 5.44 5.44 0 0 0-3.66-1.6 3.88 3.88 0 0 0-.4 0Z"/></svg>';
 
+const CLEAR_ICON = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M9.56 2.01a8 8 0 1 0 .88 16 8 8 0 0 0-.88-16ZM6.91 6.35c.07.01.14.03.19.06.03.03.37.35 1.47 1.46L10 9.29l1.42-1.42 1.45-1.44a.5.5 0 0 1 .35-.08.5.5 0 0 1 .38.73c-.03.06-.06.08-1.46 1.49L10.7 10l1.42 1.42 1.44 1.45a.5.5 0 0 1-.65.73c-.06-.03-.08-.06-1.49-1.46L10 10.7l-1.43 1.43a19 19 0 0 1-1.5 1.46.5.5 0 0 1-.57-.08.5.5 0 0 1-.07-.65l1.44-1.45L9.29 10 7.86 8.57c-1.4-1.4-1.43-1.43-1.46-1.5a.5.5 0 0 1 .51-.72Z"/></svg>';
+
+// hp.com site search results page
+const SEARCH_URL = 'https://www.hp.com/us-en/shop/sitesearch';
+
 const DEFAULT_HEADER_FRAGMENT = '/nav';
 
 async function fetchNavHtml(path) {
@@ -73,6 +78,9 @@ function setSearchOpen(nav, open) {
   nav.classList.toggle('nav-search-open', open);
   form.hidden = !open;
   if (close) close.hidden = !open;
+  // keep the clear button in step with the field, whatever changed its value
+  const clear = form.querySelector('.nav-search-clear');
+  if (clear) clear.hidden = !form.querySelector('input').value;
   if (open) {
     setAccountOpen(nav.querySelector('.nav-account'), false);
     if (nav.getAttribute('aria-expanded') === 'true') {
@@ -245,19 +253,46 @@ function decorateTools(navTools) {
   const searchForm = document.createElement('form');
   searchForm.className = 'nav-search-form';
   searchForm.setAttribute('role', 'search');
-  searchForm.action = 'https://www.hp.com/us-en/shop/SearchDisplay';
+  searchForm.action = SEARCH_URL;
   searchForm.hidden = true;
   const searchInput = document.createElement('input');
   searchInput.type = 'search';
-  searchInput.name = 'searchTerm';
+  searchInput.name = 'keyword';
   searchInput.placeholder = 'What are you looking for?';
+  searchInput.autocomplete = 'off';
   searchInput.setAttribute('aria-label', 'Search');
+  const searchClear = document.createElement('button');
+  searchClear.type = 'button';
+  searchClear.className = 'nav-search-clear';
+  searchClear.setAttribute('aria-label', 'Clear Search');
+  searchClear.hidden = true;
+  searchClear.innerHTML = CLEAR_ICON;
   const searchSubmit = document.createElement('button');
   searchSubmit.type = 'submit';
   searchSubmit.className = 'nav-search-submit';
   searchSubmit.setAttribute('aria-label', 'Submit search');
   searchSubmit.innerHTML = SEARCH_ICON;
-  searchForm.append(searchInput, searchSubmit);
+  searchForm.append(searchInput, searchClear, searchSubmit);
+
+  // like hp.com: an empty search keeps the bar open instead of leaving the page
+  searchForm.addEventListener('submit', (e) => {
+    const keyword = searchInput.value.trim();
+    if (!keyword) {
+      e.preventDefault();
+      searchInput.focus();
+      return;
+    }
+    searchInput.value = keyword;
+  });
+  searchInput.addEventListener('input', () => {
+    searchClear.hidden = !searchInput.value;
+  });
+
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    searchClear.hidden = true;
+    searchInput.focus();
+  });
 
   const searchClose = document.createElement('button');
   searchClose.type = 'button';

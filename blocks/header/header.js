@@ -15,8 +15,10 @@ const DEFAULT_HEADER_FRAGMENT = '/nav';
 
 async function fetchNavHtml(path) {
   const isAbsolute = /^https?:\/\//i.test(path);
-  const root = !isAbsolute && window.location.pathname.startsWith('/content/') ? '/content' : '';
-  const resolvedPath = `${root}${path}`;
+  // set by fragments/fragments.js when this runs on a non-EDS site
+  const origin = isAbsolute ? '' : window.hpFragments?.origin || '';
+  const root = !isAbsolute && !origin && window.location.pathname.startsWith('/content/') ? '/content' : '';
+  const resolvedPath = `${origin}${root}${path}`;
   const resp = await fetch(`${resolvedPath}.plain.html`);
   if (!resp.ok) return null;
   const container = document.createElement('div');
@@ -470,7 +472,10 @@ export default async function decorate(block) {
   const navTools = nav.querySelector('.nav-tools');
   let navNewsroom = nav.querySelector('.nav-newsroom');
 
-  if (navNewsroom && document.body.dataset.noNewsroom === 'true') {
+  // embedded copies show the newsroom bar only when asked to (data-newsroom="true")
+  const embed = block.closest('[data-hp-fragment]');
+  const hideNewsroom = embed ? embed.dataset.newsroom !== 'true' : document.body.dataset.noNewsroom === 'true';
+  if (navNewsroom && hideNewsroom) {
     navNewsroom.remove();
     navNewsroom = null;
   }

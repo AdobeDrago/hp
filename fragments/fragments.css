@@ -1,0 +1,8 @@
+/*
+ * Styles for the HP header and footer on non-EDS sites, in the same order as
+ * on the EDS site: base styles, then the fonts and the block styles.
+ */
+@import url('fragments-base.css');
+@import url('../styles/fonts.css');
+@import url('../blocks/header/header.css');
+@import url('../blocks/footer/footer.css');

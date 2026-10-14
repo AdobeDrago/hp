@@ -1,0 +1,126 @@
+/*
+ * The parts of styles/styles.css the HP header and footer rely on, scoped to
+ * the embedded elements. :where() keeps the base rules at the same specificity
+ * as on the EDS site; fragments.css loads this before the block styles.
+ */
+@font-face {
+  font-family: forma-djr-fallback;
+  size-adjust: 100%;
+  src: local('Arial');
+}
+
+/* custom properties need the attribute's weight; the visual defaults stay at
+   zero specificity so header.css and footer.css override them as on EDS */
+[data-hp-fragment] {
+  --background-color: white;
+  --text-color: #131313;
+  --link-color: #3b63fb;
+  --link-hover-color: #1d3ecf;
+  --body-font-family: forma-djr, forma-djr-fallback, arial, sans-serif;
+  --heading-font-family: forma-djr, forma-djr-fallback, arial, sans-serif;
+  --nav-height: 4.0625rem;
+  --header-height: 7.9375rem;
+}
+
+:where([data-hp-fragment]) {
+  display: block;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: 22px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+@media (width >= 900px) {
+  :where([data-hp-fragment]) {
+    font-size: 18px;
+  }
+}
+
+@media (width >= 1280px) {
+  [data-hp-fragment] {
+    --nav-height: 3.4375rem;
+    --header-height: 7.4375rem;
+  }
+}
+
+/* header.css reserves --header-height; without the newsroom bar that is just the nav */
+header[data-hp-fragment]:not([data-newsroom='true']) {
+  --header-height: var(--nav-height);
+}
+
+[data-hp-fragment] .header,
+[data-hp-fragment] .footer {
+  visibility: hidden;
+}
+
+[data-hp-fragment] .header[data-block-status='loaded'],
+[data-hp-fragment] .footer[data-block-status='loaded'] {
+  visibility: visible;
+}
+
+body.nav-scroll-lock {
+  overflow-y: hidden;
+}
+
+:where([data-hp-fragment]) h2 {
+  margin-top: 0.8em;
+  margin-bottom: 0.25em;
+  font-family: var(--heading-font-family);
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/* neutralise text styles host sites commonly set on these elements */
+:where([data-hp-fragment]) :is(h2, p, ul, li, a, button, input) {
+  text-transform: none;
+  letter-spacing: normal;
+  text-shadow: none;
+}
+
+:where([data-hp-fragment]) :is(p, ul, ol) {
+  margin-top: 0.8em;
+  margin-bottom: 0.25em;
+}
+
+:where([data-hp-fragment]) :is(input, button) {
+  font: inherit;
+}
+
+:where([data-hp-fragment]) a:any-link {
+  color: var(--link-color);
+  text-decoration: none;
+  word-break: break-word;
+}
+
+:where([data-hp-fragment]) a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+:where([data-hp-fragment]) button {
+  box-sizing: border-box;
+  display: inline-block;
+  max-width: 100%;
+  margin: 12px 0;
+  border: 2px solid transparent;
+  border-radius: 2.4em;
+  padding: 0.5em 1.2em;
+  font-family: var(--body-font-family);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+  background-color: var(--link-color);
+  color: var(--background-color);
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:where([data-hp-fragment]) button:is(:hover, :focus) {
+  background-color: var(--link-hover-color);
+}

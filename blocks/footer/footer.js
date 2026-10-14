@@ -5,8 +5,10 @@ const DEFAULT_FOOTER_FRAGMENT = '/footer';
 
 async function fetchFooterHtml(path) {
   const isAbsolute = /^https?:\/\//i.test(path);
-  const root = !isAbsolute && window.location.pathname.startsWith('/content/') ? '/content' : '';
-  const resolvedPath = `${root}${path}`;
+  // set by fragments/fragments.js when this runs on a non-EDS site
+  const origin = isAbsolute ? '' : window.hpFragments?.origin || '';
+  const root = !isAbsolute && !origin && window.location.pathname.startsWith('/content/') ? '/content' : '';
+  const resolvedPath = `${origin}${root}${path}`;
   const resp = await fetch(`${resolvedPath}.plain.html`);
   if (!resp.ok) return null;
   const container = document.createElement('div');

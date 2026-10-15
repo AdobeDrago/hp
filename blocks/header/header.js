@@ -623,6 +623,8 @@ export async function decorateNav(block, { path = DEFAULT_HEADER_FRAGMENT } = {}
   }
 
   decorateGtmLinks(navWrapper);
+  // da.live layout mode re-runs the page load; drop any earlier render
+  block.textContent = '';
   block.append(navWrapper);
 }
 

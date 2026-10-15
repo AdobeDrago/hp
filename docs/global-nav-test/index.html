@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Global nav consumer test</title>
+  <style>
+    /* hostile host CSS, to prove the nav is isolated */
+    body { margin: 0; font-family: Georgia, serif; }
+    header, nav, ul, li, a, p { color: red; text-transform: uppercase; }
+    a { text-decoration: underline wavy; }
+  </style>
+</head>
+<body>
+  <header data-global-nav></header>
+  <main><h1>Partner site</h1><p>Different origin; the nav above comes from HP.</p></main>
+  <!-- change the origin to the HP host being tested -->
+  <script type="module" src="http://localhost:3000/scripts/global-nav.js"></script>
+</body>
+</html>

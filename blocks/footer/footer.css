@@ -11,7 +11,7 @@ footer {
 
 footer .footer-inner {
   box-sizing: border-box;
-  max-width: 100rem;
+  max-width: 1680px;
   margin: auto;
   padding: 0 1rem 1.5rem;
 }
@@ -184,12 +184,23 @@ footer .footer-column ul.footer-social {
   gap: 1.5rem;
 }
 
+/* rows are as tall as the 20px icons, no line-box slack (hp.com) */
+footer .footer-social li {
+  display: flex;
+}
+
 footer .footer-column ul.footer-social a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 1.25rem;
   height: 1.25rem;
+}
+
+footer .footer-social picture {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 footer .footer-social svg,

@@ -105,20 +105,14 @@ main > .section.promo-container {
   line-height: 0;
 }
 
-/* footnote references (1, 2...) link to the footnotes, so they look like
-   links: hp.com link blue, underlined */
+/* footnote references (1, 2...): plain superscripts in the text colour
+   like hp.com (8px, 10px from 768, 12px from 1280) */
 .promo .promo-content a[href^="#footnote"] {
-  margin-left: 0.125rem;
-  color: #024ad8;
-  font-size: 0.5em;
+  color: inherit;
+  font-size: 0.5rem;
   line-height: 0;
-  text-decoration: underline;
-  text-underline-offset: 0.0625rem;
+  text-decoration: none;
   vertical-align: super;
-}
-
-.promo .promo-content a[href^="#footnote"]:hover {
-  color: #103fb2;
 }
 
 .promo .promo-content .button-container {
@@ -247,6 +241,10 @@ main > .section.promo-container {
 }
 
 @media (width >= 768px) {
+  .promo .promo-content a[href^="#footnote"] {
+    font-size: 0.625rem;
+  }
+
   .promo {
     padding: 2.5rem var(--container-padding);
   }
@@ -327,6 +325,10 @@ main > .section.promo-container {
 }
 
 @media (width >= 1280px) {
+  .promo .promo-content a[href^="#footnote"] {
+    font-size: 0.75rem;
+  }
+
   .promo {
     flex-direction: row;
     align-items: stretch;

@@ -2,8 +2,10 @@ main > .section:has(+ .section.anchor-nav-container) {
   margin-bottom: 0;
 }
 
+/* gap below the bar (hp.com: 30px, 37px from 768) */
 main > .section.anchor-nav-container {
   margin-top: 0;
+  margin-bottom: 1.875rem;
 }
 
 .anchor-nav-container .anchor-nav-wrapper {
@@ -217,6 +219,10 @@ main .anchor-nav-cta a.button:focus-visible {
 }
 
 @media (width >= 768px) {
+  main > .section.anchor-nav-container {
+    margin-bottom: 2.3125rem;
+  }
+
   .anchor-nav > div {
     grid-template-columns: minmax(0, 1fr) auto;
     padding: 0 2rem;
@@ -259,7 +265,7 @@ main .anchor-nav-cta a.button:focus-visible {
 
   .anchor-nav-links ul {
     display: flex;
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
 
   .anchor-nav-links li,
@@ -316,5 +322,9 @@ main .anchor-nav-cta a.button:focus-visible {
 @media (width >= 1280px) {
   .anchor-nav > div {
     padding: 0 2.25rem;
+  }
+
+  .anchor-nav-links ul {
+    font-size: 1.125rem;
   }
 }

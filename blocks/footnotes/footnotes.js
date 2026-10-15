@@ -5,6 +5,8 @@ const DEFAULT_TITLE = 'Footnotes and Disclaimers';
 
 const DYNAMIC_REF_SELECTOR = 'a[href^="#footnote-"]';
 
+// press-release variation: hp.com's small chevron (it does not flip when open)
+const ICON_CHEVRON = '<svg width="12" height="7" viewBox="0 0 12 7" aria-hidden="true" focusable="false"><path fill="currentColor" d="M0 10.658L1.28 12 7 6 1.28 0 0 1.337 4.51 6z" transform="rotate(90 6 6)"/></svg>';
 const ICON_EXTERNAL = '<svg class="footnotes-external-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M13.5 9v4.5h-11v-11H7M10 2.5h3.5V6M13.5 2.5 7.5 8.5"/></svg>';
 
 // URLs in the footnote text; sentence punctuation after a URL stays outside
@@ -104,6 +106,12 @@ export default function decorate(block) {
     [...row.children].forEach((cell) => {
       while (cell.firstChild) content.append(cell.firstChild);
     });
+    // press: a single-paragraph note arrives as bare text; keep it a <p>
+    if (block.classList.contains('press') && !content.querySelector(':scope > :is(p, ol, ul)')) {
+      const p = document.createElement('p');
+      p.append(...content.childNodes);
+      content.append(p);
+    }
     staticList.append(li);
   });
 
@@ -119,15 +127,21 @@ export default function decorate(block) {
   title.className = 'footnotes-title';
   title.textContent = titleText;
 
+  // press releases (hp.com): collapsed to start, with a chevron
+  const press = block.classList.contains('press');
+
   const icon = document.createElement('div');
   icon.className = 'footnotes-icon';
-  icon.innerHTML = `<span class="footnotes-icon-expand">${ICON_EXPAND}</span><span class="footnotes-icon-collapse">${ICON_COLLAPSE}</span>`;
+  icon.innerHTML = press
+    ? ICON_CHEVRON
+    : `<span class="footnotes-icon-expand">${ICON_EXPAND}</span><span class="footnotes-icon-collapse">${ICON_COLLAPSE}</span>`;
 
   const header = document.createElement('div');
   header.className = 'footnotes-header';
   header.setAttribute('tabindex', '0');
   header.setAttribute('role', 'button');
-  header.setAttribute('aria-expanded', 'true');
+  header.setAttribute('aria-expanded', String(!press));
+  block.classList.toggle('footnotes-collapsed', press);
   header.setAttribute('aria-controls', content.id);
   header.append(title, icon);
 

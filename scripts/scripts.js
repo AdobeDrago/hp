@@ -175,10 +175,11 @@ if (/\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname)) {
   await import(`${window.hlx.codeBasePath}/ue/scripts/ue.js`).then(({ default: ue }) => ue());
 }
 
-if (!window.hlx.suppressLoadPage) loadPage();
+//if (!window.hlx.suppressLoadPage) loadPage();
+loadPage();
 
 (function da() {
-  if (window.hlx.suppressLoadPage) return;
+  //if (window.hlx.suppressLoadPage) return;
   const { searchParams } = new URL(window.location.href);
 
   const lp = searchParams.get('dapreview');

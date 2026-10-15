@@ -1,0 +1,18 @@
+header[data-global-nav],
+footer[data-global-nav] {
+  display: block;
+}
+
+header[data-global-nav='loading'] {
+  min-height: 4.0625rem;
+}
+
+body.nav-scroll-lock {
+  overflow-y: hidden;
+}
+
+@media (width >= 1280px) {
+  header[data-global-nav='loading'] {
+    min-height: 3.4375rem;
+  }
+}

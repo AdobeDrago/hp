@@ -29,3 +29,8 @@ header {
   text-transform: none;
   word-spacing: normal;
 }
+
+/* the nav-only header drops the newsroom bar's share of the height */
+header[data-part='nav'] {
+  min-height: var(--nav-height);
+}

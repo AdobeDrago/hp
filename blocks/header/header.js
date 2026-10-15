@@ -495,8 +495,9 @@ function toggleMobileMenu(nav, forceClose = false) {
  * Builds the nav into `block`. `path` may be an absolute URL (no extension) so a
  * consuming site can pull HP's published /nav; `root` is the document or shadow
  * root that hosts the nav, used for focus checks and click-outside handling.
+ * `part` is 'nav' (global nav only) or 'all' (nav plus newsroom bar, the default).
  */
-export async function decorateNav(block, { path = DEFAULT_HEADER_FRAGMENT } = {}) {
+export async function decorateNav(block, { path = DEFAULT_HEADER_FRAGMENT, part = 'all' } = {}) {
   const html = await fetchNavHtml(path);
   block.textContent = '';
   if (!html) return;
@@ -519,7 +520,7 @@ export async function decorateNav(block, { path = DEFAULT_HEADER_FRAGMENT } = {}
   const navTools = nav.querySelector('.nav-tools');
   let navNewsroom = nav.querySelector('.nav-newsroom');
 
-  if (navNewsroom && document.body.dataset.noNewsroom === 'true') {
+  if (navNewsroom && (part === 'nav' || document.body.dataset.noNewsroom === 'true')) {
     navNewsroom.remove();
     navNewsroom = null;
   }

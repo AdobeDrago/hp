@@ -2,7 +2,8 @@
  * HP global nav consumer package.
  *
  * A consuming site adds:
- *   <header data-global-nav></header>
+ *   <header data-global-nav></header>          global nav only
+ *   <header data-global-newsroom></header>     nav with the newsroom bar
  *   <script type="module" src="https://<hp-origin>/scripts/global-nav.js"></script>
  *
  * The script fetches HP's published /nav (nav.plain.html), runs the same decorate logic as
@@ -36,6 +37,9 @@ async function mount(host) {
   link.rel = 'stylesheet';
   link.href = host.dataset.styles || DEFAULT_STYLES;
   const header = document.createElement('header');
+  // header[data-global-nav] = global nav only, header[data-global-newsroom] = nav + newsroom bar
+  const part = host.hasAttribute('data-global-newsroom') ? 'all' : 'nav';
+  header.dataset.part = part;
   root.append(link, header);
 
   // hold the nav back until its styles are in, to avoid an unstyled flash
@@ -46,12 +50,12 @@ async function mount(host) {
 
   const path = host.dataset.navPath || DEFAULT_NAV;
   const { decorateNav } = await import(host.dataset.headerJs || DEFAULT_HEADER_JS);
-  await decorateNav(header, { path });
+  await decorateNav(header, { path, part });
   ensureScrollLockStyle();
 }
 
 async function init() {
-  const hosts = document.querySelectorAll('header[data-global-nav]');
+  const hosts = document.querySelectorAll('header[data-global-nav], header[data-global-newsroom]');
   await Promise.all([...hosts].map(mount));
 }
 

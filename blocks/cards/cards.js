@@ -1,26 +1,32 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
+const BAND_IMAGE_SIZES = [{ media: '(min-width: 600px)', width: '2000' }, { width: '750' }];
+
 export default function decorate(block) {
-  const isIcon = block.classList.contains('icon');
-  const isSideBySide = ['left', 'right'].some((c) => block.classList.contains(c));
-  const hasTextHeader = !isSideBySide && ['image', 'product'].some((c) => block.classList.contains(c));
+  const has = (variant) => block.classList.contains(variant);
+  const isIcon = has('icon');
+  const isBand = has('left') || has('right');
+  const hasTextHeader = !isBand && (has('product') || (has('image') && (has('3-up') || has('4-up'))));
   const rows = [...block.children];
   const headerRow = (isIcon || hasTextHeader) ? rows.shift() : null;
 
-  const ul = document.createElement('ul');
+  const list = document.createElement(isBand ? 'div' : 'ul');
+  if (isBand) list.className = 'cards-band';
   rows.forEach((row) => {
-    const li = document.createElement('li');
-    while (row.firstElementChild) li.append(row.firstElementChild);
-    [...li.children].forEach((div) => {
+    const item = document.createElement(isBand ? 'div' : 'li');
+    if (isBand) item.className = 'cards-band-item';
+    while (row.firstElementChild) item.append(row.firstElementChild);
+    [...item.children].forEach((div) => {
       if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-card-image';
       else div.className = 'cards-card-body';
     });
-    ul.append(li);
+    list.append(item);
   });
 
   const iconWidth = isIcon ? '64' : '750';
-  ul.querySelectorAll('picture > img').forEach((img) => {
-    img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: iconWidth }]));
+  list.querySelectorAll('picture > img').forEach((img) => {
+    const sizes = isBand && img.closest('.cards-card-image') ? BAND_IMAGE_SIZES : [{ width: iconWidth }];
+    img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, sizes));
   });
 
   const newChildren = [];
@@ -47,7 +53,7 @@ export default function decorate(block) {
     textCell.className = 'cards-header';
     newChildren.push(textCell);
   }
-  newChildren.push(ul);
+  newChildren.push(list);
 
   block.replaceChildren(...newChildren);
 }

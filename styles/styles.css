@@ -17,6 +17,9 @@
   --text-color: #131313;
   --link-color: #3b63fb;
   --link-hover-color: #1d3ecf;
+  --brand-blue: #024ad8;
+  --brand-blue-hover: #103fb2;
+  --brand-blue-focus: #0e3191;
   --body-font-family: forma-djr, forma-djr-fallback, arial, sans-serif;
   --heading-font-family: forma-djr, forma-djr-fallback, arial, sans-serif;
   --body-font-size-m: 22px;

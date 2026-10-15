@@ -426,7 +426,7 @@
   border: 0;
   border-radius: 0.5rem;
   padding: 0.75rem 1rem;
-  background-color: #024ad8;
+  background-color: var(--brand-blue);
   color: #fff;
   font-size: 1rem;
   font-weight: 400;
@@ -438,7 +438,7 @@
 .cards.image:where([class~='3-up']) a.button:focus-visible,
 .cards.product a.button:hover,
 .cards.product a.button:focus-visible {
-  background-color: #103fb2;
+  background-color: var(--brand-blue-hover);
   color: #fff;
   text-decoration: none;
 }
@@ -446,7 +446,7 @@
 /* hp.com keyboard focus: dark-blue edge with a white inner ring */
 .cards.image:where([class~='3-up']) a.button:focus-visible,
 .cards.product a.button:focus-visible {
-  outline: 0.125rem solid #0e3191;
+  outline: 0.125rem solid var(--brand-blue-focus);
   outline-offset: -0.125rem;
   box-shadow: inset 0 0 0 0.25rem #fff;
 }
@@ -738,14 +738,7 @@
   padding: 0;
 }
 
-.cards.image:where(.left, .right) > ul {
-  display: block;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.cards.image:where(.left, .right) > ul > li {
+.cards.image:where(.left, .right) .cards-band-item {
   display: flex;
   flex-direction: column;
   border: 0;
@@ -809,8 +802,6 @@
 .cards.image:where(.left, .right) .cards-card-body img {
   width: auto;
   height: 4.125rem;
-  aspect-ratio: auto;
-  object-fit: fill;
 }
 
 .cards.image:where(.left, .right) .cards-card-body sup {
@@ -844,20 +835,20 @@
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.25rem;
-  background-color: #024ad8;
+  background-color: var(--brand-blue);
   color: #fff;
   transition: color 0.3s, background-color 0.3s, border-color 0.3s;
 }
 
 .cards.image:where(.left, .right) a.button:hover,
 .cards.image:where(.left, .right) a.button:focus-visible {
-  background-color: #103fb2;
+  background-color: var(--brand-blue-hover);
   color: #fff;
   text-decoration: none;
 }
 
 .cards.image:where(.left, .right) a.button:not(.secondary):focus-visible {
-  outline: 0.125rem solid #0e3191;
+  outline: 0.125rem solid var(--brand-blue-focus);
   outline-offset: -0.125rem;
   box-shadow: inset 0 0 0 0.25rem #fff;
 }
@@ -875,7 +866,7 @@
   color: #3d3d3d;
 }
 
-.cards.image:where(.right) > ul > li {
+.cards.image:where(.right) .cards-band-item {
   padding-block: 0.5rem;
 }
 
@@ -897,7 +888,7 @@
     font-size: 0.625rem;
   }
 
-  .cards.image:where(.left, .right) > ul > li {
+  .cards.image:where(.left, .right) .cards-band-item {
     padding: 2.5rem var(--container-padding);
   }
 
@@ -923,7 +914,7 @@
     padding-right: 1.25rem;
   }
 
-  .cards.image:where(.right) > ul > li {
+  .cards.image:where(.right) .cards-band-item {
     flex-direction: row;
     align-items: flex-start;
     gap: 1.25rem;
@@ -931,7 +922,7 @@
   }
 
   .cards.image:where(.right) .cards-card-image {
-    order: 0;
+    order: 1;
   }
 
   .cards.image:where(.right) .cards-card-image,
@@ -964,7 +955,7 @@
     font-size: 0.75rem;
   }
 
-  .cards.image:where(.left, .right) > ul > li {
+  .cards.image:where(.left, .right) .cards-band-item {
     flex-direction: row;
     align-items: stretch;
     padding: 3.125rem var(--container-padding);
@@ -974,7 +965,6 @@
     box-sizing: border-box;
     flex: 0 0 50%;
     align-self: flex-start;
-    order: 0;
   }
 
   .cards.image:where(.left, .right) .cards-card-body {
@@ -1005,7 +995,7 @@
     padding-right: 1.5625rem;
   }
 
-  .cards.image:where(.right) > ul > li {
+  .cards.image:where(.right) .cards-band-item {
     align-items: flex-start;
     gap: 1.5rem;
     padding: 3.875rem var(--container-padding) 5.125rem;

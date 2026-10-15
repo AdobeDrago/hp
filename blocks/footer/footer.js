@@ -32,8 +32,9 @@ function decorateSocialList(list) {
 }
 
 export default async function decorate(block) {
-  const path = getMetadata('footer') || DEFAULT_FOOTER_FRAGMENT;
-  const html = await fetchFooterHtml(path);
+  const html = block.textContent.trim()
+    ? block.innerHTML
+    : await fetchFooterHtml(getMetadata('footer') || DEFAULT_FOOTER_FRAGMENT);
   block.textContent = '';
   if (!html) return;
 

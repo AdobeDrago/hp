@@ -129,6 +129,10 @@ async function loadEager(doc) {
   }
   const main = doc.querySelector('main');
   if (main) {
+    if (/\/newsroom\/(press-releases|blogs)\/./.test(window.location.pathname)) {
+      doc.body.classList.add('article-detail');
+    }
+
     decorateMain(main);
     initLinkTracking();
     doc.body.classList.add('appear');
@@ -161,10 +165,8 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  const header = doc.querySelector('header');
-  const footer = doc.querySelector('footer');
-  if (header && !header.querySelector('.header.block')) loadHeader(header);
-  if (footer && !footer.querySelector('.footer.block')) loadFooter(footer);
+  loadHeader(doc.querySelector('header'));
+  loadFooter(doc.querySelector('footer'));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();

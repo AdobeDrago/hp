@@ -120,8 +120,8 @@ main > .section.footnotes-container {
 /* "opens in a new tab" hint for screen readers on footnote URLs */
 .footnotes-visually-hidden {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: 0.0625rem;
+  height: 0.0625rem;
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
@@ -136,7 +136,7 @@ main > .section.footnotes-container {
 }
 
 /* ===== press release variation (hp.com): a square white drawer, collapsed
-   to start, on a full-width #f4f4f4 strip; 12px notes ===== */
+   to start, on a full-width #f4f4f4 strip; 0.75rem notes ===== */
 
 /* space between the end of the article and the strip, as on hp.com */
 main > .section:has(+ .section.footnotes-container .footnotes.press) {

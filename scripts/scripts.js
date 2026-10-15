@@ -1,5 +1,4 @@
 import {
-  buildBlock,
   loadHeader,
   loadFooter,
   decorateButtons,
@@ -92,21 +91,6 @@ function decorateSections(main) {
   });
 }
 
-// every press release ends with the blue About HP / Media Contact band
-// (hp.com); it comes from one shared fragment unless the page authors its own
-const PRESS_CONTACT_FRAGMENT = '/us-en/newsroom/fragments/press-contact';
-
-function buildPressContact(main) {
-  if (getMetadata('type').toLowerCase() !== 'press release') return;
-  if (main.querySelector('.press-contact')) return;
-  const link = document.createElement('a');
-  link.href = PRESS_CONTACT_FRAGMENT;
-  link.textContent = PRESS_CONTACT_FRAGMENT;
-  const section = document.createElement('div');
-  section.append(buildBlock('fragment', [[link]]));
-  main.append(section);
-}
-
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   decorateButtons(main);
@@ -129,7 +113,6 @@ async function loadEager(doc) {
   }
   const main = doc.querySelector('main');
   if (main) {
-    buildPressContact(main);
     decorateMain(main);
     initLinkTracking();
     doc.body.classList.add('appear');

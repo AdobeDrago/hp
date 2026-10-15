@@ -1,0 +1,31 @@
+/*
+ * Styles for the global nav when it is consumed by another site (see scripts/global-nav.js).
+ * The nav renders inside a shadow root, so these rules and header.css apply to it alone.
+ */
+@import url('../blocks/header/header.css');
+
+:host {
+  --nav-height: 4.0625rem;
+  --header-height: 7.9375rem;
+
+  display: block;
+  color: #131313;
+}
+
+@media (width >= 1280px) {
+  :host {
+    --nav-height: 3.4375rem;
+    --header-height: 7.4375rem;
+  }
+}
+
+/* Page rules on the host <header> beat :host, and inherited properties cross the shadow
+   boundary, so the nav's own root resets what a partner site might set on <header>. */
+header {
+  color: #131313;
+  font: normal 16px/1.5 'Helvetica Neue', helvetica, arial, sans-serif;
+  letter-spacing: normal;
+  text-align: start;
+  text-transform: none;
+  word-spacing: normal;
+}

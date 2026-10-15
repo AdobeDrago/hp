@@ -27,6 +27,16 @@ async function fetchNavHtml(path) {
   const container = document.createElement('div');
   container.innerHTML = await resp.text();
 
+  // consumed from another origin: root-relative links must point back at HP
+  if (isAbsolute) {
+    const { origin } = new URL(resolvedPath);
+    [['a', 'href'], ['img', 'src'], ['source', 'srcset']].forEach(([tag, attr]) => {
+      container.querySelectorAll(`${tag}[${attr}^="/"]:not([${attr}^="//"])`).forEach((elem) => {
+        elem.setAttribute(attr, `${origin}${elem.getAttribute(attr)}`);
+      });
+    });
+  }
+
   const resetAttributeBase = (tag, attr) => {
     container.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
       elem[attr] = new URL(elem.getAttribute(attr), new URL(resolvedPath, window.location)).href;
@@ -481,8 +491,12 @@ function toggleMobileMenu(nav, forceClose = false) {
   if (!open) closeAllPanels(nav);
 }
 
-export default async function decorate(block) {
-  const path = getMetadata('header') || DEFAULT_HEADER_FRAGMENT;
+/**
+ * Builds the nav into `block`. `path` may be an absolute URL (no extension) so a
+ * consuming site can pull HP's published /nav; `root` is the document or shadow
+ * root that hosts the nav, used for focus checks and click-outside handling.
+ */
+export async function decorateNav(block, { path = DEFAULT_HEADER_FRAGMENT } = {}) {
   const html = await fetchNavHtml(path);
   block.textContent = '';
   if (!html) return;
@@ -554,9 +568,11 @@ export default async function decorate(block) {
   nav.prepend(hamburger);
 
   document.addEventListener('click', (e) => {
-    if (isDesktop.matches && !nav.contains(e.target)) closeAllPanels(nav);
+    // composedPath keeps this working when the nav lives inside a shadow root
+    const trail = e.composedPath();
+    if (isDesktop.matches && !trail.includes(nav)) closeAllPanels(nav);
     const account = nav.querySelector('.nav-account');
-    if (account && !account.contains(e.target)) setAccountOpen(account, false);
+    if (account && !trail.includes(account)) setAccountOpen(account, false);
   });
 
   nav.addEventListener('keydown', (e) => {
@@ -571,7 +587,7 @@ export default async function decorate(block) {
       closeAllPanels(nav);
       const account = nav.querySelector('.nav-account');
       const flyout = account && account.querySelector('.nav-account-flyout');
-      const focusInFlyout = flyout && flyout.contains(document.activeElement);
+      const focusInFlyout = flyout && flyout.contains(nav.getRootNode().activeElement);
       setAccountOpen(account, false);
       if (focusInFlyout) account.querySelector('.nav-signin-btn').focus();
       if (nav.classList.contains('nav-search-open')) setSearchOpen(nav, false);
@@ -608,4 +624,8 @@ export default async function decorate(block) {
 
   decorateGtmLinks(navWrapper);
   block.append(navWrapper);
+}
+
+export default async function decorate(block) {
+  await decorateNav(block, { path: getMetadata('header') || DEFAULT_HEADER_FRAGMENT });
 }

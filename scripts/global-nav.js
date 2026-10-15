@@ -7,12 +7,17 @@
  *
  * The script fetches HP's published /nav (nav.plain.html), runs the same decorate logic as
  * the header block, and renders it inside a shadow root so neither side's CSS can leak.
- * Optional attributes on the <header>: data-nav-path (default <hp-origin>/nav).
+ *
+ * Full URLs can be passed as attributes on the <header>; each defaults to a path relative to
+ * this script (so the origin it was loaded from):
+ *   data-nav-path    nav document, no extension   (../nav)
+ *   data-header-js   header block module          (../blocks/header/header.js)
+ *   data-styles      nav stylesheet               (../styles/global-nav.css)
  */
-import { decorateNav } from '../blocks/header/header.js';
-
-const HP_ORIGIN = new URL(import.meta.url).origin;
-const STYLES_URL = new URL('../styles/global-nav.css', import.meta.url).href;
+// defaults are relative to this script, so they follow whichever origin it was loaded from
+const DEFAULT_NAV = new URL('https://feature-header-layout-fix--hp--adobedrago.aem.page/nav', import.meta.url).href;
+const DEFAULT_STYLES = new URL('https://feature-header-layout-fix--hp--adobedrago.aem.page/styles/global-nav.css', import.meta.url).href;
+const DEFAULT_HEADER_JS = new URL('https://feature-header-layout-fix--hp--adobedrago.aem.page/blocks/header/header.js', import.meta.url).href;
 
 // the mobile menu locks page scroll through a class on the host page's <body>
 function ensureScrollLockStyle() {
@@ -29,7 +34,7 @@ async function mount(host) {
 
   const link = document.createElement('link');
   link.rel = 'stylesheet';
-  link.href = STYLES_URL;
+  link.href = host.dataset.styles || DEFAULT_STYLES;
   const header = document.createElement('header');
   root.append(link, header);
 
@@ -39,7 +44,8 @@ async function mount(host) {
     link.addEventListener('error', resolve);
   });
 
-  const path = host.dataset.navPath || `${HP_ORIGIN}/nav`;
+  const path = host.dataset.navPath || DEFAULT_NAV;
+  const { decorateNav } = await import(host.dataset.headerJs || DEFAULT_HEADER_JS);
   await decorateNav(header, { path });
   ensureScrollLockStyle();
 }

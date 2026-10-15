@@ -102,9 +102,14 @@ main > .section.press-contact-container {
 
 .press-contact-body a.press-contact-button:hover,
 .press-contact-body a.press-contact-button:focus-visible {
-  background-color: #e6e6e6;
+  background-color: #ccc;
   color: #000;
   text-decoration: none;
+}
+
+.press-contact-body a.press-contact-button:focus-visible {
+  outline: 0.1875rem solid #ccdef5;
+  outline-offset: 0.0625rem;
 }
 
 @media (width >= 768px) {

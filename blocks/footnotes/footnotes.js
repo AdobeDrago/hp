@@ -5,7 +5,7 @@ const DEFAULT_TITLE = 'Footnotes and Disclaimers';
 
 const DYNAMIC_REF_SELECTOR = 'a[href^="#footnote-"]';
 
-// press-release variation: hp.com's small chevron (it does not flip when open)
+// press-release variation: hp.com's small chevron (CSS flips it when open)
 const ICON_CHEVRON = '<svg width="12" height="7" viewBox="0 0 12 7" aria-hidden="true" focusable="false"><path fill="currentColor" d="M0 10.658L1.28 12 7 6 1.28 0 0 1.337 4.51 6z" transform="rotate(90 6 6)"/></svg>';
 const ICON_EXTERNAL = '<svg class="footnotes-external-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M13.5 9v4.5h-11v-11H7M10 2.5h3.5V6M13.5 2.5 7.5 8.5"/></svg>';
 
@@ -129,6 +129,7 @@ export default function decorate(block) {
 
   // press releases (hp.com): collapsed to start, with a chevron
   const press = block.classList.contains('press');
+  block.classList.toggle('footnotes-collapsed', press);
 
   const icon = document.createElement('div');
   icon.className = 'footnotes-icon';
@@ -141,7 +142,6 @@ export default function decorate(block) {
   header.setAttribute('tabindex', '0');
   header.setAttribute('role', 'button');
   header.setAttribute('aria-expanded', String(!press));
-  block.classList.toggle('footnotes-collapsed', press);
   header.setAttribute('aria-controls', content.id);
   header.append(title, icon);
 

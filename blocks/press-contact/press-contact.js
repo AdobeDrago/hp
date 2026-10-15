@@ -12,6 +12,7 @@ function contactItems(cell) {
   let current = null;
   [...cell.children].forEach((el) => {
     const link = el.querySelector('a') || (el.tagName === 'A' ? el : null);
+    if (!link && !el.textContent.trim()) return;
     if (!link) {
       current = { label: el.textContent.trim(), link: null };
       items.push(current);

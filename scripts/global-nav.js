@@ -64,23 +64,46 @@ async function render(host, type) {
   host.dataset.globalNav = 'loaded';
 }
 
-async function init() {
+function findHost(type) {
+  const host = document.querySelector(`${type}[data-global-nav]`)
+    || document.querySelector(`body > ${type}`);
+  return host && !host.shadowRoot ? host : null;
+}
+
+async function mount(host, type) {
+  try {
+    await render(host, type);
+    host.dispatchEvent(new CustomEvent('global-nav:loaded', { bubbles: true }));
+  } catch (error) {
+    host.dataset.globalNav = 'error';
+    host.shadowRoot.replaceChildren(document.createElement('slot'));
+    host.dispatchEvent(new CustomEvent('global-nav:error', { bubbles: true, detail: { error } }));
+    // eslint-disable-next-line no-console
+    console.error('global-nav:', error);
+  }
+}
+
+function mountFound(pending) {
+  [...pending].forEach((type) => {
+    const host = findHost(type);
+    if (!host) return;
+    pending.delete(type);
+    mount(host, type);
+  });
+}
+
+function init() {
   loadStylesheet(document.head, codeUrl('styles/global-nav.css'));
   loadStylesheet(document.head, codeUrl('styles/fonts.css'));
 
-  await Promise.all(Object.keys(PARTIALS).map(async (type) => {
-    const host = document.querySelector(type);
-    if (!host || host.shadowRoot) return;
-    try {
-      await render(host, type);
-      host.dispatchEvent(new CustomEvent('global-nav:loaded', { bubbles: true }));
-    } catch (error) {
-      host.dataset.globalNav = 'error';
-      host.dispatchEvent(new CustomEvent('global-nav:error', { bubbles: true, detail: { error } }));
-      // eslint-disable-next-line no-console
-      console.error('global-nav:', error);
-    }
-  }));
+  const pending = new Set(Object.keys(PARTIALS));
+  const observer = new MutationObserver(() => {
+    mountFound(pending);
+    if (!pending.size) observer.disconnect();
+  });
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+  mountFound(pending);
+  if (!pending.size) observer.disconnect();
 }
 
 init();

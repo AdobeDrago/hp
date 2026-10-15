@@ -13,7 +13,6 @@ const USER_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.73 2
 
 const CLEAR_ICON = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M9.56 2.01a8 8 0 1 0 .88 16 8 8 0 0 0-.88-16ZM6.91 6.35c.07.01.14.03.19.06.03.03.37.35 1.47 1.46L10 9.29l1.42-1.42 1.45-1.44a.5.5 0 0 1 .35-.08.5.5 0 0 1 .38.73c-.03.06-.06.08-1.46 1.49L10.7 10l1.42 1.42 1.44 1.45a.5.5 0 0 1-.65.73c-.06-.03-.08-.06-1.49-1.46L10 10.7l-1.43 1.43a19 19 0 0 1-1.5 1.46.5.5 0 0 1-.57-.08.5.5 0 0 1-.07-.65l1.44-1.45L9.29 10 7.86 8.57c-1.4-1.4-1.43-1.43-1.46-1.5a.5.5 0 0 1 .51-.72Z"/></svg>';
 
-// hp.com site search results page
 const SEARCH_URL = 'https://www.hp.com/us-en/shop/sitesearch';
 
 const DEFAULT_HEADER_FRAGMENT = '/nav';
@@ -78,7 +77,6 @@ function setSearchOpen(nav, open) {
   nav.classList.toggle('nav-search-open', open);
   form.hidden = !open;
   if (close) close.hidden = !open;
-  // keep the clear button in step with the field, whatever changed its value
   const clear = form.querySelector('.nav-search-clear');
   if (clear) clear.hidden = !form.querySelector('input').value;
   if (open) {
@@ -274,7 +272,6 @@ function decorateTools(navTools) {
   searchSubmit.innerHTML = SEARCH_ICON;
   searchForm.append(searchInput, searchClear, searchSubmit);
 
-  // like hp.com: an empty search keeps the bar open instead of leaving the page
   searchForm.addEventListener('submit', (e) => {
     const keyword = searchInput.value.trim();
     if (!keyword) {
@@ -482,8 +479,9 @@ function toggleMobileMenu(nav, forceClose = false) {
 }
 
 export default async function decorate(block) {
-  const path = getMetadata('header') || DEFAULT_HEADER_FRAGMENT;
-  const html = await fetchNavHtml(path);
+  const html = block.textContent.trim()
+    ? block.innerHTML
+    : await fetchNavHtml(getMetadata('header') || DEFAULT_HEADER_FRAGMENT);
   block.textContent = '';
   if (!html) return;
 
@@ -505,7 +503,11 @@ export default async function decorate(block) {
   const navTools = nav.querySelector('.nav-tools');
   let navNewsroom = nav.querySelector('.nav-newsroom');
 
-  if (navNewsroom && document.body.dataset.noNewsroom === 'true') {
+  const embed = block.getRootNode().host;
+  const hideNewsroom = embed
+    ? embed.getAttribute('newsroom') !== 'true'
+    : document.body.dataset.noNewsroom === 'true';
+  if (navNewsroom && hideNewsroom) {
     navNewsroom.remove();
     navNewsroom = null;
   }
@@ -532,7 +534,6 @@ export default async function decorate(block) {
       toggle.addEventListener('click', () => {
         setNewsroomOpen(toggle.getAttribute('aria-expanded') !== 'true');
       });
-      // a tap on the dimmed backdrop (the bar's ::after) targets the bar itself
       navNewsroom.addEventListener('click', (e) => {
         if (e.target === navNewsroom) setNewsroomOpen(false);
       });
@@ -554,9 +555,10 @@ export default async function decorate(block) {
   nav.prepend(hamburger);
 
   document.addEventListener('click', (e) => {
-    if (isDesktop.matches && !nav.contains(e.target)) closeAllPanels(nav);
+    const path = e.composedPath();
+    if (isDesktop.matches && !path.includes(nav)) closeAllPanels(nav);
     const account = nav.querySelector('.nav-account');
-    if (account && !account.contains(e.target)) setAccountOpen(account, false);
+    if (account && !path.includes(account)) setAccountOpen(account, false);
   });
 
   nav.addEventListener('keydown', (e) => {
@@ -571,7 +573,7 @@ export default async function decorate(block) {
       closeAllPanels(nav);
       const account = nav.querySelector('.nav-account');
       const flyout = account && account.querySelector('.nav-account-flyout');
-      const focusInFlyout = flyout && flyout.contains(document.activeElement);
+      const focusInFlyout = flyout && flyout.contains(nav.getRootNode().activeElement);
       setAccountOpen(account, false);
       if (focusInFlyout) account.querySelector('.nav-signin-btn').focus();
       if (nav.classList.contains('nav-search-open')) setSearchOpen(nav, false);

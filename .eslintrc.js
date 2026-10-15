@@ -11,17 +11,9 @@ module.exports = {
     requireConfigFile: false,
   },
   rules: {
-    'import/extensions': ['error', { js: 'always' }], // require js file extensions in imports
-    'linebreak-style': ['error', 'unix'], // enforce unix linebreaks
-    'no-param-reassign': [2, { props: false }], // allow modifying properties of param
-    'import/no-cycle': 0, // Allow modules to use each other
+    'import/extensions': ['error', { js: 'always' }],
+    'linebreak-style': ['error', 'unix'],
+    'no-param-reassign': [2, { props: false }],
+    'import/no-cycle': 0,
   },
-  overrides: [
-    {
-      files: ['scripts/export-fragments*.mjs'],
-      rules: {
-        'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-      },
-    },
-  ],
 };

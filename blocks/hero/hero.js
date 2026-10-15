@@ -4,11 +4,11 @@
  * remaining line is rendered in the band (divided by a rule in CSS) and
  * styled by its own tag. No per-row role classes.
  *
- * "split" option: text column + photo side by side (stacked on mobile). The
+ * "centered" option: text column + photo side by side (stacked on mobile). The
  * first picture that is not wrapped in a link is the photo; linked pictures
  * (e.g. partner logos) stay in the text column as a logo row.
  */
-function decorateSplit(block) {
+function decorateCentered(block) {
   const cells = [...block.querySelectorAll(':scope > div > div')];
   const pictures = [...block.querySelectorAll('picture')];
   const photo = pictures.find((pic) => !pic.closest('a')) || pictures[0];
@@ -49,8 +49,8 @@ function decorateSplit(block) {
 }
 
 export default function decorate(block) {
-  if (block.classList.contains('split')) {
-    decorateSplit(block);
+  if (block.classList.contains('centered')) {
+    decorateCentered(block);
     return;
   }
 

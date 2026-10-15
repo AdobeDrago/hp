@@ -38,7 +38,7 @@
           "name": "classes",
           "label": "Style",
           "valueType": "string",
-          "description": "Pick a type and a column count. No style = plain photo + text grid. Icon + 4-up = first row is a full-bleed background photo + heading, followed by small icon + text rows (e.g. a benefits list). Image + 3-up = heading row above boxed, bordered cards with image, title, description and a button. Image + 4-up = heading row above four borderless image cards. Product + 2-up = heading row above centered, borderless cards for a simple image + title + button (e.g. featured products). Image + Left or Image + Right = a single grey band (e.g. a feature section): put the image in the first cell for Left, or in the second cell for Right.",
+          "description": "Pick a type and a column count. No style = plain photo + text grid. Icon + 4-up = first row is a full-bleed background photo + heading, followed by small icon + text rows (e.g. a benefits list). Image + 3-up = heading row above boxed, bordered cards with image, title, description and a button. Image + 4-up = heading row above four borderless image cards. Product = heading row above two centered, borderless cards for a simple image + title + button (e.g. featured products); the layout is always two columns, so 2-up is only a label. Image + Left or Image + Right = a single grey band (e.g. a feature section): put the image in the first cell for Left, or in the second cell for Right.",
           "options": [
             { "name": "Icon", "value": "icon" },
             { "name": "Image", "value": "image" },

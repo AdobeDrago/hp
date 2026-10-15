@@ -171,7 +171,7 @@ main > .section.banner-container {
 }
 
 .banner:where(.large) .banner-media {
-  order: 1;
+  order: 0;
 }
 
 .banner:where(.large) .banner-media img {
@@ -291,6 +291,7 @@ main > .section.banner-container {
     box-sizing: border-box;
     flex: 0 0 50%;
     align-self: flex-start;
+    order: 0;
   }
 
   .banner .banner-content {

@@ -230,7 +230,7 @@
 }
 
 
-.hero.split.block {
+.hero.centered.block {
   flex-direction: column-reverse;
   align-items: stretch;
   height: auto;
@@ -240,13 +240,13 @@
   color: #1a1a1a;
 }
 
-.hero.split .hero-content {
+.hero.centered .hero-content {
   box-sizing: border-box;
   padding: 1.75rem 1rem;
   background: none;
 }
 
-.hero.split .hero-content > * {
+.hero.centered .hero-content > * {
   margin: 0 0 1rem;
   padding: 0;
   border-top: 0;
@@ -254,26 +254,26 @@
   font-weight: 500;
 }
 
-.hero.split .hero-content > p:first-child {
+.hero.centered .hero-content > p:first-child {
   font-size: 0.75rem;
   line-height: 1rem;
 }
 
-.hero.split .hero-content h1 {
+.hero.centered .hero-content h1 {
   font-size: 2.75rem;
   line-height: 2.75rem;
 }
 
-.hero.split .hero-content h2 {
+.hero.centered .hero-content h2 {
   font-size: 1.125rem;
   line-height: 1.5rem;
 }
 
-.hero.split .hero-content > :has(+ .hero-logos) {
+.hero.centered .hero-content > :has(+ .hero-logos) {
   margin-bottom: 0;
 }
 
-.hero.split .hero-content > .hero-logos {
+.hero.centered .hero-content > .hero-logos {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -282,22 +282,22 @@
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-.hero.split .hero-logos a {
+.hero.centered .hero-logos a {
   display: block;
   line-height: 0;
 }
 
-.hero.split .hero-logos picture {
+.hero.centered .hero-logos picture {
   display: block;
 }
 
-.hero.split .hero-logos img {
+.hero.centered .hero-logos img {
   width: auto;
   max-width: none;
   height: 2rem;
 }
 
-.hero.split .hero-media {
+.hero.centered .hero-media {
   position: relative;
   box-sizing: border-box;
   height: 16.875rem;
@@ -305,7 +305,7 @@
   overflow: hidden;
 }
 
-.hero.split .hero-media picture {
+.hero.centered .hero-media picture {
   display: block;
   width: 100%;
   min-width: 29.25rem;
@@ -313,7 +313,7 @@
   clip-path: polygon(6.1425rem 0, 100% 0, 41.3125rem 100%, 0 100%);
 }
 
-.hero.split .hero-media img {
+.hero.centered .hero-media img {
   display: block;
   width: 100%;
   height: 100%;
@@ -322,31 +322,31 @@
 }
 
 @media (width >= 768px) {
-  .hero.split .hero-content {
+  .hero.centered .hero-content {
     padding: 2.25rem 2rem;
   }
 
-  .hero.split .hero-content > p:first-child {
+  .hero.centered .hero-content > p:first-child {
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
 
-  .hero.split .hero-content h1 {
+  .hero.centered .hero-content h1 {
     font-size: 3.5rem;
     line-height: 3.5rem;
   }
 
-  .hero.split .hero-content h2 {
+  .hero.centered .hero-content h2 {
     font-size: 1.25rem;
     line-height: 1.5rem;
   }
 
-  .hero.split .hero-media {
+  .hero.centered .hero-media {
     height: 21rem;
     padding-left: 2rem;
   }
 
-  .hero.split .hero-media picture {
+  .hero.centered .hero-media picture {
     width: 49.125rem;
     min-width: 0;
     clip-path: polygon(7.35rem 0, 100% 0, calc(100% - 7.35rem) 100%, 0 100%);
@@ -354,13 +354,13 @@
 }
 
 @media (width >= 1280px) {
-  .hero.split.block {
+  .hero.centered.block {
     flex-direction: row;
     min-height: 31.25rem;
     padding-left: max(2.25rem, calc((100% - 105rem) / 2 + 2.25rem));
   }
 
-  .hero.split .hero-content {
+  .hero.centered .hero-content {
     display: flex;
     flex: 0 0 calc((100% - 2.25rem) * 0.4266);
     flex-direction: column;
@@ -370,29 +370,29 @@
     padding: 5rem 1.5rem 5rem 0;
   }
 
-  .hero.split .hero-content > p:first-child {
+  .hero.centered .hero-content > p:first-child {
     font-size: 1rem;
     line-height: 1.25rem;
   }
 
-  .hero.split .hero-content h1 {
+  .hero.centered .hero-content h1 {
     font-size: 4.5rem;
     line-height: 4.5rem;
   }
 
-  .hero.split .hero-content h2 {
+  .hero.centered .hero-content h2 {
     font-size: 1.5rem;
     line-height: 1.75rem;
   }
 
-  .hero.split .hero-media {
+  .hero.centered .hero-media {
     flex: 1 1 0;
     min-width: 0;
     height: auto;
     padding-left: 0;
   }
 
-  .hero.split .hero-media picture {
+  .hero.centered .hero-media picture {
     position: absolute;
     top: 0;
     left: 0;

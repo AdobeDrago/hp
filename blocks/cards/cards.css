@@ -28,17 +28,17 @@
 
 /* no top margin: the gap above comes from the section before it
    (the anchor nav on the AI PCs page) */
-.cards-container:has(.cards.spotlight) {
+.cards-container:has(.cards.icon) {
   margin: 0 0 1.875rem;
 }
 
-.cards-container:has(.cards.spotlight) .cards-wrapper {
+.cards-container:has(.cards.icon) .cards-wrapper {
   box-sizing: border-box;
   max-width: 105rem;
   padding: 0 1rem;
 }
 
-.cards.spotlight {
+.cards.icon {
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -50,7 +50,7 @@
   color: #fff;
 }
 
-.cards-spotlight-bg {
+.cards-icon-bg {
   position: absolute;
   inset: 0 0 auto;
   z-index: -1;
@@ -58,19 +58,19 @@
   line-height: 0;
 }
 
-.cards.spotlight .cards-spotlight-bg picture,
-.cards.spotlight .cards-spotlight-bg img {
+.cards.icon .cards-icon-bg picture,
+.cards.icon .cards-icon-bg img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.cards.spotlight .cards-spotlight-bg img {
+.cards.icon .cards-icon-bg img {
   object-position: 15% top;
 }
 
-.cards-spotlight-bg::after {
+.cards-icon-bg::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -78,15 +78,15 @@
   background: linear-gradient(to bottom, transparent 45%, #000 86%);
 }
 
-.cards-spotlight-header {
+.cards-icon-header {
   position: relative;
   box-sizing: border-box;
   padding-left: 0.625rem;
 }
 
-.cards-spotlight-header h1,
-.cards-spotlight-header h2,
-.cards-spotlight-header h3 {
+.cards-icon-header h1,
+.cards-icon-header h2,
+.cards-icon-header h3 {
   margin: 0;
   color: inherit;
   font-size: 2.25rem;
@@ -94,7 +94,7 @@
   line-height: 1;
 }
 
-.cards-spotlight-header p {
+.cards-icon-header p {
   margin: 0.5rem 0 0;
   color: inherit;
   font-size: 1rem;
@@ -105,7 +105,7 @@
 /* hp.com lays each row out on its own: the text sits --spot-text-top
    below the row top, the first icon has its own offset, and the last
    text carries an empty line above and below */
-.cards.spotlight > ul {
+.cards.icon > ul {
   --spot-text-top: 1rem;
   --spot-icon-top: 2.1875rem;
   --spot-last-icon-top: 2.0625rem;
@@ -119,7 +119,7 @@
   margin-top: 0.5rem;
 }
 
-.cards.spotlight > ul > li {
+.cards.icon > ul > li {
   display: grid;
   grid-template-columns: calc(100% / 6) 1fr;
   align-items: start;
@@ -127,24 +127,24 @@
   background: transparent;
 }
 
-.cards.spotlight > ul > :where(li:first-child) {
+.cards.icon > ul > :where(li:first-child) {
   --spot-row-icon-top: var(--spot-first-icon-top);
   --spot-row-icon-bottom: var(--spot-first-icon-bottom);
 }
 
-.cards.spotlight > ul > :where(li:last-child:not(:first-child)) {
+.cards.icon > ul > :where(li:last-child:not(:first-child)) {
   --spot-row-icon-top: var(--spot-last-icon-top);
   --spot-row-text-pad: 1.5rem;
 }
 
-.cards.spotlight .cards-card-image {
+.cards.icon .cards-card-image {
   justify-self: center;
   width: min(3rem, 100%);
   margin-top: var(--spot-row-icon-top, var(--spot-icon-top));
   padding-bottom: var(--spot-row-icon-bottom, 0);
 }
 
-.cards.spotlight .cards-card-image img {
+.cards.icon .cards-card-image img {
   display: block;
   width: 100%;
   height: auto;
@@ -152,7 +152,7 @@
   object-fit: initial;
 }
 
-.cards.spotlight .cards-card-body {
+.cards.icon .cards-card-body {
   margin: var(--spot-text-top) 0 0;
   padding: var(--spot-row-text-pad, 0) 0 var(--spot-row-text-pad, 0) 0.625rem;
   color: inherit;
@@ -160,56 +160,56 @@
   line-height: 1.5rem;
 }
 
-.cards.spotlight .cards-card-body p {
+.cards.icon .cards-card-body p {
   margin: 0;
 }
 
 @media (width >= 768px) {
-  .cards-container:has(.cards.spotlight) {
+  .cards-container:has(.cards.icon) {
     margin-bottom: 2.3125rem;
   }
 
-  .cards.spotlight {
+  .cards.icon {
     min-height: 36.25rem;
     padding: 6.1875rem 0 2rem;
   }
 
-  .cards-spotlight-bg {
+  .cards-icon-bg {
     inset: 0;
     height: auto;
   }
 
-  .cards.spotlight .cards-spotlight-bg img {
+  .cards.icon .cards-icon-bg img {
     object-position: center;
   }
 
-  .cards-spotlight-bg::after {
+  .cards-icon-bg::after {
     content: none;
   }
 
-  .cards-spotlight-header,
-  .cards.spotlight > ul {
+  .cards-icon-header,
+  .cards.icon > ul {
     width: calc(70% - 4.4375rem);
     margin-left: calc(100% / 3 + 1.6875rem);
   }
 
-  .cards-spotlight-header {
+  .cards-icon-header {
     padding-left: 1.25rem;
   }
 
-  .cards-spotlight-header h1,
-  .cards-spotlight-header h2,
-  .cards-spotlight-header h3 {
+  .cards-icon-header h1,
+  .cards-icon-header h2,
+  .cards-icon-header h3 {
     font-size: 2.75rem;
   }
 
-  .cards-spotlight-header p {
+  .cards-icon-header p {
     margin-top: 0.75rem;
     font-size: 1.125rem;
     line-height: 1.5rem;
   }
 
-  .cards.spotlight > ul {
+  .cards.icon > ul {
     --spot-text-top: 0.75rem;
     --spot-icon-top: 1.5625rem;
     --spot-last-icon-top: 1.5625rem;
@@ -219,49 +219,49 @@
     margin-top: 1.25rem;
   }
 
-  .cards.spotlight .cards-card-body {
+  .cards.icon .cards-card-body {
     padding-left: 0;
   }
 }
 
 @media (width >= 1024px) {
-  .cards.spotlight > ul {
+  .cards.icon > ul {
     --spot-first-icon-bottom: 0.9375rem;
   }
 }
 
 @media (width >= 1280px) {
-  .cards-container:has(.cards.spotlight) .cards-wrapper {
+  .cards-container:has(.cards.icon) .cards-wrapper {
     padding: 0 2.25rem;
   }
 
-  .cards.spotlight {
+  .cards.icon {
     min-height: 36.125rem;
     padding: 5.125rem 2.25rem 2rem;
   }
 
-  .cards-spotlight-header,
-  .cards.spotlight > ul {
+  .cards-icon-header,
+  .cards.icon > ul {
     width: auto;
     margin-left: calc(50% + 0.75rem);
   }
 
-  .cards-spotlight-header {
+  .cards-icon-header {
     padding-left: 2.5rem;
   }
 
-  .cards-spotlight-header h1,
-  .cards-spotlight-header h2,
-  .cards-spotlight-header h3 {
+  .cards-icon-header h1,
+  .cards-icon-header h2,
+  .cards-icon-header h3 {
     font-size: 3.5rem;
   }
 
-  .cards-spotlight-header p {
+  .cards-icon-header p {
     margin-top: 1rem;
     font-size: 1.25rem;
   }
 
-  .cards.spotlight > ul {
+  .cards.icon > ul {
     --spot-text-top: 1rem;
     --spot-first-icon-top: 0.5rem;
     --spot-first-icon-bottom: 1rem;
@@ -269,7 +269,7 @@
     margin-top: 1rem;
   }
 
-  .cards.spotlight .cards-card-body {
+  .cards.icon .cards-card-body {
     font-size: 1.25rem;
   }
 }
@@ -284,96 +284,96 @@
   margin-top: 0;
 }
 
-.cards-container:has(.cards.grid),
-.cards-container:has(.cards.showcase) {
+.cards-container:has(.cards.image:where([class~='3-up'])),
+.cards-container:has(.cards.product) {
   margin: 0;
   padding: 2.875rem 0 4.625rem;
 }
 
-.cards-container:has(.cards.grid) {
+.cards-container:has(.cards.image:where([class~='3-up'])) {
   background: linear-gradient(#f5f5f5, #f5f5f5) center / min(100%, 105rem) 100% no-repeat;
 }
 
-.cards-container:has(.cards.grid) .cards-wrapper,
-.cards-container:has(.cards.showcase) .cards-wrapper {
+.cards-container:has(.cards.image:where([class~='3-up'])) .cards-wrapper,
+.cards-container:has(.cards.product) .cards-wrapper {
   box-sizing: border-box;
   max-width: 105rem;
   padding: 0 1rem;
 }
 
-.cards.grid,
-.cards.showcase {
+.cards.image:where([class~='3-up']),
+.cards.product {
   color: #1a1a1a;
 }
 
-.cards.grid .cards-header h2,
-.cards.showcase .cards-header h2 {
+.cards.image:where([class~='3-up']) .cards-header h2,
+.cards.product .cards-header h2 {
   margin: 0;
   font-size: 2.25rem;
   font-weight: 500;
   line-height: 1;
 }
 
-.cards.grid .cards-header p,
-.cards.showcase .cards-header p {
+.cards.image:where([class~='3-up']) .cards-header p,
+.cards.product .cards-header p {
   margin: 0.5rem 0 0;
   font-size: 1.125rem;
   font-weight: 500;
   line-height: 1.5rem;
 }
 
-.cards.showcase .cards-header {
+.cards.product .cards-header {
   padding: 0 1rem;
   text-align: center;
 }
 
-.cards.grid > ul {
+.cards.image:where([class~='3-up']) > ul {
   grid-template-columns: 1fr;
   gap: 2rem;
 }
 
-.cards.showcase > ul {
+.cards.product > ul {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
 
-.cards.grid > ul > li,
-.cards.showcase > ul > li {
+.cards.image:where([class~='3-up']) > ul > li,
+.cards.product > ul > li {
   border: 0;
   background: transparent;
 }
 
-.cards.showcase > ul > li {
+.cards.product > ul > li {
   text-align: center;
 }
 
-.cards.grid .cards-card-image,
-.cards.showcase .cards-card-image {
+.cards.image:where([class~='3-up']) .cards-card-image,
+.cards.product .cards-card-image {
   overflow: hidden;
   border-radius: 1rem;
 }
 
-.cards.grid .cards-card-image img,
-.cards.showcase .cards-card-image img {
+.cards.image:where([class~='3-up']) .cards-card-image img,
+.cards.product .cards-card-image img {
   display: block;
 }
 
-.cards.grid .cards-card-image img {
+.cards.image:where([class~='3-up']) .cards-card-image img {
   aspect-ratio: 358 / 263;
 }
 
-.cards.showcase .cards-card-image img {
+.cards.product .cards-card-image img {
   aspect-ratio: 392 / 360;
   object-fit: contain;
 }
 
-.cards.grid .cards-card-body,
-.cards.showcase .cards-card-body {
+.cards.image:where([class~='3-up']) .cards-card-body,
+.cards.product .cards-card-body {
   margin: 1rem 0 0;
 }
 
-.cards.grid .cards-card-body h3,
-.cards.showcase .cards-card-body h3 {
+.cards.image:where([class~='3-up']) .cards-card-body h3,
+.cards.product .cards-card-body h3 {
   margin: 0;
   font-size: 1.5rem;
   font-weight: 500;
@@ -381,41 +381,41 @@
   overflow-wrap: break-word;
 }
 
-.cards.grid .cards-card-body p,
-.cards.showcase .cards-card-body p {
+.cards.image:where([class~='3-up']) .cards-card-body p,
+.cards.product .cards-card-body p {
   margin: 0.5rem 0 0;
   font-size: 1.125rem;
   line-height: 1.5rem;
 }
 
-.cards.showcase .cards-card-body .button-container {
+.cards.product .cards-card-body .button-container {
   margin: 1.5rem 0 0;
 }
 
-/* grid buttons line up along a row when the texts wrap differently (hp.com);
+/* image (3-up) buttons line up along a row when the texts wrap differently (hp.com);
    the gap above the button moves into padding so the margin can stretch */
-.cards.grid {
+.cards.image:where([class~='3-up']) {
   --cards-button-gap: 1.5rem;
 }
 
-.cards.grid > ul > li {
+.cards.image:where([class~='3-up']) > ul > li {
   display: flex;
   flex-direction: column;
 }
 
-.cards.grid .cards-card-body {
+.cards.image:where([class~='3-up']) .cards-card-body {
   display: flex;
   flex: 1;
   flex-direction: column;
 }
 
-.cards.grid .cards-card-body .button-container {
+.cards.image:where([class~='3-up']) .cards-card-body .button-container {
   margin-top: auto;
   padding-top: var(--cards-button-gap);
 }
 
-.cards.grid a.button:any-link,
-.cards.showcase a.button:any-link {
+.cards.image:where([class~='3-up']) a.button:any-link,
+.cards.product a.button:any-link {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
@@ -426,7 +426,7 @@
   border: 0;
   border-radius: 0.5rem;
   padding: 0.75rem 1rem;
-  background-color: #024ad8;
+  background-color: var(--brand-blue);
   color: #fff;
   font-size: 1rem;
   font-weight: 400;
@@ -434,208 +434,208 @@
   transition: color 0.3s, background-color 0.3s, border-color 0.3s;
 }
 
-.cards.grid a.button:hover,
-.cards.grid a.button:focus-visible,
-.cards.showcase a.button:hover,
-.cards.showcase a.button:focus-visible {
-  background-color: #103fb2;
+.cards.image:where([class~='3-up']) a.button:hover,
+.cards.image:where([class~='3-up']) a.button:focus-visible,
+.cards.product a.button:hover,
+.cards.product a.button:focus-visible {
+  background-color: var(--brand-blue-hover);
   color: #fff;
   text-decoration: none;
 }
 
 /* hp.com keyboard focus: dark-blue edge with a white inner ring */
-.cards.grid a.button:focus-visible,
-.cards.showcase a.button:focus-visible {
-  outline: 0.125rem solid #0e3191;
+.cards.image:where([class~='3-up']) a.button:focus-visible,
+.cards.product a.button:focus-visible {
+  outline: 0.125rem solid var(--brand-blue-focus);
   outline-offset: -0.125rem;
   box-shadow: inset 0 0 0 0.25rem #fff;
 }
 
 @media (width >= 768px) {
-  .cards-container:has(.cards.grid),
-  .cards-container:has(.cards.showcase) {
+  .cards-container:has(.cards.image:where([class~='3-up'])),
+  .cards-container:has(.cards.product) {
     padding: 2.125rem 0 4.75rem;
   }
 
-  .cards-container:has(.cards.grid) .cards-wrapper,
-  .cards-container:has(.cards.showcase) .cards-wrapper {
+  .cards-container:has(.cards.image:where([class~='3-up'])) .cards-wrapper,
+  .cards-container:has(.cards.product) .cards-wrapper {
     padding: 0 2rem;
   }
 
-  .cards.grid .cards-header,
-  .cards.showcase .cards-header {
+  .cards.image:where([class~='3-up']) .cards-header,
+  .cards.product .cards-header {
     margin-bottom: 2rem;
   }
 
-  .cards.grid .cards-header h2,
-  .cards.showcase .cards-header h2 {
+  .cards.image:where([class~='3-up']) .cards-header h2,
+  .cards.product .cards-header h2 {
     font-size: 2.75rem;
   }
 
-  .cards.grid .cards-header p,
-  .cards.showcase .cards-header p {
+  .cards.image:where([class~='3-up']) .cards-header p,
+  .cards.product .cards-header p {
     margin-top: 0.75rem;
     font-size: 1.25rem;
   }
 
-  .cards.showcase .cards-header {
+  .cards.product .cards-header {
     padding: 0 2rem;
   }
 
-  .cards.grid > ul {
+  .cards.image:where([class~='3-up']) > ul {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .cards.grid > ul,
-  .cards.showcase > ul {
+  .cards.image:where([class~='3-up']) > ul,
+  .cards.product > ul {
     gap: 1.25rem;
   }
 
-  .cards.grid .cards-card-image img {
+  .cards.image:where([class~='3-up']) .cards-card-image img {
     aspect-ratio: 1040 / 898;
   }
 
-  .cards.showcase .cards-card-image img {
+  .cards.product .cards-card-image img {
     aspect-ratio: 1584 / 1138;
   }
 
-  .cards.grid .cards-card-body,
-  .cards.showcase .cards-card-body {
+  .cards.image:where([class~='3-up']) .cards-card-body,
+  .cards.product .cards-card-body {
     margin-top: 1.5rem;
   }
 
-  .cards.grid .cards-card-body h3,
-  .cards.showcase .cards-card-body h3 {
+  .cards.image:where([class~='3-up']) .cards-card-body h3,
+  .cards.product .cards-card-body h3 {
     font-size: 1.75rem;
   }
 
-  .cards.grid .cards-card-body p,
-  .cards.showcase .cards-card-body p {
+  .cards.image:where([class~='3-up']) .cards-card-body p,
+  .cards.product .cards-card-body p {
     margin-top: 0.75rem;
   }
 
-  .cards.showcase .cards-card-body .button-container {
+  .cards.product .cards-card-body .button-container {
     margin-top: 1.75rem;
   }
 
-  .cards.grid {
+  .cards.image:where([class~='3-up']) {
     --cards-button-gap: 1.75rem;
   }
 }
 
 @media (width >= 1280px) {
-  .cards-container:has(.cards.grid),
-  .cards-container:has(.cards.showcase) {
+  .cards-container:has(.cards.image:where([class~='3-up'])),
+  .cards-container:has(.cards.product) {
     padding: 2.75rem 0 4.875rem;
   }
 
-  .cards-container:has(.cards.grid) .cards-wrapper,
-  .cards-container:has(.cards.showcase) .cards-wrapper {
+  .cards-container:has(.cards.image:where([class~='3-up'])) .cards-wrapper,
+  .cards-container:has(.cards.product) .cards-wrapper {
     padding: 0 2.25rem;
   }
 
-  .cards.grid .cards-header,
-  .cards.showcase .cards-header {
+  .cards.image:where([class~='3-up']) .cards-header,
+  .cards.product .cards-header {
     margin-bottom: 2.5rem;
   }
 
-  .cards.grid .cards-header h2,
-  .cards.showcase .cards-header h2 {
+  .cards.image:where([class~='3-up']) .cards-header h2,
+  .cards.product .cards-header h2 {
     font-size: 3.5rem;
   }
 
-  .cards.grid .cards-header p,
-  .cards.showcase .cards-header p {
+  .cards.image:where([class~='3-up']) .cards-header p,
+  .cards.product .cards-header p {
     margin-top: 1rem;
     font-size: 1.5rem;
     line-height: 1.75rem;
   }
 
-  .cards.showcase .cards-header {
+  .cards.product .cards-header {
     padding: 0 2.25rem;
   }
 
-  .cards.grid > ul,
-  .cards.showcase > ul {
+  .cards.image:where([class~='3-up']) > ul,
+  .cards.product > ul {
     gap: 1.5rem;
   }
 
-  .cards.grid .cards-card-body,
-  .cards.showcase .cards-card-body {
+  .cards.image:where([class~='3-up']) .cards-card-body,
+  .cards.product .cards-card-body {
     margin-top: 2rem;
   }
 
-  .cards.grid .cards-card-body h3,
-  .cards.showcase .cards-card-body h3 {
+  .cards.image:where([class~='3-up']) .cards-card-body h3,
+  .cards.product .cards-card-body h3 {
     font-size: 2rem;
   }
 
-  .cards.grid .cards-card-body p {
+  .cards.image:where([class~='3-up']) .cards-card-body p {
     margin-top: 1rem;
     font-size: 1.25rem;
   }
 
-  .cards.showcase .cards-card-body .button-container {
+  .cards.product .cards-card-body .button-container {
     margin-top: 2rem;
   }
 
-  .cards.grid {
+  .cards.image:where([class~='3-up']) {
     --cards-button-gap: 2rem;
   }
 }
 
-.cards-container:has(.cards.feature) {
+.cards-container:has(.cards.image:where([class~='4-up'])) {
   margin: 0;
   background: linear-gradient(#f5f5f5, #f5f5f5) center / min(100%, 105rem) 100% no-repeat;
   padding: 2.875rem 0 4.1875rem;
 }
 
-.cards-container:has(.cards.feature) .cards-wrapper {
+.cards-container:has(.cards.image:where([class~='4-up'])) .cards-wrapper {
   box-sizing: border-box;
   max-width: 105rem;
   padding: 0 1rem;
 }
 
-.cards.feature {
+.cards.image:where([class~='4-up']) {
   color: #1a1a1a;
 }
 
-.cards.feature .cards-header {
+.cards.image:where([class~='4-up']) .cards-header {
   margin-bottom: 2.875rem;
 }
 
-.cards.feature .cards-header h2 {
+.cards.image:where([class~='4-up']) .cards-header h2 {
   margin: 0;
   font-size: 2.25rem;
   font-weight: 500;
   line-height: 1;
 }
 
-.cards.feature > ul {
+.cards.image:where([class~='4-up']) > ul {
   grid-template-columns: 1fr;
   gap: 1.5rem;
 }
 
-.cards.feature > ul > li {
+.cards.image:where([class~='4-up']) > ul > li {
   border: 0;
   background: transparent;
 }
 
-.cards.feature .cards-card-image {
+.cards.image:where([class~='4-up']) .cards-card-image {
   overflow: hidden;
   border-radius: 1rem;
 }
 
-.cards.feature .cards-card-image img {
+.cards.image:where([class~='4-up']) .cards-card-image img {
   display: block;
   aspect-ratio: 816 / 600;
 }
 
-.cards.feature .cards-card-body {
+.cards.image:where([class~='4-up']) .cards-card-body {
   margin: 1rem 0 0;
 }
 
-.cards.feature .cards-card-body h3 {
+.cards.image:where([class~='4-up']) .cards-card-body h3 {
   margin: 0;
   font-size: 1.5rem;
   font-weight: 500;
@@ -643,83 +643,380 @@
   overflow-wrap: break-word;
 }
 
-.cards.feature .cards-card-body p {
+.cards.image:where([class~='4-up']) .cards-card-body p {
   margin: 0.5rem 0 0;
   font-size: 1.125rem;
   line-height: 1.5rem;
 }
 
 @media (width >= 768px) {
-  .cards-container:has(.cards.feature) {
+  .cards-container:has(.cards.image:where([class~='4-up'])) {
     padding: 2.125rem 0 4.5rem;
   }
 
-  .cards-container:has(.cards.feature) .cards-wrapper {
+  .cards-container:has(.cards.image:where([class~='4-up'])) .cards-wrapper {
     padding: 0 2rem;
   }
 
-  .cards.feature .cards-header {
+  .cards.image:where([class~='4-up']) .cards-header {
     margin-bottom: 2rem;
   }
 
-  .cards.feature .cards-header h2 {
+  .cards.image:where([class~='4-up']) .cards-header h2 {
     font-size: 2.75rem;
   }
 
-  .cards.feature > ul {
+  .cards.image:where([class~='4-up']) > ul {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2rem 1.25rem;
   }
 
-  .cards.feature .cards-card-image img {
+  .cards.image:where([class~='4-up']) .cards-card-image img {
     aspect-ratio: 6 / 5;
   }
 
-  .cards.feature .cards-card-body {
+  .cards.image:where([class~='4-up']) .cards-card-body {
     margin-top: 1.5rem;
   }
 
-  .cards.feature .cards-card-body h3 {
+  .cards.image:where([class~='4-up']) .cards-card-body h3 {
     font-size: 1.75rem;
   }
 
-  .cards.feature .cards-card-body p {
+  .cards.image:where([class~='4-up']) .cards-card-body p {
     margin-top: 0.75rem;
   }
 }
 
 @media (width >= 1280px) {
-  .cards-container:has(.cards.feature) {
+  .cards-container:has(.cards.image:where([class~='4-up'])) {
     padding: 2.75rem 0 4.875rem;
   }
 
-  .cards-container:has(.cards.feature) .cards-wrapper {
+  .cards-container:has(.cards.image:where([class~='4-up'])) .cards-wrapper {
     padding: 0 2.25rem;
   }
 
-  .cards.feature .cards-header {
+  .cards.image:where([class~='4-up']) .cards-header {
     margin-bottom: 2.5rem;
   }
 
-  .cards.feature .cards-card-body {
+  .cards.image:where([class~='4-up']) .cards-card-body {
     margin-top: 2rem;
   }
 
-  .cards.feature .cards-header h2 {
+  .cards.image:where([class~='4-up']) .cards-header h2 {
     font-size: 3.5rem;
   }
 
-  .cards.feature > ul {
+  .cards.image:where([class~='4-up']) > ul {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 2.5rem 1.5rem;
   }
 
-  .cards.feature .cards-card-body h3 {
+  .cards.image:where([class~='4-up']) .cards-card-body h3 {
     font-size: 2rem;
   }
 
-  .cards.feature .cards-card-body p {
+  .cards.image:where([class~='4-up']) .cards-card-body p {
     margin-top: 1rem;
     font-size: 1.25rem;
+  }
+}
+
+.cards-container:has(.cards.image:where(.left, .right)) {
+  --container-padding: 1rem;
+  --light-color: #f5f5f5;
+
+  margin: 0;
+}
+
+.cards-container:has(.cards.image:where(.left, .right)) .cards-wrapper {
+  display: flow-root;
+  max-width: 105rem;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.cards.image:where(.left, .right) .cards-band-item {
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  padding: 1.875rem var(--container-padding);
+  background-color: var(--light-color);
+  color: #1a1a1a;
+}
+
+.cards.image:where(.left, .right) .cards-card-image {
+  order: -1;
+  line-height: 0;
+}
+
+.cards.image:where(.left, .right) .cards-card-image picture {
+  display: block;
+}
+
+.cards.image:where(.left, .right) .cards-card-image img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 816 / 600;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.cards.image:where(.left, .right) .cards-card-body {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1rem;
+  margin: 0;
+  padding: 1.25rem 0 1.875rem;
+}
+
+.cards.image:where(.left, .right) .cards-card-body > :not(.button-container) {
+  flex: 0 0 100%;
+}
+
+.cards.image:where(.left, .right) .cards-card-body h2 {
+  margin: 0.5rem 0 0;
+  font-size: 2.25rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.cards.image:where(.left, .right) .cards-card-body p {
+  margin: 0.5rem 0 0;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+
+.cards.image:where(.left, .right) .cards-card-body p + p:where(:not(.button-container)) {
+  margin-top: 1.5rem;
+}
+
+.cards.image:where(.left, .right) .cards-card-body p:has(> picture) {
+  margin: 0;
+  line-height: 0;
+}
+
+.cards.image:where(.left, .right) .cards-card-body img {
+  width: auto;
+  height: 4.125rem;
+}
+
+.cards.image:where(.left, .right) .cards-card-body sup {
+  font-size: 0.6em;
+  line-height: 0;
+}
+
+.cards.image:where(.left, .right) .cards-card-body a[href^="#footnote"] {
+  color: inherit;
+  font-size: 0.5rem;
+  line-height: 0;
+  text-decoration: none;
+  vertical-align: super;
+}
+
+.cards.image:where(.left, .right) .cards-card-body .button-container {
+  margin: 1rem 0 0;
+}
+
+.cards.image:where(.left, .right) a.button:any-link {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 7rem;
+  min-height: 3rem;
+  margin: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  background-color: var(--brand-blue);
+  color: #fff;
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+.cards.image:where(.left, .right) a.button:hover,
+.cards.image:where(.left, .right) a.button:focus-visible {
+  background-color: var(--brand-blue-hover);
+  color: #fff;
+  text-decoration: none;
+}
+
+.cards.image:where(.left, .right) a.button:not(.secondary):focus-visible {
+  outline: 0.125rem solid var(--brand-blue-focus);
+  outline-offset: -0.125rem;
+  box-shadow: inset 0 0 0 0.25rem #fff;
+}
+
+.cards.image:where(.left, .right) a.button.secondary:any-link {
+  border: 0.0625rem solid #1a1a1a;
+  background-color: transparent;
+  color: #1a1a1a;
+}
+
+.cards.image:where(.left, .right) a.button.secondary:hover,
+.cards.image:where(.left, .right) a.button.secondary:focus-visible {
+  border-color: #3d3d3d;
+  background-color: #8585851a;
+  color: #3d3d3d;
+}
+
+.cards.image:where(.right) .cards-band-item {
+  padding-block: 0.5rem;
+}
+
+.cards.image:where(.right) .cards-card-body {
+  margin-right: calc(0.5rem - var(--container-padding));
+  padding-top: 1.625rem;
+}
+
+.cards.image:where(.right) .cards-card-body p:not(.button-container) {
+  margin-bottom: 0.5rem;
+}
+
+@media (width >= 768px) {
+  .cards-container:has(.cards.image:where(.left, .right)) {
+    --container-padding: 2rem;
+  }
+
+  .cards.image:where(.left, .right) .cards-card-body a[href^="#footnote"] {
+    font-size: 0.625rem;
+  }
+
+  .cards.image:where(.left, .right) .cards-band-item {
+    padding: 2.5rem var(--container-padding);
+  }
+
+  .cards.image:where(.left, .right) .cards-card-image img {
+    aspect-ratio: auto;
+  }
+
+  .cards.image:where(.left, .right) .cards-card-body {
+    padding: 1.25rem 0 2.5rem;
+  }
+
+  .cards.image:where(.left, .right) .cards-card-body h2 {
+    margin-top: 1rem;
+    font-size: 2.75rem;
+  }
+
+  .cards.image:where(.left, .right) .cards-card-body p {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+  }
+
+  .cards.image:where(.left) .cards-card-image {
+    padding-right: 1.25rem;
+  }
+
+  .cards.image:where(.right) .cards-band-item {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 3.75rem 2.25rem 5rem;
+  }
+
+  .cards.image:where(.right) .cards-card-image {
+    order: 1;
+  }
+
+  .cards.image:where(.right) .cards-card-image,
+  .cards.image:where(.right) .cards-card-body {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .cards.image:where(.right) .cards-card-body {
+    margin-right: 0;
+    padding: 2.5rem 0;
+  }
+
+  .cards.image:where(.right) .cards-card-body h2 {
+    margin-top: 0.75rem;
+  }
+
+  .cards.image:where(.right) .cards-card-body p:not(.button-container) {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+@media (width >= 1280px) {
+  .cards-container:has(.cards.image:where(.left, .right)) {
+    --container-padding: 2.25rem;
+  }
+
+  .cards.image:where(.left, .right) .cards-card-body a[href^="#footnote"] {
+    font-size: 0.75rem;
+  }
+
+  .cards.image:where(.left, .right) .cards-band-item {
+    flex-direction: row;
+    align-items: stretch;
+    padding: 3.125rem var(--container-padding);
+  }
+
+  .cards.image:where(.left, .right) .cards-card-image {
+    box-sizing: border-box;
+    flex: 0 0 50%;
+    align-self: flex-start;
+  }
+
+  .cards.image:where(.left, .right) .cards-card-body {
+    box-sizing: border-box;
+    flex: 0 0 50%;
+    align-content: center;
+    padding: 0 3rem 2.5rem 0;
+  }
+
+  .cards.image:where(.left, .right) .cards-card-body h2 {
+    font-size: 3.5rem;
+  }
+
+  .cards.image:where(.left, .right) .cards-card-body p {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+
+  .cards.image:where(.left, .right) .cards-card-body p + p:where(:not(.button-container)) {
+    margin-top: 1.75rem;
+  }
+
+  .cards.image:where(.left, .right) .cards-card-body p:has(> picture) {
+    margin-bottom: 0.9375rem;
+  }
+
+  .cards.image:where(.left) .cards-card-image {
+    padding-right: 1.5625rem;
+  }
+
+  .cards.image:where(.right) .cards-band-item {
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 3.875rem var(--container-padding) 5.125rem;
+  }
+
+  .cards.image:where(.right) .cards-card-image,
+  .cards.image:where(.right) .cards-card-body {
+    flex: 1 1 0;
+  }
+
+  .cards.image:where(.right) .cards-card-body {
+    align-content: flex-start;
+    padding: 8.125rem 0 2.5rem;
+  }
+
+  .cards.image:where(.right) .cards-card-body h2 {
+    margin-top: 1rem;
+  }
+
+  .cards.image:where(.right) .cards-card-body p:not(.button-container) {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 }

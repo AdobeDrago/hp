@@ -6,7 +6,9 @@ main > .section.press-contact-container {
   margin: 0;
 }
 
-.press-contact-container .press-contact-wrapper {
+/* also when it comes in through the shared fragment (scripts.js) */
+.press-contact-container .press-contact-wrapper,
+.press-contact-container .fragment-wrapper {
   max-width: none;
   padding: 0;
 }

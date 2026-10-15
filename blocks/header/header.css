@@ -5,6 +5,9 @@
 header {
   height: auto;
   min-height: var(--header-height);
+  position: sticky;
+  top: calc(-1 * var(--nav-height, 4rem));
+  z-index: 20;
 }
 
 header .nav-wrapper {
@@ -882,12 +885,6 @@ header nav.nav-search-open .nav-search-close svg {
 
   header nav.nav-search-open .nav-search-close { flex: revert; }
 
-  header {
-    position: sticky;
-    top: calc(-1 * var(--nav-height, 4rem));
-    z-index: 20;
-  }
-
   header nav .nav-hamburger { display: none; }
 
   /* account panel 3px under the 55px bar (hp.com) */
@@ -1547,3 +1544,13 @@ header .nav-wrapper:has(.nav-account-open) .nav-overlay {
     padding: 1.25rem;
   }
 }
+
+@media (width >= 1440px) {
+  header nav .nav-brand { margin-right: 4.4375rem; }
+  header nav .nav-menu { gap: 0.75rem; }
+  
+  header nav .nav-panel-cards ul {
+    grid-template-columns: repeat(4, 16.845rem);
+  }
+}
+

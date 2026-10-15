@@ -32,7 +32,6 @@ function decorateSocialList(list) {
 }
 
 export default async function decorate(block) {
-  // aem-embed (scripts/aem-embed.js) passes the footer content in; EDS pages fetch it
   const html = block.textContent.trim()
     ? block.innerHTML
     : await fetchFooterHtml(getMetadata('footer') || DEFAULT_FOOTER_FRAGMENT);

@@ -120,6 +120,13 @@ export default async function decorate(block) {
       const heading = col.querySelector('h2');
       const listEl = col.querySelector('ul');
       if (!heading || !listEl) return;
+      const headingLink = heading.querySelector('a');
+      if (headingLink) {
+        const overview = document.createElement('li');
+        overview.className = 'footer-column-overview';
+        overview.append(headingLink.cloneNode(true));
+        listEl.prepend(overview);
+      }
       col.classList.add('footer-column-accordion');
       col.dataset.expanded = 'false';
       listEl.id = listEl.id || `footer-column-list-${i}`;
@@ -133,8 +140,22 @@ export default async function decorate(block) {
       }
       control.setAttribute('aria-expanded', 'false');
       control.setAttribute('aria-controls', listEl.id);
+      const desktop = window.matchMedia('(min-width: 1024px)');
+      if (control === headingLink) {
+        const syncControl = () => {
+          if (desktop.matches) {
+            ['role', 'aria-expanded', 'aria-controls'].forEach((attr) => control.removeAttribute(attr));
+          } else {
+            control.setAttribute('role', 'button');
+            control.setAttribute('aria-expanded', col.dataset.expanded);
+            control.setAttribute('aria-controls', listEl.id);
+          }
+        };
+        syncControl();
+        desktop.addEventListener('change', syncControl);
+      }
       heading.addEventListener('click', (e) => {
-        if (window.matchMedia('(min-width: 1024px)').matches) return;
+        if (desktop.matches) return;
         e.preventDefault();
         const open = col.dataset.expanded !== 'true';
         col.dataset.expanded = open;

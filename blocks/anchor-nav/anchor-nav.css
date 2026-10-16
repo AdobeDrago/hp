@@ -218,6 +218,15 @@ main .anchor-nav-cta a.button:focus-visible {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .anchor-nav-links,
+  .anchor-nav-open::after,
+  .anchor-nav-closing::after {
+    transition: none;
+    animation: none;
+  }
+}
+
 @media (width >= 375px) {
   .anchor-nav-links {
     position: absolute;

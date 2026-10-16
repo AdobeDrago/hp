@@ -37,7 +37,7 @@ const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)'
  * shifts while scrolling is still hit), then snapping onto it once settled.
  * Stops early if the user scrolls or presses a key.
  */
-function scrollToTop(getTop, duration) {
+function scrollWindowTo(getTop, duration) {
   return new Promise((resolve) => {
     const from = window.scrollY;
     if (Math.abs(getTop() - from) <= 1) {
@@ -78,18 +78,23 @@ function scrollToTop(getTop, duration) {
   });
 }
 
-/** slides the phone dropdown list open or closed (max-height, see CSS) */
+/**
+ * Slides the phone dropdown list open or closed (max-height, see CSS). Only
+ * the latest slide cleans up, so toggling again mid-slide doesn't cut it short.
+ */
 function slide(list, open) {
   return new Promise((resolve) => {
     if (reducedMotion() || isDesktop.matches) {
       resolve();
       return;
     }
+    const id = (Number(list.dataset.slide) || 0) + 1;
+    list.dataset.slide = id;
     list.style.maxHeight = `${open ? 0 : list.scrollHeight}px`;
     list.getBoundingClientRect();
     list.style.maxHeight = `${open ? Math.min(list.scrollHeight, window.innerHeight) : 0}px`;
     setTimeout(() => {
-      list.style.removeProperty('max-height');
+      if (Number(list.dataset.slide) === id) list.style.removeProperty('max-height');
       resolve();
     }, SLIDE_DURATION + 50);
   });
@@ -225,7 +230,7 @@ export default function decorate(block) {
       // bring the nav to the top first, then open the list below it
       busy = true;
       const placeholder = block.previousElementSibling;
-      await scrollToTop(
+      await scrollWindowTo(
         () => placeholder.getBoundingClientRect().top + window.scrollY - getHeaderOffset() + 1,
         PIN_DURATION,
       );
@@ -259,7 +264,7 @@ export default function decorate(block) {
     // phones: the list slides closed first, then the page scrolls
     await setOpen(block, toggle, false);
     // the section lands 1px under the pinned bars (hp.com)
-    await scrollToTop(
+    await scrollWindowTo(
       () => target.getBoundingClientRect().top + window.scrollY
         - getHeaderOffset() - block.offsetHeight + 1,
       SCROLL_DURATION,

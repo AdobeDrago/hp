@@ -86,6 +86,8 @@ function decorateDynamicRefs(block, dynamicList) {
 
 export default function decorate(block) {
   const rows = [...block.children];
+  // press releases (hp.com): collapsed to start, with a chevron
+  const press = block.classList.contains('press');
   let titleText = DEFAULT_TITLE;
   let bodyRows = rows;
 
@@ -107,7 +109,7 @@ export default function decorate(block) {
       while (cell.firstChild) content.append(cell.firstChild);
     });
     // press: a single-paragraph note arrives as bare text; keep it a <p>
-    if (block.classList.contains('press') && !content.querySelector(':scope > :is(p, ol, ul)')) {
+    if (press && !content.querySelector(':scope > :is(p, ol, ul)')) {
       const p = document.createElement('p');
       p.append(...content.childNodes);
       content.append(p);
@@ -127,8 +129,6 @@ export default function decorate(block) {
   title.className = 'footnotes-title';
   title.textContent = titleText;
 
-  // press releases (hp.com): collapsed to start, with a chevron
-  const press = block.classList.contains('press');
   block.classList.toggle('footnotes-collapsed', press);
 
   const icon = document.createElement('div');

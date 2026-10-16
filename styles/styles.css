@@ -33,7 +33,13 @@
   --heading-font-size-xs: 22px;
   --nav-height: 4.0625rem;
   --breadcrumbs-height: 34px;
-  --header-height: 7.9375rem;
+  --header-height: 11.1875rem;
+}
+
+@media (width >= 768px) {
+  :root, :host {
+    --header-height: 7.9375rem;
+  }
 }
 
 @media (width >= 1280px) {

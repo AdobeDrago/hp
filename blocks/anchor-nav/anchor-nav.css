@@ -98,8 +98,6 @@ main > .section.anchor-nav-container {
   margin: 0 -1rem;
   border-bottom: 0;
   background-color: var(--background-color);
-
-  /* the list slides open / closed (anchor-nav.js sets the max-height) */
   transition: max-height 0.3s;
 }
 
@@ -193,7 +191,6 @@ main .anchor-nav-cta a.button:focus-visible {
   box-shadow: inset 0 0 0 0.25rem #fff;
 }
 
-/* backdrop behind the open dropdown: fades in, and out while the list closes */
 .anchor-nav-open::after,
 .anchor-nav-closing::after {
   content: '';

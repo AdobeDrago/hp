@@ -2,9 +2,6 @@ const isDesktop = window.matchMedia('(min-width: 1024px)');
 
 const DEFAULT_TITLE = 'Overview';
 
-// hp.com timings: a link click scrolls at a steady speed for 500ms, opening the
-// dropdown first brings the nav to the top in 250ms, and the dropdown list
-// slides open / closed in 300ms (the max-height transition in the CSS)
 const SCROLL_DURATION = 500;
 const PIN_DURATION = 250;
 const SLIDE_DURATION = 300;
@@ -31,12 +28,6 @@ function getTarget(link) {
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/**
- * Scrolls the window to getTop() the way hp.com does: linearly over
- * `duration`, reading the destination again every frame (so content that
- * shifts while scrolling is still hit), then snapping onto it once settled.
- * Stops early if the user scrolls or presses a key.
- */
 function scrollWindowTo(getTop, duration) {
   return new Promise((resolve) => {
     const from = window.scrollY;
@@ -78,10 +69,6 @@ function scrollWindowTo(getTop, duration) {
   });
 }
 
-/**
- * Slides the phone dropdown list open or closed (max-height, see CSS). Only
- * the latest slide cleans up, so toggling again mid-slide doesn't cut it short.
- */
 function slide(list, open) {
   return new Promise((resolve) => {
     if (reducedMotion() || isDesktop.matches) {
@@ -100,11 +87,6 @@ function slide(list, open) {
   });
 }
 
-/**
- * Opens / closes the phone dropdown; resolves once the slide has finished.
- * While closing, `anchor-nav-closing` keeps the list visible (and fades the
- * backdrop out) until the slide is done.
- */
 async function setOpen(block, toggle, open, animate = true) {
   const list = block.querySelector('.anchor-nav-links');
   const isOpen = block.classList.contains('anchor-nav-open');
@@ -132,7 +114,6 @@ function setupPinning(block, placeholder, title) {
     if (!shouldPin && !open) inPageHeight = block.offsetHeight;
     const boxes = links.map((link) => {
       const target = getTarget(link);
-      // a section still loading is hidden (no box), so it can't be reached yet
       if (!target || !target.getClientRects().length) return null;
       return target.getBoundingClientRect();
     });
@@ -145,8 +126,6 @@ function setupPinning(block, placeholder, title) {
       document.documentElement.style.scrollPaddingTop = `${offset + block.offsetHeight + 16}px`;
     }
 
-    // as on hp.com, a link is active while the bars' bottom edge is inside its
-    // section; between sections (or above the first) none is
     const limit = offset + inPageHeight + 1;
     let active = null;
     links.forEach((link, i) => {
@@ -176,7 +155,6 @@ function setupPinning(block, placeholder, title) {
 
   requestAnimationFrame(scheduleUpdate);
   window.addEventListener('load', scheduleUpdate);
-  // sections keep appearing / growing while the page loads: re-check the active link
   new ResizeObserver(scheduleUpdate).observe(document.body);
 }
 
@@ -217,7 +195,6 @@ export default function decorate(block) {
   title.textContent = DEFAULT_TITLE;
   toggle.append(title);
   toggle.insertAdjacentHTML('beforeend', CHEVRON);
-  // one scroll at a time, as on hp.com: clicks during a scroll are ignored
   let busy = false;
 
   toggle.addEventListener('click', async () => {
@@ -227,7 +204,6 @@ export default function decorate(block) {
       return;
     }
     if (!block.classList.contains('anchor-nav-pinned')) {
-      // bring the nav to the top first, then open the list below it
       busy = true;
       const placeholder = block.previousElementSibling;
       await scrollWindowTo(
@@ -261,9 +237,7 @@ export default function decorate(block) {
     if (busy) return;
     busy = true;
     window.history.pushState(null, '', link.getAttribute('href'));
-    // phones: the list slides closed first, then the page scrolls
     await setOpen(block, toggle, false);
-    // the section lands 1px under the pinned bars (hp.com)
     await scrollWindowTo(
       () => target.getBoundingClientRect().top + window.scrollY
         - getHeaderOffset() - block.offsetHeight + 1,

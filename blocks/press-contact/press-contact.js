@@ -1,12 +1,3 @@
-/**
- * Press contact: the blue "About HP / Media Contact" band at the end of a
- * press release (hp.com). Authored as two rows of two cells:
- *   | About HP (heading)      | Media Contact (heading)                  |
- *   | about text              | label, link, label, link, ...            |
- * Each label in the second cell is paired with the link that follows it
- * (e.g. "Inquire" + "Media Only") as one row with a button on the right.
- */
-
 function contactItems(cell) {
   const items = [];
   let current = null;

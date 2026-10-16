@@ -120,8 +120,8 @@ main > .section.footnotes-container {
 /* "opens in a new tab" hint for screen readers on footnote URLs */
 .footnotes-visually-hidden {
   position: absolute;
-  width: 0.0625rem;
-  height: 0.0625rem;
+  width: 1px;
+  height: 1px;
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
@@ -135,10 +135,6 @@ main > .section.footnotes-container {
   vertical-align: -0.125rem;
 }
 
-/* ===== press release variation (hp.com): a square white drawer, collapsed
-   to start, on a full-width #f4f4f4 strip; 0.75rem notes ===== */
-
-/* space between the end of the article and the strip, as on hp.com */
 main > .section:has(+ .section.footnotes-container .footnotes.press) {
   margin-bottom: 0;
 }
@@ -179,7 +175,6 @@ main > .section.footnotes-container:has(.footnotes.press) {
   line-height: 1.625rem;
 }
 
-/* the chevron sits over the right end of the full-width title */
 .footnotes.press .footnotes-icon {
   position: absolute;
   top: calc(50% - 0.1563rem);
@@ -227,7 +222,6 @@ main > .section.footnotes-container:has(.footnotes.press) {
   margin-bottom: 0;
 }
 
-/* numbered notes: "1." in its own column so wrapped lines align with the text */
 .footnotes.press .footnotes-item-content ol {
   counter-reset: item;
 }

@@ -1,7 +1,3 @@
-/* Press contact: hp.com's blue "About HP / Media Contact" band, full width,
-   two columns split by a white rule, a full-width rule under the headings;
-   the content sits in a centred 80rem column from 1280px */
-
 main > .section.press-contact-container {
   margin: 0;
 }
@@ -16,8 +12,6 @@ main > .section.press-contact-container {
   color: #fff;
 }
 
-/* the rule under the headings is drawn over the top edge of the content row,
-   taking no space (hp.com) */
 .press-contact-body {
   box-shadow: inset 0 0.0625rem 0 #fff;
 }
@@ -34,7 +28,6 @@ main > .section.press-contact-container {
   padding: 0.625rem 0.625rem 0.625rem 1.25rem;
 }
 
-/* the column rule, drawn without shifting the right-hand content */
 .press-contact-cell + .press-contact-cell {
   box-shadow: inset 0.0625rem 0 0 #fff;
 }
@@ -58,7 +51,6 @@ main > .section.press-contact-container {
   text-decoration: underline;
 }
 
-/* Media Contact rows: label above its button on phones */
 .press-contact-item + .press-contact-item::before {
   content: '';
   display: block;
@@ -126,7 +118,6 @@ main > .section.press-contact-container {
     line-height: 4.125rem;
   }
 
-  /* label and button side by side, 60 / 40 */
   .press-contact-item {
     display: flex;
     flex-wrap: wrap;
@@ -153,7 +144,6 @@ main > .section.press-contact-container {
   }
 }
 
-/* from 1024px the rule under the headings takes its own pixel (hp.com) */
 @media (width >= 1024px) {
   .press-contact-body {
     border-top: 0.0625rem solid #fff;

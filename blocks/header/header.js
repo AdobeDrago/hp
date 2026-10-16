@@ -17,6 +17,16 @@ const SEARCH_URL = 'https://www.hp.com/us-en/shop/sitesearch';
 
 const DEFAULT_HEADER_FRAGMENT = '/nav';
 
+function navCandidates() {
+  let folder = window.location.pathname.replace(/^\/content(?=\/)/, '').replace(/(\.html|\/)$/, '');
+  const paths = [];
+  while (folder) {
+    paths.push(`${folder}/nav`);
+    folder = folder.slice(0, folder.lastIndexOf('/'));
+  }
+  return [...paths, DEFAULT_HEADER_FRAGMENT];
+}
+
 async function fetchNavHtml(path) {
   const isAbsolute = /^https?:\/\//i.test(path);
   const root = !isAbsolute && window.location.pathname.startsWith('/content/') ? '/content' : '';
@@ -478,10 +488,15 @@ function toggleMobileMenu(nav, forceClose = false) {
   if (!open) closeAllPanels(nav);
 }
 
+async function loadNavHtml() {
+  const metaPath = getMetadata('header');
+  const paths = metaPath ? [metaPath] : navCandidates();
+  const results = await Promise.all(paths.map((path) => fetchNavHtml(path).catch(() => null)));
+  return results.find(Boolean) || null;
+}
+
 export default async function decorate(block) {
-  const html = block.textContent.trim()
-    ? block.innerHTML
-    : await fetchNavHtml(getMetadata('header') || DEFAULT_HEADER_FRAGMENT);
+  const html = block.textContent.trim() ? block.innerHTML : await loadNavHtml();
   block.textContent = '';
   if (!html) return;
 

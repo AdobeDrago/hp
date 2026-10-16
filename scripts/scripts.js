@@ -113,6 +113,10 @@ async function loadEager(doc) {
   }
   const main = doc.querySelector('main');
   if (main) {
+    if (/\/newsroom\/(press-releases|blogs)\/./.test(window.location.pathname)) {
+      doc.body.classList.add('article-detail');
+    }
+
     decorateMain(main);
     initLinkTracking();
     doc.body.classList.add('appear');

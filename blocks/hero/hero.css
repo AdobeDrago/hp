@@ -229,6 +229,114 @@
   }
 }
 
+/* ===== article detail pages (mobile first) ===== */
+
+/* hero */
+
+.article-detail .hero-container .hero-bg img {
+  object-position: center;
+}
+
+.article-detail .hero-container .hero-content {
+  padding-top: 120px;
+}
+
+.article-detail .hero-container .hero-content h1,
+.article-detail .hero-container .hero-content p {
+  max-width: 1220px;
+  margin: 0 auto;
+  border-color: #fff;
+  font-weight: 400;
+  text-align: left;
+}
+
+.article-detail .hero-container .hero-content h1 {
+  font-size: 2.5rem;
+  line-height: 2.875rem;
+}
+
+.article-detail .hero-container .hero-content p {
+  padding-bottom: 0.25em;
+  font-size: 1.375rem;
+  line-height: 2.25rem;
+}
+
+.article-detail .section .default-content-wrapper {
+    padding: 0 20px;
+}
+
+@media (width >= 768px) {
+  .article-detail .section .default-content-wrapper {
+    padding: 0 32px;
+  }
+
+  .article-detail .hero-container .hero-content {
+    padding-top: 150px;
+  }
+
+  .article-detail .hero-container .hero-content h1,
+  .article-detail .hero-container .hero-content p {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .article-detail .hero-container .hero-content h1 {
+    font-size: 3.75rem;
+    line-height: 4.125rem;
+  }
+
+  .article-detail .hero-container .hero-content p {
+    font-size: 1.75rem;
+  }
+}
+
+@media (width >= 1024px) {
+  .article-detail .hero-container .hero-content {
+    padding-top: 0;
+  }
+}
+
+@media (width >= 1280px) {
+  .article-detail .hero-container .hero-content h1,
+  .article-detail .hero-container .hero-content p {
+    padding: 1.125rem 2.625rem;
+  }
+
+  .article-detail .hero-container .hero-content h1 {
+    font-size: 4.375rem;
+    line-height: 4.625rem;
+  }
+
+  .article-detail .hero-container .hero-content p {
+    line-height: 2.125rem;
+  }
+}
+
+@media (width >= 1440px) {
+  .article-detail .hero-container .hero-content h1,
+  .article-detail .hero-container .hero-content p {
+    padding: 1.25rem 16.5rem;
+  }
+}
+
+  .article-detail .section .default-content-wrapper ul li,
+  .article-detail .section .default-content-wrapper p {
+  padding-bottom: 0.25em;
+  font-size: 1.25rem;
+  line-height: 1.625rem;
+}
+
+@media (width >= 1280px) {
+  .article-detail .section .default-content-wrapper ul li,
+  .article-detail .section .default-content-wrapper p {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+  }
+}
+
+.article-detail .hero-container .hero-content p:last-child {
+  border: none;
+  padding-bottom: 20px;
+}
 
 .hero.centered.block {
   flex-direction: column-reverse;

@@ -478,10 +478,14 @@ function toggleMobileMenu(nav, forceClose = false) {
   if (!open) closeAllPanels(nav);
 }
 
+async function loadNavHtml() {
+  const navMeta = getMetadata('nav');
+  const path = navMeta ? new URL(navMeta, window.location).pathname.replace(/\.html$/, '') : DEFAULT_HEADER_FRAGMENT;
+  return fetchNavHtml(path).catch(() => null);
+}
+
 export default async function decorate(block) {
-  const html = block.textContent.trim()
-    ? block.innerHTML
-    : await fetchNavHtml(getMetadata('header') || DEFAULT_HEADER_FRAGMENT);
+  const html = block.textContent.trim() ? block.innerHTML : await loadNavHtml();
   block.textContent = '';
   if (!html) return;
 

@@ -125,10 +125,11 @@ function setupPinning(block, placeholder, title) {
     const shouldPin = placeholder.getBoundingClientRect().top <= offset;
     const open = block.matches('.anchor-nav-open, .anchor-nav-closing');
     if (!shouldPin && !open) inPageHeight = block.offsetHeight;
-    const starts = links.map((link) => {
+    const boxes = links.map((link) => {
       const target = getTarget(link);
-      return target && target.getBoundingClientRect().top
-        - (parseFloat(getComputedStyle(target).marginTop) || 0);
+      // a section still loading is hidden (no box), so it can't be reached yet
+      if (!target || !target.getClientRects().length) return null;
+      return target.getBoundingClientRect();
     });
 
     placeholder.style.setProperty('--anchor-nav-placeholder-height', shouldPin ? `${inPageHeight}px` : '0px');
@@ -139,10 +140,12 @@ function setupPinning(block, placeholder, title) {
       document.documentElement.style.scrollPaddingTop = `${offset + block.offsetHeight + 16}px`;
     }
 
+    // as on hp.com, a link is active while the bars' bottom edge is inside its
+    // section; between sections (or above the first) none is
     const limit = offset + inPageHeight + 1;
     let active = null;
     links.forEach((link, i) => {
-      if (starts[i] !== null && starts[i] <= limit) active = link;
+      if (boxes[i] && boxes[i].top <= limit && boxes[i].bottom > limit) active = link;
     });
     links.forEach((link) => {
       const isActive = link === active;
@@ -168,6 +171,8 @@ function setupPinning(block, placeholder, title) {
 
   requestAnimationFrame(scheduleUpdate);
   window.addEventListener('load', scheduleUpdate);
+  // sections keep appearing / growing while the page loads: re-check the active link
+  new ResizeObserver(scheduleUpdate).observe(document.body);
 }
 
 export default function decorate(block) {

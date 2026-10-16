@@ -237,6 +237,28 @@
           }
         },
         {
+          "title": "CTA Dropdown",
+          "id": "cta-dropdown",
+          "model": "cta-dropdown",
+          "plugins": {
+            "da": {
+              "name": "cta-dropdown",
+              "rows": 2,
+              "columns": 1,
+              "fields": [
+                {
+                  "name": "label",
+                  "selector": "div:nth-child(1)>div"
+                },
+                {
+                  "name": "links",
+                  "selector": "div:nth-child(2)>div"
+                }
+              ]
+            }
+          }
+        },
+        {
           "title": "Footnotes",
           "id": "footnotes",
           "model": "footnotes",

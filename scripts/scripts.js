@@ -111,6 +111,9 @@ async function loadEager(doc) {
   if (newsroom === 'false' || (newsroom !== 'true' && getMetadata('template') === 'ai-solutions')) {
     doc.body.dataset.noNewsroom = 'true';
   }
+  if (getMetadata('type').toLowerCase() === 'press release') {
+    doc.body.classList.add('press-release');
+  }
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);

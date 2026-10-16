@@ -65,3 +65,29 @@
 .table.bordered table td {
   border: 1px solid #dadada;
 }
+
+/* press release financial tables: plain rows, no rules, sized to content */
+.table.press table {
+  width: auto;
+}
+
+.table.press table thead tr:nth-child(n),
+.table.press table tbody tr:nth-child(n),
+.table.press.no-header table tbody tr:nth-child(n) {
+  border: 0;
+}
+
+.table.press table th {
+  font-weight: 400;
+}
+
+.table.press table th,
+.table.press table td {
+  padding: 0.125rem 1.5rem 0.125rem 0;
+  vertical-align: top;
+}
+
+.table.press table th:last-child,
+.table.press table td:last-child {
+  padding-right: 0;
+}

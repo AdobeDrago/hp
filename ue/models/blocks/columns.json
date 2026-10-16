@@ -44,6 +44,16 @@
       "id": "columns",
       "fields": [
         {
+          "component": "multiselect",
+          "name": "classes",
+          "label": "Style",
+          "valueType": "string",
+          "description": "Press = press release image grid. With 3 columns each cell is an image with left-aligned text below; with 2 columns each image is centered at its own size with a centered caption.",
+          "options": [
+            { "name": "Press", "value": "press" }
+          ]
+        },
+        {
           "component": "number",
           "valueType": "number",
           "name": "columns",

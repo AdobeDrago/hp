@@ -1,0 +1,42 @@
+{
+  "definitions": [
+    {
+      "title": "CTA Dropdown",
+      "id": "cta-dropdown",
+      "model": "cta-dropdown",
+      "plugins": {
+        "da": {
+          "name": "cta-dropdown",
+          "rows": 2,
+          "columns": 1,
+          "fields": [
+            { "name": "label", "selector": "div:nth-child(1)>div" },
+            { "name": "links", "selector": "div:nth-child(2)>div" }
+          ]
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "cta-dropdown",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "label",
+          "label": "Button Label",
+          "description": "Text on the button, e.g. Read or Download"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "links",
+          "label": "Links",
+          "description": "One link = the button opens it directly. Two or more links = the button opens a menu listing them (e.g. one per language)."
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

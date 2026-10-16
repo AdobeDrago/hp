@@ -220,6 +220,10 @@ main img {
   height: auto;
 }
 
+body.press-release main .default-content-wrapper p:has(> picture:only-child) {
+  text-align: center;
+}
+
 span.icon {
   display: inline-block;
   height: 24px;

@@ -213,6 +213,28 @@
     ]
   },
   {
+    "id": "carousel",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "description": "Press = press release image gallery: each slide is an image with a centered title and optional text below. Press + Quote = black quote slider: each slide is one cell with the quote, then the attribution as the last paragraph.",
+        "options": [
+          {
+            "name": "Press",
+            "value": "press"
+          },
+          {
+            "name": "Quote",
+            "value": "quote"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "carousel-item",
     "fields": [
       {
@@ -240,6 +262,19 @@
     "id": "columns",
     "fields": [
       {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "description": "Press = press release image grid. With 3 columns each cell is an image with left-aligned text below; with 2 columns each image is centered at its own size with a centered caption.",
+        "options": [
+          {
+            "name": "Press",
+            "value": "press"
+          }
+        ]
+      },
+      {
         "component": "number",
         "valueType": "number",
         "name": "columns",
@@ -249,6 +284,25 @@
           "numberMin": 1,
           "numberMax": 6
         }
+      }
+    ]
+  },
+  {
+    "id": "cta-dropdown",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Button Label",
+        "description": "Text on the button, e.g. Read or Download"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "links",
+        "label": "Links",
+        "description": "One link = the button opens it directly. Two or more links = the button opens a menu listing them (e.g. one per language)."
       }
     ]
   },
@@ -421,6 +475,23 @@
     "id": "table",
     "fields": [
       {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "description": "Press = plain financial table for press releases: no rules or header styling, columns sized to their content. Combine with No Header when the first row is data.",
+        "options": [
+          {
+            "name": "Press",
+            "value": "press"
+          },
+          {
+            "name": "No Header",
+            "value": "no-header"
+          }
+        ]
+      },
+      {
         "component": "richtext",
         "name": "table",
         "value": "",
@@ -448,6 +519,13 @@
   {
     "id": "video",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "classes_press",
+        "label": "Press Release Style",
+        "description": "Full-width poster image with a square play button, as on press releases",
+        "valueType": "boolean"
+      },
       {
         "component": "boolean",
         "name": "classes_autoplay",

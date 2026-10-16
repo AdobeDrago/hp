@@ -31,3 +31,43 @@
     order: unset;
   }
 }
+
+/* press release image grids: 3-up (image + text below) and 2-up (centered image + caption) */
+.columns.press > div {
+  gap: 1.5rem;
+}
+
+.columns.press > div > div {
+  font-size: 1rem;
+  line-height: 1.375rem;
+}
+
+.columns.press p {
+  margin: 1rem 0 0;
+}
+
+.columns.press p:first-child {
+  margin-top: 0;
+}
+
+.columns.press picture,
+.columns.press > div > div img {
+  display: block;
+}
+
+.columns.press.columns-2-cols > div > div {
+  text-align: center;
+}
+
+.columns.press.columns-2-cols > div > div img {
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+@media (width >= 900px) {
+  .columns.press > div {
+    align-items: flex-start;
+    gap: 1.875rem;
+  }
+}

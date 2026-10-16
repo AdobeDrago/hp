@@ -18,6 +18,7 @@ const SEARCH_URL = 'https://www.hp.com/us-en/shop/sitesearch';
 const DEFAULT_HEADER_FRAGMENT = '/nav';
 
 function navCandidates() {
+  // the page path itself is tried first so folder indexes (no trailing slash) find their own nav
   let folder = window.location.pathname.replace(/^\/content(?=\/)/, '').replace(/(\.html|\/)$/, '');
   const paths = [];
   while (folder) {

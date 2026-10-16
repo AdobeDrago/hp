@@ -505,7 +505,7 @@ export default async function decorate(block) {
 
   const embed = block.getRootNode().host;
   const hideNewsroom = embed
-    ? embed.getAttribute('newsroom') !== 'true'
+    ? embed.dataset.newsroom !== 'true'
     : document.body.dataset.noNewsroom === 'true';
   if (navNewsroom && hideNewsroom) {
     navNewsroom.remove();

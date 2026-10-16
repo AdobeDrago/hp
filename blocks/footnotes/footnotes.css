@@ -135,9 +135,130 @@ main > .section.footnotes-container {
   vertical-align: -0.125rem;
 }
 
+main > .section:has(+ .section.footnotes-container .footnotes.press) {
+  margin-bottom: 0;
+}
+
+main > .section.footnotes-container:has(.footnotes.press) {
+  margin-top: 2.1875rem;
+}
+
+.footnotes.press {
+  --footnotes-inset: 1.25rem;
+
+  max-width: none;
+  padding: 1.25rem 2.5rem;
+  background-color: #f4f4f4;
+  color: #000;
+}
+
+.footnotes.press .footnotes-panel {
+  box-sizing: border-box;
+  max-width: 76.25rem;
+  margin: 0 auto;
+  border-radius: 0;
+  padding: 0 var(--footnotes-inset);
+}
+
+.footnotes-collapsed.press .footnotes-panel:hover {
+  box-shadow: none;
+}
+
+.footnotes.press .footnotes-header {
+  display: block;
+  padding: 1.3125rem 0 1.25rem;
+}
+
+.footnotes.press .footnotes-title {
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.625rem;
+}
+
+.footnotes.press .footnotes-icon {
+  position: absolute;
+  top: calc(50% - 0.1563rem);
+  right: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.footnotes.press .footnotes-icon svg {
+  width: 0.75rem;
+  height: 0.4375rem;
+}
+
+.footnotes.press:not(.footnotes-collapsed) .footnotes-icon svg {
+  transform: rotate(180deg);
+}
+
+.footnotes.press .footnotes-content {
+  margin-top: -0.25rem;
+  padding-bottom: 1.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  word-break: keep-all;
+}
+
+.footnotes.press .footnotes-list-static {
+  padding-top: 0;
+}
+
+.footnotes.press .footnotes-list-dynamic:empty {
+  display: none;
+}
+
+.footnotes.press .footnotes-item-content :is(ol, ul) {
+  margin: 0.1875rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footnotes.press .footnotes-item-content > :is(ol, ul):first-child {
+  margin-top: 0;
+}
+
+.footnotes.press .footnotes-item-content > :is(ol, ul):last-child {
+  margin-bottom: 0;
+}
+
+.footnotes.press .footnotes-item-content ol {
+  counter-reset: item;
+}
+
+.footnotes.press .footnotes-item-content ol > li {
+  display: table;
+  counter-increment: item;
+}
+
+.footnotes.press .footnotes-item-content ol > li::before {
+  content: counters(item, ".") ".";
+  display: table-cell;
+  padding-right: 0.3125em;
+  white-space: nowrap;
+}
+
+.footnotes.press .footnotes-item-content :is(ol, ul) > li:not(:last-child) {
+  margin-bottom: 0.1875rem;
+}
+
 @media (width >= 768px) {
   .footnotes {
     --footnotes-padding: 2rem;
+  }
+
+  main > .section.footnotes-container:has(.footnotes.press) {
+    margin-top: 7.5rem;
+  }
+
+  .footnotes.press {
+    --footnotes-inset: 1.875rem;
+
+    padding: 1.25rem 3.75rem;
+  }
+
+  .footnotes.press .footnotes-content {
+    line-height: 0.9375rem;
   }
 }
 
@@ -148,5 +269,18 @@ main > .section.footnotes-container {
 
   .footnotes-title {
     font-size: 1rem;
+  }
+
+  .footnotes.press {
+    padding: 1.25rem 1.875rem;
+  }
+
+  .footnotes.press .footnotes-title {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+  }
+
+  .footnotes.press .footnotes-icon {
+    top: calc(50% - 0.125rem);
   }
 }

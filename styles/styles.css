@@ -95,6 +95,10 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
+body:not(.header-ready) header .header[data-block-status="loaded"] {
+  visibility: hidden;
+}
+
 @media (width >= 900px) {
   body[data-breadcrumbs] {
     --header-height: calc(var(--nav-height) + var(--breadcrumbs-height));

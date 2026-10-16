@@ -202,6 +202,7 @@ main > .section.footnotes-container:has(.footnotes.press) {
   padding-bottom: 1.25rem;
   font-size: 0.75rem;
   line-height: 1rem;
+  word-break: keep-all;
 }
 
 .footnotes.press .footnotes-list-static {
@@ -218,10 +219,33 @@ main > .section.footnotes-container:has(.footnotes.press) {
   list-style: none;
 }
 
-/* hp.com press releases leave one blank line before the closing copyright
-   paragraph (an empty paragraph there, which DA does not keep) */
-.footnotes.press .footnotes-list-static > li:last-child .footnotes-item-content > p:last-child {
-  margin-top: 1rem;
+.footnotes.press .footnotes-item-content > :is(ol, ul):first-child {
+  margin-top: 0;
+}
+
+.footnotes.press .footnotes-item-content > :is(ol, ul):last-child {
+  margin-bottom: 0;
+}
+
+/* numbered notes: "1." in its own column so wrapped lines align with the text */
+.footnotes.press .footnotes-item-content ol {
+  counter-reset: item;
+}
+
+.footnotes.press .footnotes-item-content ol > li {
+  display: table;
+  counter-increment: item;
+}
+
+.footnotes.press .footnotes-item-content ol > li::before {
+  content: counters(item, ".") ".";
+  display: table-cell;
+  padding-right: 0.3125em;
+  white-space: nowrap;
+}
+
+.footnotes.press .footnotes-item-content :is(ol, ul) > li:not(:last-child) {
+  margin-bottom: 0.1875rem;
 }
 
 @media (width >= 768px) {
@@ -241,10 +265,6 @@ main > .section.footnotes-container:has(.footnotes.press) {
 
   .footnotes.press .footnotes-content {
     line-height: 0.9375rem;
-  }
-
-  .footnotes.press .footnotes-list-static > li:last-child .footnotes-item-content > p:last-child {
-    margin-top: 0.9375rem;
   }
 }
 

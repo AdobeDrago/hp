@@ -94,12 +94,17 @@ main > .section.anchor-nav-container {
   top: 100%;
   left: 0;
   right: 0;
+  overflow: hidden;
   margin: 0 -1rem;
   border-bottom: 0;
   background-color: var(--background-color);
+
+  /* the list slides open / closed (anchor-nav.js sets the max-height) */
+  transition: max-height 0.3s;
 }
 
-.anchor-nav-open .anchor-nav-links {
+.anchor-nav-open .anchor-nav-links,
+.anchor-nav-closing .anchor-nav-links {
   display: block;
 }
 
@@ -188,13 +193,29 @@ main .anchor-nav-cta a.button:focus-visible {
   box-shadow: inset 0 0 0 0.25rem #fff;
 }
 
-.anchor-nav-open::after {
+/* backdrop behind the open dropdown: fades in, and out while the list closes */
+.anchor-nav-open::after,
+.anchor-nav-closing::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: -1;
   background-color: #1a1a1a80;
   backdrop-filter: blur(1rem);
+  transition: background-color 0.3s ease-in, backdrop-filter 0.3s ease-in;
+  animation: anchor-nav-backdrop-in 0.3s ease-in;
+}
+
+.anchor-nav-closing::after {
+  background-color: transparent;
+  backdrop-filter: blur(0);
+}
+
+@keyframes anchor-nav-backdrop-in {
+  from {
+    background-color: transparent;
+    backdrop-filter: blur(0);
+  }
 }
 
 @media (width >= 375px) {
@@ -247,7 +268,8 @@ main .anchor-nav-cta a.button:focus-visible {
     background-color: transparent;
   }
 
-  .anchor-nav-open::after {
+  .anchor-nav-open::after,
+  .anchor-nav-closing::after {
     content: none;
   }
 
@@ -256,11 +278,14 @@ main .anchor-nav-cta a.button:focus-visible {
   }
 
   .anchor-nav-links,
-  .anchor-nav-open .anchor-nav-links {
+  .anchor-nav-open .anchor-nav-links,
+  .anchor-nav-closing .anchor-nav-links {
     display: flex;
     position: static;
+    overflow: visible;
     border-bottom: 0;
     background: none;
+    transition: none;
   }
 
   .anchor-nav-links ul {

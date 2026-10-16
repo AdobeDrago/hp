@@ -515,6 +515,7 @@ export default async function decorate(block) {
     navNewsroom.remove();
     navNewsroom = null;
   }
+  if (!navNewsroom && !embed) document.body.dataset.noNewsroom = 'true';
 
   if (navSections) decorateSections(navSections);
   if (navTools) decorateTools(navTools);

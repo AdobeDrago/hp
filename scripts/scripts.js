@@ -111,14 +111,26 @@ async function loadEager(doc) {
   if (newsroom === 'false' || (newsroom !== 'true' && getMetadata('template') === 'ai-solutions')) {
     doc.body.dataset.noNewsroom = 'true';
   }
+  const header = doc.querySelector('header');
+  const headerReady = Promise.race([
+    header ? loadHeader(header) : Promise.resolve(),
+    new Promise((resolve) => { setTimeout(resolve, 1000); }),
+  ]);
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
     initLinkTracking();
     doc.body.classList.add('appear');
     const firstSection = main.querySelector('.section');
-    if (firstSection) await loadSection(firstSection, waitForFirstImage);
+    if (firstSection) {
+      await loadSection(firstSection, async (section) => {
+        await waitForFirstImage(section);
+        await headerReady;
+      });
+    }
   }
+  await headerReady;
+  doc.body.classList.add('header-ready');
 
   sampleRUM.enhance();
 
@@ -141,7 +153,6 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);

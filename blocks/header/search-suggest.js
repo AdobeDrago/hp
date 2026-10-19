@@ -30,6 +30,7 @@ function buildSuggestionLabel(value) {
 }
 
 async function fetchSuggestions(clientGuid, keyword, signal) {
+  if (!clientGuid) throw new Error('search-client-guid metadata is not set');
   const resp = await fetch(HAWK_AUTOCOMPLETE_API, {
     method: 'POST',
     signal,

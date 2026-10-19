@@ -3,7 +3,6 @@ import getPageLocale from './locale.js';
 
 export const HAWK_AUTOCOMPLETE_API = 'https://hp.searchapi-na.hawksearch.com/api/v2/autocomplete';
 export const HAWK_SEARCH_API = 'https://hp.searchapi-na.hawksearch.com/api/v2/search';
-const DEFAULT_CLIENT_GUID = 'bdeebee3d2b74c8ea58522bb1db61f8e';
 
 const SUPPORT_SITE = 'https://support.hp.com';
 
@@ -23,9 +22,9 @@ export function getSearchLocale() {
   };
 }
 
-/** hawksearch client guid; search-client-guid metadata, else HP's default */
+/** hawksearch client guid, from the search-client-guid metadata */
 export function getClientGuid() {
-  return getMetadata('search-client-guid') || DEFAULT_CLIENT_GUID;
+  return getMetadata('search-client-guid');
 }
 
 /** search results page; search-results-page metadata, else /<locale>/newsroom/search */

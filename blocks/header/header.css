@@ -1557,8 +1557,17 @@ header .nav-wrapper:has(.nav-account-open) .nav-overlay {
 
 /* always-visible search box on large screens (hp.com from 1680px) */
 @media (width >= 1680px) {
-  header nav .nav-search-btn,
   header nav .nav-search-close { display: none; }
+
+  header nav .nav-search-btn {
+    position: absolute;
+    right: 18px;
+    z-index: 111;
+    width: 270px;
+    height: 38px;
+    justify-content: end;
+    padding-right: 15px;
+  }
 
   header nav .nav-search-form,
   header nav .nav-search-form[hidden] {

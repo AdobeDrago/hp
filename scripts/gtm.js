@@ -1,5 +1,4 @@
 const GTM_ATTR_PREFIX = 'data-gtm-';
-const GTM_CLICK_EVENT = 'e_linkClick';
 const GTM_KEY_PATTERN = /^[a-z][a-z0-9_-]*$/;
 
 function parseLinkTitle(rawTitle = '') {
@@ -29,26 +28,7 @@ function decorateGtmLink(a) {
   else a.removeAttribute('title');
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export function decorateGtmLinks(element) {
   element.querySelectorAll('a').forEach(decorateGtmLink);
-}
-
-// Same event and fields as HP's e_linkClick tag:
-// data-gtm-id -> linkPlacement, data-gtm-value -> linkID
-function pushLinkClick(el) {
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event: GTM_CLICK_EVENT,
-    pushSource: 'standards',
-    linkPlacement: el.getAttribute('data-gtm-id')?.trim(),
-    linkID: el.getAttribute('data-gtm-value')?.trim(),
-  });
-}
-
-export function initLinkTracking() {
-  // capture phase, so the push happens even if another handler stops propagation
-  document.addEventListener('click', (e) => {
-    const el = e.target.closest?.('[data-gtm-category]');
-    if (el) pushLinkClick(el);
-  }, true);
 }

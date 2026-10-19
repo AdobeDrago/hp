@@ -15,7 +15,7 @@ import {
   toClassName,
   toCamelCase,
 } from './aem.js';
-import { decorateGtmLinks, initLinkTracking } from './gtm.js';
+import { decorateGtmLinks } from './gtm.js';
 
 export const NX_ORIGIN = 'https://da.live/nx';
 
@@ -114,7 +114,6 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
-    initLinkTracking();
     doc.body.classList.add('appear');
     const firstSection = main.querySelector('.section');
     if (firstSection) await loadSection(firstSection, waitForFirstImage);

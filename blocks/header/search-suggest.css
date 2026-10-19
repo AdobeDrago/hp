@@ -28,14 +28,15 @@ header nav .nav-search-backdrop[hidden] {
 header nav .nav-search-panel-inner {
   display: grid;
   grid-template-columns: 1fr;
-  max-width: 1600px;
+  box-sizing: border-box;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
 header nav .nav-search-panel h3 {
   margin: 0 0 12px;
-  font-size: 22px;
-  line-height: 28px;
+  font-size: 20px;
+  line-height: 26px;
   font-weight: 400;
   color: #000;
 }
@@ -50,6 +51,7 @@ header nav .nav-search-heading {
 header nav .nav-search-heading h3 {
   margin: 0;
   font-size: 20px;
+  line-height: 28px;
   color: #231f20;
 }
 
@@ -69,8 +71,8 @@ header nav .nav-search-heading a {
 
 /* suggestions column */
 header nav .nav-search-suggestions {
-  padding: 24px 16px;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 24px 20px;
+  border-bottom: 1px solid #d3d2d2;
 }
 
 header nav .nav-search-suggestions ul {
@@ -114,7 +116,7 @@ header nav .nav-search-suggestions .nav-search-all {
 
 /* results column */
 header nav .nav-search-results {
-  padding: 24px 16px;
+  padding: 24px 20px 60px;
 }
 
 header nav .nav-search-section + .nav-search-section {
@@ -194,8 +196,8 @@ header nav .nav-search-content > div {
 }
 
 header nav .nav-search-content img {
-  width: 139px;
-  height: 96px;
+  width: 96px;
+  height: 88px;
   object-fit: cover;
   flex-shrink: 0;
 }
@@ -221,7 +223,7 @@ header nav .nav-search-card .nav-search-msrp + .nav-search-price {
 header nav .nav-search-support {
   justify-content: center;
   align-items: center;
-  min-height: 104px;
+  min-height: 96px;
   font-size: 14px;
   line-height: 18px;
   text-align: center;
@@ -231,14 +233,12 @@ header nav .nav-search-empty {
   font-size: 15px;
 }
 
-/* 1115px matches the header's own desktop breakpoint in header.css */
-@media (width >= 1115px) {
+/* tablet: two columns, two cards per row (matches hp.com at 720px) */
+@media (width >= 720px) {
   header nav .nav-search-panel-inner {
-    grid-template-columns: 282px 1fr;
+    grid-template-columns: calc((100% - 30px) / 4) 1fr;
     column-gap: 30px;
-    margin: 0 80px;
     padding: 0 30px;
-    max-width: none;
   }
 
   header nav .nav-search-suggestions {
@@ -248,11 +248,44 @@ header nav .nav-search-empty {
   }
 
   header nav .nav-search-results {
+    padding: 24px 0 60px;
+  }
+
+  header nav .nav-search-section ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* desktop: fixed 282px sidebar, three cards per row (matches hp.com at 1280px) */
+@media (width >= 1280px) {
+  header nav .nav-search-panel-inner {
+    grid-template-columns: 282px 1fr;
+  }
+
+  header nav .nav-search-panel h3 {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  header nav .nav-search-heading h3 {
+    font-size: 20px;
+  }
+
+  header nav .nav-search-results {
     padding: 24px 0;
   }
 
   header nav .nav-search-section ul {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  header nav .nav-search-content img {
+    width: 139px;
+    height: 96px;
+  }
+
+  header nav .nav-search-support {
+    min-height: 104px;
   }
 }
 

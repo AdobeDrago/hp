@@ -98,20 +98,24 @@ export function formatPrice(value) {
  * API key server-side, so the key never reaches the browser.
  */
 export async function fetchSupport(keyword, limit, signal) {
-  if (window.location.hostname === 'localhost') {
-    // the edge proxy doesn't exist locally; read canned matches from tools/mock-data
-    const mock = await fetch('/tools/mock-data/support-search.json', { signal }).then((r) => r.json());
-    const key = Object.keys(mock).find((k) => keyword.toLowerCase().includes(k));
-    return key ? mock[key].results.slice(0, limit) : [];
-  }
-  const endpoint = getMetadata('support-search-url') || '/api/support-search';
-  const params = new URLSearchParams({ q: keyword, limit, lang: getSearchLocale().language });
-  const resp = await fetch(`${endpoint}?${params}`, { signal });
-  // the proxy only runs on the CDN domain; a 404 elsewhere just means no support results
-  if (!resp.ok) return [];
+  const configured = getMetadata('support-search-url');
+  const isLocal = window.location.hostname === 'localhost';
   try {
+    if (isLocal && !configured) {
+      // the edge proxy doesn't exist locally; read canned matches from tools/mock-data
+      const resp = await fetch('/tools/mock-data/support-search.json', { signal });
+      if (!resp.ok) return [];
+      const mock = await resp.json();
+      const key = Object.keys(mock).find((k) => keyword.toLowerCase().includes(k));
+      return key ? mock[key].results.slice(0, limit) : [];
+    }
+    const params = new URLSearchParams({ q: keyword, limit, lang: getSearchLocale().language });
+    const resp = await fetch(`${configured || '/api/support-search'}?${params}`, { signal });
+    // the proxy only runs on the CDN domain; a 404 elsewhere just means no support results
+    if (!resp.ok) return [];
     return (await resp.json()).results || [];
-  } catch {
+  } catch (e) {
+    if (e.name === 'AbortError') throw e;
     return [];
   }
 }

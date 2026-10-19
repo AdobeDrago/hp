@@ -2,6 +2,7 @@ import { fetchPlaceholders, loadCSS } from '../../scripts/aem.js';
 import {
   HAWK_AUTOCOMPLETE_API, createElement, createImage, getField, formatPrice,
   fetchSupport, getResultsPage, getClientGuid, safeDecode, supportProductUrl,
+  hpSearchUrl, supportSearchUrl,
 } from '../../scripts/search-utils.js';
 
 const MIN_CHARS = 2;
@@ -111,7 +112,6 @@ export default async function initSearchPanel(nav, form, input) {
   const resultsPage = getResultsPage();
   form.action = resultsPage;
   form.dataset.ready = 'true';
-  const resultsUrl = (keyword, type = 'product') => `${resultsPage}?q=${encodeURIComponent(keyword)}&type=${type}`;
   const label = (key, fallback) => placeholders[key] || fallback;
   form.setAttribute('aria-label', label('searchSiteLabel', 'Site search'));
 
@@ -174,14 +174,14 @@ export default async function initSearchPanel(nav, form, input) {
     const suggestionList = createElement('ul');
     (data.Popular || []).forEach((term) => {
       const link = createElement('a');
-      link.href = resultsUrl(safeDecode(term.RawValue));
+      link.href = hpSearchUrl(safeDecode(term.RawValue));
       link.append(buildSuggestionLabel(term.Value));
       const li = createElement('li');
       li.append(link);
       suggestionList.append(li);
     });
     const allResults = createElement('a', 'nav-search-all', label('searchSeeAllResults', 'See all results'));
-    allResults.href = resultsUrl(keyword);
+    allResults.href = hpSearchUrl(keyword);
     const suggestionsTitle = createElement('h3', '', label('searchSuggestions', 'Suggestions'));
     suggestionsTitle.id = 'nav-search-suggestions';
     suggestionsTitle.setAttribute('role', 'none');
@@ -208,21 +208,21 @@ export default async function initSearchPanel(nav, form, input) {
       'shop',
       label('searchShop', 'Shop'),
       data.ProductCount,
-      resultsUrl(keyword),
+      hpSearchUrl(keyword),
       products.map(buildProductCard),
     );
     addSection(
       'explore',
       label('searchExplore', 'Explore'),
       data.ContentCount,
-      resultsUrl(keyword, 'content'),
+      hpSearchUrl(keyword, 'content'),
       articles.map(buildContentCard),
     );
     addSection(
       'support',
       label('searchSupport', 'Support'),
       0,
-      resultsUrl(keyword, 'support'),
+      supportSearchUrl(keyword),
       support.map(buildSupportCard),
     );
 

@@ -5,6 +5,7 @@ export const HAWK_AUTOCOMPLETE_API = 'https://hp.searchapi-na.hawksearch.com/api
 export const HAWK_SEARCH_API = 'https://hp.searchapi-na.hawksearch.com/api/v2/search';
 
 const SUPPORT_SITE = 'https://support.hp.com';
+const HP_SITE = 'https://www.hp.com';
 
 /**
  * Works out the hp.com style locale ("us-en") for search. Uses the
@@ -59,6 +60,13 @@ export function safeDecode(value) {
 export function supportProductUrl(product) {
   const { locale } = getSearchLocale();
   return `${SUPPORT_SITE}/${locale}/product/${product.seofriendlyname}/${product.productid}`;
+}
+
+/** hp.com site search for a keyword; the content tab adds type=content */
+export function hpSearchUrl(keyword, type) {
+  const { locale } = getSearchLocale();
+  const suffix = type && type !== 'product' ? `&type=${type}` : '';
+  return `${HP_SITE}/${locale}/shop/sitesearch?keyword=${encodeURIComponent(keyword)}${suffix}`;
 }
 
 export function supportSearchUrl(keyword) {

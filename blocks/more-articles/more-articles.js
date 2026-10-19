@@ -48,13 +48,18 @@ function card(it, gtmId) {
   const art = el('article', 'ma-card');
 
   const media = el('div', 'ma-card-media');
+  addGtm(media, it.path, gtmId);
   if (it.image) {
     media.append(createOptimizedPicture(it.image, '', false, [{ width: '750' }]));
   }
 
   const body = el('div', 'ma-card-body');
 
-  body.append(el('h3', 'ma-card-title', it.title));
+  const h = el('h3', 'ma-card-title');
+  const ha = el('span', null, it.title);
+  addGtm(ha, it.path, gtmId);
+  h.append(ha);
+  body.append(h);
 
   const cta = el('a', 'ma-card-cta');
   cta.href = it.path;

@@ -57,7 +57,8 @@ function addGtm(anchor, path, gtmId) {
 }
 
 function card(it, gtmId) {
-  const tile = el('div', 'pkl-card');
+  const a = el('div', 'pkl-card');
+  addGtm(a, it.path, gtmId);
 
   const media = el('span', 'pkl-card-media');
   if (it.image) {
@@ -67,10 +68,9 @@ function card(it, gtmId) {
   const title = el('span', 'pkl-card-title');
   const link = el('a', null, it.title);
   link.href = it.path;
-  addGtm(link, it.path, gtmId);
   title.append(link);
-  tile.append(media, title);
-  return tile;
+  a.append(media, title);
+  return a;
 }
 
 function arrow(dir) {

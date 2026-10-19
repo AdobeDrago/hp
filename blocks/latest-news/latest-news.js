@@ -50,13 +50,18 @@ function card(it, gtmId) {
   const hasDesc = desc && desc.toLowerCase() !== 'null';
 
   const media = el('div', 'lnl-card-media');
+  addGtm(media, it.path, gtmId);
   if (it.image) {
     media.append(createOptimizedPicture(it.image, '', false, [{ width: '750' }]));
   }
 
   const body = el('div', 'lnl-card-body');
 
-  body.append(el('h3', 'lnl-card-title', it.title));
+  const h = el('h3', 'lnl-card-title');
+  const ha = el('span', null, it.title);
+  addGtm(ha, it.path, gtmId);
+  h.append(ha);
+  body.append(h);
 
   if (hasDesc) body.append(el('p', 'lnl-card-desc', desc));
 

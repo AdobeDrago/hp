@@ -9,11 +9,19 @@ data:
           domain: main--hp--adobedrago.aem.live
         - name: brightedge
           domain: api.brightedge.com
+        - name: hp_support
+          domain: css.api.hp.com
   # Exposed to the function via ConfigStore("config_default").
   configs:
-    - key: CANONICAL_HOST
+    - key: CANONIyes CAL_HOST
       value: www.hp.com
+    # Read at request time since the config.js fix; before that the function always
+    # used the .aem.page default from src/lib/config.js. Check newsroom pages after deploy.
     - key: EDS_ORIGIN
       value: https://main--hp--adobedrago.aem.live
     - key: BE_ACCOUNT
       value: f00000000019918
+    # HP support API key, from a Cloud Manager secret environment variable.
+    # Never put the real value in this file.
+    - key: SUPPORT_API_KEY
+      value: ${{SUPPORT_API_KEY}}

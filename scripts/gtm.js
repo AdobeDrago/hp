@@ -33,6 +33,11 @@ export function decorateGtmLinks(element) {
   element.querySelectorAll('a').forEach(decorateGtmLink);
 }
 
+export function pushEvent(payload) {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(payload);
+}
+
 function pushLinkClick(a) {
   const payload = { event: GTM_CLICK_EVENT };
   a.getAttributeNames()
@@ -43,8 +48,7 @@ function pushLinkClick(a) {
   payload.link_url = a.href;
   payload.link_text = a.textContent.trim();
 
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push(payload);
+  pushEvent(payload);
 }
 
 export function initLinkTracking() {

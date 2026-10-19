@@ -13,6 +13,8 @@ const USER_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.73 2
 
 const CLEAR_ICON = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M9.56 2.01a8 8 0 1 0 .88 16 8 8 0 0 0-.88-16ZM6.91 6.35c.07.01.14.03.19.06.03.03.37.35 1.47 1.46L10 9.29l1.42-1.42 1.45-1.44a.5.5 0 0 1 .35-.08.5.5 0 0 1 .38.73c-.03.06-.06.08-1.46 1.49L10.7 10l1.42 1.42 1.44 1.45a.5.5 0 0 1-.65.73c-.06-.03-.08-.06-1.49-1.46L10 10.7l-1.43 1.43a19 19 0 0 1-1.5 1.46.5.5 0 0 1-.57-.08.5.5 0 0 1-.07-.65l1.44-1.45L9.29 10 7.86 8.57c-1.4-1.4-1.43-1.43-1.46-1.5a.5.5 0 0 1 .51-.72Z"/></svg>';
 
+const SEARCH_URL = 'https://www.hp.com/us-en/shop/sitesearch';
+
 const DEFAULT_HEADER_FRAGMENT = '/nav';
 
 async function fetchNavHtml(path) {
@@ -249,14 +251,11 @@ function decorateTools(navTools) {
   const searchForm = document.createElement('form');
   searchForm.className = 'nav-search-form';
   searchForm.setAttribute('role', 'search');
-  searchForm.setAttribute('aria-label', 'Site search');
-  // search-suggest.js swaps in the locale-aware page once it loads
-  searchForm.action = getMetadata('search-results-page') || '/us-en/newsroom/search';
+  searchForm.action = SEARCH_URL;
   searchForm.hidden = true;
   const searchInput = document.createElement('input');
   searchInput.type = 'search';
-  searchInput.name = 'q';
-  searchInput.setAttribute('autocomplete', 'off');
+  searchInput.name = 'keyword';
   searchInput.placeholder = 'What are you looking for?';
   searchInput.autocomplete = 'off';
   searchInput.setAttribute('aria-label', 'Search');

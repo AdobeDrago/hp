@@ -91,7 +91,12 @@ main > .section:has(.press-kits-listing) {
   line-height: 1.3;
 }
 
-.press-kits-listing .pkl-card:hover .pkl-card-title {
+.press-kits-listing .pkl-card-title a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.press-kits-listing .pkl-card-title a:hover {
   text-decoration: underline;
 }
 

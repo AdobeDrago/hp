@@ -114,16 +114,11 @@ function addGtm(anchor, path, gtmId) {
 
 function card(it, level, gtmId) {
   const art = el('article', 'al-card');
-  const media = el('a', 'al-card-media');
-  media.href = it.path;
-  addGtm(media, it.path, gtmId);
+  const media = el('div', 'al-card-media');
   if (it.image) media.append(createOptimizedPicture(it.image, it.title, false, [{ width: '750' }]));
   const body = el('div', 'al-card-body');
   const h = el(`h${level}`, 'al-card-title');
-  const ha = el('a', null, it.title);
-  ha.href = it.path;
-  addGtm(ha, it.path, gtmId);
-  h.append(ha);
+  h.append(el('span', 'al-card-title-text', it.title));
   body.append(h);
   const desc = (it.description || '').trim();
   if (desc && desc.toLowerCase() !== 'null') body.append(el('p', 'al-card-desc', desc));

@@ -1,11 +1,8 @@
-/* HP blue #024ad8 and the border greys have no site token yet; --link-color is a different blue */
-
 .search {
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* search box */
 .search .search-box {
   display: flex;
   gap: 8px;
@@ -21,7 +18,7 @@
   border-radius: 6px;
   background: var(--background-color);
   color: var(--text-color);
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .search .search-box input:focus {
@@ -36,11 +33,10 @@
   border-radius: 6px;
   background: #024ad8;
   color: var(--background-color);
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
 }
 
-/* tabs */
 .search .search-tabs {
   display: flex;
   gap: 24px;
@@ -56,7 +52,7 @@
   border-radius: 0;
   background: none;
   color: var(--dark-color);
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
 }
 
@@ -71,7 +67,7 @@
   font-weight: 600;
 }
 
-/* toolbar */
+
 .search .search-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -83,7 +79,7 @@
 
 .search .search-summary {
   margin: 0;
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 
 .search .search-summary a {
@@ -91,7 +87,7 @@
 }
 
 .search .search-sort-label {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .search .search-sort-label[hidden] {
@@ -103,10 +99,9 @@
   padding: 6px 8px;
   border: 1px solid #b3b3b3;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
-/* results */
 .search .search-results {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -150,7 +145,7 @@
 
 .search .search-card-title {
   margin: 10px 0 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.3;
 }
 
@@ -158,7 +153,7 @@
   display: -webkit-box;
   overflow: hidden;
   margin: 0;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--dark-color);
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -168,7 +163,7 @@
   display: none;
   margin: 0 0 12px;
   padding-left: 18px;
-  font-size: 13px;
+  font-size: 0.813rem;
   color: var(--dark-color);
 }
 
@@ -181,12 +176,12 @@
 
 .search .search-card-price {
   margin: auto 0 0;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
 }
 
 .search .search-card-price s {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 400;
   color: var(--dark-color);
 }
@@ -197,7 +192,6 @@
   text-align: center;
 }
 
-/* pagination */
 .search .search-pagination {
   display: flex;
   flex-wrap: wrap;
@@ -215,7 +209,7 @@
   border-radius: 4px;
   background: var(--background-color);
   color: var(--text-color);
-  font-size: 14px;
+  font-size: 0.875rem;
   cursor: pointer;
 }
 
@@ -242,7 +236,7 @@
 
   .search .search-card-title {
     margin-top: 16px;
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   .search .search-card-specs {
@@ -250,7 +244,7 @@
   }
 
   .search .search-card-price {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 
   .search .search-pagination {

@@ -361,18 +361,8 @@
           "plugins": {
             "da": {
               "name": "search",
-              "rows": 1,
-              "columns": 1,
-              "fields": [
-                {
-                  "name": "searchUrl",
-                  "selector": "div>div>p>a[href]"
-                },
-                {
-                  "name": "searchUrlText",
-                  "selector": "div>div>p>a"
-                }
-              ]
+              "rows": 2,
+              "columns": 2
             }
           }
         },

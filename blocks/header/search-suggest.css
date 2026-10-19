@@ -1,0 +1,331 @@
+/* HP blue #024ad8 and the border greys have no site token yet; --link-color is a different blue */
+
+/* search results panel */
+header nav .nav-search-backdrop {
+  position: fixed;
+  inset: var(--search-panel-top, 55px) 0 0;
+  background: rgb(0 0 0 / 30%);
+  z-index: 40;
+}
+
+header nav .nav-search-panel {
+  position: fixed;
+  top: var(--search-panel-top, 55px);
+  left: 0;
+  right: 0;
+  max-height: calc(100vh - var(--search-panel-top, 55px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--background-color);
+  z-index: 41;
+}
+
+header nav .nav-search-panel[hidden],
+header nav .nav-search-backdrop[hidden] {
+  display: none;
+}
+
+header nav .nav-search-panel-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  box-sizing: border-box;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+header nav .nav-search-panel h3 {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+  line-height: 1.625rem;
+  font-weight: 400;
+  color: #000;
+}
+
+header nav .nav-search-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+header nav .nav-search-heading h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: #231f20;
+}
+
+header nav .nav-search-panel h3 span {
+  margin-left: 4px;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  color: #7b7979;
+}
+
+header nav .nav-search-heading a {
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  color: #165dba;
+  text-decoration: underline;
+}
+
+/* suggestions column */
+header nav .nav-search-suggestions {
+  padding: 24px 20px;
+  border-bottom: 1px solid #d3d2d2;
+}
+
+header nav .nav-search-suggestions ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+}
+
+header nav .nav-search-suggestions li a {
+  display: block;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 700;
+  color: #918f8f;
+  text-decoration: none;
+}
+
+header nav .nav-search-suggestions li a strong {
+  font-weight: 900;
+  color: #231f20;
+}
+
+header nav .nav-search-suggestions li a:hover {
+  color: #231f20;
+}
+
+header nav .nav-search-suggestions .nav-search-all {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #165dba;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* results column */
+header nav .nav-search-results {
+  padding: 24px 20px 60px;
+}
+
+header nav .nav-search-section + .nav-search-section {
+  margin-top: 24px;
+}
+
+header nav .nav-search-section ul {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+header nav .nav-search-card {
+  display: flex;
+  gap: 8px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 4px;
+  outline: 1px solid #d3d2d2;
+  color: #231f20;
+  text-decoration: none;
+}
+
+header nav .nav-search-card:hover {
+  outline-color: #231f20;
+}
+
+header nav .nav-search-card p {
+  margin: 0;
+}
+
+header nav .nav-search-card-title {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+header nav .nav-search-card-text {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: #656263;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+header nav .nav-search-card > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 2px 4px 0 0;
+}
+
+header nav .nav-search-product img {
+  box-sizing: border-box;
+  width: 96px;
+  height: 96px;
+  padding: 4px;
+  object-fit: contain;
+  flex-shrink: 0;
+  background: #e6e6e6;
+}
+
+header nav .nav-search-content {
+  gap: 12px;
+}
+
+header nav .nav-search-content > div {
+  padding: 0 4px 0 0;
+}
+
+header nav .nav-search-content img {
+  width: 96px;
+  height: 88px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+header nav .nav-search-card .nav-search-msrp {
+  margin-top: auto;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: #767676;
+}
+
+header nav .nav-search-card .nav-search-price {
+  margin-top: auto;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  font-weight: 700;
+}
+
+header nav .nav-search-card .nav-search-msrp + .nav-search-price {
+  margin-top: 0;
+}
+
+header nav .nav-search-support {
+  justify-content: center;
+  align-items: center;
+  min-height: 96px;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  text-align: center;
+}
+
+header nav .nav-search-empty {
+  font-size: 0.938rem;
+}
+
+/* tablet: two columns, two cards per row (matches hp.com at 720px) */
+@media (width >= 720px) {
+  header nav .nav-search-panel-inner {
+    grid-template-columns: calc((100% - 30px) / 4) 1fr;
+    column-gap: 30px;
+    padding: 0 30px;
+  }
+
+  header nav .nav-search-suggestions {
+    padding: 24px 20px 24px 0;
+    border-bottom: 0;
+    border-right: 1px solid #d3d2d2;
+  }
+
+  header nav .nav-search-results {
+    padding: 24px 0 60px;
+  }
+
+  header nav .nav-search-section ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* desktop: fixed 282px sidebar, three cards per row (matches hp.com at 1280px) */
+@media (width >= 1280px) {
+  header nav .nav-search-panel-inner {
+    grid-template-columns: 282px 1fr;
+  }
+
+  header nav .nav-search-panel h3 {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+  }
+
+  header nav .nav-search-heading h3 {
+    font-size: 1.25rem;
+  }
+
+  header nav .nav-search-results {
+    padding: 24px 0;
+  }
+
+  header nav .nav-search-section ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  header nav .nav-search-content img {
+    width: 139px;
+    height: 96px;
+  }
+
+  header nav .nav-search-support {
+    min-height: 104px;
+  }
+}
+
+/* thin animated bar along the top while results load */
+header nav .nav-search-panel.is-loading::before {
+  content: '';
+  position: sticky;
+  top: 0;
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #024ad8, transparent) 0 0 / 40% 100% no-repeat;
+  animation: nav-search-loading 1s linear infinite;
+}
+
+header nav .nav-search-panel.is-loading .nav-search-panel-inner {
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+header nav .nav-search-loading {
+  margin: 0;
+  padding: 24px 16px;
+  font-size: 0.938rem;
+  color: var(--dark-color);
+}
+
+@keyframes nav-search-loading {
+  from { background-position: -40% 0; }
+  to { background-position: 140% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  header nav .nav-search-panel.is-loading::before {
+    animation: none;
+    background: #024ad8;
+  }
+}
+
+/* option highlighted with the arrow keys */
+header nav .nav-search-panel [role='option'].is-active {
+  outline: 2px solid #024ad8;
+  outline-offset: -2px;
+}

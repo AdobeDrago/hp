@@ -105,7 +105,7 @@ function sortItems(items, sort) {
 function card(it, level) {
   const art = el('article', 'al-card');
   const media = el('div', 'al-card-media');
-  if (it.image) media.append(createOptimizedPicture(it.image, it.title, false, [{ width: '750' }]));
+  if (it.image) media.append(createOptimizedPicture(it.image, '', false, [{ width: '750' }]));
   const body = el('div', 'al-card-body');
   const h = el(`h${level}`, 'al-card-title');
   h.append(el('span', 'al-card-title-text', it.title));

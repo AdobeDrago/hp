@@ -59,7 +59,6 @@ main > .section:has(.press-kits-listing) {
   gap: 18px;
   padding: 4px 28px;
   color: #111;
-  text-decoration: none;
 }
 
 .press-kits-listing .pkl-card + .pkl-card {

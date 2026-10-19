@@ -1,0 +1,62 @@
+{
+  "develop": {
+    "status": "success",
+    "results": [
+      {
+        "productid": "21008543",
+        "productname": "HP ZBook Studio G8 Developer Edition",
+        "seofriendlyname": "hp-zbook-studio-g8-developer-edition"
+      },
+      {
+        "productid": "2101010",
+        "productname": "HP Dev One Laptop",
+        "seofriendlyname": "hp-dev-one-laptop"
+      },
+      {
+        "productid": "2101011",
+        "productname": "HP Developer Workstation Z2",
+        "seofriendlyname": "hp-developer-workstation-z2"
+      }
+    ]
+  },
+  "laptop": {
+    "status": "success",
+    "results": [
+      {
+        "productid": "2100001",
+        "productname": "HP Laptop 15-fd0000 Series",
+        "seofriendlyname": "hp-laptop-15-fd0000-series"
+      },
+      {
+        "productid": "2100002",
+        "productname": "HP Pavilion Laptop 14-ep0000",
+        "seofriendlyname": "hp-pavilion-laptop-14-ep0000"
+      },
+      {
+        "productid": "2100003",
+        "productname": "HP OMEN Gaming Laptop 16",
+        "seofriendlyname": "hp-omen-gaming-laptop-16"
+      }
+    ]
+  },
+  "support": {
+    "status": "success",
+    "results": [
+      {
+        "productid": "2100101",
+        "productname": "HP LaserJet Pro M404n Printer",
+        "seofriendlyname": "hp-laserjet-pro-m404n"
+      },
+      {
+        "productid": "2100102",
+        "productname": "HP Envy 6000 All-in-One Printer Series",
+        "seofriendlyname": "hp-envy-6000-all-in-one-series"
+      },
+      {
+        "productid": "2100103",
+        "productname": "HP OfficeJet Pro 9015e All-in-One Printer",
+        "seofriendlyname": "hp-officejet-pro-9015e"
+      }
+    ]
+  }
+}

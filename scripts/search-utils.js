@@ -98,6 +98,12 @@ export function formatPrice(value) {
  * API key server-side, so the key never reaches the browser.
  */
 export async function fetchSupport(keyword, limit, signal) {
+  if (window.location.hostname === 'localhost') {
+    // the edge proxy doesn't exist locally; read canned matches from tools/mock-data
+    const mock = await fetch('/tools/mock-data/support-search.json', { signal }).then((r) => r.json());
+    const key = Object.keys(mock).find((k) => keyword.toLowerCase().includes(k));
+    return key ? mock[key].results.slice(0, limit) : [];
+  }
   const endpoint = getMetadata('support-search-url') || '/api/support-search';
   const params = new URLSearchParams({ q: keyword, limit, lang: getSearchLocale().language });
   const resp = await fetch(`${endpoint}?${params}`, { signal });

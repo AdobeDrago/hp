@@ -49,22 +49,14 @@ function card(it, gtmId) {
   const desc = (it.description || '').trim();
   const hasDesc = desc && desc.toLowerCase() !== 'null';
 
-  const media = el('a', 'lnl-card-media');
-  media.href = it.path;
-  addGtm(media, it.path, gtmId);
-  media.setAttribute('aria-label', it.title);
+  const media = el('div', 'lnl-card-media');
   if (it.image) {
     media.append(createOptimizedPicture(it.image, it.title, false, [{ width: '750' }]));
   }
 
   const body = el('div', 'lnl-card-body');
 
-  const h = el('h3', 'lnl-card-title');
-  const ha = el('a', null, it.title);
-  ha.href = it.path;
-  addGtm(ha, it.path, gtmId);
-  h.append(ha);
-  body.append(h);
+  body.append(el('h3', 'lnl-card-title', it.title));
 
   if (hasDesc) body.append(el('p', 'lnl-card-desc', desc));
 

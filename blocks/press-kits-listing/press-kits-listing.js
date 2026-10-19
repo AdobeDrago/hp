@@ -57,18 +57,20 @@ function addGtm(anchor, path, gtmId) {
 }
 
 function card(it, gtmId) {
-  const a = el('a', 'pkl-card');
-  a.href = it.path;
-  addGtm(a, it.path, gtmId);
+  const tile = el('div', 'pkl-card');
 
   const media = el('span', 'pkl-card-media');
   if (it.image) {
     media.append(createOptimizedPicture(it.image, it.title, false, [{ width: '600' }]));
   }
 
-  const title = el('span', 'pkl-card-title', it.title);
-  a.append(media, title);
-  return a;
+  const title = el('span', 'pkl-card-title');
+  const link = el('a', null, it.title);
+  link.href = it.path;
+  addGtm(link, it.path, gtmId);
+  title.append(link);
+  tile.append(media, title);
+  return tile;
 }
 
 function arrow(dir) {

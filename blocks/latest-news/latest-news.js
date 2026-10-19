@@ -51,7 +51,7 @@ function card(it, gtmId) {
 
   const media = el('div', 'lnl-card-media');
   if (it.image) {
-    media.append(createOptimizedPicture(it.image, it.title, false, [{ width: '750' }]));
+    media.append(createOptimizedPicture(it.image, '', false, [{ width: '750' }]));
   }
 
   const body = el('div', 'lnl-card-body');

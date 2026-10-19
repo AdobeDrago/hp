@@ -61,7 +61,7 @@ function card(it, gtmId) {
 
   const media = el('span', 'pkl-card-media');
   if (it.image) {
-    media.append(createOptimizedPicture(it.image, it.title, false, [{ width: '600' }]));
+    media.append(createOptimizedPicture(it.image, '', false, [{ width: '600' }]));
   }
 
   const title = el('span', 'pkl-card-title');

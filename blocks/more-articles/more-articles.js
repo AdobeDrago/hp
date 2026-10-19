@@ -49,13 +49,12 @@ function card(it, gtmId) {
 
   const media = el('div', 'ma-card-media');
   if (it.image) {
-    media.append(createOptimizedPicture(it.image, it.title, false, [{ width: '750' }]));
+    media.append(createOptimizedPicture(it.image, '', false, [{ width: '750' }]));
   }
 
   const body = el('div', 'ma-card-body');
 
-  const h = el('h3', 'ma-card-title', it.title);
-  body.append(h);
+  body.append(el('h3', 'ma-card-title', it.title));
 
   const cta = el('a', 'ma-card-cta');
   cta.href = it.path;

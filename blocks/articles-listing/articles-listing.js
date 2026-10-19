@@ -115,7 +115,7 @@ function addGtm(anchor, path, gtmId) {
 function card(it, level, gtmId) {
   const art = el('article', 'al-card');
   const media = el('div', 'al-card-media');
-  if (it.image) media.append(createOptimizedPicture(it.image, it.title, false, [{ width: '750' }]));
+  if (it.image) media.append(createOptimizedPicture(it.image, '', false, [{ width: '750' }]));
   const body = el('div', 'al-card-body');
   const h = el(`h${level}`, 'al-card-title');
   h.append(el('span', 'al-card-title-text', it.title));

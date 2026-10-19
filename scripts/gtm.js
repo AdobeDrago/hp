@@ -1,5 +1,5 @@
 const GTM_ATTR_PREFIX = 'data-gtm-';
-const GTM_CLICK_EVENT = 'link_click';
+const GTM_CLICK_EVENT = 'e_linkClick';
 const GTM_KEY_PATTERN = /^[a-z][a-z0-9_-]*$/;
 
 function parseLinkTitle(rawTitle = '') {
@@ -33,25 +33,22 @@ export function decorateGtmLinks(element) {
   element.querySelectorAll('a').forEach(decorateGtmLink);
 }
 
-function pushLinkClick(a) {
-  const payload = { event: GTM_CLICK_EVENT };
-  a.getAttributeNames()
-    .filter((name) => name.startsWith(GTM_ATTR_PREFIX))
-    .forEach((name) => {
-      payload[`link_${name.slice(GTM_ATTR_PREFIX.length)}`] = a.getAttribute(name);
-    });
-  payload.link_url = a.href;
-  payload.link_text = a.textContent.trim();
-
+// Same event and fields as HP's e_linkClick tag:
+// data-gtm-id -> linkPlacement, data-gtm-value -> linkID
+function pushLinkClick(el) {
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push(payload);
+  window.dataLayer.push({
+    event: GTM_CLICK_EVENT,
+    pushSource: 'standards',
+    linkPlacement: el.getAttribute('data-gtm-id')?.trim(),
+    linkID: el.getAttribute('data-gtm-value')?.trim(),
+  });
 }
 
 export function initLinkTracking() {
+  // capture phase, so the push happens even if another handler stops propagation
   document.addEventListener('click', (e) => {
-    const a = e.target.closest('a');
-    if (a?.getAttributeNames().some((name) => name.startsWith(GTM_ATTR_PREFIX))) {
-      pushLinkClick(a);
-    }
+    const el = e.target.closest?.('[data-gtm-category]');
+    if (el) pushLinkClick(el);
   }, true);
 }

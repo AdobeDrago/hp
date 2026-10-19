@@ -98,10 +98,9 @@ export function formatPrice(value) {
  */
 export async function fetchSupport(keyword, limit, signal) {
   const configured = getMetadata('support-search-url');
-  const isLocal = window.location.hostname === 'localhost';
   try {
-    if (isLocal && !configured) {
-      // the edge proxy doesn't exist locally; read canned matches from tools/mock-data
+    if (!configured) {
+      // no support endpoint configured; serve canned matches from tools/mock-data
       const resp = await fetch('/tools/mock-data/support-search.json', { signal });
       if (!resp.ok) return [];
       const mock = await resp.json();
@@ -109,7 +108,7 @@ export async function fetchSupport(keyword, limit, signal) {
       return key ? mock[key].results.slice(0, limit) : [];
     }
     const params = new URLSearchParams({ q: keyword, limit, lang: getSearchLocale().language });
-    const resp = await fetch(`${configured || '/api/support-search'}?${params}`, { signal });
+    const resp = await fetch(`${configured}?${params}`, { signal });
     // the proxy only runs on the CDN domain; a 404 elsewhere just means no support results
     if (!resp.ok) return [];
     return (await resp.json()).results || [];

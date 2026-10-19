@@ -18,28 +18,17 @@ const DEFAULTS = {
   BE_API: 'https://api.brightedge.com/api/ixf/1.0.0/get_capsule',
   // Path prefix the related-links feature applies to.
   NEWSROOM_PREFIX: '/us-en/newsroom',
-  // HP support catalog typeahead, proxied at /api/support-search.
-  SUPPORT_API: 'https://css.api.hp.com/knowledge/v2/typeahead/search',
-  // Secret: set in Cloud Manager, never committed. Empty means "no support results".
-  SUPPORT_API_KEY: '',
 };
 
 // eslint-disable-next-line import/no-unresolved
 import { ConfigStore } from 'fastly:config-store';
 
-// Opened on first use: top-level code runs at build time (Wizer pre-initialisation),
-// when config stores aren't available yet, so opening it here would always fail.
-let store;
-function getStore() {
-  if (store === undefined) {
-    try {
-      store = new ConfigStore('config_default');
-    } catch {
-      // store not provisioned (e.g. sandbox program) — fall back to DEFAULTS
-      store = null;
-    }
-  }
-  return store;
+let store = null;
+try {
+  store = new ConfigStore('config_default');
+} catch {
+  // store not provisioned (e.g. sandbox program) — fall back to DEFAULTS
+  store = null;
 }
 
 /**
@@ -47,10 +36,9 @@ function getStore() {
  * @returns {string}
  */
 export function cfg(key) {
-  const configStore = getStore();
-  if (configStore) {
+  if (store) {
     try {
-      const v = configStore.get(key);
+      const v = store.get(key);
       if (v != null && v !== '') return v;
     } catch {
       // fall through to default

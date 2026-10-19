@@ -3,7 +3,6 @@
  *
  * Routing:
  *   - /us-en/newsroom[/...] page requests  -> relatedLinksHandler (inject links)
- *   - /api/support-search -> supportSearchHandler (adds the HP support API key)
  *   - /blocks/related-links/related-links.{js,css} -> serve the in-development block
  *     from this project (DEMO CONVENIENCE so the styled block loads locally without
  *     first pushing blocks/related-links to a branch; in production these come from
@@ -20,7 +19,6 @@ import { includeBytes } from 'fastly:experimental';
 import { CacheOverride } from 'fastly:cache-override';
 import { cfg } from './lib/config.js';
 import relatedLinksHandler from './related-links.js';
-import supportSearchHandler from './support-search.js';
 
 const BLOCK_JS = includeBytes('./assets/related-links/related-links.js');
 const BLOCK_CSS = includeBytes('./assets/related-links/related-links.css');
@@ -49,9 +47,6 @@ async function handleRequest(event) {
   const p = url.pathname;
 
   try {
-    if (p === '/api/support-search') {
-      return await supportSearchHandler(req);
-    }
     if (p === '/blocks/related-links/related-links.js') {
       return assetResponse(BLOCK_JS, 'text/javascript; charset=utf-8');
     }

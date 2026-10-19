@@ -21,10 +21,6 @@ service_id = ""
     [local_server.backends.brightedge]
       url = "https://api.brightedge.com"
       override_host = "api.brightedge.com"
-    # HP support catalog API (for /api/support-search)
-    [local_server.backends.hp_support]
-      url = "https://css.api.hp.com"
-      override_host = "css.api.hp.com"
 
   [local_server.config_stores]
     [local_server.config_stores.config_default]

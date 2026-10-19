@@ -102,17 +102,7 @@ function sortItems(items, sort) {
   return a;
 }
 
-const DEFAULT_GTM_ID = 'archive_link_placement';
-
-/** adds GTM link-click tracking attributes; value is the article slug */
-function addGtm(anchor, path, gtmId) {
-  const slug = path.split('/').pop().replace(/\.html$/, '');
-  anchor.dataset.gtmId = gtmId;
-  anchor.dataset.gtmValue = slug;
-  anchor.dataset.gtmCategory = 'linkClick';
-}
-
-function card(it, level, gtmId) {
+function card(it, level) {
   const art = el('article', 'al-card');
   const media = el('div', 'al-card-media');
   if (it.image) media.append(createOptimizedPicture(it.image, '', false, [{ width: '750' }]));
@@ -125,7 +115,6 @@ function card(it, level, gtmId) {
   const cta = el('a', 'al-card-cta', 'Read');
   cta.append(el('span', 'al-sr-only', `: ${it.title}`));
   cta.href = it.path;
-  addGtm(cta, it.path, gtmId);
   body.append(cta);
   art.append(media, body);
   return art;
@@ -252,10 +241,6 @@ function modal(pinnedType) {
 }
 
 export default async function decorate(block) {
-  // gtm id comes from the metadata attribute (data-gtm_id) on an ancestor, else the default
-  const gtmHolder = block.closest('[data-gtm_id]');
-  const gtmId = gtmHolder?.dataset.gtm_id || DEFAULT_GTM_ID;
-  gtmHolder?.removeAttribute('data-gtm_id'); // keep the metadata attribute off the wrapper div
   const link = block.querySelector('a[href]');
   const source = link ? link.getAttribute('href') : DEFAULT_SOURCE;
 
@@ -334,7 +319,7 @@ export default async function decorate(block) {
       chip.querySelector('.al-chip-x').dataset.value = value;
       chips.append(chip);
     });
-    if (active.length) {
+    if (active.length > 1) {
       const clr = el('button', 'al-clear', 'Clear all');
       clr.type = 'button';
       chips.append(clr);
@@ -366,7 +351,7 @@ export default async function decorate(block) {
     const results = sortItems(filterItems(items, state), state.sort);
     count.textContent = `${results.length} Items`;
     grid.textContent = '';
-    results.slice(0, state.shown).forEach((it) => grid.append(card(it, cardLevel, gtmId)));
+    results.slice(0, state.shown).forEach((it) => grid.append(card(it, cardLevel)));
     loadMore.hidden = state.shown >= results.length;
     grid.hidden = !results.length;
     empty.hidden = results.length > 0;

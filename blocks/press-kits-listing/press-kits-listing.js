@@ -54,6 +54,7 @@ function addGtm(anchor, path, gtmId) {
   anchor.dataset.gtmId = gtmId;
   anchor.dataset.gtmValue = slug;
   anchor.dataset.gtmCategory = 'linkClick';
+  if (!anchor.target) anchor.target = '_self';
 }
 
 function card(it, gtmId) {

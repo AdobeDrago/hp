@@ -17,15 +17,18 @@ function parseLinkTitle(rawTitle = '') {
     }
   });
 
-  const { title, ...attrs } = gtm;
-  return { title: title || plainParts.join(' | '), gtm: attrs };
+  const { title, target, ...attrs } = gtm;
+  return { title: title || plainParts.join(' | '), target, gtm: attrs };
 }
 
 function decorateGtmLink(a) {
-  const { title, gtm } = parseLinkTitle(a.getAttribute('title') || '');
+  const { title, target, gtm } = parseLinkTitle(a.getAttribute('title') || '');
   Object.entries(gtm).forEach(([key, value]) => a.setAttribute(`${GTM_ATTR_PREFIX}${key}`, value));
   if (title && title !== a.textContent.trim()) a.title = title;
   else a.removeAttribute('title');
+  // authored target wins; tracked links otherwise get _self like hp.com (gtm.elementTarget)
+  if (target) a.target = target;
+  else if (!a.target && a.getAttribute('data-gtm-value')?.trim()) a.target = '_self';
 }
 
 // eslint-disable-next-line import/prefer-default-export

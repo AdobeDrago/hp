@@ -1,15 +1,10 @@
 import { fetchPlaceholders, loadCSS } from '../../scripts/aem.js';
-import { pushEvent } from '../../scripts/gtm.js';
 import {
   HAWK_AUTOCOMPLETE_API, createElement, createImage, getField, formatPrice,
   fetchSupport, getResultsPage, getClientGuid, safeDecode, supportProductUrl,
 } from '../../scripts/search-utils.js';
 
 const MIN_CHARS = 2;
-
-function pushSearchEvent(event, term) {
-  pushEvent({ event, search_term: term });
-}
 
 // autocomplete items keep their fields under Results.Document
 function itemField(item, name) {
@@ -234,7 +229,6 @@ export default async function initSearchPanel(nav, form, input) {
     if (!results.children.length) {
       const message = `${label('searchNoResults', 'No results for')} "${keyword}"`;
       results.append(createElement('p', 'nav-search-empty', message));
-      pushSearchEvent('search_zero_results', keyword);
     }
 
     const inner = createElement('div', 'nav-search-panel-inner');
@@ -291,16 +285,7 @@ export default async function initSearchPanel(nav, form, input) {
   input.addEventListener('input', onInput);
 
   form.addEventListener('submit', (e) => {
-    const keyword = input.value.trim();
-    if (!keyword) {
-      e.preventDefault();
-      return;
-    }
-    pushSearchEvent('search_submit', keyword);
-  });
-
-  panel.addEventListener('click', (e) => {
-    if (e.target.closest('a')) pushSearchEvent('search_suggestion_click', input.value.trim());
+    if (!input.value.trim()) e.preventDefault();
   });
 
   backdrop.addEventListener('click', () => {

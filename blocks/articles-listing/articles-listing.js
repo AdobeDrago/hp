@@ -2,8 +2,7 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const DEFAULT_SOURCE = '/us-en/newsroom/query-index.json';
 const BATCH = 9;
-// GTM placement hp.com uses for the newsroom archive (cards and Load More)
-const GTM_ID = 'archive_link_placement';
+const DEFAULT_GTM_ID = 'archive_link_placement';
 
 const VIEW_ALL = '__all';
 
@@ -112,7 +111,7 @@ function addGtm(node, id, value, category = 'linkClick') {
 
 const slugOf = (path) => path.split('/').pop().replace(/\.html$/, '');
 
-function card(it, level) {
+function card(it, level, gtmId) {
   const art = el('article', 'al-card');
   const media = el('a', 'al-card-media');
   media.href = it.path;
@@ -129,7 +128,7 @@ function card(it, level) {
   cta.append(el('span', 'al-sr-only', `: ${it.title}`));
   cta.href = it.path;
   body.append(cta);
-  [media, ha, cta].forEach((a) => addGtm(a, GTM_ID, slugOf(it.path)));
+  [media, ha, cta].forEach((a) => addGtm(a, gtmId, slugOf(it.path)));
   art.append(media, body);
   return art;
 }
@@ -263,6 +262,10 @@ function modal(pinnedType) {
 }
 
 export default async function decorate(block) {
+  // gtm id comes from the metadata attribute (data-gtm_id) on an ancestor, else the default
+  const gtmHolder = block.closest('[data-gtm_id]');
+  const gtmId = gtmHolder?.dataset.gtm_id || DEFAULT_GTM_ID;
+  gtmHolder?.removeAttribute('data-gtm_id'); // keep the metadata attribute off the wrapper div
   const link = block.querySelector('a[href]');
   const source = link ? link.getAttribute('href') : DEFAULT_SOURCE;
 
@@ -285,7 +288,7 @@ export default async function decorate(block) {
   const toolbar = el('div', 'al-toolbar');
   const mobileTrigger = el('button', 'al-mobile-trigger', 'Sort and Filter');
   mobileTrigger.type = 'button';
-  addGtm(mobileTrigger, GTM_ID, 'sort_and_filter');
+  addGtm(mobileTrigger, gtmId, 'sort_and_filter');
   const keyword = el('input', 'al-keyword');
   keyword.type = 'search';
   keyword.placeholder = 'Filter by keyword';
@@ -303,7 +306,7 @@ export default async function decorate(block) {
   const grid = el('div', 'al-grid');
   const loadMore = el('button', 'al-loadmore', 'Load More');
   loadMore.type = 'button';
-  addGtm(loadMore, GTM_ID, 'load_more');
+  addGtm(loadMore, gtmId, 'load_more');
   const sheet = modal(pinnedType);
   const empty = el('p', 'al-empty', 'No results found.');
   empty.setAttribute('role', 'status');
@@ -377,7 +380,7 @@ export default async function decorate(block) {
     const results = sortItems(filterItems(items, state), state.sort);
     count.textContent = `${results.length} Items`;
     grid.textContent = '';
-    results.slice(0, state.shown).forEach((it) => grid.append(card(it, cardLevel)));
+    results.slice(0, state.shown).forEach((it) => grid.append(card(it, cardLevel, gtmId)));
     loadMore.hidden = state.shown >= results.length;
     grid.hidden = !results.length;
     empty.hidden = results.length > 0;

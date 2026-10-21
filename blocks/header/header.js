@@ -537,6 +537,35 @@ function toggleMobileMenu(nav, forceClose = false) {
   if (!open) closeAllPanels(nav);
 }
 
+// hp.com's slug rule for GTM values: "Ink, Toner & Paper" -> "ink-toner--paper"
+const gtmSlug = (text) => text.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s/g, '-');
+
+function tagNavLink(a, id, value) {
+  if (!value || a.dataset.gtmCategory) return;
+  a.dataset.gtmCategory = 'globalNavigation';
+  a.dataset.gtmId = id;
+  a.dataset.gtmValue = value;
+}
+
+// GTM ids as on hp.com: header|l1-logo, header|l2-laptops (cards), header|l3-laptops (featured).
+// A value= in the link title still wins, since decorateGtmLinks runs afterwards.
+function tagNavLinks(nav) {
+  nav.querySelectorAll('.nav-brand a').forEach((a) => tagNavLink(a, 'header|l1-logo', 'hp-logo'));
+  nav.querySelectorAll('.nav-drop').forEach((li) => {
+    const menu = gtmSlug(li.querySelector('.nav-menu-trigger')?.textContent || '');
+    li.querySelectorAll('.nav-panel-featured a').forEach((a) => {
+      tagNavLink(a, `header|l3-${menu}`, gtmSlug(a.textContent));
+    });
+    li.querySelectorAll('.nav-panel-cards li').forEach((card) => {
+      const value = gtmSlug(card.textContent);
+      card.querySelectorAll('a').forEach((a) => tagNavLink(a, `header|l2-${menu}`, value));
+    });
+  });
+  nav.querySelectorAll('.nav-cta-btn').forEach((a) => {
+    tagNavLink(a, `header|l1-${gtmSlug(a.textContent).split('-').pop()}`, gtmSlug(a.textContent));
+  });
+}
+
 async function loadNavHtml() {
   const navMeta = getMetadata('nav');
   const path = navMeta ? new URL(navMeta, window.location).pathname.replace(/\.html$/, '') : DEFAULT_HEADER_FRAGMENT;
@@ -671,6 +700,7 @@ export default async function decorate(block) {
     navWrapper.append(navNewsroom);
   }
 
+  tagNavLinks(nav);
   decorateGtmLinks(navWrapper);
   block.append(navWrapper);
 }

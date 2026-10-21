@@ -220,10 +220,6 @@ main img {
   height: auto;
 }
 
-.article-detail main .default-content-wrapper p:has(> picture:only-child) {
-  text-align: center;
-}
-
 span.icon {
   display: inline-block;
   height: 24px;
@@ -384,6 +380,10 @@ main > .section:first-of-type {
 
 :where(body.article-detail) main > .section > .default-content-wrapper:has(+ .columns-wrapper > .columns.gallery) > :is(h2, h3):last-child {
   margin-bottom: 1.125rem;
+  text-align: center;
+}
+
+.article-detail main .default-content-wrapper p:has(> picture:only-child) {
   text-align: center;
 }
 

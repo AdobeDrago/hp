@@ -5,30 +5,40 @@ const BAND_IMAGE_SIZES = [{ media: '(min-width: 600px)', width: '2000' }, { widt
 const LABEL_WORD = /^(explore|download|downloads|read|view|watch|see|get|learn)\b/i;
 const FILE_LINK = /\.(pdf|jpe?g|png|zip|docx?|pptx?)(\?|#|$)/i;
 
+function isLinkOnly(el) {
+  if (el.tagName === 'UL' || el.tagName === 'OL') {
+    return el.children.length > 0 && [...el.children].every((li) => {
+      const a = li.querySelector('a[href]');
+      return a && li.textContent.trim() === a.textContent.trim();
+    });
+  }
+  const a = el.tagName === 'P' && el.querySelector('a[href]');
+  return !!a && el.textContent.trim() === a.textContent.trim();
+}
+
+// only the trailing run of link-only paragraphs/lists is the card CTA; earlier links stay inline
 function decoratePressLinks(body) {
-  const groups = [...body.children].filter((el) => {
-    if (el.tagName === 'UL' || el.tagName === 'OL') {
-      return [...el.children].every((li) => li.querySelector('a[href]') && li.textContent.trim() === li.querySelector('a').textContent.trim());
-    }
-    const a = el.tagName === 'P' && el.querySelector('a[href]');
-    return a && el.textContent.trim() === a.textContent.trim();
-  });
-  if (!groups.length) return;
-  const links = groups.flatMap((el) => [...el.querySelectorAll('a[href]')]);
-  const before = groups[0].previousElementSibling;
+  const group = [];
+  let el = body.lastElementChild;
+  while (el && isLinkOnly(el)) {
+    group.unshift(el);
+    el = el.previousElementSibling;
+  }
+  if (!group.length) return;
+  const links = group.flatMap((g) => [...g.querySelectorAll('a[href]')]);
   let label = '';
-  const labelText = before && before.tagName === 'P' && !before.querySelector('a') ? before.textContent.trim() : '';
+  const labelText = el && el.tagName === 'P' && !el.querySelector('a') ? el.textContent.trim() : '';
   if (labelText.split(/\s+/).length <= 3 && (LABEL_WORD.test(labelText) || labelText.endsWith(':'))) {
     label = labelText.replace(/:$/, '');
-    before.remove();
+    el.remove();
   }
   if (!label && links.length > 1) label = links.every((a) => FILE_LINK.test(a.href)) ? 'Download' : 'Explore';
-  groups.forEach((el) => el.remove());
-  links.forEach((a) => a.classList.remove('button'));
   const wrapper = document.createElement('div');
   wrapper.className = 'cta-dropdown';
+  group[0].before(wrapper);
+  group.forEach((g) => g.remove());
+  links.forEach((a) => a.classList.remove('button'));
   renderDropdown(wrapper, label, links);
-  body.append(wrapper);
 }
 
 export default function decorate(block) {

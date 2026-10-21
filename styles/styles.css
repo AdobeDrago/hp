@@ -277,7 +277,7 @@ main > .section:first-of-type {
   margin-top: 1.125rem;
 }
 
-:where(body.article-detail) main > .section > :is(.default-content-wrapper, .columns-wrapper, .image-wrapper) {
+:where(body.article-detail) main > .section > :is(.default-content-wrapper, .columns-wrapper, .figure-wrapper) {
   box-sizing: border-box;
   max-width: 80rem;
   padding: 0 1.25rem;
@@ -383,7 +383,7 @@ main > .section:first-of-type {
   text-align: center;
 }
 
-.article-detail main .default-content-wrapper p:has(> picture:only-child) {
+:where(body.article-detail) main > .section > .default-content-wrapper p:has(> picture:only-child) {
   text-align: center;
 }
 
@@ -402,7 +402,7 @@ main > .section:first-of-type {
     margin-bottom: 1.4375rem;
   }
 
-  :where(body.article-detail) main > .section > :is(.default-content-wrapper, .columns-wrapper, .image-wrapper) {
+  :where(body.article-detail) main > .section > :is(.default-content-wrapper, .columns-wrapper, .figure-wrapper) {
     padding: 0 1.875rem;
   }
 
@@ -418,7 +418,7 @@ main > .section:first-of-type {
 }
 
 @media (width >= 1280px) {
-  :where(body.article-detail) main > .section > :is(.default-content-wrapper, .columns-wrapper, .image-wrapper) {
+  :where(body.article-detail) main > .section > :is(.default-content-wrapper, .columns-wrapper, .figure-wrapper) {
     padding: 0 1.9375rem;
   }
 

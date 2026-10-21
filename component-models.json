@@ -307,6 +307,59 @@
     ]
   },
   {
+    "id": "figure",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "caption",
+        "label": "Caption",
+        "value": "",
+        "description": "Optional. Shown centered under the image in small italic text."
+      },
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Width",
+        "valueType": "string",
+        "value": "",
+        "description": "How wide the image shows, as a share of the column. Natural size = the image's own size, never wider than the column.",
+        "options": [
+          {
+            "name": "Natural size",
+            "value": ""
+          },
+          {
+            "name": "80%",
+            "value": "width-80"
+          },
+          {
+            "name": "64%",
+            "value": "width-64"
+          },
+          {
+            "name": "50%",
+            "value": "width-50"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "footnotes",
     "fields": [
       {

@@ -6,6 +6,8 @@ function updateActiveSlide(slide) {
   block.dataset.activeSlide = slideIndex;
 
   const slides = block.querySelectorAll('.carousel-slide');
+  block.classList.toggle('carousel-at-start', slideIndex === 0);
+  block.classList.toggle('carousel-at-end', slideIndex === slides.length - 1);
 
   slides.forEach((aSlide, idx) => {
     aSlide.setAttribute('aria-hidden', idx !== slideIndex);
@@ -76,8 +78,10 @@ function createSlide(row, slideIndex, carouselId) {
   slide.setAttribute('id', `carousel-${carouselId}-slide-${slideIndex}`);
   slide.classList.add('carousel-slide');
 
-  row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
-    column.classList.add(`carousel-slide-${colIdx === 0 ? 'image' : 'content'}`);
+  const columns = row.querySelectorAll(':scope > div');
+  columns.forEach((column, colIdx) => {
+    const isImage = colIdx === 0 && (columns.length > 1 || column.querySelector('picture'));
+    column.classList.add(`carousel-slide-${isImage ? 'image' : 'content'}`);
     slide.append(column);
   });
 
@@ -145,6 +149,7 @@ export default async function decorate(block) {
   block.prepend(container);
 
   if (!isSingleSlide) {
+    block.classList.add('carousel-at-start');
     bindEvents(block);
   }
 }

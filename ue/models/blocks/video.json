@@ -24,6 +24,13 @@
       "fields": [
         {
           "component": "boolean",
+          "name": "classes_press",
+          "label": "Press Release Style",
+          "description": "Full-width poster image with a square play button, as on press releases",
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
           "name": "classes_autoplay",
           "label": "Autoplay Video",
           "valueType": "boolean"

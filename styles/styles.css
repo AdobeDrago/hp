@@ -220,6 +220,10 @@ main img {
   height: auto;
 }
 
+.article-detail main .default-content-wrapper p:has(> picture:only-child) {
+  text-align: center;
+}
+
 span.icon {
   display: inline-block;
   height: 24px;
@@ -361,10 +365,6 @@ main > .section:first-of-type {
   font-size: 0.52em;
   line-height: 0;
   vertical-align: top;
-}
-
-:where(body.article-detail) main > .section > .default-content-wrapper p:has(> picture) {
-  text-align: center;
 }
 
 :where(body.article-detail) main > .section > .default-content-wrapper p > picture img {

@@ -22,7 +22,7 @@ function decoratePressLinks(body) {
     label = labelText.replace(/:$/, '');
     before.remove();
   }
-  if (!label) label = links.every((a) => FILE_LINK.test(a.href)) ? 'Download' : 'Explore';
+  if (!label && links.length > 1) label = links.every((a) => FILE_LINK.test(a.href)) ? 'Download' : 'Explore';
   groups.forEach((el) => el.remove());
   links.forEach((a) => a.classList.remove('button'));
   const wrapper = document.createElement('div');

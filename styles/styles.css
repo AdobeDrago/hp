@@ -220,7 +220,7 @@ main img {
   height: auto;
 }
 
-body.press-release main .default-content-wrapper p:has(> picture:only-child) {
+.article-detail main .default-content-wrapper p:has(> picture:only-child) {
   text-align: center;
 }
 

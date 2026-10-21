@@ -152,7 +152,6 @@
   }
 }
 
-/* press release variants: image gallery (press) and quote slider (press quote) */
 .carousel.press .carousel-slides > .carousel-slide {
   box-sizing: border-box;
   justify-content: flex-start;

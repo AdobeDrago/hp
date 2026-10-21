@@ -66,7 +66,6 @@
   border: 1px solid #dadada;
 }
 
-/* press release financial tables: plain rows, no rules, sized to content */
 .table.press table {
   width: auto;
 }

@@ -32,7 +32,6 @@
   }
 }
 
-/* press release image grids: 3-up (image + text below) and 2-up (centered image + caption) */
 .columns.press > div {
   gap: 1.5rem;
 }
@@ -65,10 +64,15 @@
   margin: 0 auto;
 }
 
-@media (width >= 900px) {
+@media (width >= 768px) {
   .columns.press > div {
+    flex-direction: row;
     align-items: flex-start;
     gap: 1.875rem;
+  }
+
+  .columns.press > div > div {
+    flex: 1;
   }
 }
 

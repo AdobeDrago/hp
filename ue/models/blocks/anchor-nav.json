@@ -21,6 +21,16 @@
       "id": "anchor-nav",
       "fields": [
         {
+          "component": "multiselect",
+          "name": "classes",
+          "label": "Style",
+          "valueType": "string",
+          "description": "Press = press kit section bar: content-width, bottom rule only, links in 16px with a blue active underline.",
+          "options": [
+            { "name": "Press", "value": "press" }
+          ]
+        },
+        {
           "component": "richtext",
           "name": "links_items",
           "label": "Links",

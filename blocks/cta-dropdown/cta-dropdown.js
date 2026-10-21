@@ -54,21 +54,23 @@ function buildMenu(block, label, links) {
   });
 }
 
+export function renderDropdown(container, label, links) {
+  if (!links.length) return;
+  if (links.length === 1) {
+    const [link] = links;
+    link.className = 'cta-dropdown-button';
+    if (label) link.textContent = label;
+    container.append(link);
+    return;
+  }
+  buildMenu(container, label || links[0].textContent.trim(), links);
+}
+
 export default function decorate(block) {
   const rows = [...block.children];
   const links = [...block.querySelectorAll('a[href]')];
   const labelRow = rows.find((row) => !row.querySelector('a[href]') && row.textContent.trim());
   const label = labelRow ? labelRow.textContent.trim() : '';
   block.textContent = '';
-  if (!links.length) return;
-
-  if (links.length === 1) {
-    const [link] = links;
-    link.className = 'cta-dropdown-button';
-    if (label) link.textContent = label;
-    block.append(link);
-    return;
-  }
-
-  buildMenu(block, label || links[0].textContent.trim(), links);
+  renderDropdown(block, label, links);
 }

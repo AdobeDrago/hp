@@ -296,3 +296,9 @@
     line-height: 1.75rem;
   }
 }
+
+/* press kit event galleries show larger images than press releases (918 x 612 on hp.com) */
+.carousel.press.large .carousel-slide .carousel-slide-image picture > img {
+  max-width: min(100%, 57.375rem);
+  max-height: 38.25rem;
+}

@@ -47,7 +47,8 @@
             { "name": "3-up", "value": "3-up" },
             { "name": "4-up", "value": "4-up" },
             { "name": "Left", "value": "left" },
-            { "name": "Right", "value": "right" }
+            { "name": "Right", "value": "right" },
+            { "name": "Press", "value": "press" }
           ]
         }
       ]

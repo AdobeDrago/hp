@@ -1,12 +1,20 @@
 const ICON_CHEVRON = '<svg class="cta-dropdown-chevron" width="12" height="6" viewBox="0 0 12 6" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M1 5.5 6 1l5 4.5"/></svg>';
 
 let dropdownId = 0;
+let outsideClickBound = false;
 
 function setOpen(block, open) {
   const toggle = block.querySelector('.cta-dropdown-button');
   block.classList.toggle('cta-dropdown-open', open);
   toggle.setAttribute('aria-expanded', open);
   block.querySelector('.cta-dropdown-menu').hidden = !open;
+}
+
+function closeOnOutsideClick(e) {
+  const path = e.composedPath();
+  document.querySelectorAll('.cta-dropdown-open').forEach((block) => {
+    if (!path.includes(block)) setOpen(block, false);
+  });
 }
 
 function buildMenu(block, label, links) {
@@ -49,9 +57,22 @@ function buildMenu(block, label, links) {
   block.addEventListener('focusout', (e) => {
     if (!block.contains(e.relatedTarget)) setOpen(block, false);
   });
-  document.addEventListener('click', (e) => {
-    if (!e.composedPath().includes(block)) setOpen(block, false);
-  });
+  if (!outsideClickBound) {
+    document.addEventListener('click', closeOnOutsideClick);
+    outsideClickBound = true;
+  }
+}
+
+export function renderDropdown(container, label, links) {
+  if (!links.length) return;
+  if (links.length === 1) {
+    const [link] = links;
+    link.className = 'cta-dropdown-button';
+    if (label) link.textContent = label;
+    container.append(link);
+    return;
+  }
+  buildMenu(container, label || links[0].textContent.trim(), links);
 }
 
 export default function decorate(block) {
@@ -60,15 +81,5 @@ export default function decorate(block) {
   const labelRow = rows.find((row) => !row.querySelector('a[href]') && row.textContent.trim());
   const label = labelRow ? labelRow.textContent.trim() : '';
   block.textContent = '';
-  if (!links.length) return;
-
-  if (links.length === 1) {
-    const [link] = links;
-    link.className = 'cta-dropdown-button';
-    if (label) link.textContent = label;
-    block.append(link);
-    return;
-  }
-
-  buildMenu(block, label || links[0].textContent.trim(), links);
+  renderDropdown(block, label, links);
 }

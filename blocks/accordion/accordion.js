@@ -1,3 +1,5 @@
+import { toClassName } from '../../scripts/aem.js';
+
 const FAQ_ANIMATION = { duration: 300, easing: 'ease-in-out' };
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -44,10 +46,14 @@ function animateToggle(details) {
 
 export default function decorate(block) {
   const animate = block.classList.contains('faq');
-  [...block.children].forEach((row) => {
+  [...block.children].forEach((row, i) => {
     const label = row.children[0];
     const summary = document.createElement('summary');
     summary.className = 'accordion-item-label';
+    // same GTM values as hp.com: "01-what-is-an-ai-pc", cut at 40 characters
+    summary.dataset.gtmCategory = 'linkClick';
+    summary.dataset.gtmId = 'accordion';
+    summary.dataset.gtmValue = `${String(i + 1).padStart(2, '0')}-${toClassName(label.textContent)}`.slice(0, 40);
     summary.append(...label.childNodes);
     const body = row.children[1];
     body.className = 'accordion-item-body';

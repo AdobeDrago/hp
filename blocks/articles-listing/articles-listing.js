@@ -2,6 +2,7 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const DEFAULT_SOURCE = '/us-en/newsroom/query-index.json';
 const BATCH = 9;
+const DEFAULT_GTM_ID = 'archive_link_placement';
 
 const VIEW_ALL = '__all';
 
@@ -102,27 +103,23 @@ function sortItems(items, sort) {
   return a;
 }
 
-const DEFAULT_GTM_ID = 'archive_link_placement';
-
-/** adds GTM link-click tracking attributes; value is the article slug */
-function addGtm(anchor, path, gtmId) {
-  const slug = path.split('/').pop().replace(/\.html$/, '');
-  anchor.dataset.gtmId = gtmId;
-  anchor.dataset.gtmValue = slug;
-  anchor.dataset.gtmCategory = 'linkClick';
+function addGtm(node, id, value, category = 'linkClick') {
+  node.dataset.gtmCategory = category;
+  node.dataset.gtmId = id;
+  node.dataset.gtmValue = value;
 }
+
+const slugOf = (path) => path.split('/').pop().replace(/\.html$/, '');
 
 function card(it, level, gtmId) {
   const art = el('article', 'al-card');
   const media = el('a', 'al-card-media');
   media.href = it.path;
-  addGtm(media, it.path, gtmId);
   if (it.image) media.append(createOptimizedPicture(it.image, it.title, false, [{ width: '750' }]));
   const body = el('div', 'al-card-body');
   const h = el(`h${level}`, 'al-card-title');
   const ha = el('a', null, it.title);
   ha.href = it.path;
-  addGtm(ha, it.path, gtmId);
   h.append(ha);
   body.append(h);
   const desc = (it.description || '').trim();
@@ -130,8 +127,8 @@ function card(it, level, gtmId) {
   const cta = el('a', 'al-card-cta', 'Read');
   cta.append(el('span', 'al-sr-only', `: ${it.title}`));
   cta.href = it.path;
-  addGtm(cta, it.path, gtmId);
   body.append(cta);
+  [media, ha, cta].forEach((a) => addGtm(a, gtmId, slugOf(it.path)));
   art.append(media, body);
   return art;
 }
@@ -148,6 +145,7 @@ function checkList(group, options) {
     input.type = 'checkbox';
     input.value = o.value;
     input.dataset.group = group;
+    addGtm(label, group === 'media' ? 'categories' : 'topics', o.label, 'facet');
     label.append(input, el('span', null, o.label));
     list.append(label);
   });
@@ -178,6 +176,8 @@ function sortDropdown() {
     const o = el('button', 'al-sort-option', s.label);
     o.type = 'button';
     o.dataset.sort = s.id;
+    o.dataset.gtmCategory = 'facet';
+    o.dataset.gtmSort = s.label;
     panel.append(o);
   });
   root.append(btn, panel);
@@ -205,6 +205,7 @@ function mediaRadios() {
     input.type = 'radio';
     input.name = 'al-media';
     input.value = o.value;
+    addGtm(label, 'categories', o.label, 'facet');
     label.append(input, el('span', null, o.label));
     radios.append(label);
   });
@@ -219,6 +220,8 @@ function modal(pinnedType) {
   const head = el('div', 'al-modal-head');
   const clear = el('button', 'al-clear al-modal-clear', 'Clear all filters');
   clear.type = 'button';
+  clear.dataset.gtmCategory = 'facet';
+  clear.dataset.gtmClear = 'true';
   const close = el('button', 'al-modal-close', '✕');
   close.type = 'button';
   head.append(clear, close);
@@ -235,6 +238,8 @@ function modal(pinnedType) {
     input.type = 'radio';
     input.name = 'al-sort';
     input.value = s.id;
+    label.dataset.gtmCategory = 'facet';
+    label.dataset.gtmSort = s.label;
     label.append(input, el('span', null, s.label));
     radios.append(label);
   });
@@ -283,6 +288,7 @@ export default async function decorate(block) {
   const toolbar = el('div', 'al-toolbar');
   const mobileTrigger = el('button', 'al-mobile-trigger', 'Sort and Filter');
   mobileTrigger.type = 'button';
+  addGtm(mobileTrigger, gtmId, 'sort_and_filter');
   const keyword = el('input', 'al-keyword');
   keyword.type = 'search';
   keyword.placeholder = 'Filter by keyword';
@@ -300,6 +306,7 @@ export default async function decorate(block) {
   const grid = el('div', 'al-grid');
   const loadMore = el('button', 'al-loadmore', 'Load More');
   loadMore.type = 'button';
+  addGtm(loadMore, gtmId, 'load_more');
   const sheet = modal(pinnedType);
   const empty = el('p', 'al-empty', 'No results found.');
   empty.setAttribute('role', 'status');
@@ -339,8 +346,10 @@ export default async function decorate(block) {
       chip.querySelector('.al-chip-x').dataset.value = value;
       chips.append(chip);
     });
-    if (active.length) {
+    if (active.length > 1) {
       const clr = el('button', 'al-clear', 'Clear all');
+      clr.dataset.gtmCategory = 'facet';
+      clr.dataset.gtmClear = 'true';
       clr.type = 'button';
       chips.append(clr);
     }
@@ -406,6 +415,16 @@ export default async function decorate(block) {
       apply();
     }
   });
+
+  // HP's e_facet reads data-gtm-checked as filterChecked. Clicking the label text toggles
+  // the input afterwards, so store the state the click is about to produce.
+  block.addEventListener('click', (e) => {
+    const option = e.target.closest('label[data-gtm-id]');
+    const input = option?.querySelector('input');
+    if (!input) return;
+    const willCheck = e.target === input ? input.checked : !input.checked || input.type === 'radio';
+    option.dataset.gtmChecked = String(willCheck);
+  }, true);
 
   block.addEventListener('click', (e) => {
     const t = e.target;

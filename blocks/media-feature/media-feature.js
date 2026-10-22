@@ -33,7 +33,24 @@ function parseVideo(href) {
   return null;
 }
 
-function openVideoModal({ embed, src }, trigger) {
+// same e_linkClick hp.com sends from its video player, e.g. "HP IQ: … - play"
+function trackVideo(video, title) {
+  const push = (action) => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'e_linkClick',
+      pushSource: 'standards',
+      linkPlacement: `${title}/Video`,
+      linkID: `${title} - ${action}`,
+    });
+  };
+  video.addEventListener('play', () => push('play'));
+  video.addEventListener('pause', () => {
+    if (!video.ended) push('pause');
+  });
+}
+
+function openVideoModal({ embed, src }, trigger, title) {
   const overlay = document.createElement('dialog');
   overlay.className = 'media-feature-video-modal';
   overlay.setAttribute('aria-label', 'Video player');
@@ -57,6 +74,7 @@ function openVideoModal({ embed, src }, trigger) {
   } else {
     media.controls = true;
     media.autoplay = true;
+    if (title) trackVideo(media, title);
   }
 
   dialog.append(closeBtn, media);
@@ -99,12 +117,13 @@ export default function decorate(block) {
   if (!contentCell) return;
   contentCell.className = 'media-feature-content';
 
+  const videoTitle = contentCell.querySelector('h1, h2, h3, h4, h5, h6')?.textContent.trim();
   contentCell.querySelectorAll('a').forEach((a) => {
     const video = parseVideo(a.href);
     if (video) {
       a.addEventListener('click', (e) => {
         e.preventDefault();
-        openVideoModal(video, a);
+        openVideoModal(video, a, videoTitle);
       });
     }
 

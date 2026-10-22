@@ -22,7 +22,7 @@
   margin-top: 0.25em;
 }
 
-@media (width >= 600px) {
+@media (width >= 768px) {
   .form fieldset {
     grid-template-columns: repeat(2, auto);
     gap: 0.25em 24px;
@@ -35,7 +35,7 @@
   }
 }
 
-@media (width >= 900px) {
+@media (width >= 1024px) {
   .form fieldset {
     grid-template-columns: repeat(3, auto);
   }
@@ -90,7 +90,7 @@
   width: max-content;
 }
 
-@media (width >= 600px) {
+@media (width >= 768px) {
   .form input,
   .form select,
   .form textarea {
@@ -102,7 +102,7 @@
   }
 }
 
-@media (width >= 900px) {
+@media (width >= 1024px) {
   .form input,
   .form select,
   .form textarea {

@@ -32,6 +32,7 @@
 .articles-listing .al-toolbar {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
   gap: 16px 30px;
   margin: 0;
@@ -204,7 +205,7 @@
 /* ===== grid + cards ===== */
 .articles-listing .al-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   margin-top: 16px;
   border-top: 1px solid var(--al-line);
   border-left: 1px solid var(--al-line);
@@ -220,6 +221,7 @@
 
 .articles-listing .al-card-media {
   display: block;
+  flex: 0 0 40%;
   margin-bottom: 17px;
   aspect-ratio: 5 / 3;
   overflow: hidden;
@@ -429,161 +431,166 @@
   outline-offset: 2px;
 }
 
-/* mobile-only controls hidden on desktop */
-.articles-listing .al-mobile-trigger,
-.articles-listing .al-modal { display: none; }
-
 /* ===== mobile ===== */
-@media (width < 900px) {
+.articles-listing .al-keyword,
+.articles-listing .al-facet,
+.articles-listing .al-sort { display: none; }
+
+.articles-listing .al-mobile-trigger {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 3px 16px;
+  border: 1px solid var(--al-line);
+  border-radius: 0;
+  background: #fff;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* .articles-listing .al-card {
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  gap: 16px;
+} */
+
+/* ===== mobile modal ===== */
+.articles-listing .al-modal {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  justify-content: center;
+  align-items: flex-start;
+  background: rgb(0 0 0 / 45%);
+}
+
+.articles-listing .al-modal[hidden] { display: none; }
+
+.articles-listing .al-modal-sheet {
+  position: relative;
+  width: min(92vw, 520px);
+  max-width: 320px;
+  max-height: calc(100vh - 62px);
+  margin: 25px;
+  padding: 16px;
+  overflow-y: auto;
+  transform: none;
+  background: #fff;
+}
+
+.articles-listing .al-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #000;
+}
+
+.articles-listing .al-modal-clear { font-size: 1.1rem; }
+
+.articles-listing .al-modal-close {
+  margin: 0;
+  padding: 8px 10px;
+  border: 0;
+  background: none;
+  font-size: 0.875rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.articles-listing .al-modal-sheet .al-keyword {
+  display: block;
+  width: 100%;
+  height: 42px;
+  margin: 20px 0;
+}
+
+.articles-listing .al-modal-sort {
+  border-top: 1px solid #000;
+}
+
+.articles-listing .al-collapse {
+  border-bottom: 1px solid #000;
+}
+
+.articles-listing .al-collapse-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  padding: 8px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* hp.com's thin 12x6 chevron, flipped up when the row is open */
+.articles-listing .al-collapse-btn::after {
+  content: '';
+  flex: none;
+  width: 12px;
+  height: 6px;
+  margin-right: 6px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 6'%3E%3Cpath d='M1 .75 6 5.25 11 .75' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.articles-listing .al-collapse-btn.open::after { transform: rotate(180deg); }
+
+.articles-listing .al-collapse-body .al-check-item { padding: 10px 4px; }
+
+/* a clear button (the Archive's Load More style), so it reads as one */
+.articles-listing .al-modal-view {
+  display: block;
+  min-width: 160px;
+  margin: 16px auto 4px;
+  padding: 0 32px;
+  border: 1px solid #2a2c2e;
+  border-radius: 0;
+  background: #fff;
+  color: #2a2c2e;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 41px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s linear, color 0.2s linear;
+}
+
+.articles-listing .al-modal-view:hover,
+.articles-listing .al-modal-view:active {
+  background: #000;
+  color: #fff;
+}
+
+/* ===== desktop ===== */
+@media (width >= 1024px) {
   .articles-listing .al-keyword,
   .articles-listing .al-facet,
-  .articles-listing .al-sort { display: none; }
+  .articles-listing .al-sort { display: block; }
 
   .articles-listing .al-toolbar {
-    justify-content: space-between;
+    justify-content: normal;
   }
 
-  .articles-listing .al-mobile-trigger {
-    display: inline-flex;
-    align-items: center;
-    margin: 0;
-    padding: 3px 16px;
-    border: 1px solid var(--al-line);
-    border-radius: 0;
-    background: #fff;
-    font: inherit;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-  }
+  .articles-listing .al-mobile-trigger,
+  .articles-listing .al-modal { display: none; }
 
   .articles-listing .al-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
-
-  /* .articles-listing .al-card {
-    flex-direction: row-reverse;
-    align-items: flex-start;
-    gap: 16px;
-  } */
 
   .articles-listing .al-card-media {
-    flex: 0 0 40%;
-  }
-
-  /* ===== mobile modal ===== */
-  .articles-listing .al-modal {
-    display: flex;
-    position: fixed;
-    inset: 0;
-    z-index: 50;
-    justify-content: center;
-    align-items: flex-start;
-    background: rgb(0 0 0 / 45%);
-  }
-
-  .articles-listing .al-modal[hidden] { display: none; }
-
-  .articles-listing .al-modal-sheet {
-    position: relative;
-    width: min(92vw, 520px);
-    max-width: 320px;
-    max-height: calc(100vh - 62px);
-    margin: 25px;
-    padding: 16px;
-    overflow-y: auto;
-    transform: none;
-    background: #fff;
-  }
-
-  .articles-listing .al-modal-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #000;
-  }
-
-  .articles-listing .al-modal-clear { font-size: 1.1rem; }
-
-  .articles-listing .al-modal-close {
-    margin: 0;
-    padding: 8px 10px;
-    border: 0;
-    background: none;
-    font-size: 0.875rem;
-    line-height: 1;
-    cursor: pointer;
-  }
-
-  .articles-listing .al-modal-sheet .al-keyword {
-    display: block;
-    width: 100%;
-    height: 42px;
-    margin: 20px 0;
-  }
-
-  .articles-listing .al-modal-sort {
-    border-top: 1px solid #000;
-  }
-
-  .articles-listing .al-collapse {
-    border-bottom: 1px solid #000;
-  }
-
-  .articles-listing .al-collapse-btn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin: 0;
-    padding: 8px 0;
-    border: 0;
-    background: none;
-    font: inherit;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-
-  /* hp.com's thin 12x6 chevron, flipped up when the row is open */
-  .articles-listing .al-collapse-btn::after {
-    content: '';
-    flex: none;
-    width: 12px;
-    height: 6px;
-    margin-right: 6px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 6'%3E%3Cpath d='M1 .75 6 5.25 11 .75' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
-  }
-
-  .articles-listing .al-collapse-btn.open::after { transform: rotate(180deg); }
-
-  .articles-listing .al-collapse-body .al-check-item { padding: 10px 4px; }
-
-  /* a clear button (the Archive's Load More style), so it reads as one */
-  .articles-listing .al-modal-view {
-    display: block;
-    min-width: 160px;
-    margin: 16px auto 4px;
-    padding: 0 32px;
-    border: 1px solid #2a2c2e;
-    border-radius: 0;
-    background: #fff;
-    color: #2a2c2e;
-    font: inherit;
-    font-size: 1rem;
-    font-weight: 500;
-    line-height: 41px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.2s linear, color 0.2s linear;
-  }
-
-  .articles-listing .al-modal-view:hover,
-  .articles-listing .al-modal-view:active {
-    background: #000;
-    color: #fff;
+    flex: 0 1 auto;
   }
 }
+
 
 @media (width >= 768px) {
   .section.articles-listing-container {

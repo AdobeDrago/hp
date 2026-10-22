@@ -1,7 +1,7 @@
 import { createOptimizedPicture, loadCSS } from '../../scripts/aem.js';
 import { renderDropdown } from '../cta-dropdown/cta-dropdown.js';
 
-const BAND_IMAGE_SIZES = [{ media: '(min-width: 600px)', width: '2000' }, { width: '750' }];
+const BAND_IMAGE_SIZES = [{ media: '(min-width: 768px)', width: '2000' }, { width: '750' }];
 const LABEL_WORD = /^(explore|download|downloads|read|view|watch|see|get|learn)\b/i;
 const FILE_LINK = /\.(pdf|jpe?g|png|zip|docx?|pptx?)(\?|#|$)/i;
 

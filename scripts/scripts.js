@@ -131,7 +131,7 @@ async function loadEager(doc) {
   sampleRUM.enhance();
 
   try {
-    if (window.innerWidth >= 900 || sessionStorage.getItem('fonts-loaded')) {
+    if (window.innerWidth >= 1024 || sessionStorage.getItem('fonts-loaded')) {
       loadFonts();
     }
   } catch (e) {

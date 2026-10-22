@@ -307,11 +307,12 @@ function decorateTools(navTools) {
 
   // fall back to the page's locale if someone submits before the panel code has loaded
   searchForm.addEventListener('submit', async (e) => {
-    if (searchForm.dataset.ready || getMetadata('search-results-page')) return;
+    if (searchForm.dataset.ready) return;
     e.preventDefault();
     if (!searchInput.value.trim()) return;
-    const { default: getPageLocale } = await import('../../scripts/locale.js');
-    searchForm.action = `/${getPageLocale()}/newsroom/search`;
+    const { getResultsPage, loadSiteMetadata } = await import('../../scripts/search-utils.js');
+    await loadSiteMetadata();
+    searchForm.action = getResultsPage();
     searchForm.submit();
   });
 

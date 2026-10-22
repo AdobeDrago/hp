@@ -358,7 +358,7 @@
         "label": "Width",
         "valueType": "string",
         "value": "",
-        "description": "How wide the image shows, as a share of the column. Natural size = the image's own size, never wider than the column.",
+        "description": "How wide the image shows on tablet and desktop, as a share of the column; on mobile it shows at natural size. Natural size = the image's own size, never wider than the column.",
         "options": [
           {
             "name": "Natural size",

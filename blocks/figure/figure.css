@@ -8,10 +8,16 @@
 }
 
 .figure img {
-  width: var(--figure-width, auto);
+  width: auto;
   max-width: 100%;
   height: auto;
   vertical-align: top;
+}
+
+@media (width >= 768px) {
+  .figure img {
+    width: var(--figure-width, auto);
+  }
 }
 
 .figure p:has(> em:only-child) {

@@ -1,4 +1,4 @@
-import { getMetadata } from './aem.js';
+import { getMetadata, fetchPlaceholders } from './aem.js';
 import getPageLocale from './locale.js';
 
 export const HAWK_AUTOCOMPLETE_API = 'https://hp.searchapi-na.hawksearch.com/api/v2/autocomplete';
@@ -6,6 +6,39 @@ export const HAWK_SEARCH_API = 'https://hp.searchapi-na.hawksearch.com/api/v2/se
 
 const SUPPORT_SITE = 'https://support.hp.com';
 const HP_SITE = 'https://www.hp.com';
+
+// origin serving this code; differs from the page origin when embedded on another site
+const CODE_ORIGIN = new URL(import.meta.url).origin;
+export const isEmbedded = CODE_ORIGIN !== window.location.origin;
+
+// metadata of this site's own pages, for when the header is embedded and the host page has none
+const siteMeta = {};
+let siteMetaLoaded;
+
+export function loadSiteMetadata() {
+  if (!isEmbedded) return Promise.resolve();
+  if (!siteMetaLoaded) {
+    siteMetaLoaded = fetch(`${CODE_ORIGIN}/nav`)
+      .then((resp) => (resp.ok ? resp.text() : ''))
+      .then((html) => {
+        new DOMParser().parseFromString(html, 'text/html')
+          .querySelectorAll('meta[name^="search-"], meta[name="support-search-url"]')
+          .forEach((meta) => { siteMeta[meta.name] = meta.content; });
+      })
+      .catch(() => {});
+  }
+  return siteMetaLoaded;
+}
+
+/** page metadata, else this site's metadata (embedded; call loadSiteMetadata first) */
+export function getSearchConfig(name) {
+  return getMetadata(name) || siteMeta[name];
+}
+
+/** placeholders.json of this site; embedded, the host's own /placeholders.json is the wrong one */
+export function loadPlaceholders() {
+  return fetchPlaceholders(isEmbedded ? CODE_ORIGIN : 'default');
+}
 
 /**
  * Works out the hp.com style locale ("us-en") for search. Uses the
@@ -19,18 +52,13 @@ export function getSearchLocale() {
     country,
     language,
     // prices come from the US HawkSearch store, so they're USD unless HP gives us another store
-    currency: getMetadata('search-currency') || 'USD',
+    currency: getSearchConfig('search-currency') || 'USD',
   };
 }
 
 /** hawksearch client guid, from the search-client-guid metadata */
 export function getClientGuid() {
-  return getMetadata('search-client-guid');
-}
-
-/** search results page; search-results-page metadata, else /<locale>/newsroom/search */
-export function getResultsPage() {
-  return getMetadata('search-results-page') || `/${getSearchLocale().locale}/newsroom/search`;
+  return getSearchConfig('search-client-guid');
 }
 
 export function createElement(tag, className, text) {
@@ -105,11 +133,11 @@ export function formatPrice(value) {
  * API key server-side, so the key never reaches the browser.
  */
 export async function fetchSupport(keyword, limit, signal) {
-  const configured = getMetadata('support-search-url');
+  const configured = getSearchConfig('support-search-url');
   try {
     if (!configured) {
       // no support endpoint configured; serve canned matches from tools/mock-data
-      const resp = await fetch('/tools/mock-data/support-search.json', { signal });
+      const resp = await fetch(`${CODE_ORIGIN}/tools/mock-data/support-search.json`, { signal });
       if (!resp.ok) return [];
       const mock = await resp.json();
       const key = Object.keys(mock).find((k) => keyword.toLowerCase().includes(k));

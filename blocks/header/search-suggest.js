@@ -131,6 +131,7 @@ export default async function initSearchPanel(nav, form, input) {
   let controller;
   let debounceTimer;
   let activeIndex = -1;
+  let lastKeyword = '';
 
   const getOptions = () => [...panel.querySelectorAll('[role="option"]')];
 
@@ -243,6 +244,7 @@ export default async function initSearchPanel(nav, form, input) {
     });
     setActive(-1);
     panel.classList.remove('is-loading');
+    lastKeyword = keyword;
     showPanel();
   }
 
@@ -283,6 +285,15 @@ export default async function initSearchPanel(nav, form, input) {
   }
 
   input.addEventListener('input', onInput);
+  // reopen after Escape/backdrop, or when the user comes back to the box
+  function reopen() {
+    const keyword = input.value.trim();
+    if (keyword.length < MIN_CHARS || !panel.hidden) return;
+    if (keyword === lastKeyword && panel.querySelector('[role="option"]')) showPanel();
+    else onInput();
+  }
+  input.addEventListener('focus', reopen);
+  input.addEventListener('click', reopen);
 
   form.addEventListener('submit', (e) => {
     if (!input.value.trim()) e.preventDefault();

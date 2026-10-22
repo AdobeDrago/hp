@@ -1,6 +1,11 @@
 const isDesktop = window.matchMedia('(min-width: 1024px)');
 
 const DEFAULT_TITLE = 'Overview';
+
+const SCROLL_DURATION = 500;
+const PIN_DURATION = 250;
+const SLIDE_DURATION = 300;
+const USER_INPUT = ['wheel', 'touchstart', 'keydown'];
 const CHEVRON = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4.394 8.512a.518.518 0 0 0-.249.14.495.495 0 0 0-.081.59c.014.03 1.04 1.063 3.83 3.853 3.418 3.419 3.818 3.815 3.87 3.843.154.08.317.08.476-.001.06-.031.28-.249 3.86-3.83 2.624-2.622 3.806-3.81 3.824-3.841a.5.5 0 0 0-.07-.614.52.52 0 0 0-.353-.153.602.602 0 0 0-.224.055c-.059.027-.215.181-3.669 3.635L12 15.796l-3.608-3.607c-3.454-3.454-3.61-3.608-3.67-3.635a.5.5 0 0 0-.328-.042z"/></svg>';
 
 function getHeaderOffset() {
@@ -21,9 +26,81 @@ function getTarget(link) {
   }
 }
 
-function setOpen(block, toggle, open) {
-  block.classList.toggle('anchor-nav-open', open);
+const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function scrollWindowTo(getTop, duration) {
+  return new Promise((resolve) => {
+    const from = window.scrollY;
+    if (Math.abs(getTop() - from) <= 1) {
+      resolve();
+      return;
+    }
+    if (reducedMotion()) {
+      window.scrollTo(0, getTop());
+      resolve();
+      return;
+    }
+    let stopped = false;
+    const stop = () => { stopped = true; };
+    const done = () => {
+      USER_INPUT.forEach((type) => window.removeEventListener(type, stop));
+      resolve();
+    };
+    USER_INPUT.forEach((type) => window.addEventListener(type, stop, { passive: true }));
+    let start;
+    const step = (now) => {
+      if (stopped) {
+        done();
+        return;
+      }
+      if (start === undefined) start = now;
+      const progress = Math.min((now - start) / duration, 1);
+      window.scrollTo(0, from + (getTop() - from) * progress);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+        return;
+      }
+      setTimeout(() => {
+        if (!stopped) window.scrollTo(0, getTop());
+        done();
+      }, 150);
+    };
+    requestAnimationFrame(step);
+  });
+}
+
+function slide(list, open) {
+  return new Promise((resolve) => {
+    if (reducedMotion() || isDesktop.matches) {
+      resolve();
+      return;
+    }
+    const id = (Number(list.dataset.slide) || 0) + 1;
+    list.dataset.slide = id;
+    list.style.maxHeight = `${open ? 0 : list.scrollHeight}px`;
+    list.getBoundingClientRect();
+    list.style.maxHeight = `${open ? Math.min(list.scrollHeight, window.innerHeight) : 0}px`;
+    setTimeout(() => {
+      if (Number(list.dataset.slide) === id) list.style.removeProperty('max-height');
+      resolve();
+    }, SLIDE_DURATION + 50);
+  });
+}
+
+async function setOpen(block, toggle, open, animate = true) {
+  const list = block.querySelector('.anchor-nav-links');
+  const isOpen = block.classList.contains('anchor-nav-open');
+  if (open === isOpen) return;
   toggle.setAttribute('aria-expanded', String(open));
+  block.classList.toggle('anchor-nav-open', open);
+  if (!animate) {
+    block.classList.remove('anchor-nav-closing');
+    list.style.removeProperty('max-height');
+    return;
+  }
+  block.classList.toggle('anchor-nav-closing', !open);
+  await slide(list, open);
+  if (!open && !block.classList.contains('anchor-nav-open')) block.classList.remove('anchor-nav-closing');
 }
 
 function setupPinning(block, placeholder, title) {
@@ -33,12 +110,12 @@ function setupPinning(block, placeholder, title) {
   function update() {
     const offset = getHeaderOffset();
     const shouldPin = placeholder.getBoundingClientRect().top <= offset;
-    const open = block.classList.contains('anchor-nav-open');
+    const open = block.matches('.anchor-nav-open, .anchor-nav-closing');
     if (!shouldPin && !open) inPageHeight = block.offsetHeight;
-    const starts = links.map((link) => {
+    const boxes = links.map((link) => {
       const target = getTarget(link);
-      return target && target.getBoundingClientRect().top
-        - (parseFloat(getComputedStyle(target).marginTop) || 0);
+      if (!target || !target.getClientRects().length) return null;
+      return target.getBoundingClientRect();
     });
 
     placeholder.style.setProperty('--anchor-nav-placeholder-height', shouldPin ? `${inPageHeight}px` : '0px');
@@ -52,7 +129,7 @@ function setupPinning(block, placeholder, title) {
     const limit = offset + inPageHeight + 1;
     let active = null;
     links.forEach((link, i) => {
-      if (starts[i] !== null && starts[i] <= limit) active = link;
+      if (boxes[i] && boxes[i].top <= limit && boxes[i].bottom > limit) active = link;
     });
     links.forEach((link) => {
       const isActive = link === active;
@@ -78,6 +155,7 @@ function setupPinning(block, placeholder, title) {
 
   requestAnimationFrame(scheduleUpdate);
   window.addEventListener('load', scheduleUpdate);
+  new ResizeObserver(scheduleUpdate).observe(document.body);
 }
 
 export default function decorate(block) {
@@ -117,17 +195,24 @@ export default function decorate(block) {
   title.textContent = DEFAULT_TITLE;
   toggle.append(title);
   toggle.insertAdjacentHTML('beforeend', CHEVRON);
-  toggle.addEventListener('click', () => {
-    const open = !block.classList.contains('anchor-nav-open');
-    if (open && !block.classList.contains('anchor-nav-pinned')) {
-      const placeholder = block.previousElementSibling;
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.scrollTo({
-        top: placeholder.getBoundingClientRect().top + window.scrollY - getHeaderOffset() + 1,
-        behavior: reduceMotion ? 'auto' : 'smooth',
-      });
+  let busy = false;
+
+  toggle.addEventListener('click', async () => {
+    if (busy) return;
+    if (block.classList.contains('anchor-nav-open')) {
+      setOpen(block, toggle, false);
+      return;
     }
-    setOpen(block, toggle, open);
+    if (!block.classList.contains('anchor-nav-pinned')) {
+      busy = true;
+      const placeholder = block.previousElementSibling;
+      await scrollWindowTo(
+        () => placeholder.getBoundingClientRect().top + window.scrollY - getHeaderOffset() + 1,
+        PIN_DURATION,
+      );
+      busy = false;
+    }
+    setOpen(block, toggle, true);
   });
   row.prepend(toggle);
 
@@ -137,47 +222,28 @@ export default function decorate(block) {
       toggle.focus();
     }
   });
-  isDesktop.addEventListener('change', () => setOpen(block, toggle, false));
+  isDesktop.addEventListener('change', () => setOpen(block, toggle, false, false));
 
   document.addEventListener('click', (e) => {
     if (!block.classList.contains('anchor-nav-open')) return;
     if (e.target === block || !block.contains(e.target)) setOpen(block, toggle, false);
   });
 
-  let cancelSettle = () => {};
-
-  ul.addEventListener('click', (e) => {
+  ul.addEventListener('click', async (e) => {
     const link = e.target.closest('a');
     const target = link && getTarget(link);
     if (!target) return;
     e.preventDefault();
-    setOpen(block, toggle, false);
+    if (busy) return;
+    busy = true;
     window.history.pushState(null, '', link.getAttribute('href'));
-    cancelSettle();
-
-    const delta = () => target.getBoundingClientRect().top - getHeaderOffset() - block.offsetHeight;
-    if (Math.abs(delta()) <= 1) return;
-    const scrollToTarget = (behavior) => {
-      window.scrollTo({ top: window.scrollY + delta(), behavior });
-    };
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    scrollToTarget(reduceMotion ? 'auto' : 'smooth');
-
-    const userInput = ['wheel', 'touchstart', 'keydown'];
-    let timer;
-    const settle = () => {
-      cancelSettle();
-      if (Math.abs(delta()) > 1) scrollToTarget('auto');
-    };
-    cancelSettle = () => {
-      window.removeEventListener('scrollend', settle);
-      clearTimeout(timer);
-      userInput.forEach((type) => window.removeEventListener(type, cancelSettle));
-      cancelSettle = () => {};
-    };
-    userInput.forEach((type) => window.addEventListener(type, cancelSettle, { passive: true }));
-    if ('onscrollend' in window) window.addEventListener('scrollend', settle);
-    else timer = setTimeout(settle, 1000);
+    await setOpen(block, toggle, false);
+    await scrollWindowTo(
+      () => target.getBoundingClientRect().top + window.scrollY
+        - getHeaderOffset() - block.offsetHeight + 1,
+      SCROLL_DURATION,
+    );
+    busy = false;
   });
 
   const placeholder = document.createElement('div');

@@ -91,6 +91,10 @@ header {
   height: var(--header-height);
 }
 
+body:not([data-no-newsroom], [data-breadcrumbs]) header {
+  background: linear-gradient(#fff var(--nav-height), #000 var(--nav-height));
+}
+
 header .header,
 footer .footer {
   visibility: hidden;
@@ -99,10 +103,6 @@ footer .footer {
 header .header[data-block-status="loaded"],
 footer .footer[data-block-status="loaded"] {
   visibility: visible;
-}
-
-body:not(.header-ready) header .header[data-block-status="loaded"] {
-  visibility: hidden;
 }
 
 @media (width >= 900px) {

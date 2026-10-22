@@ -109,8 +109,6 @@ export default async function initSearchPanel(nav, form, input) {
     loadCSS(`${window.hlx.codeBasePath}/blocks/header/search-suggest.css`),
   ]);
   const clientGuid = getClientGuid();
-  // const resultsPage = getResultsPage();
-  // form.action = resultsPage;
   form.dataset.ready = 'true';
   const label = (key, fallback) => placeholders[key] || fallback;
   form.setAttribute('aria-label', label('searchSiteLabel', 'Site search'));

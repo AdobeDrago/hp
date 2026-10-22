@@ -321,16 +321,6 @@ function decorateTools(navTools) {
       && !(nav && nav.classList.contains('nav-search-open'));
   });
 
-  // fall back to the page's locale if someone submits before the panel code has loaded
-  // searchForm.addEventListener('submit', async (e) => {
-  //   if (searchForm.dataset.ready || getMetadata('search-results-page')) return;
-  //   e.preventDefault();
-  //   if (!searchInput.value.trim()) return;
-  //   const { default: getPageLocale } = await import('../../scripts/locale.js');
-  //   searchForm.action = `/${getPageLocale()}/newsroom/search`;
-  //   searchForm.submit();
-  // });
-
   // load the results panel once, on first interaction with the search form
   let panelReady;
   const loadPanel = () => {

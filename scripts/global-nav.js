@@ -1,6 +1,8 @@
 const CODE_BASE = new URL('..', import.meta.url);
 const DEFAULT_LINK_BASE = 'https://www.hp.com';
 const PARTIALS = { header: 'nav', footer: 'footer' };
+// extra block stylesheets loaded up front, same as the block's own css
+const EXTRA_STYLES = { header: ['blocks/header/search-suggest.css'], footer: [] };
 
 window.hlx = window.hlx || {};
 window.hlx.rum = window.hlx.rum || { isSelected: false };
@@ -43,6 +45,7 @@ async function render(host, type) {
     fetch(contentUrl),
     loadStylesheet(shadow, codeUrl('styles/styles.css')),
     loadStylesheet(shadow, codeUrl(`blocks/${type}/${type}.css`)),
+    ...EXTRA_STYLES[type].map((path) => loadStylesheet(shadow, codeUrl(path))),
   ]);
   if (!resp.ok) throw new Error(`could not load ${contentUrl} (${resp.status})`);
 

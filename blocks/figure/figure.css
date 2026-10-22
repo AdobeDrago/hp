@@ -18,6 +18,22 @@
   .figure img {
     width: var(--figure-width, auto);
   }
+
+  .figure.right {
+    float: right;
+    width: var(--figure-width, 50%);
+    margin: 0 0 0.625rem 0.625rem;
+  }
+
+  .figure.right img {
+    width: 100%;
+  }
+
+  main > .section:has(.figure.right)::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
 }
 
 .figure p:has(> em:only-child) {

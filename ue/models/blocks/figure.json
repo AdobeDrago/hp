@@ -62,8 +62,16 @@
             { "name": "Natural size", "value": "" },
             { "name": "80%", "value": "width-80" },
             { "name": "64%", "value": "width-64" },
-            { "name": "50%", "value": "width-50" }
+            { "name": "50%", "value": "width-50" },
+            { "name": "40%", "value": "width-40" }
           ]
+        },
+        {
+          "component": "boolean",
+          "name": "classes_right",
+          "label": "Float right",
+          "description": "On tablet and desktop the image sits on the right and the following text wraps around it; on mobile it shows above the text.",
+          "valueType": "boolean"
         }
       ]
     }

@@ -13,6 +13,12 @@ const ICON_EXTERNAL = '<svg class="footnotes-external-icon" viewBox="0 0 16 16" 
 const URL_PATTERN = /https?:\/\/\S+/g;
 const TRAILING_PUNCTUATION = /[.,;:!?'"\]}>]+$/;
 
+// GTM value from the link itself: "http://aka.ms/WindowsAIFeatures" -> "aka-ms-windowsaifeatures"
+const gtmValueOf = (url) => url.toLowerCase()
+  .replace(/^https?:\/\/(www\.)?/, '')
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-|-$/g, '');
+
 function trimUrl(raw) {
   let url = raw.replace(TRAILING_PUNCTUATION, '');
   while (url.endsWith(')') && (url.match(/\(/g) || []).length < (url.match(/\)/g) || []).length) {
@@ -32,6 +38,9 @@ function appendLinkified(target, text) {
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
     link.textContent = url;
+    link.dataset.gtmCategory = 'linkClick';
+    link.dataset.gtmId = 'footnotes';
+    link.dataset.gtmValue = gtmValueOf(url);
     const hint = document.createElement('span');
     hint.className = 'footnotes-visually-hidden';
     hint.textContent = ' (opens in a new tab)';

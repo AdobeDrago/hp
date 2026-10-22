@@ -72,11 +72,14 @@ function card(it, gtmId) {
   return a;
 }
 
-function arrow(dir) {
+function arrow(dir, gtmId) {
   const d = dir === 'prev' ? 'M19 12H5M11 6l-6 6 6 6' : 'M5 12h14M13 6l6 6-6 6';
   const btn = el('button', `pkl-nav-btn pkl-${dir}`);
   btn.type = 'button';
   btn.setAttribute('aria-label', dir === 'prev' ? 'Previous' : 'Next');
+  btn.dataset.gtmCategory = 'linkClick';
+  btn.dataset.gtmId = gtmId;
+  btn.dataset.gtmValue = `${dir}-arrow`;
   btn.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="${d}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   return btn;
 }
@@ -109,14 +112,18 @@ async function resolveItems(links) {
 export default async function decorate(block) {
   // gtm id comes from the metadata attribute (data-gtm_id) on an ancestor, else the default
   const gtmHolder = block.closest('[data-gtm_id]');
-  const gtmId = gtmHolder?.dataset.gtm_id || DEFAULT_GTM_ID;
+  // right under the newsroom hero, hp.com reports the carousel as part of the top banner
+  const section = block.closest('.section');
+  const inHero = [section, section?.previousElementSibling]
+    .some((s) => s?.classList.contains('hero-container'));
+  const gtmId = gtmHolder?.dataset.gtm_id || (inHero ? 'newsroom_top_hero_banner' : DEFAULT_GTM_ID);
   gtmHolder?.removeAttribute('data-gtm_id'); // keep the metadata attribute off the wrapper div
   const links = [...block.querySelectorAll('a[href]')];
   block.textContent = '';
 
   const nav = el('div', 'pkl-nav');
-  const prev = arrow('prev');
-  const next = arrow('next');
+  const prev = arrow('prev', gtmId);
+  const next = arrow('next', gtmId);
   nav.append(prev, next);
 
   const track = el('div', 'pkl-track');

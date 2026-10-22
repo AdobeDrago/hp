@@ -51,6 +51,10 @@ main > .section.press-contact-container {
   text-decoration: underline;
 }
 
+.press-contact-body a:any-link:hover {
+  background-color: #0000001a;
+}
+
 .press-contact-item + .press-contact-item::before {
   content: '';
   display: block;

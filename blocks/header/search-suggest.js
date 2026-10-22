@@ -1,7 +1,7 @@
 import { fetchPlaceholders, loadCSS } from '../../scripts/aem.js';
 import {
   HAWK_AUTOCOMPLETE_API, createElement, createImage, getField, formatPrice,
-  fetchSupport, getResultsPage, getClientGuid, safeDecode, supportProductUrl,
+  fetchSupport, getClientGuid, safeDecode, supportProductUrl,
   hpSearchUrl, supportSearchUrl,
 } from '../../scripts/search-utils.js';
 
@@ -109,8 +109,8 @@ export default async function initSearchPanel(nav, form, input) {
     loadCSS(`${window.hlx.codeBasePath}/blocks/header/search-suggest.css`),
   ]);
   const clientGuid = getClientGuid();
-  const resultsPage = getResultsPage();
-  form.action = resultsPage;
+  // const resultsPage = getResultsPage();
+  // form.action = resultsPage;
   form.dataset.ready = 'true';
   const label = (key, fallback) => placeholders[key] || fallback;
   form.setAttribute('aria-label', label('searchSiteLabel', 'Site search'));

@@ -125,6 +125,10 @@
   vertical-align: top;
 }
 
+.columns.gallery.natural.block > div > div img {
+  height: auto;
+}
+
 .columns.gallery.block p:has(> em:only-child) {
   padding-top: 0.5rem;
   font-size: 1rem;

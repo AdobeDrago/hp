@@ -494,3 +494,7 @@
     clip-path: polygon(10.9375rem 0, 100% 0, 57.8937rem 100%, 0 100%);
   }
 }
+
+.article-detail .hero.compact .hero-content h1 ~ p:nth-last-child(2) {
+  padding-bottom: 0;
+}

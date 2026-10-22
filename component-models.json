@@ -287,11 +287,19 @@
         "name": "classes",
         "label": "Style",
         "valueType": "string",
-        "description": "Press = press release image grid. With 3 columns each cell is an image with left-aligned text below; with 2 columns each image is centered at its own size with a centered caption.",
+        "description": "Press = press release image grid. With 3 columns each cell is an image with left-aligned text below; with 2 columns each image is centered at its own size with a centered caption. Gallery = row of images in equal-height boxes with a centered caption below each; add Natural size to show each image at its own size instead.",
         "options": [
           {
             "name": "Press",
             "value": "press"
+          },
+          {
+            "name": "Gallery",
+            "value": "gallery"
+          },
+          {
+            "name": "Natural size",
+            "value": "natural"
           }
         ]
       },
@@ -444,6 +452,23 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      },
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "description": "Centered = text column and photo side by side. Compact = article hero without the blank line between the subtitle and the date.",
+        "options": [
+          {
+            "name": "Centered",
+            "value": "centered"
+          },
+          {
+            "name": "Compact",
+            "value": "compact"
+          }
+        ]
       }
     ]
   },

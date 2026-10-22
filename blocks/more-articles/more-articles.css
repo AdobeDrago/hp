@@ -51,15 +51,7 @@ main > .section:has(.more-articles) {
   font-size: 1.4rem;
   line-height: 1.25;
   font-weight: 700;
-}
-
-.more-articles .ma-card-title a {
   color: #111;
-  text-decoration: none;
-}
-
-.more-articles .ma-card-title a:hover {
-  text-decoration: underline;
 }
 
 /* ===== Read CTA ===== */

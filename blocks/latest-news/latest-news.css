@@ -50,15 +50,7 @@ main > .section:has(.latest-news) {
   font-size: 1.6rem;
   line-height: 1.25;
   font-weight: 700;
-}
-
-.latest-news .lnl-card-title a {
   color: #111;
-  text-decoration: none;
-}
-
-.latest-news .lnl-card-title a:hover {
-  text-decoration: underline;
 }
 
 .latest-news .lnl-card-desc {

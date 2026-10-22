@@ -271,7 +271,7 @@
     padding: 0 20px;
 }
 
-.article-detail .section h2, .article-detail .section h3 {
+.article-detail .section :where(.default-content-wrapper) h2, .article-detail .section :where(.default-content-wrapper) h3 {
     font-size: 1.375rem;
     line-height: 1.625rem;
 }
@@ -299,7 +299,7 @@
     font-size: 1.75rem;
   }
 
-  .article-detail .section h2, .article-detail .section h3 {
+  .article-detail .section :where(.default-content-wrapper) h2, .article-detail .section :where(.default-content-wrapper) h3 {
     font-size: 1.625rem;
     line-height: 1.875rem;
   }
@@ -326,7 +326,7 @@
     line-height: 2.125rem;
   }
 
-  .article-detail .section h2, .article-detail .section h3 {
+  .article-detail .section :where(.default-content-wrapper) h2, .article-detail .section :where(.default-content-wrapper) h3 {
     font-size: 1.75rem;
     line-height: 2.215rem;
   }

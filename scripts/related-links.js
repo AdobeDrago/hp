@@ -1,33 +1,40 @@
 // client-side fallback for the newsroom "Related links" block, used where the
 // related-links edge function has not already injected it into the page HTML
-import { buildBlock, decorateBlock, loadBlock } from './aem.js';
+import { buildBlock, loadSections } from './aem.js';
+import { decorateMain } from './scripts.js';
 
-const BE_CAPSULE = 'https://api.brightedge.com/api/ixf/1.0.0/get_capsule/f00000000019918';
+const BRIGHTEDGE_ACCOUNT = 'f00000000019918';
+const CAPSULE_URL = `https://api.brightedge.com/api/ixf/1.0.0/get_capsule/${BRIGHTEDGE_ACCOUNT}`;
+const CANONICAL_HOST = 'www.hp.com';
 
-export default async function loadRelatedLinksFallback() {
-  const main = document.querySelector('main');
-  if (!main || main.querySelector('.related-links')) return;
-  if (!window.location.pathname.startsWith('/us-en/newsroom')) return;
+async function getCapsule(name) {
+  try {
+    const res = await fetch(`${CAPSULE_URL}/${name}`);
+    return res.ok ? await res.json() : null;
+  } catch {
+    return null;
+  }
+}
 
+async function fetchLinks() {
   // eslint-disable-next-line import/no-relative-packages
   const be = await import('../aem-edge-functions/src/lib/brightedge.js');
-  const canonical = be.canonicalizeUrl(window.location.pathname, 'www.hp.com');
-  const getCapsule = async (name) => {
-    try {
-      const res = await fetch(`${BE_CAPSULE}/${name}`);
-      return res.ok ? await res.json() : null;
-    } catch {
-      return null;
-    }
-  };
+  const canonical = be.canonicalizeUrl(window.location.pathname, CANONICAL_HOST);
 
   let capsule = await getCapsule(be.getPageHash(canonical));
-  if (!capsule) return;
+  if (!capsule) return [];
   let { links } = be.resolveLinks(capsule, canonical);
   if (!links.length && be.needsDefaultCapsule(capsule)) {
     capsule = await getCapsule('default.json');
     if (capsule) ({ links } = be.resolveLinks(capsule, canonical));
   }
+  return links;
+}
+
+export default async function loadRelatedLinks(main = document.querySelector('main')) {
+  if (!main || main.querySelector('.related-links')) return;
+
+  const links = await fetchLinks();
   if (!links.length || main.querySelector('.related-links')) return;
 
   const rows = links.map(({ url, text }) => {
@@ -37,13 +44,10 @@ export default async function loadRelatedLinksFallback() {
     return [a];
   });
   const section = document.createElement('div');
-  section.className = 'section';
-  const wrapper = document.createElement('div');
-  const block = buildBlock('related-links', rows);
-  wrapper.append(block);
-  section.append(wrapper);
-  main.append(section);
-  decorateBlock(block);
-  await loadBlock(block);
-  section.dataset.sectionStatus = 'loaded';
+  section.append(buildBlock('related-links', rows));
+  const fragment = document.createElement('div');
+  fragment.append(section);
+  decorateMain(fragment);
+  main.append(...fragment.children);
+  await loadSections(main);
 }

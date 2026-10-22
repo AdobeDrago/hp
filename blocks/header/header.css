@@ -1443,7 +1443,7 @@ header .nav-wrapper .nav-newsroom.nav-newsroom-open::after {
     /* Background stays full-bleed (element is full width); the horizontal
        padding constrains the content to a centered max-width column. */
     min-height: 4rem;
-    padding: 0 max(24px, calc((100% - 1280px) / 2));
+    padding: 0 max(1.5rem, calc((100% - 80rem) / 2));
     gap: 0 40px;
   }
 

@@ -144,6 +144,15 @@ async function loadLazy(doc) {
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
 
+  if (window.location.pathname.startsWith('/us-en/newsroom') && !main.querySelector('.related-links')) {
+    import('./related-links.js')
+      .then(({ default: loadRelatedLinks }) => loadRelatedLinks())
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('failed to load related links', error);
+      });
+  }
+
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
 }

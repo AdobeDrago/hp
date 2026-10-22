@@ -1,4 +1,4 @@
-import { fetchPlaceholders, loadCSS } from '../../scripts/aem.js';
+import { fetchPlaceholders } from '../../scripts/aem.js';
 import {
   HAWK_AUTOCOMPLETE_API, createElement, createImage, getField, formatPrice,
   fetchSupport, getResultsPage, getClientGuid, safeDecode, supportProductUrl,
@@ -6,6 +6,22 @@ import {
 } from '../../scripts/search-utils.js';
 
 const MIN_CHARS = 2;
+
+// same as global-nav.js: absolute url from this module, into whichever root holds the header
+function loadStyles(nav) {
+  const { href } = new URL('./search-suggest.css', import.meta.url);
+  const root = nav.getRootNode();
+  const target = root instanceof ShadowRoot ? root : document.head;
+  if (target.querySelector(`link[href="${href}"]`)) return Promise.resolve();
+  return new Promise((resolve) => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    link.onload = resolve;
+    link.onerror = resolve;
+    target.append(link);
+  });
+}
 
 // autocomplete items keep their fields under Results.Document
 function itemField(item, name) {
@@ -106,7 +122,7 @@ function buildSupportCard(product) {
 export default async function initSearchPanel(nav, form, input) {
   const [placeholders] = await Promise.all([
     fetchPlaceholders(),
-    loadCSS(`${window.hlx.codeBasePath}/blocks/header/search-suggest.css`),
+    loadStyles(nav),
   ]);
   const clientGuid = getClientGuid();
   const resultsPage = getResultsPage();

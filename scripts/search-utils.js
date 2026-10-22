@@ -1,4 +1,4 @@
-import { getMetadata, fetchPlaceholders, toCamelCase } from './aem.js';
+import { getMetadata, fetchPlaceholders } from './aem.js';
 import getPageLocale from './locale.js';
 
 export const HAWK_AUTOCOMPLETE_API = 'https://hp.searchapi-na.hawksearch.com/api/v2/autocomplete';
@@ -9,7 +9,7 @@ const HP_SITE = 'https://www.hp.com';
 
 // origin serving this code; differs from the page origin when embedded on another site
 const CODE_ORIGIN = new URL(import.meta.url).origin;
-const isEmbedded = CODE_ORIGIN !== window.location.origin;
+export const isEmbedded = CODE_ORIGIN !== window.location.origin;
 
 // metadata of this site's own pages, for when the header is embedded and the host page has none
 const siteMeta = {};
@@ -35,16 +35,9 @@ export function getSearchConfig(name) {
   return getMetadata(name) || siteMeta[name];
 }
 
-/** placeholders.json from this site; embedded, the host's own /placeholders.json is wrong */
-export async function loadPlaceholders() {
-  if (!isEmbedded) return fetchPlaceholders();
-  try {
-    const resp = await fetch(`${CODE_ORIGIN}/placeholders.json`);
-    const { data = [] } = resp.ok ? await resp.json() : {};
-    return Object.fromEntries(data.filter((p) => p.Key).map((p) => [toCamelCase(p.Key), p.Text]));
-  } catch {
-    return {};
-  }
+/** placeholders.json of this site; embedded, the host's own /placeholders.json is the wrong one */
+export function loadPlaceholders() {
+  return fetchPlaceholders(isEmbedded ? CODE_ORIGIN : 'default');
 }
 
 /**

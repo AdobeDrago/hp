@@ -606,10 +606,18 @@
     grid-template-columns: repeat(2, 1fr);
     width: 658px;
     margin: 34px auto 0;
+    border-top: none;
   }
 
   .articles-listing .al-card {
     flex-direction: column;
+  
+  }
+
+  .articles-listing .al-card:nth-child(1),
+  .articles-listing .al-card:nth-child(2),
+  .articles-listing .al-card:nth-child(3) {
+    border-top: 1px solid #000;
   }
 
   .articles-listing .al-card-title-text {

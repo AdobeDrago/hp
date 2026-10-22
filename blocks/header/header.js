@@ -6,6 +6,8 @@ import {
 
 const isDesktop = window.matchMedia('(min-width: 1280px)');
 const accountHover = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
+// from this width the search box stays visible even when the bar is "closed"
+const searchAlwaysVisible = window.matchMedia('(min-width: 1680px)');
 
 const SEARCH_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.097 3.012a6.534 6.534 0 0 0-2.354.6 6.582 6.582 0 0 0-1.53 1.002 9.052 9.052 0 0 0-.598.597 6.511 6.511 0 0 0-1.123 1.803 6.53 6.53 0 0 0 .06 5.11 6.533 6.533 0 0 0 3.292 3.31 6.521 6.521 0 0 0 4.525.292 6.51 6.51 0 0 0 2.236-1.187c.057-.047.11-.09.117-.094.009-.005.837.817 3.002 2.982 2.7 2.698 2.995 2.991 3.046 3.017.201.1.432.061.586-.098a.497.497 0 0 0 .087-.576c-.026-.05-.319-.346-3.018-3.046-2.804-2.805-2.989-2.992-2.976-3.008l.129-.161a6.475 6.475 0 0 0 1.418-3.931 6.47 6.47 0 0 0-.562-2.778 6.53 6.53 0 0 0-2.707-2.988 6.475 6.475 0 0 0-2.841-.847 9.95 9.95 0 0 0-.79.001Zm.716.997a5.49 5.49 0 0 1 4.238 2.404 5.507 5.507 0 0 1 .499 5.265 5.52 5.52 0 0 1-2.586 2.74 5.479 5.479 0 0 1-1.997.562c-.23.022-.703.022-.934 0a5.5 5.5 0 0 1 .204-10.974c.115-.007.44-.005.576.003Z"/></svg>';
 const CART_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.38 4.01a.52.52 0 0 0-.32.26.44.44 0 0 0-.06.23.5.5 0 0 0 .4.49h.7c.69 0 .75.01.89.05.32.1.58.35.68.67l.83 5.37.85 5.41A2 2 0 0 0 8.48 18l.34.01a.56.56 0 0 1-.1.02 2.04 2.04 0 0 0-.45.12 2 2 0 0 0-1.25 1.55 2.82 2.82 0 0 0 0 .62 2 2 0 0 0 2.24 1.67 2 2 0 0 0 1.67-1.48c.05-.18.06-.3.06-.5s-.01-.33-.06-.5a2 2 0 0 0-1.68-1.48.23.23 0 0 1-.07-.02 360.1 360.1 0 0 1 3.32 0h3.32a.74.74 0 0 1-.12.02 1.98 1.98 0 0 0-1.14.59 1.98 1.98 0 0 0-.49.86 1.57 1.57 0 0 0-.06.53c0 .26 0 .33.06.53a2 2 0 0 0 1.67 1.45c.16.02.46.02.6-.01a2 2 0 0 0 1.52-1.24c.15-.38.18-.85.07-1.26a2 2 0 0 0-1.7-1.46h-.05c0-.01.32-.02.95-.02h.96l.06-.02a.5.5 0 0 0 .34-.39.5.5 0 0 0-.35-.56c-.05-.02-.22-.02-5.03-.02H8.12l-.08-.03a1.01 1.01 0 0 1-.7-.67 12.23 12.23 0 0 1-.14-.79l4.93-.01c4.57 0 4.93 0 5.01-.02a2 2 0 0 0 1.09-.54 1.98 1.98 0 0 0 .5-.77 682.89 682.89 0 0 0 1.35-4.97.97.97 0 0 0-.1-.65 1 1 0 0 0-.65-.53L19.25 8H6.05l-.19-1.17a84.06 84.06 0 0 0-.2-1.27 2.05 2.05 0 0 0-.36-.78 2.03 2.03 0 0 0-1.1-.72C3.97 4 4 4 3.17 4l-.8.01ZM19.1 9.02l-.65 2.42c-.62 2.32-.65 2.4-.7 2.5a1 1 0 0 1-.7.54c-.08.02-.3.02-5.02.02H7.08l-.42-2.75L6.23 9H19.1v.02ZM9.24 19.03A1 1 0 0 1 10 20a.92.92 0 0 1-.06.33 1.01 1.01 0 0 1-.7.64A.73.73 0 0 1 9 21a.72.72 0 0 1-.25-.02 1 1 0 0 1 .05-1.95c.12-.02.33-.02.44.01Zm6.91-.02c.14.02.3.08.41.16.07.05.2.18.26.25A.99.99 0 0 1 17 20a.98.98 0 0 1-.3.71.97.97 0 0 1-.46.26 1.28 1.28 0 0 1-.38.02A1 1 0 0 1 15 20a.99.99 0 0 1 .43-.82 1.11 1.11 0 0 1 .41-.17 1.46 1.46 0 0 1 .31 0Z"/></svg>';
@@ -75,7 +77,8 @@ function setSearchOpen(nav, open) {
   if (!searchBtn || !form) return;
   searchBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   nav.classList.toggle('nav-search-open', open);
-  form.hidden = !open;
+  // the box stays visible (and typeable) when the search is always shown
+  form.hidden = !open && !searchAlwaysVisible.matches;
   if (close) close.hidden = !open;
   const clear = form.querySelector('.nav-search-clear');
   if (clear) clear.hidden = !form.querySelector('input').value;
@@ -86,6 +89,9 @@ function setSearchOpen(nav, open) {
       setBodyScrollLock(false);
       closeAllPanels(nav);
     }
+    form.querySelector('input').focus();
+  } else if (searchAlwaysVisible.matches) {
+    // the box is still on screen: keep the caret in it so typing continues
     form.querySelector('input').focus();
   } else if (searchBtn.offsetParent) {
     searchBtn.focus();
@@ -252,7 +258,7 @@ function decorateTools(navTools) {
   searchForm.className = 'nav-search-form';
   searchForm.setAttribute('role', 'search');
   searchForm.action = SEARCH_URL;
-  searchForm.hidden = true;
+  searchForm.hidden = !searchAlwaysVisible.matches;
   const searchInput = document.createElement('input');
   searchInput.type = 'search';
   searchInput.name = 'keyword';
@@ -302,8 +308,18 @@ function decorateTools(navTools) {
     const open = searchBtn.getAttribute('aria-expanded') !== 'true';
     setSearchOpen(navTools.closest('nav'), open);
   });
-  searchClose.addEventListener('click', () => setSearchOpen(navTools.closest('nav'), false));
+  searchClose.addEventListener('click', () => {
+    searchInput.value = '';
+    setSearchOpen(navTools.closest('nav'), false);
+  });
   searchWrap.append(searchBtn, searchForm, searchClose);
+
+  // keep the box visible/hidden correctly when the window crosses the breakpoint
+  searchAlwaysVisible.addEventListener('change', () => {
+    const nav = navTools.closest('nav');
+    searchForm.hidden = !searchAlwaysVisible.matches
+      && !(nav && nav.classList.contains('nav-search-open'));
+  });
 
   // fall back to the page's locale if someone submits before the panel code has loaded
   searchForm.addEventListener('submit', async (e) => {
@@ -315,11 +331,36 @@ function decorateTools(navTools) {
     searchForm.submit();
   });
 
-  // load the results panel on first use
-  searchInput.addEventListener('focus', async () => {
-    const { default: initSearchPanel } = await import('./search-suggest.js');
-    initSearchPanel(navTools.closest('nav'), searchForm, searchInput);
-  }, { once: true });
+  // load the results panel once, on first interaction with the search form
+  let panelReady;
+  const loadPanel = () => {
+    if (!panelReady) {
+      panelReady = import('./search-suggest.js').then(({ default: initSearchPanel }) => (
+        initSearchPanel(navTools.closest('nav'), searchForm, searchInput)
+      ));
+    }
+    return panelReady;
+  };
+
+  const openSearch = () => {
+    const nav = navTools.closest('nav');
+    if (!nav.classList.contains('nav-search-open')) setSearchOpen(nav, true);
+  };
+
+  searchInput.addEventListener('focus', loadPanel);
+
+  searchForm.addEventListener('pointerdown', (e) => {
+    loadPanel();
+    if (!e.target.closest('button, input')) {
+      e.preventDefault();
+      searchInput.focus();
+    }
+  });
+
+  searchForm.addEventListener('click', (e) => {
+    if (e.target.closest('button') && !e.target.closest('.nav-search-clear')) return;
+    openSearch();
+  });
 
   const cartBtn = document.createElement('a');
   cartBtn.className = 'nav-tool-btn nav-cart-btn';
@@ -494,6 +535,35 @@ function toggleMobileMenu(nav, forceClose = false) {
   if (!open) closeAllPanels(nav);
 }
 
+// hp.com's slug rule for GTM values: "Ink, Toner & Paper" -> "ink-toner--paper"
+const gtmSlug = (text) => text.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s/g, '-');
+
+function tagNavLink(a, id, value) {
+  if (!value || a.dataset.gtmCategory) return;
+  a.dataset.gtmCategory = 'globalNavigation';
+  a.dataset.gtmId = id;
+  a.dataset.gtmValue = value;
+}
+
+// GTM ids as on hp.com: header|l1-logo, header|l2-laptops (cards), header|l3-laptops (featured).
+// A value= in the link title still wins, since decorateGtmLinks runs afterwards.
+function tagNavLinks(nav) {
+  nav.querySelectorAll('.nav-brand a').forEach((a) => tagNavLink(a, 'header|l1-logo', 'hp-logo'));
+  nav.querySelectorAll('.nav-drop').forEach((li) => {
+    const menu = gtmSlug(li.querySelector('.nav-menu-trigger')?.textContent || '');
+    li.querySelectorAll('.nav-panel-featured a').forEach((a) => {
+      tagNavLink(a, `header|l3-${menu}`, gtmSlug(a.textContent));
+    });
+    li.querySelectorAll('.nav-panel-cards li').forEach((card) => {
+      const value = gtmSlug(card.textContent);
+      card.querySelectorAll('a').forEach((a) => tagNavLink(a, `header|l2-${menu}`, value));
+    });
+  });
+  nav.querySelectorAll('.nav-cta-btn').forEach((a) => {
+    tagNavLink(a, `header|l1-${gtmSlug(a.textContent).split('-').pop()}`, gtmSlug(a.textContent));
+  });
+}
+
 async function loadNavHtml() {
   const navMeta = getMetadata('nav');
   const path = navMeta ? new URL(navMeta, window.location).pathname.replace(/\.html$/, '') : DEFAULT_HEADER_FRAGMENT;
@@ -628,6 +698,7 @@ export default async function decorate(block) {
     navWrapper.append(navNewsroom);
   }
 
+  tagNavLinks(nav);
   decorateGtmLinks(navWrapper);
   block.append(navWrapper);
 }

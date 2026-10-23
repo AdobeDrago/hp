@@ -90,6 +90,10 @@ header {
   height: var(--header-height);
 }
 
+body:not([data-no-newsroom], [data-breadcrumbs]) header {
+  background: linear-gradient(#fff var(--nav-height), #000 var(--nav-height));
+}
+
 header .header,
 footer .footer {
   visibility: hidden;

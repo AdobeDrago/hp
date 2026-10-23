@@ -1300,6 +1300,16 @@ header .nav-wrapper .nav-newsroom .nav-newsroom-brand {
   padding: 0 1.25rem;
 }
 
+header .nav-wrapper .nav-newsroom > p:not(.nav-newsroom-brand) {
+  flex-basis: 100%;
+}
+
+@media (width >= 768px) {
+  header .nav-wrapper .nav-newsroom > p:not(.nav-newsroom-brand) {
+    flex-basis: auto;
+  }
+}
+
 header .nav-wrapper .nav-newsroom .nav-newsroom-brand a {
   color: #fff;
   font-size: 1.125rem;

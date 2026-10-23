@@ -1485,8 +1485,6 @@ header .nav-wrapper .nav-newsroom.nav-newsroom-open::after {
     line-height: 1.5625rem;
   }
 
-  header .nav-wrapper .nav-newsroom ul li { display: flex; }
-
   header .nav-wrapper .nav-newsroom-toggle { display: none; }
 
   header .nav-wrapper .nav-newsroom p:last-child {

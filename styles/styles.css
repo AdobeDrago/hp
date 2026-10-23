@@ -54,7 +54,7 @@
   src: local('Arial');
 }
 
-@media (width >= 900px) {
+@media (width >= 1024px) {
   :root, :host {
     --body-font-size-m: 18px;
     --body-font-size-s: 16px;
@@ -104,7 +104,7 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
-@media (width >= 900px) {
+@media (width >= 1024px) {
   body[data-breadcrumbs] {
     --header-height: calc(var(--nav-height) + var(--breadcrumbs-height));
   }
@@ -254,7 +254,7 @@ main > .section:first-of-type {
   margin-top: 0;
 }
 
-@media (width >= 900px) {
+@media (width >= 1024px) {
   main > .section > div {
     padding: 0 32px;
   }
@@ -275,6 +275,252 @@ main > .section:first-of-type {
 @media (width >= 1280px) {
   :where(body.ai-solutions) main > .section > div {
     padding: 0 2.25rem;
+  }
+}
+
+:where(body.article-detail) main > .section.hero-container {
+  margin-bottom: 0;
+}
+
+:where(body.article-detail) main > .section.hero-container + .section {
+  margin-top: 1.125rem;
+}
+
+:where(body.article-detail) main > .section > :is(.default-content-wrapper, .columns-wrapper, .figure-wrapper) {
+  box-sizing: border-box;
+  max-width: 80rem;
+  padding: 0 1.25rem;
+  color: #000;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper :is(p, li) {
+  font-size: 1.25rem;
+  line-height: 1.625rem;
+}
+
+:where(body.article-detail) main > .section > :where(.columns-wrapper:has(> .columns:not(.press))) li {
+  font-size: 1.25rem;
+  line-height: 1.625rem;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper p {
+  margin: 0 0 1.625rem;
+  padding: 0;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper :is(h1, h2, h3, h4) {
+  margin: 0 0 1.625rem;
+  color: #000;
+  font-weight: 400;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper :is(h1, h2, h3, h4) :is(strong, b) {
+  font-weight: 700;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper h1 {
+  font-size: 1.625rem;
+  line-height: 1.75rem;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper h2 {
+  font-size: 1.5rem;
+  line-height: 1.625rem;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper h3 {
+  font-size: 1.375rem;
+  line-height: 1.625rem;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper h4 {
+  font-size: 1.25rem;
+  line-height: 1.625rem;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper :is(h1, h2, h3, h4):has(+ :is(ul, ol)) {
+  margin-bottom: 0.75rem;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper p:has(+ :is(ul, ol)) {
+  margin-bottom: 0.6875rem;
+}
+
+:where(body.article-detail) main > .section > :is(.default-content-wrapper, :where(.columns-wrapper:has(> .columns:not(.press)))) li + li {
+  margin-top: 0.3125rem;
+}
+
+:where(body.article-detail) main > .section > :is(.default-content-wrapper, :where(.columns-wrapper:has(> .columns:not(.press)))) ul {
+  margin: 0 0 2.25rem;
+  padding-left: 2.3438rem;
+  list-style: none;
+}
+
+:where(body.article-detail) main > .section > :is(.default-content-wrapper, :where(.columns-wrapper:has(> .columns:not(.press)))) ul > li {
+  position: relative;
+}
+
+:where(body.article-detail) main > .section > :is(.default-content-wrapper, :where(.columns-wrapper:has(> .columns:not(.press)))) ul > li::before {
+  content: '•';
+  position: absolute;
+  top: -0.025em;
+  left: -0.585em;
+  font-size: 1.5em;
+  line-height: inherit;
+}
+
+:where(body.article-detail) main > .section > :is(.default-content-wrapper, :where(.columns-wrapper:has(> .columns:not(.press)))) li > :is(ul, ol) {
+  margin: 0.3125rem 0 0;
+  padding-left: 2.5rem;
+}
+
+:where(body.article-detail) main > .section > :is(.default-content-wrapper, :where(.columns-wrapper:has(> .columns:not(.press)))) li > p {
+  margin: 0;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper :is(p, h3, li) a {
+  color: #000;
+  text-decoration: underline;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper sup {
+  position: relative;
+  top: 0.89em;
+  font-size: 0.52em;
+  line-height: 0;
+  vertical-align: top;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper p > picture img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  vertical-align: top;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper p.article-photo {
+  margin-bottom: 0.5rem;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper p.article-photo > picture img {
+  max-height: 21.25rem;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper:has(+ .columns-wrapper > .columns.gallery) > :is(h2, h3):last-child {
+  margin-bottom: 1.125rem;
+  text-align: center;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper p:has(> picture:only-child) {
+  text-align: center;
+}
+
+:where(body.article-detail) main > .section > .default-content-wrapper p:has(> picture) + p:has(> em:only-child) {
+  font-size: 1rem;
+  line-height: 1.375rem;
+  text-align: center;
+}
+
+:where(body.article-detail) main > .section > .columns-wrapper > :where(.columns:not(.press)) > div:has(> div > ul) {
+  gap: 0;
+}
+
+:where(body.article-detail) main > .section > .columns-wrapper > :where(.columns:not(.press)) > div > div:has(> ul) {
+  text-align: left;
+}
+
+:where(body.article-detail) main > .section > .columns-wrapper > .columns:not(.press) > div > div > ul {
+  margin-bottom: 0;
+}
+
+@media (width >= 768px) {
+  :where(body.article-detail) main > .section.hero-container + .section {
+    margin-top: 1.4375rem;
+  }
+
+  :where(body.article-detail) main > .section > .default-content-wrapper:has(+ .columns-wrapper > .columns.gallery) > :is(h2, h3):last-child {
+    margin-bottom: 1.4375rem;
+  }
+
+  :where(body.article-detail) main > .section > :is(.default-content-wrapper, .columns-wrapper, .figure-wrapper) {
+    padding: 0 1.875rem;
+  }
+
+  :where(body.article-detail) main > .section > .default-content-wrapper h1 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  :where(body.article-detail) main > .section > .default-content-wrapper h2 {
+    font-size: 2rem;
+    line-height: 2.25rem;
+  }
+
+  :where(body.article-detail) main > .section > .default-content-wrapper h3 {
+    font-size: 1.625rem;
+    line-height: 1.875rem;
+  }
+
+  :where(body.article-detail) main > .section > .columns-wrapper > :where(.columns:not(.press)) > div:has(> div > ul) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  :where(body.article-detail) main > .section > .columns-wrapper > :where(.columns:not(.press)) > div > div:has(> ul) {
+    flex: none;
+  }
+}
+
+@media (width >= 1280px) {
+  :where(body.article-detail) main > .section > :is(.default-content-wrapper, .columns-wrapper, .figure-wrapper) {
+    padding: 0 1.9375rem;
+  }
+
+  :where(body.article-detail) main > .section > .default-content-wrapper :is(p, li) {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+  }
+
+  :where(body.article-detail) main > .section > :where(.columns-wrapper:has(> .columns:not(.press))) li {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+  }
+
+  :where(body.article-detail) main > .section > .default-content-wrapper :is(p, h1, h2, h3, h4) {
+    margin-bottom: 1.75rem;
+  }
+
+  :where(body.article-detail) main > .section > .default-content-wrapper h1 {
+    font-size: 2.5rem;
+    line-height: 2.625rem;
+  }
+
+  :where(body.article-detail) main > .section > .default-content-wrapper h2 {
+    font-size: 2.125rem;
+    line-height: 2.5rem;
+  }
+
+  :where(body.article-detail) main > .section > .default-content-wrapper h3 {
+    font-size: 1.75rem;
+    line-height: 2.125rem;
+  }
+
+  :where(body.article-detail) main > .section > .default-content-wrapper h4 {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+  }
+
+  :where(body.article-detail) main > .section > :is(.default-content-wrapper, :where(.columns-wrapper:has(> .columns:not(.press)))) li + li {
+    margin-top: 0.375rem;
+  }
+
+  :where(body.article-detail) main > .section > :is(.default-content-wrapper, :where(.columns-wrapper:has(> .columns:not(.press)))) ul {
+    margin-bottom: 2.4375rem;
+    padding-left: 2.5781rem;
+  }
+
+  :where(body.article-detail) main > .section > :is(.default-content-wrapper, :where(.columns-wrapper:has(> .columns:not(.press)))) li > :is(ul, ol) {
+    margin-top: 0.375rem;
   }
 }
 

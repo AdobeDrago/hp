@@ -99,7 +99,7 @@ main > .section.related-links-container > div {
   text-decoration: underline;
 }
 
-@media (width >= 720px) {
+@media (width >= 768px) {
   .related-links .related-links-drawer {
     --related-links-gutter: 30px;
   }

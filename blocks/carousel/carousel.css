@@ -135,7 +135,7 @@
   left: calc(50% - 2px);
 }
 
-@media (width >= 600px) {
+@media (width >= 768px) {
   .carousel .carousel-navigation-buttons {
     left: 24px;
     right: 24px;
@@ -149,5 +149,181 @@
 
   .carousel .carousel-slide .carousel-slide-content[data-align='justify'] {
     --slide-content-width: auto;
+  }
+}
+
+.carousel.press .carousel-slides > .carousel-slide {
+  box-sizing: border-box;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 0;
+  padding: 4.375rem 1rem 2.375rem;
+}
+
+.carousel.press.large .carousel-slides > .carousel-slide {
+  padding: 1.5rem 2.75rem;
+}
+
+.carousel.press .carousel-slide .carousel-slide-image picture {
+  position: static;
+}
+
+.carousel.press .carousel-slide .carousel-slide-image picture > img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 25rem;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.carousel.press .carousel-slide .carousel-slide-content {
+  width: auto;
+  max-width: 46.875rem;
+  margin: 0;
+  padding: 0;
+  background: none;
+  color: #000;
+  text-align: center;
+}
+
+.carousel.press .carousel-slide-content :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  font-size: 1.375rem;
+  font-weight: 400;
+  line-height: 1.75rem;
+}
+
+.carousel.press .carousel-slide-content p {
+  margin: 0.5rem 0 0;
+  font-size: 1rem;
+  line-height: 1.375rem;
+}
+
+.carousel.press .carousel-slide-indicators {
+  display: none;
+}
+
+.carousel.press .carousel-navigation-buttons {
+  left: 0;
+  right: 0;
+}
+
+.carousel.press .carousel-navigation-buttons button,
+.carousel.press .carousel-navigation-buttons button:hover,
+.carousel.press .carousel-navigation-buttons button:focus {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0;
+  border: 0;
+  background: radial-gradient(circle, #0000008c 0.9375rem, transparent 0.97rem);
+  color: #fff;
+}
+
+.carousel.press .carousel-navigation-buttons button:hover,
+.carousel.press .carousel-navigation-buttons button:focus-visible {
+  background: radial-gradient(circle, #000c 0.9375rem, transparent 0.97rem);
+}
+
+.carousel.press .carousel-navigation-buttons button::after {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.carousel.press.carousel-at-start .slide-prev,
+.carousel.press.carousel-at-end .slide-next {
+  visibility: hidden;
+}
+
+.carousel.press.quote {
+  background-color: #000;
+}
+
+.carousel.press.quote .carousel-slides > .carousel-slide {
+  padding: 3rem 2.75rem;
+}
+
+.carousel.press.quote .carousel-slide .carousel-slide-content {
+  width: 100%;
+  max-width: 57.375rem;
+  color: #fff;
+}
+
+.carousel.press.quote .carousel-slide-content p {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.875rem;
+}
+
+.carousel.press:not(.quote) .carousel-slide-content p:only-child {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.625rem;
+}
+
+.carousel.press.quote .carousel-slide-content p:last-child:not(:first-child) {
+  margin-top: 1rem;
+  border-top: 0.1875rem solid #fff;
+  padding-top: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+}
+
+.carousel.press.quote .carousel-navigation-buttons button,
+.carousel.press.quote .carousel-navigation-buttons button:hover,
+.carousel.press.quote .carousel-navigation-buttons button:focus {
+  background: none;
+}
+
+@media (width >= 768px) {
+  .carousel.press .carousel-slides > .carousel-slide {
+    padding: 4.6875rem 4rem 2.375rem;
+  }
+
+  .carousel.press.large .carousel-slides > .carousel-slide {
+    padding: 4.6875rem 4rem;
+  }
+
+  .carousel.press .carousel-slide-content :is(h1, h2, h3, h4, h5, h6) {
+    font-size: 1.75rem;
+    line-height: 2.125rem;
+  }
+
+  .carousel.press .carousel-navigation-buttons {
+    left: 1.25rem;
+    right: 1.25rem;
+  }
+
+  .carousel.press.quote .carousel-slides > .carousel-slide {
+    padding: 6.125rem 6rem;
+  }
+
+  .carousel.press.quote .carousel-slide-content p {
+    font-size: 2.125rem;
+    line-height: 2.5rem;
+  }
+
+  .carousel.press.quote .carousel-slide-content p:last-child:not(:first-child) {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+  }
+}
+
+/* press kit event galleries show larger images than press releases (918 x 612 on hp.com) */
+.carousel.press.large .carousel-slide .carousel-slide-image picture > img {
+  max-width: min(100%, 57.375rem);
+  max-height: 38.25rem;
+}
+
+@media (width >= 1280px) {
+  .carousel.press .carousel-slide .carousel-slide-image picture > img {
+    max-height: 31.25rem;
+  }
+
+  .carousel.press:not(.quote) .carousel-slide-content p:only-child {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
   }
 }

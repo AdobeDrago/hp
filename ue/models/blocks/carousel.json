@@ -31,6 +31,23 @@
   ],
   "models": [
     {
+      "id": "carousel",
+      "fields": [
+        {
+          "component": "multiselect",
+          "name": "classes",
+          "label": "Style",
+          "valueType": "string",
+          "description": "Press = press release image gallery: each slide is an image with a centered title and optional text below. Press + Quote = black quote slider: each slide is one cell with the quote, then the attribution as the last paragraph.",
+          "options": [
+            { "name": "Press", "value": "press" },
+            { "name": "Quote", "value": "quote" },
+            { "name": "Large", "value": "large" }
+          ]
+        }
+      ]
+    },
+    {
       "id": "carousel-item",
       "fields": [
         {

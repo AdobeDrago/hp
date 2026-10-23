@@ -1,8 +1,8 @@
-import { fetchPlaceholders, loadCSS } from '../../scripts/aem.js';
+import { loadCSS } from '../../scripts/aem.js';
 import {
   HAWK_AUTOCOMPLETE_API, createElement, createImage, getField, formatPrice,
-  fetchSupport, getResultsPage, getClientGuid, safeDecode, supportProductUrl,
-  hpSearchUrl, supportSearchUrl,
+  fetchSupport, getClientGuid, safeDecode, supportProductUrl,
+  hpSearchUrl, supportSearchUrl, loadSiteMetadata, loadPlaceholders, isEmbedded,
 } from '../../scripts/search-utils.js';
 
 const MIN_CHARS = 2;
@@ -105,13 +105,15 @@ function buildSupportCard(product) {
 /** results panel under the header search; open/close of the bar lives in header.js */
 export default async function initSearchPanel(nav, form, input) {
   const [placeholders] = await Promise.all([
-    fetchPlaceholders(),
-    loadCSS(`${window.hlx.codeBasePath}/blocks/header/search-suggest.css`),
+    loadPlaceholders(),
+    loadSiteMetadata(),
+    // embedded, global-nav.js has already put the stylesheet in the shadow root
+    isEmbedded || loadCSS(`${window.hlx.codeBasePath}/blocks/header/search-suggest.css`),
   ]);
   const clientGuid = getClientGuid();
-  const resultsPage = getResultsPage();
-  form.action = resultsPage;
   form.dataset.ready = 'true';
+  // without a hawksearch client guid there is nothing to suggest; the plain form still submits
+  if (!clientGuid) return;
   const label = (key, fallback) => placeholders[key] || fallback;
   form.setAttribute('aria-label', label('searchSiteLabel', 'Site search'));
 

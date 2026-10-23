@@ -250,7 +250,7 @@
   line-height: 1.375rem;
 }
 
-.articles-listing .al-card-title a {
+.articles-listing .al-card-title-text {
   display: -webkit-box;
   overflow: hidden;
   color: #000;
@@ -260,8 +260,6 @@
   -webkit-line-clamp: 4;
   line-clamp: 4;
 }
-
-.articles-listing .al-card-title a:hover { text-decoration: underline; }
 
 .articles-listing .al-card-desc {
   display: none;
@@ -629,7 +627,7 @@
     border-top: 1px solid #000;
   }
 
-  .articles-listing .al-card-title a {
+  .articles-listing .al-card-title-text {
     -webkit-line-clamp: 3;
     line-clamp: 3;
   }

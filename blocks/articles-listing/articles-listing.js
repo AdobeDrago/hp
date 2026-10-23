@@ -113,14 +113,11 @@ const slugOf = (path) => path.split('/').pop().replace(/\.html$/, '');
 
 function card(it, level, gtmId) {
   const art = el('article', 'al-card');
-  const media = el('a', 'al-card-media');
-  media.href = it.path;
-  if (it.image) media.append(createOptimizedPicture(it.image, it.title, false, [{ width: '750' }]));
+  const media = el('div', 'al-card-media');
+  if (it.image) media.append(createOptimizedPicture(it.image, '', false, [{ width: '750' }]));
   const body = el('div', 'al-card-body');
   const h = el(`h${level}`, 'al-card-title');
-  const ha = el('a', null, it.title);
-  ha.href = it.path;
-  h.append(ha);
+  h.append(el('span', 'al-card-title-text', it.title));
   body.append(h);
   const desc = (it.description || '').trim();
   if (desc && desc.toLowerCase() !== 'null') body.append(el('p', 'al-card-desc', desc));
@@ -128,7 +125,7 @@ function card(it, level, gtmId) {
   cta.append(el('span', 'al-sr-only', `: ${it.title}`));
   cta.href = it.path;
   body.append(cta);
-  [media, ha, cta].forEach((a) => addGtm(a, gtmId, slugOf(it.path)));
+  addGtm(cta, gtmId, slugOf(it.path));
   art.append(media, body);
   return art;
 }

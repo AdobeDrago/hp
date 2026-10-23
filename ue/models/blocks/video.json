@@ -31,6 +31,13 @@
         },
         {
           "component": "boolean",
+          "name": "classes_modal",
+          "label": "Open in a popup",
+          "description": "Shows a button on a black band that opens the video in a popup, as on press kits. The Video URL Text is the button label (default: Watch video).",
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
           "name": "classes_autoplay",
           "label": "Autoplay Video",
           "valueType": "boolean"

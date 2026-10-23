@@ -119,3 +119,73 @@
   border-bottom-width: 0.6875rem;
   border-left-width: 1.125rem;
 }
+
+/* modal: a full-bleed black band with a button that opens the video in a modal */
+main > .section.hero-container + .section:has(> .video-wrapper:first-child > .video.modal) {
+  margin-top: 0;
+}
+
+.video.modal {
+  max-width: none;
+  margin: 0;
+  padding: 5.375rem 0;
+  background-color: #000;
+  box-shadow: 0 0 0 100vmax #000;
+  clip-path: inset(0 -100vmax);
+}
+
+.video.modal .video-modal-button,
+.video.modal .video-modal-button:hover,
+.video.modal .video-modal-button:focus {
+  width: 18.75rem;
+  height: 3.375rem;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0.5625rem 0.9375rem;
+  background-color: #fff;
+  color: #000;
+  font-size: 1.1rem;
+  line-height: normal;
+}
+
+.video.modal .video-modal-button:focus-visible {
+  outline: 0.125rem solid #fff;
+  outline-offset: 0.25rem;
+}
+
+.modal.video-modal dialog {
+  overflow: visible;
+  width: min(calc(100vw - 2.5rem), 54rem);
+  max-width: none;
+  max-height: none;
+  border: 0;
+  background-color: #000;
+}
+
+.modal.video-modal dialog .modal-content {
+  overflow: visible;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+}
+
+.modal.video-modal .close-button {
+  top: -2.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  background-color: #fff;
+  color: #000;
+}
+
+.modal.video-modal .close-button .icon.icon-close::before,
+.modal.video-modal .close-button .icon.icon-close::after {
+  width: 1.125rem;
+}
+
+@media (width >= 1024px) {
+  .modal.video-modal .close-button {
+    top: -3rem;
+    right: -2rem;
+  }
+}

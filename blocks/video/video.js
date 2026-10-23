@@ -106,9 +106,32 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
   }
 };
 
+// a button that opens the video in a modal; the link text is the button label
+function decorateModal(block, link) {
+  const text = block.querySelector('a').textContent.trim();
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'video-modal-button';
+  button.textContent = text && !/^https?:\/\//.test(text) ? text : 'Watch video';
+  button.addEventListener('click', async () => {
+    const { createModal } = await import('../modal/modal.js');
+    const player = document.createElement('div');
+    player.className = 'video-modal-player';
+    const { block: modal, showModal } = await createModal([player]);
+    modal.classList.add('video-modal');
+    showModal();
+    loadVideoEmbed(player, link, true, false);
+  });
+  block.replaceChildren(button);
+}
+
 export default async function decorate(block) {
   const placeholder = block.querySelector('picture');
   const link = block.querySelector('a').href;
+  if (block.classList.contains('modal')) {
+    decorateModal(block, link);
+    return;
+  }
   block.textContent = '';
   block.dataset.embedLoaded = false;
 

@@ -389,14 +389,6 @@ main > .section:first-of-type {
   vertical-align: top;
 }
 
-:where(body.article-detail) .section > .default-content-wrapper p.article-photo {
-  margin-bottom: 0.5rem;
-}
-
-:where(body.article-detail) .section > .default-content-wrapper p.article-photo > picture img {
-  max-height: 21.25rem;
-}
-
 :where(body.article-detail) .section > .default-content-wrapper:has(+ .columns-wrapper > .columns.gallery) > :is(h2, h3):last-child {
   margin-bottom: 1.125rem;
   text-align: center;

@@ -91,20 +91,12 @@ function decorateSections(main) {
   });
 }
 
-function decorateArticlePhotos(main) {
-  if (!document.body.classList.contains('article-detail')) return;
-  main.querySelectorAll('.default-content-wrapper p > picture > img').forEach((img) => {
-    if (Number(img.getAttribute('width')) >= 2000) img.closest('p').classList.add('article-photo');
-  });
-}
-
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   decorateButtons(main);
   decorateGtmLinks(main);
   decorateIcons(main);
   decorateSections(main);
-  decorateArticlePhotos(main);
   decorateBlocks(main);
 }
 

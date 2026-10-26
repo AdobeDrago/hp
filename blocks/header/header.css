@@ -1590,15 +1590,6 @@ header .nav-wrapper:has(.nav-account-open) .nav-overlay {
   header nav .nav-search-btn,
   header nav .nav-search-close { display: none; }
 
-  header nav .nav-search-btn {
-    position: absolute;
-    right: 18px;
-    z-index: 111;
-    height: 38px;
-    justify-content: end;
-    padding-right: 15px;
-  }
-
   header nav .nav-search-form,
   header nav .nav-search-form[hidden] {
     position: static;

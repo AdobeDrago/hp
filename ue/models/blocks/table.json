@@ -25,6 +25,17 @@
       "id": "table",
       "fields": [
         {
+          "component": "multiselect",
+          "name": "classes",
+          "label": "Style",
+          "valueType": "string",
+          "description": "Press = plain financial table for press releases: no rules or header styling, columns sized to their content. Combine with No Header when the first row is data.",
+          "options": [
+            { "name": "Press", "value": "press" },
+            { "name": "No Header", "value": "no-header" }
+          ]
+        },
+        {
           "component": "richtext",
           "name": "table",
           "value": "",

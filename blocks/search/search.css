@@ -224,7 +224,7 @@
   color: var(--background-color);
 }
 
-@media (width >= 600px) {
+@media (width >= 768px) {
   .search .search-results {
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 24px;

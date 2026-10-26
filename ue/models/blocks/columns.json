@@ -44,6 +44,40 @@
       "id": "columns",
       "fields": [
         {
+          "component": "multiselect",
+          "name": "classes",
+          "label": "Style",
+          "valueType": "string",
+          "description": "Press = press release image grid. With 3 columns each cell is an image with left-aligned text below; with 2 columns each image is centered at its own size with a centered caption. Gallery = row of images in equal-height boxes with a centered caption below each; add Natural size to show each image at its own size instead.",
+          "options": [
+            { "name": "Press", "value": "press" },
+            { "name": "Gallery", "value": "gallery" },
+            { "name": "Natural size", "value": "natural" }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_height",
+          "label": "Box height",
+          "valueType": "string",
+          "value": "",
+          "description": "Gallery only: height of the image boxes.",
+          "options": [
+            { "name": "Default (340px)", "value": "" },
+            { "name": "300px", "value": "height-300" },
+            { "name": "320px", "value": "height-320" },
+            { "name": "360px", "value": "height-360" },
+            { "name": "400px", "value": "height-400" }
+          ]
+        },
+        {
+          "component": "boolean",
+          "name": "classes_heightdesktop",
+          "label": "Box height on desktop only",
+          "description": "Gallery only: use the box height from 1280px up; below that each image shows at its own height.",
+          "valueType": "boolean"
+        },
+        {
           "component": "number",
           "valueType": "number",
           "name": "columns",

@@ -10,13 +10,13 @@
   font-size: var(--body-font-size-xs);
 }
 
-@media (width >= 600px) {
+@media (width >= 768px) {
   .table table {
     font-size: var(--body-font-size-s);
   }
 }
 
-@media (width >= 900px) {
+@media (width >= 1024px) {
   .table table {
     font-size: var(--body-font-size-m);
   }
@@ -64,4 +64,29 @@
 .table.bordered table th,
 .table.bordered table td {
   border: 1px solid #dadada;
+}
+
+.table.press table {
+  width: auto;
+}
+
+.table.press table thead tr:nth-child(n),
+.table.press table tbody tr:nth-child(n),
+.table.press.no-header table tbody tr:nth-child(n) {
+  border: 0;
+}
+
+.table.press table th {
+  font-weight: 400;
+}
+
+.table.press table th,
+.table.press table td {
+  padding: 0.125rem 1.5rem 0.125rem 0;
+  vertical-align: top;
+}
+
+.table.press table th:last-child,
+.table.press table td:last-child {
+  padding-right: 0;
 }

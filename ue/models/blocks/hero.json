@@ -49,6 +49,17 @@
           "value": "",
           "label": "Text",
           "valueType": "string"
+        },
+        {
+          "component": "multiselect",
+          "name": "classes",
+          "label": "Style",
+          "valueType": "string",
+          "description": "Centered = text column and photo side by side. Compact = article hero without the blank line between the subtitle and the date.",
+          "options": [
+            { "name": "Centered", "value": "centered" },
+            { "name": "Compact", "value": "compact" }
+          ]
         }
       ]
     }

@@ -359,3 +359,48 @@ main .anchor-nav-cta a.button:focus-visible {
     font-size: 1.125rem;
   }
 }
+
+/* press kit section bar: content-width bar, bottom rule only, blue 4px active underline */
+.anchor-nav.press > div {
+  max-width: 76.125rem;
+  min-height: 3.75rem;
+  border-top: 0;
+  border-bottom-color: #e6e6e6;
+}
+
+@media (width >= 1024px) {
+  .anchor-nav.press > div {
+    padding: 0;
+  }
+
+  .anchor-nav.press .anchor-nav-links ul {
+    font-size: 1rem;
+  }
+
+  .anchor-nav.press .anchor-nav-links li,
+  .anchor-nav.press .anchor-nav-links li.active {
+    padding: 0;
+  }
+
+  .anchor-nav.press .anchor-nav-links a:any-link,
+  .anchor-nav.press .anchor-nav-links li.active a:any-link {
+    padding: 0 1.875rem;
+    color: #000;
+    line-height: 1.5rem;
+  }
+
+  .anchor-nav.press .anchor-nav-links li::after {
+    height: 0.25rem;
+  }
+
+  .anchor-nav.press .anchor-nav-links li.active::after,
+  .anchor-nav.press .anchor-nav-links li:has(> a:hover)::after,
+  .anchor-nav.press .anchor-nav-links li:has(> a:focus-visible)::after {
+    background: #0171ad;
+  }
+
+  .anchor-nav.press .anchor-nav-links li:has(> a:hover),
+  .anchor-nav.press .anchor-nav-links li:has(> a:focus-visible) {
+    background: none;
+  }
+}

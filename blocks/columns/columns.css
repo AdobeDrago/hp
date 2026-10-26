@@ -19,7 +19,7 @@
   display: block;
 }
 
-@media (width >= 900px) {
+@media (width >= 1024px) {
   .columns > div {
     align-items: center;
     flex-direction: unset;
@@ -29,5 +29,168 @@
   .columns > div > div {
     flex: 1;
     order: unset;
+  }
+}
+
+.columns.press > div {
+  gap: 1.5rem;
+}
+
+.columns.press > div > div {
+  font-size: 1rem;
+  line-height: 1.375rem;
+}
+
+.columns.press p {
+  margin: 1rem 0 0;
+}
+
+.columns.press p:first-child {
+  margin-top: 0;
+}
+
+.columns.press picture,
+.columns.press > div > div img {
+  display: block;
+}
+
+.columns.press.columns-2-cols > div > div {
+  text-align: center;
+}
+
+.columns.press.columns-2-cols > div > div :is(ul, ol) {
+  text-align: left;
+}
+
+.columns.press ul {
+  margin: 1rem 0 0;
+  padding: 0.5rem 0 0.5rem 1.875rem;
+  list-style: none;
+}
+
+.columns.press ul > li {
+  position: relative;
+  padding-bottom: 0.25rem;
+}
+
+.columns.press ul > li::before {
+  content: '•';
+  position: absolute;
+  top: -0.0375rem;
+  left: -0.875rem;
+  font-size: 1.5rem;
+  line-height: 1.375rem;
+}
+
+.columns.press.columns-2-cols > div > div img {
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+@media (width >= 768px) {
+  .columns.press > div {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.875rem;
+  }
+
+  .columns.press > div > div {
+    flex: 1;
+  }
+}
+
+.columns.gallery.block {
+  margin-bottom: 2.875rem;
+}
+
+.columns.gallery.block > div:has(> div) {
+  gap: 1.75rem;
+}
+
+.columns.gallery.block > div > div {
+  padding: 0 1.25rem;
+  text-align: center;
+}
+
+.columns.gallery.block p {
+  margin: 0;
+}
+
+.columns.gallery.block > div > div img {
+  width: auto;
+  max-width: 100%;
+  height: 21.25rem;
+  object-fit: contain;
+  vertical-align: top;
+}
+
+.columns.gallery.natural.block > div > div img {
+  height: auto;
+}
+
+.columns.gallery.height-300.block > div > div img {
+  height: 18.75rem;
+}
+
+.columns.gallery.height-320.block > div > div img {
+  height: 20rem;
+}
+
+.columns.gallery.height-360.block > div > div img {
+  height: 22.5rem;
+}
+
+.columns.gallery.height-400.block > div > div img {
+  height: 25rem;
+}
+
+.columns.gallery.height-desktop.block > div > div img {
+  height: auto;
+}
+
+.columns.gallery.block p:has(> em:only-child) {
+  padding-top: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.375rem;
+}
+
+@media (width >= 768px) {
+  .columns.gallery.block {
+    margin-bottom: 3.8125rem;
+  }
+
+  .columns.gallery.block > div:has(> div) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0;
+    margin: 0 1rem;
+  }
+
+  .columns.gallery.block > div > div {
+    flex: 1;
+    padding: 0 0.9375rem;
+  }
+}
+
+@media (width >= 1280px) {
+  .columns.gallery.height-desktop.block > div > div img {
+    height: 21.25rem;
+  }
+
+  .columns.gallery.height-desktop.height-300.block > div > div img {
+    height: 18.75rem;
+  }
+
+  .columns.gallery.height-desktop.height-320.block > div > div img {
+    height: 20rem;
+  }
+
+  .columns.gallery.height-desktop.height-360.block > div > div img {
+    height: 22.5rem;
+  }
+
+  .columns.gallery.height-desktop.height-400.block > div > div img {
+    height: 25rem;
   }
 }

@@ -234,7 +234,7 @@ header nav .nav-search-empty {
 }
 
 /* tablet: two columns, two cards per row (matches hp.com at 720px) */
-@media (width >= 720px) {
+@media (width >= 768px) {
   header nav .nav-search-panel-inner {
     grid-template-columns: calc((100% - 30px) / 4) 1fr;
     column-gap: 30px;

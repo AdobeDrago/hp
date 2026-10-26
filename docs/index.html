@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HP Newsroom — AEM → EDS Migration</title>
+<title>HP Newsroom and Next-gen AI Pcs on EDS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
@@ -464,220 +464,287 @@
     .page-hero h1 { font-size: 24px; }
     .url-grid { grid-template-columns: 1fr; }
   }
+  .lh-compare { display: flex; flex-direction: column; gap: 24px; margin: 16px 0; }
+  .lh-compare-page {
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    background: var(--gray-50);
+    overflow: hidden;
+  }
+  .lh-compare-page-title {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gray-900);
+  }
+  .lh-compare-page-title span {
+    font-size: 12px;
+    font-weight: 400;
+    font-family: var(--mono);
+    color: var(--gray-600);
+    margin-left: 8px;
+  }
+  .lh-compare-cols {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+  .lh-compare-side {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .lh-compare-side + .lh-compare-side {
+    border-top: 1px solid var(--gray-200);
+  }
+  .lh-compare-side-header {
+    padding: 10px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--gray-200);
+    background: #fff;
+  }
+  .lh-compare-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #000;
+  }
+  .lh-scores {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-left: auto;
+  }
+  .lh-score {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 999px;
+  }
+  .lh-score-good { background: #eaf6f1; color: #1a6b50; }
+  .lh-score-ok   { background: #fff4e5; color: #8a4b08; }
+  .lh-score-bad  { background: #fdecea; color: #a1281c; }
+  .lh-compare-side img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .lh-gauges { display: flex; flex-direction: column; gap: 20px; margin: 16px 0; }
+  .lh-page { border: 1px solid var(--gray-200, #e1e4e8); border-radius: 10px; padding: 16px 20px; }
+  .lh-page-title { font-weight: 600; margin-bottom: 12px; }
+  .lh-page-title span { font-weight: 400; font-size: 12px; color: var(--gray-500, #6b7280); margin-left: 8px; }
+  .lh-sides { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .lh-side-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 10px; }
+  .lh-rings { display: flex; flex-wrap: wrap; gap: 14px; }
+  .lh-ring { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; }
+  .lh-ring-dial { --c: #0c8; --p: 0; width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center;
+    background: conic-gradient(var(--c) calc(var(--p) * 1%), #e8eaed 0); }
+  .lh-ring-dial b { width: 50px; height: 50px; border-radius: 50%; background: var(--bg, #fff); display: grid; place-items: center; font-size: 18px; color: var(--c); }
+  .lh-good { --c: #0a8a5f; } .lh-ok { --c: #d97706; } .lh-bad { --c: #c62828; }
+  @media (max-width: 700px) { .lh-sides { grid-template-columns: 1fr; } }
+  .spec-table.bordered { border: 1px solid var(--gray-300, #cfd4da); border-collapse: collapse; }
+  .spec-table.bordered th, .spec-table.bordered td { border: 1px solid var(--gray-300, #cfd4da); vertical-align: top; }
 </style>
 </head>
 <body>
 
-<!-- TOP NAV -->
 <nav class="topnav">
-  <a class="topnav-logo" href="#overview">
-    <span class="mark">hp</span>
-    hp
-  </a>
+  <a class="topnav-logo" href="#overview"><span class="mark">hp</span>hp</a>
   <div class="topnav-divider"></div>
-  <span class="topnav-title">Newsroom — AEM → EDS Migration · Code &amp; Theory Handoff Playbook</span>
-  <span class="topnav-badge">Handoff</span>
+  <span class="topnav-title">HP Newsroom and Next-gen AI Pcs on EDS</span>
+  <span class="topnav-badge">Docs</span>
 </nav>
 
-<!-- LAYOUT -->
 <div class="layout">
 
-  <!-- SIDEBAR -->
   <nav class="sidebar" aria-label="Page navigation">
     <div class="sidebar-section">
-      <div class="sidebar-label">Newsroom</div>
-      <a class="sidebar-link active" href="#overview">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2h5v5H2zm7 0h5v5H9zM2 9h5v5H2zm7 0h5v5H9z"/></svg>
+      <div class="sidebar-label">Getting Started</div>
+      <a class="sidebar-link" href="#overview">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
         Overview
       </a>
-      <a class="sidebar-link" href="#use-case">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.75A.75.75 0 012.75 2h7.5a.75.75 0 01.53.22l3 3a.75.75 0 01.22.53v7.5a.75.75 0 01-.75.75h-10.5a.75.75 0 01-.75-.75V2.75zM5 6.5a.5.5 0 000 1h6a.5.5 0 000-1H5zm0 2.5a.5.5 0 000 1h6a.5.5 0 000-1H5zm0 2.5a.5.5 0 000 1h4a.5.5 0 000-1H5z"/></svg>
-        Use case &amp; requirements
-      </a>
       <a class="sidebar-link" href="#references">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg>
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
         Key references
       </a>
-      <a class="sidebar-link" href="#deliverables">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M4.5 2A2.5 2.5 0 002 4.5v7A2.5 2.5 0 004.5 14h7a2.5 2.5 0 002.5-2.5v-7A2.5 2.5 0 0011.5 2h-7zM5 5.5A.5.5 0 015.5 5h5a.5.5 0 010 1h-5A.5.5 0 015 5.5zm0 2.5a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5A.5.5 0 015 8zm.5 2a.5.5 0 000 1h3a.5.5 0 000-1h-3z"/></svg>
-        Deliverables
+      <a class="sidebar-link" href="#setup">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Install &amp; run
+      </a>
+      <a class="sidebar-link" href="#linting">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Linting &amp; CI
       </a>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-label">Site chrome <span class="nav-status ns-done">Complete</span></div>
-      <a class="sidebar-link" href="#chrome">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5zm1.75-.25a.25.25 0 00-.25.25v.5h13v-.5a.25.25 0 00-.25-.25H1.75zM1.5 5.5v6.75c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.5h-13z"/></svg>
-        Header &amp; footer
+      <div class="sidebar-label">Architecture</div>
+      <a class="sidebar-link" href="#block-routing">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Block-loading routing
       </a>
-      <a class="sidebar-link" href="#typeface">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2.5A.5.5 0 013.5 2h9a.5.5 0 01.5.5V4a.5.5 0 01-1 0v-1H8.5v10H10a.5.5 0 010 1H6a.5.5 0 010-1h1.5V3H4v1a.5.5 0 01-1 0V2.5z"/></svg>
-        Brand typeface
+      <a class="sidebar-link" href="#page-decoration">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Page decoration
+      </a>
+      <a class="sidebar-link" href="#blocks">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        EDS blocks
+      </a>
+      <a class="sidebar-link" href="#supporting-modules">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Supporting modules
+      </a>
+      <a class="sidebar-link" href="#lighthouse">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Lighthouse comparison
       </a>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-label">Content <span class="nav-status ns-done">Complete</span></div>
+      <div class="sidebar-label">Global experience</div>
+      <a class="sidebar-link" href="#header-nav">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Hierarchy Header
+      </a>
+      <a class="sidebar-link" href="#embed">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Embedding header &amp; footer
+      </a>
+      <a class="sidebar-link" href="#gtm">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        GTM
+      </a>
+      <a class="sidebar-link" href="#search">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Search
+      </a>
+      <a class="sidebar-link" href="#metadata">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Page metadata
+      </a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Pages</div>
+      <a class="sidebar-link" href="#lp-ai-pcs">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Next-gen AI PCs
+      </a>
+      <a class="sidebar-link" href="#lp-newsroom">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Newsroom
+      </a>
+      <a class="sidebar-link" href="#lp-press-releases">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Press Releases
+      </a>
+      <a class="sidebar-link" href="#lp-press-releases-detail">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Press Releases Detail Page
+      </a>
+      <a class="sidebar-link" href="#lp-press-kits">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Press Kits
+      </a>
+      <a class="sidebar-link" href="#lp-press-kits-detail">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Press Kits Detail Page
+      </a>
+      <a class="sidebar-link" href="#lp-blogs">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Blogs
+      </a>
+      <a class="sidebar-link" href="#lp-blogs-detail">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Blogs Detail Page
+      </a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Content</div>
+      <a class="sidebar-link" href="#archive">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Articles listing
+      </a>
       <a class="sidebar-link" href="#import">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a.75.75 0 01.75.75v6.19l1.72-1.72a.75.75 0 111.06 1.06l-3 3a.75.75 0 01-1.06 0l-3-3a.75.75 0 011.06-1.06l1.72 1.72V1.75A.75.75 0 018 1zM2.75 12a.75.75 0 01.75.75v.75h9v-.75a.75.75 0 011.5 0v1.5a.75.75 0 01-.75.75h-11a.75.75 0 01-.75-.75v-1.5A.75.75 0 012.75 12z"/></svg>
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
         Article import
       </a>
       <a class="sidebar-link" href="#query-index">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 3.5C2 2.12 4.69 1 8 1s6 1.12 6 2.5v9C14 13.88 11.31 15 8 15s-6-1.12-6-2.5v-9zM8 2.5C5.1 2.5 3.5 3.46 3.5 3.5S5.1 4.5 8 4.5s4.5-.96 4.5-1S10.9 2.5 8 2.5z"/></svg>
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
         Query index
       </a>
       <a class="sidebar-link" href="#taxonomy">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 3.75A1.75 1.75 0 013.75 2h3.5c.464 0 .909.184 1.237.513l5.5 5.5a1.75 1.75 0 010 2.474l-3.5 3.5a1.75 1.75 0 01-2.474 0l-5.5-5.5A1.75 1.75 0 012 7.25v-3.5zM5 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
         Topic taxonomy
       </a>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-label">Landing page <span class="nav-status ns-done">Complete</span></div>
-      <a class="sidebar-link" href="#landing">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
-        Hero &amp; landing blocks
-      </a>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">Archive <span class="nav-status ns-done">Complete</span></div>
-      <a class="sidebar-link" href="#archive">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M11.742 10.344a6.5 6.5 0 10-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 001.415-1.414l-3.85-3.85a1 1 0 00-.115-.099zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"/></svg>
-        Articles listing
-      </a>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">Edge Functions <span class="nav-status ns-done">Complete</span></div>
+      <div class="sidebar-label">Edge Functions</div>
       <a class="sidebar-link" href="#related-links">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg>
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
         Related links (SEO)
       </a>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-label">Handoff</div>
-      <a class="sidebar-link" href="#decisions">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5l2 4 4.5.5-3.2 3 .9 4.5L8 11.3 3.8 13.5l.9-4.5L1.5 6 6 5.5l2-4z" opacity=".0"/><path d="M2 4.5A2.5 2.5 0 014.5 2h7A2.5 2.5 0 0114 4.5v5a2.5 2.5 0 01-2.5 2.5H6.7l-3 2.4A.5.5 0 013 14v-2H4.5A2.5 2.5 0 012 9.5v-5z"/></svg>
-        Decisions &amp; assumptions
-      </a>
-      <a class="sidebar-link" href="#limitations">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
-        Known limitations
-      </a>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">Reference</div>
-      <a class="sidebar-link" href="#blocks">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5A1.5 1.5 0 012.5 2h2A1.5 1.5 0 016 3.5v2A1.5 1.5 0 014.5 7h-2A1.5 1.5 0 011 5.5v-2zm5.5 0A1.5 1.5 0 018 2h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 7H8A1.5 1.5 0 016.5 5.5v-2zm-5.5 5A1.5 1.5 0 012.5 7h2A1.5 1.5 0 016 8.5v2A1.5 1.5 0 014.5 12h-2A1.5 1.5 0 011 10.5v-2zm5.5 0A1.5 1.5 0 018 7h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 12H8A1.5 1.5 0 016.5 10.5v-2z"/></svg>
-        Block library
+      <div class="sidebar-label">Deployment</div>
+      <a class="sidebar-link" href="#deploying">
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
+        Deploying
       </a>
       <a class="sidebar-link" href="#dev-notes">
-        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+        <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
         Developer notes
       </a>
     </div>
   </nav>
 
-  <!-- MAIN CONTENT -->
   <main class="main">
     <div class="main-inner">
 
-      <!-- PAGE HERO -->
       <div class="page-hero" id="overview">
-        <div class="page-hero-eyebrow">HP · Newsroom Migration</div>
-        <h1>HP Newsroom on Edge Delivery Services</h1>
-        <p class="page-hero-sub">Rebuilding <strong>hp.com/us-en/newsroom</strong> on <strong>Adobe Edge Delivery Services</strong> — migrating the site chrome, importing the full newsroom archive of <strong>1,181 articles</strong> into Document Authoring, and building the blocks that power the landing page and the faceted archive. This is the <strong>handoff playbook for Code &amp; Theory</strong>: what we gathered, what Drago built, the decisions and assumptions behind it, and where Code &amp; Theory takes it from here.</p>
+        <div class="page-hero-eyebrow">HP Newsroom · EDS</div>
+        <h1>HP Newsroom and Next-gen AI Pcs on EDS</h1>
+        <p class="page-hero-sub">hp.com's newsroom and AI Solutions pages moved from AEM to Edge Delivery Services, built on the standard <code class="code-inline">aem-block-collection</code> and authored in DA.live &mdash; architecture, shared header/footer, GTM, search, blocks, pages and Lighthouse results.</p>
       </div>
 
-      <!-- PROJECT OVERVIEW -->
       <section class="doc-section">
-        <h2>
-          <span class="section-icon icon-navy">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5A1.5 1.5 0 012.5 2h2A1.5 1.5 0 016 3.5v2A1.5 1.5 0 014.5 7h-2A1.5 1.5 0 011 5.5v-2zm5.5 0A1.5 1.5 0 018 2h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 7H8A1.5 1.5 0 016.5 5.5v-2zm-5.5 5A1.5 1.5 0 012.5 7h2A1.5 1.5 0 016 8.5v2A1.5 1.5 0 014.5 12h-2A1.5 1.5 0 011 10.5v-2zm5.5 0A1.5 1.5 0 018 7h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 12H8A1.5 1.5 0 016.5 10.5v-2z"/></svg>
-          </span>
-          Project overview
-        </h2>
-        <div class="section-rule"></div>
-        <p>This effort recreates HP's US-English <strong>Newsroom</strong> — the public home for HP press releases, blogs, and press kits — on <strong>Adobe Edge Delivery Services (EDS)</strong>, authored through <strong>Document Authoring (DA)</strong>. It follows an EDS block-based development model: the newsroom's chrome, articles, landing modules, and archive are all delivered as authorable blocks fed by a single content query index.</p>
-
-        <div class="stat-row">
-          <div class="stat-card"><div class="stat-num">1,181</div><div class="stat-label">articles imported to DA</div></div>
-          <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">custom blocks built</div></div>
-          <div class="stat-card"><div class="stat-num">2016–2026</div><div class="stat-label">archive span</div></div>
-          <div class="stat-card"><div class="stat-num">46</div><div class="stat-label">topic taxonomy</div></div>
-        </div>
-
-        <h3>Goals</h3>
+        <h3>Purpose</h3>
         <ul class="req-list">
-          <li>Recreate the HP newsroom experience on <strong>Edge Delivery Services</strong>, authored in DA.</li>
-          <li>Migrate the <strong>full article archive</strong> (press releases, blogs, press kits) with metadata intact.</li>
-          <li>Reproduce the landing page and a <strong>faceted, searchable archive</strong> driven by a query index.</li>
-          <li>Match HP's <strong>brand identity</strong> — typeface, color, header, and footer.</li>
+          <li>Rebuild the HP newsroom (home, press releases, press kits, blogs, articles) and the AI Solutions &ldquo;next-gen-ai-pcs&rdquo; page on Edge Delivery Services, matched to the live hp.com experience.</li>
+          <li>Provide an authorable header and footer that can also be embedded on external hp.com sites.</li>
         </ul>
-
-        <h3>Approach</h3>
+        <h3>Core engineering requirements</h3>
         <ul class="req-list">
-          <li>EDS <strong>block-based development only</strong> — every module is an authorable block.</li>
-          <li>A single <strong>content query index</strong> (<code class="code-inline">/us-en/newsroom/query-index.json</code>) powers all dynamic listing blocks.</li>
-          <li>Content <strong>bulk-imported from the public HP sitemap</strong> into DA, one page per article, each carrying an EDS Metadata block.</li>
-          <li>Sort and filter on an authored <code class="code-inline">created-date</code> and a <code class="code-inline">topic</code> taxonomy projected into the index.</li>
+          <li>EDS block-based development (<code class="code-inline">scripts/aem.js</code> + <code class="code-inline">scripts/scripts.js</code>); content authored in DA.live, with Universal Editor models under <code class="code-inline">ue/models/</code>.</li>
+          <li>Header and footer are authored fragments (<code class="code-inline">/nav</code>, <code class="code-inline">/footer</code>); the nav can differ per content folder (<a href="#header-nav" style="color:var(--brand-blue);">Hierarchy Header</a>) and both embed externally with one script (<a href="#embed" style="color:var(--brand-blue);">Embedding</a>).</li>
+          <li>GTM click tracking authored through the link-editor Title field or generated by code, loaded after OneTrust consent (<a href="#gtm" style="color:var(--brand-blue);">GTM</a>).</li>
+          <li>Header search and a search results block backed by HawkSearch and HP Support (<a href="#search" style="color:var(--brand-blue);">Search</a>).</li>
+          <li>Newsroom feeds read the <code class="code-inline">query-index.json</code> index (<code class="code-inline">latest-news</code>, <code class="code-inline">more-articles</code>, <code class="code-inline">press-kits-listing</code>, <code class="code-inline">articles-listing</code>).</li>
+          <li>Related Links are rendered at the CDN edge for SEO (<a href="#related-links" style="color:var(--brand-blue);">Edge function</a>).</li>
+          <li>A strict CSP is set in <code class="code-inline">head.html</code>.</li>
         </ul>
-
-        <h3>Workstreams</h3>
-        <table class="spec-table">
-          <thead><tr><th>Workstream</th><th>What it delivers</th><th>Status</th></tr></thead>
+        <h3>Pages</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Page</th><th>Validates</th><th>Preview</th></tr></thead>
           <tbody>
-            <tr><td><a href="#chrome" style="color:var(--hp-blue-text);">Site chrome</a></td><td>Newsroom header &amp; footer + HP brand typeface (Forma DJR)</td><td><span class="nav-status ns-done">Complete</span></td></tr>
-            <tr><td><a href="#import" style="color:var(--hp-blue-text);">Content import</a></td><td>1,181 articles imported to DA with metadata, previewed &amp; reconciled</td><td><span class="nav-status ns-done">Complete</span></td></tr>
-            <tr><td><a href="#landing" style="color:var(--hp-blue-text);">Newsroom landing</a></td><td>Hero, latest-news, more-articles, press-kits-listing, and articles-listing blocks</td><td><span class="nav-status ns-done">Complete</span></td></tr>
-            <tr><td><a href="#archive" style="color:var(--hp-blue-text);">Article archive</a></td><td>articles-listing block — faceted, sortable, searchable</td><td><span class="nav-status ns-done">Complete</span></td></tr>
-          </tbody>
-        </table>
-
-        <div class="notice info">
-          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
-          <span><strong>Progress to date.</strong> The newsroom <strong>header and footer</strong> are migrated and the site is on HP's <strong>Forma DJR</strong> typeface. The <strong>full archive — 1,181 articles</strong> (709 press releases, 323 blogs, 149 press kits) — is imported into DA, previewed, and reconciled, and a <a href="#query-index" style="color:#0d51b5;">query index</a> of 1,182 rows drives every listing block. The <a href="#landing" style="color:#0d51b5;">landing page</a> (hero + latest-news + more-articles + press-kits-listing) and the faceted <a href="#archive" style="color:#0d51b5;">articles-listing archive</a> are both built and live on the preview.</span>
-        </div>
-
-        <table class="spec-table" style="margin-top:16px;">
-          <thead><tr><th>Attribute</th><th>Value</th></tr></thead>
-          <tbody>
-            <tr><td>Effort</td><td>hp.com newsroom → Edge Delivery Services migration</td></tr>
-            <tr><td>GitHub repo</td><td><code class="code-inline">AdobeDrago/hp</code> · branch <code class="code-inline">main</code></td></tr>
-            <tr><td>Authoring</td><td>Document Authoring — <code class="code-inline">adobedrago/hp</code></td></tr>
-            <tr><td>Dev model</td><td>EDS block-based only</td></tr>
-            <tr><td>Brand typeface</td><td>Forma DJR (self-hosted, mirrors hp.com)</td></tr>
-            <tr><td>Brand color</td><td><code class="code-inline">#0096d6</code> (HP blue)</td></tr>
-            <tr><td>Content source</td><td>hp.com public newsroom sitemap (US-en)</td></tr>
-            <tr><td>Reference site</td><td>hp.com/us-en/newsroom</td></tr>
+            <tr><td>Next-gen AI PCs</td><td>AI Solutions template, anchor-nav, banners, cards, FAQ</td><td><a href="https://main--hp--adobedrago.aem.page/us-en/ai-solutions/next-gen-ai-pcs" target="_blank" rel="noopener" style="color:var(--brand-blue);">/us-en/ai-solutions/next-gen-ai-pcs</a></td></tr>
+            <tr><td>Newsroom</td><td>Hero, featured press kits, latest news, more from newsroom, archive</td><td><a href="https://main--hp--adobedrago.aem.page/us-en/newsroom" target="_blank" rel="noopener" style="color:var(--brand-blue);">/us-en/newsroom</a></td></tr>
+            <tr><td>Press Releases</td><td>Archive pinned to press releases</td><td><a href="https://main--hp--adobedrago.aem.page/us-en/newsroom/press-releases" target="_blank" rel="noopener" style="color:var(--brand-blue);">/us-en/newsroom/press-releases</a></td></tr>
+            <tr><td>Press Kits</td><td>Archive pinned to press kits</td><td><a href="https://main--hp--adobedrago.aem.page/us-en/newsroom/press-kits" target="_blank" rel="noopener" style="color:var(--brand-blue);">/us-en/newsroom/press-kits</a></td></tr>
+            <tr><td>Blogs</td><td>Archive pinned to blogs</td><td><a href="https://main--hp--adobedrago.aem.page/us-en/newsroom/blogs" target="_blank" rel="noopener" style="color:var(--brand-blue);">/us-en/newsroom/blogs</a></td></tr>
           </tbody>
         </table>
       </section>
 
-      <!-- USE CASE & REQUIREMENTS -->
-      <section class="doc-section" id="use-case">
-        <h2>
-          <span class="section-icon icon-navy">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.75A.75.75 0 012.75 2h7.5a.75.75 0 01.53.22l3 3a.75.75 0 01.22.53v7.5a.75.75 0 01-.75.75h-10.5a.75.75 0 01-.75-.75V2.75zM5 6.5a.5.5 0 000 1h6a.5.5 0 000-1H5zm0 2.5a.5.5 0 000 1h6a.5.5 0 000-1H5zm0 2.5a.5.5 0 000 1h4a.5.5 0 000-1H5z"/></svg>
-          </span>
-          Use case &amp; requirements
-        </h2>
-        <div class="section-rule"></div>
-        <p><strong>Use case.</strong> Recreate HP's US-English <strong>Newsroom</strong> — the public hub for HP press releases, blogs, and press kits — on Edge Delivery Services, authored in Document Authoring. The experience is a <strong>landing page</strong> of curated, recent stories plus a <strong>faceted archive</strong> across the full back catalog, all reading from a single content query index.</p>
-
-        <h3>Requirements gathered</h3>
-        <table class="spec-table">
-          <thead><tr><th>Area</th><th>What we found</th></tr></thead>
-          <tbody>
-            <tr><td>Content source</td><td>HP's public sitemap (<code class="code-inline">sitemap-aem-us-en.xml</code> via <code class="code-inline">sitemap_index.xml</code>), filtered to <code class="code-inline">/us-en/newsroom/</code> — ~1,183 pages spanning 2016–2026.</td></tr>
-            <tr><td>Content mix</td><td>711 press releases · 323 blogs · 149 press kits (US-en only; ~80 other locale sitemaps exist if scope expands).</td></tr>
-            <tr><td>Per-page metadata</td><td>Machine-readable in each page <code class="code-inline">&lt;head&gt;</code>: <code class="code-inline">og:title</code>, <code class="code-inline">description</code>/<code class="code-inline">og:description</code>, <code class="code-inline">og:image</code>, <code class="code-inline">created-date</code>.</td></tr>
-            <tr><td>Topic taxonomy</td><td><strong>Not</strong> in page metadata — HP's newsroom embeds a JSON index of all articles and filters client-side. Topics follow a fixed <strong>46-topic taxonomy</strong>, extracted from that embedded index.</td></tr>
-            <tr><td>Templates</td><td>Two source templates — a post-2024 template and a pre-2024 one (breakpoint <code class="code-inline">data-src</code> images, DAM paths with spaces). Editorial body lives in the <code class="code-inline">c-title-and-text-v2</code> component.</td></tr>
-          </tbody>
-        </table>
-
-        <h3>Supporting analysis</h3>
-        <p>A markup-consistency probe (12 pages across 3 templates × 2016–2026) confirmed press releases and blogs share one clean, stable template — a single importer, Phase 1 (~1,034 articles, low risk). <strong>Press kits are a heavier, interactive template</strong> (asset galleries, download modals, dropdowns) and were scoped separately. Descriptions are absent on ~1/3 of older pages, so the importer falls back to the first body paragraph.</p>
-      </section>
-
-      <!-- KEY REFERENCES -->
       <section class="doc-section" id="references">
         <h2>
           <span class="section-icon icon-blue">
@@ -710,95 +777,839 @@
             <span class="url-card-label"><span class="dot dot-green"></span>Query index</span>
             <span class="url-card-title">query-index.json</span>
             <span class="url-card-url">main--hp--adobedrago.aem.page/us-en/newsroom/query-index.json</span>
-            <span class="url-card-desc">1,182 rows — the data behind every listing block.</span>
+            <span class="url-card-desc">1,186 rows — the data behind every listing block.</span>
           </a>
         </div>
       </section>
 
-      <!-- DELIVERABLES -->
-      <section class="doc-section" id="deliverables">
+      <section class="doc-section" id="setup">
         <h2>
-          <span class="section-icon icon-green">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg>
-          </span>
-          Deliverables
+          <span class="section-icon icon-blue"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Install &amp; run
         </h2>
         <div class="section-rule"></div>
-        <p>What shipped, at a glance.</p>
-        <ul class="checklist">
-          <li class="check-item">
-            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
-            <div class="check-body"><div class="check-title">Header &amp; footer migrated (via EMA)</div><div class="check-note">HP newsroom mega-menu navigation and footer migrated and styled using the Experience Modernization Agent (EMA), then refined — responsive mobile nav and a dim/blur behind open menus.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
-            <div class="check-body"><div class="check-title">HP brand typeface (Forma DJR)</div><div class="check-note">Self-hosted Forma DJR set as the body and heading font, replacing the boilerplate Roboto — matching hp.com.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
-            <div class="check-body"><div class="check-title">Full archive imported (1,181 articles)</div><div class="check-note">709 press releases + 323 blogs + 149 press kits, bulk-imported into DA with metadata, previewed and reconciled — 0 missing, 0 extra.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
-            <div class="check-body"><div class="check-title">Query index + topic backfill</div><div class="check-note">A 1,182-row query index with a <code class="code-inline">created-date</code>, <code class="code-inline">type</code>, and <code class="code-inline">topic</code> column; 753 pages backfilled against HP's 46-topic taxonomy.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
-            <div class="check-body"><div class="check-title">Newsroom landing page</div><div class="check-note">A full-bleed hero plus latest-news, more-articles, and press-kits-listing blocks reading from the query index (press-kits-listing can also take a hand-picked set of URLs).</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
-            <div class="check-body"><div class="check-title">Faceted article archive</div><div class="check-note">The articles-listing block: keyword search, Media Type + Topics facets, four sort orders, removable chips, and Load More.</div></div>
-          </li>
-        </ul>
+        <ol class="steps">
+          <li class="step"><div class="step-num"></div><div class="step-body"><div class="step-title">Clone and install</div><div class="code-block">git clone https://github.com/AdobeDrago/hp.git
+cd hp
+npm install</div></div></li>
+          <li class="step"><div class="step-num"></div><div class="step-body"><div class="step-title">Run the AEM CLI</div><div class="code-block">npm install -g @adobe/aem-cli
+aem up --no-open</div><p>Starts the local dev server at <code class="code-inline">http://localhost:3000</code>, serving local code against previewed DA.live content.</p></div></li>
+        </ol>
       </section>
 
-      <!-- SITE CHROME -->
-      <section class="doc-section" id="chrome">
+      <section class="doc-section" id="linting">
         <h2>
-          <span class="section-icon icon-blue">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5zm1.75-.25a.25.25 0 00-.25.25v.5h13v-.5a.25.25 0 00-.25-.25H1.75zM1.5 5.5v6.75c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.5h-13z"/></svg>
-          </span>
-          Site chrome — header &amp; footer
-          <span class="status-badge sb-done">Complete</span>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Linting &amp; CI
         </h2>
         <div class="section-rule"></div>
-        <p>The first workstream migrated the newsroom's shared chrome so every imported page renders inside HP's own navigation. The header and footer were <strong>migrated and styled using the Experience Modernization Agent (EMA)</strong> — which generated the EDS block structure and base styling from the production site — then refined by the Drago team.</p>
-        <ul class="req-list">
-          <li><strong>Header</strong> — the HP mega-menu navigation, migrated via EMA and refined as an EDS block. Open menus dim and blur the page behind them; the nav collapses to a mobile menu through tablet and small-laptop widths.</li>
-          <li><strong>Footer</strong> — the HP newsroom footer, migrated via EMA into an authorable block.</li>
-        </ul>
-        <div class="notice tip">
-          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L7 8.94 5.28 7.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.06 0l4.25-4.25z"/></svg>
-          <span>Header and footer shipped first (<code class="code-inline">Migrate HP newsroom header and footer to EDS</code>) so that all subsequently imported articles inherit the correct chrome.</span>
+        <div class="code-block">npm run lint       <span class="cmt"># lint:js (eslint, airbnb-base) + lint:css (stylelint-config-standard)</span>
+npm run build:json <span class="cmt"># merges ue/models/*.json into component-models/definition/filters.json</span></div>
+        <div class="notice info"><span><code class="code-inline">.github/workflows/main.yaml</code> runs <code class="code-inline">npm ci</code> and <code class="code-inline">npm run lint</code> on every push (Node 20) &mdash; lint only. A Husky pre-commit hook (<code class="code-inline">.husky/</code>) is also configured. Deployment is separate, via AEM Code Sync (see <a href="#deploying" style="color:inherit;">Deploying</a>).</span></div>
+      </section>
+
+      <section class="doc-section" id="block-routing">
+        <h2>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Block-loading routing
+        </h2>
+        <div class="section-rule"></div>
+        <p>Block discovery, loading and lifecycle (<code class="code-inline">decorateBlock</code>/<code class="code-inline">loadBlock</code>/<code class="code-inline">decorateBlocks</code>) come from <code class="code-inline">scripts/aem.js</code>; blocks live in <code class="code-inline">blocks/&lt;name&gt;/&lt;name&gt;.js|css</code>. The project's own routing lives in <code class="code-inline">scripts/scripts.js</code>:</p>
+        <table class="spec-table bordered">
+          <thead><tr><th>Pass</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td>decorateSections</td><td>Wraps richtext and default content, and turns each section-metadata block into section classes (<code class="code-inline">style</code>), an id (<code class="code-inline">id</code>) or <code class="code-inline">data-*</code> attributes (e.g. <code class="code-inline">gtm_id</code>).</td></tr>
+            <tr><td>decorateGtmLinks</td><td>Runs in <code class="code-inline">decorateMain</code>: converts <code class="code-inline">key=value</code> pairs in link titles into <code class="code-inline">data-gtm-*</code> (see GTM).</td></tr>
+            <tr><td>autolinkModals</td><td>Any link containing <code class="code-inline">/modals/</code> opens the modal block instead of navigating.</td></tr>
+            <tr><td>Fragments</td><td>The <code class="code-inline">fragment</code> block and header/footer fragments are loaded from authored pages.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="doc-section" id="page-decoration">
+        <h2>
+          <span class="section-icon icon-purple"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Page decoration (<code class="code-inline">scripts/scripts.js</code>)
+        </h2>
+        <div class="section-rule"></div>
+        <table class="spec-table bordered">
+          <thead><tr><th>Behavior</th><th>What triggers it</th></tr></thead>
+          <tbody>
+            <tr><td>decorateTemplateAndTheme</td><td>The <code class="code-inline">template</code> and <code class="code-inline">theme</code> metadata become body classes (e.g. <code class="code-inline">ai-solutions</code>).</td></tr>
+            <tr><td>Newsroom bar</td><td><code class="code-inline">newsroom</code> metadata: <code class="code-inline">false</code> hides the bar; the <code class="code-inline">ai-solutions</code> template hides it unless <code class="code-inline">newsroom=true</code> (sets <code class="code-inline">body[data-no-newsroom]</code>).</td></tr>
+            <tr><td>Breadcrumbs</td><td><code class="code-inline">breadcrumbs=true</code> sets <code class="code-inline">body[data-breadcrumbs]</code>.</td></tr>
+            <tr><td>pushPageReady</td><td>After decorating <code class="code-inline">main</code>, builds <code class="code-inline">window.pagePropertiesData</code> from metadata and pushes <code class="code-inline">standards.pageReady</code> to <code class="code-inline">dataLayer</code>.</td></tr>
+            <tr><td>Lazy phase</td><td>Loads all sections, then header and footer, lazy CSS and fonts.</td></tr>
+            <tr><td>Delayed phase</td><td><code class="code-inline">delayed.js</code> after 3 seconds: GTM with consent, Related Links fallback.</td></tr>
+            <tr><td>Sidekick / UE / DA preview</td><td>Experimentation hook in the sidekick, Universal Editor scripts on UE hosts, DA live-preview via <code class="code-inline">?dapreview</code> / <code class="code-inline">?daexperiment</code>.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="doc-section" id="blocks">
+        <h2>
+          <span class="section-icon icon-navy">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5A1.5 1.5 0 012.5 2h2A1.5 1.5 0 016 3.5v2A1.5 1.5 0 014.5 7h-2A1.5 1.5 0 011 5.5v-2zm5.5 0A1.5 1.5 0 018 2h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 7H8A1.5 1.5 0 016.5 5.5v-2zm-5.5 5A1.5 1.5 0 012.5 7h2A1.5 1.5 0 016 8.5v2A1.5 1.5 0 014.5 12h-2A1.5 1.5 0 011 10.5v-2zm5.5 0A1.5 1.5 0 018 7h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 12H8A1.5 1.5 0 016.5 10.5v-2z"/></svg>
+          </span>
+          EDS blocks
+        </h2>
+        <div class="section-rule"></div>
+        <h3>New blocks and variants (this project)</h3>
+        <p><strong>7 new blocks and 25 new variants</strong> were created for the AI landing page and the newsroom pages, excluding the earlier work by Tim.</p>
+        <table class="spec-table bordered">
+          <thead><tr><th>Scope</th><th>Blocks (7)</th></tr></thead>
+          <tbody>
+            <tr><td>AI landing page and newsroom (2)</td><td><code class="code-inline">anchor-nav</code>, <code class="code-inline">footnotes</code></td></tr>
+            <tr><td>AI landing only (2)</td><td><code class="code-inline">banner</code>, <code class="code-inline">media-feature</code></td></tr>
+            <tr><td>Newsroom only (3)</td><td><code class="code-inline">press-contact</code>, <code class="code-inline">cta-dropdown</code>, <code class="code-inline">figure</code></td></tr>
+          </tbody>
+        </table>
+        <table class="spec-table bordered">
+          <thead><tr><th>Scope</th><th>Variants (25)</th><th>Block: variants</th></tr></thead>
+          <tbody>
+            <tr><td>AI landing only (11)</td><td>11</td><td><code class="code-inline">hero</code>: <code class="code-inline">centered</code>, <code class="code-inline">hero-logos</code><br><code class="code-inline">cards</code>: <code class="code-inline">icon</code>, <code class="code-inline">image</code>, <code class="code-inline">left</code>, <code class="code-inline">right</code>, <code class="code-inline">product</code>, <code class="code-inline">3-up</code>, <code class="code-inline">4-up</code><br><code class="code-inline">banner</code>: <code class="code-inline">compact</code><br><code class="code-inline">accordion</code>: <code class="code-inline">faq</code></td></tr>
+            <tr><td>Newsroom only (14), across press releases, press kits and blogs</td><td>14</td><td><code class="code-inline">carousel</code>: <code class="code-inline">press</code>, <code class="code-inline">quote</code>, <code class="code-inline">large</code><br><code class="code-inline">columns</code>: <code class="code-inline">press</code>, <code class="code-inline">gallery</code>, <code class="code-inline">gallery natural</code><br><code class="code-inline">video</code>: <code class="code-inline">press</code><br><code class="code-inline">table</code>: <code class="code-inline">press</code><br><code class="code-inline">cards</code>: <code class="code-inline">press</code>, <code class="code-inline">2-up</code><br><code class="code-inline">anchor-nav</code>: <code class="code-inline">press</code><br><code class="code-inline">hero</code>: <code class="code-inline">compact</code><br><code class="code-inline">footnotes</code>: <code class="code-inline">press</code><br><code class="code-inline">figure</code>: width and float right</td></tr>
+          </tbody>
+        </table>
+        <h3>All blocks and variants</h3>
+        <p>Every block used in the project with the variants authored for each page group. <span class="skill-tag tag-core">core</span> = from the AEM block collection; <span class="skill-tag tag-poli">polished</span> = core block restyled for HP; <span class="skill-tag tag-js">custom</span> = net-new. <strong>New</strong> marks the 7 blocks built in this project. A dash means no variant is used.</p>
+        <table class="spec-table bordered">
+          <thead><tr><th>Block</th><th>Type</th><th>New</th><th>Variants</th><th>Role</th><th>Used on</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">accordion</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td><strong>AI landing:</strong> <code class="code-inline">faq</code></td><td>Expandable items; the FAQ variant is used on the AI landing page</td><td>AI landing</td></tr>
+            <tr><td><code class="code-inline">anchor-nav</code></td><td><span class="skill-tag tag-js">custom</span></td><td><strong>Yes</strong></td><td><strong>Newsroom:</strong> <code class="code-inline">press</code></td><td>In-page anchor navigation bar, pinned under the header, with a mobile dropdown</td><td>AI landing, Newsroom</td></tr>
+            <tr><td><code class="code-inline">articles-listing</code></td><td><span class="skill-tag tag-js">custom</span></td><td>&mdash;</td><td>&mdash;</td><td>Faceted, sortable, searchable archive with Load More</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">banner</code></td><td><span class="skill-tag tag-js">custom</span></td><td><strong>Yes</strong></td><td><strong>AI landing:</strong> <code class="code-inline">compact</code></td><td>Image + content banner</td><td>AI landing</td></tr>
+            <tr><td><code class="code-inline">cards</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td><strong>AI landing:</strong> <code class="code-inline">icon</code>, <code class="code-inline">image</code>, <code class="code-inline">left</code>, <code class="code-inline">right</code>, <code class="code-inline">product</code>, <code class="code-inline">3-up</code>, <code class="code-inline">4-up</code><br><strong>Newsroom:</strong> <code class="code-inline">press</code>, <code class="code-inline">2-up</code></td><td>Card grids and galleries</td><td>AI landing, Newsroom</td></tr>
+            <tr><td><code class="code-inline">carousel</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td><strong>Newsroom:</strong> <code class="code-inline">press</code>, <code class="code-inline">quote</code>, <code class="code-inline">large</code></td><td>Image/content carousel</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">columns</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td><strong>Newsroom:</strong> <code class="code-inline">press</code>, <code class="code-inline">gallery</code>, <code class="code-inline">gallery natural</code></td><td>Column layouts and image galleries</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">cta-dropdown</code></td><td><span class="skill-tag tag-js">custom</span></td><td><strong>Yes</strong></td><td>&mdash;</td><td>Call-to-action dropdown</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">embed</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td>&mdash;</td><td>Embeds external content</td><td>&mdash;</td></tr>
+            <tr><td><code class="code-inline">figure</code></td><td><span class="skill-tag tag-js">custom</span></td><td><strong>Yes</strong></td><td><strong>Newsroom:</strong> <code class="code-inline">width</code>, <code class="code-inline">float right</code></td><td>Sized inline figure</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">footer</code></td><td><span class="skill-tag tag-poli">polished</span></td><td>&mdash;</td><td>&mdash;</td><td>HP newsroom footer fragment: country selector, link columns, legal row</td><td>All pages</td></tr>
+            <tr><td><code class="code-inline">footnotes</code></td><td><span class="skill-tag tag-js">custom</span></td><td><strong>Yes</strong></td><td><strong>Newsroom:</strong> <code class="code-inline">press</code></td><td>Collapsible footnotes and disclaimers; auto-links URLs and adds GTM values</td><td>AI landing, Newsroom</td></tr>
+            <tr><td><code class="code-inline">form</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td>&mdash;</td><td>Form block</td><td>&mdash;</td></tr>
+            <tr><td><code class="code-inline">fragment</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td>&mdash;</td><td>Includes content from another page</td><td>&mdash;</td></tr>
+            <tr><td><code class="code-inline">header</code></td><td><span class="skill-tag tag-poli">polished</span></td><td>&mdash;</td><td>&mdash;</td><td>HP mega-menu nav (see Hierarchy Header), responsive mobile menu, search</td><td>All pages</td></tr>
+            <tr><td><code class="code-inline">hero</code></td><td><span class="skill-tag tag-poli">polished</span></td><td>&mdash;</td><td><strong>AI landing:</strong> <code class="code-inline">centered</code>, <code class="code-inline">hero-logos</code><br><strong>Newsroom:</strong> <code class="code-inline">compact</code></td><td>Full-bleed hero with overlaid content band</td><td>AI landing, Newsroom</td></tr>
+            <tr><td><code class="code-inline">latest-news</code></td><td><span class="skill-tag tag-js">custom</span></td><td>&mdash;</td><td>&mdash;</td><td>Newest 4 articles from the query index</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">media-feature</code></td><td><span class="skill-tag tag-js">custom</span></td><td><strong>Yes</strong></td><td>&mdash;</td><td>Media feature supporting MP4/WebM files and YouTube/Vimeo embeds</td><td>AI landing</td></tr>
+            <tr><td><code class="code-inline">modal</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td>&mdash;</td><td>Modal dialog for <code class="code-inline">/modals/</code> links</td><td>&mdash;</td></tr>
+            <tr><td><code class="code-inline">more-articles</code></td><td><span class="skill-tag tag-js">custom</span></td><td>&mdash;</td><td>&mdash;</td><td>Next 6 articles, de-duplicated against latest-news</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">press-contact</code></td><td><span class="skill-tag tag-js">custom</span></td><td><strong>Yes</strong></td><td>&mdash;</td><td>Press contact label/link list</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">press-kits-listing</code></td><td><span class="skill-tag tag-js">custom</span></td><td>&mdash;</td><td>&mdash;</td><td>Latest 4 press kits from the index, or a hand-picked set of URLs</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">quote</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td>&mdash;</td><td>Pull quote</td><td>&mdash;</td></tr>
+            <tr><td><code class="code-inline">related-links</code></td><td><span class="skill-tag tag-js">custom</span></td><td>&mdash;</td><td>&mdash;</td><td>Related Links drawer with GTM tracking (see Edge Functions)</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">search</code></td><td><span class="skill-tag tag-poli">polished</span></td><td>&mdash;</td><td>&mdash;</td><td>Search results page backed by HawkSearch and HP Support</td><td>Search results page</td></tr>
+            <tr><td><code class="code-inline">table</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td><strong>Newsroom:</strong> <code class="code-inline">press</code></td><td>Data table</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">tabs</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td>&mdash;</td><td>Tabbed content</td><td>&mdash;</td></tr>
+            <tr><td><code class="code-inline">video</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td><strong>Newsroom:</strong> <code class="code-inline">press</code></td><td>Video player</td><td>Newsroom</td></tr>
+          </tbody>
+        </table>
+</section>
+
+      <section class="doc-section" id="supporting-modules">
+        <h2>
+          <span class="section-icon icon-orange"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Supporting modules (<code class="code-inline">scripts/</code>)
+        </h2>
+        <div class="section-rule"></div>
+        <table class="spec-table bordered">
+          <thead><tr><th>Module</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">scripts/global-nav.js</code></td><td>Loads header/footer partials and styles into shadow roots for embedding on external sites</td></tr>
+            <tr><td><code class="code-inline">scripts/search-utils.js</code></td><td>HawkSearch/Support helpers, embedded-mode detection, site metadata loading</td></tr>
+            <tr><td><code class="code-inline">scripts/locale.js</code></td><td>Resolves the page locale (search-locale, URL segment, else us-en)</td></tr>
+            <tr><td><code class="code-inline">scripts/gtm.js</code></td><td>Link-title GTM parsing and page-ready data layer push</td></tr>
+            <tr><td><code class="code-inline">scripts/delayed.js</code></td><td>Consent-gated GTM loading and the Related Links client-side fallback</td></tr>
+            <tr><td><code class="code-inline">scripts/sidekick.js</code></td><td>Sidekick custom event that toggles the DA experimentation plugin</td></tr>
+            <tr><td><code class="code-inline">scripts/context.js</code></td><td>Shared page context helper</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="doc-section" id="lighthouse">
+        <h2>
+          <span class="section-icon icon-green"><svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Lighthouse comparison
+        </h2>
+        <div class="section-rule"></div>
+        <p>Lighthouse 12, <strong>mobile</strong> profile (default throttling), one run per page, 23 Oct 2026. AEM = current hp.com pages; EDS = the <code class="code-inline">main--hp--adobedrago.aem.page</code> preview. Scores vary run to run, so treat them as indicative.</p>
+                <div class="lh-gauges">
+          <div class="lh-page">
+            <div class="lh-page-title">Next-gen AI PCs<span>/us-en/ai-solutions/next-gen-ai-pcs</span></div>
+            <div class="lh-sides">
+              <div><div class="lh-side-label">AEM (hp.com)</div><div class="lh-rings"><div class="lh-ring"><div class="lh-ring-dial lh-ok" style="--p:53"><b>53</b></div>Performance</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:95"><b>95</b></div>Accessibility</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:96"><b>96</b></div>Best practices</div></div></div>
+              <div><div class="lh-side-label">EDS</div><div class="lh-rings"><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:100"><b>100</b></div>Performance</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:100"><b>100</b></div>Accessibility</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:100"><b>100</b></div>Best practices</div></div></div>
+            </div>
+          </div>
+          <div class="lh-page">
+            <div class="lh-page-title">Newsroom<span>/us-en/newsroom</span></div>
+            <div class="lh-sides">
+              <div><div class="lh-side-label">AEM (hp.com)</div><div class="lh-rings"><div class="lh-ring"><div class="lh-ring-dial lh-ok" style="--p:51"><b>51</b></div>Performance</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:96"><b>96</b></div>Accessibility</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:96"><b>96</b></div>Best practices</div></div></div>
+              <div><div class="lh-side-label">EDS</div><div class="lh-rings"><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:100"><b>100</b></div>Performance</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:99"><b>99</b></div>Accessibility</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:100"><b>100</b></div>Best practices</div></div></div>
+            </div>
+          </div>
+          <div class="lh-page">
+            <div class="lh-page-title">Press Releases<span>/us-en/newsroom/press-releases</span></div>
+            <div class="lh-sides">
+              <div><div class="lh-side-label">AEM (hp.com)</div><div class="lh-rings"><div class="lh-ring"><div class="lh-ring-dial lh-bad" style="--p:19"><b>19</b></div>Performance</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:96"><b>96</b></div>Accessibility</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:96"><b>96</b></div>Best practices</div></div></div>
+              <div><div class="lh-side-label">EDS</div><div class="lh-rings"><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:94"><b>94</b></div>Performance</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:100"><b>100</b></div>Accessibility</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:100"><b>100</b></div>Best practices</div></div></div>
+            </div>
+          </div>
+          <div class="lh-page">
+            <div class="lh-page-title">Press Kits<span>/us-en/newsroom/press-kits</span></div>
+            <div class="lh-sides">
+              <div><div class="lh-side-label">AEM (hp.com)</div><div class="lh-rings"><div class="lh-ring"><div class="lh-ring-dial lh-bad" style="--p:34"><b>34</b></div>Performance</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:96"><b>96</b></div>Accessibility</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:100"><b>100</b></div>Best practices</div></div></div>
+              <div><div class="lh-side-label">EDS</div><div class="lh-rings"><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:100"><b>100</b></div>Performance</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:100"><b>100</b></div>Accessibility</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:100"><b>100</b></div>Best practices</div></div></div>
+            </div>
+          </div>
+          <div class="lh-page">
+            <div class="lh-page-title">Blogs<span>/us-en/newsroom/blogs</span></div>
+            <div class="lh-sides">
+              <div><div class="lh-side-label">AEM (hp.com)</div><div class="lh-rings"><div class="lh-ring"><div class="lh-ring-dial lh-bad" style="--p:29"><b>29</b></div>Performance</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:96"><b>96</b></div>Accessibility</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:96"><b>96</b></div>Best practices</div></div></div>
+              <div><div class="lh-side-label">EDS</div><div class="lh-rings"><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:100"><b>100</b></div>Performance</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:100"><b>100</b></div>Accessibility</div><div class="lh-ring"><div class="lh-ring-dial lh-good" style="--p:100"><b>100</b></div>Best practices</div></div></div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- TYPEFACE -->
-      <section class="doc-section" id="typeface">
+      <section class="doc-section" id="header-nav">
         <h2>
-          <span class="section-icon icon-purple">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2.5A.5.5 0 013.5 2h9a.5.5 0 01.5.5V4a.5.5 0 01-1 0v-1H8.5v10H10a.5.5 0 010 1H6a.5.5 0 010-1h1.5V3H4v1a.5.5 0 01-1 0V2.5z"/></svg>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg></span>
+          Hierarchy Header
+        </h2>
+        <div class="section-rule"></div>
+        <p>The header is the <code class="code-inline">header</code> block (<code class="code-inline">blocks/header/header.js</code>). It has no hard-coded links: the whole nav is authored as a <strong>fragment</strong> in DA and decorated at runtime.</p>
+        <h3>Resolving the nav by content level</h3>
+        <p>The header is resolved by content level, so each content folder can have its own header. The <code class="code-inline">nav</code> metadata says which nav fragment a page loads. It is set for whole folders in the <strong>metadata sheet</strong>, with a URL pattern in the first column and the nav path in the <code class="code-inline">nav</code> column. The most specific matching pattern wins; pages that match nothing fall back to <code class="code-inline">/nav</code>.</p>
+        <table class="spec-table bordered">
+          <thead><tr><th>URL pattern</th><th><code class="code-inline">nav</code></th><th>Header loaded</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">/**</code></td><td><code class="code-inline">/nav</code></td><td>Global default header</td></tr>
+            <tr><td><code class="code-inline">/us-en/**</code></td><td><code class="code-inline">/us-en/nav</code></td><td>US English header (newsroom pages)</td></tr>
+            <tr><td><code class="code-inline">/us-en/ai-solutions/**</code></td><td><code class="code-inline">/us-en/ai-solutions/nav</code></td><td>AI Solutions header</td></tr>
+          </tbody>
+        </table>
+        <p>To give a section its own header: author a <code class="code-inline">nav</code> fragment in that content folder, then add a row to the metadata sheet with the folder pattern and the fragment path. Every page under the folder picks it up, and a single page can still override it with its own <code class="code-inline">nav</code> page metadata. Only that fragment is fetched, so each section loads just the header features it needs.</p>
+        <h3>Where the content comes from</h3>
+        <p>The fragment path is the <code class="code-inline">nav</code> page metadata, falling back to <code class="code-inline">/nav</code>. It is fetched as <code class="code-inline">&lt;path&gt;.plain.html</code> (prefixed with <code class="code-inline">/content</code> when served from an AEM path) and relative <code class="code-inline">./media_</code> images are rebased.</p>
+        <h3>Authoring hierarchy</h3>
+        <p>The fragment is a series of top-level sections. The first four map by position to <code class="code-inline">nav-brand</code>, <code class="code-inline">nav-sections</code>, <code class="code-inline">nav-tools</code> and <code class="code-inline">nav-newsroom</code>. Inside <code class="code-inline">nav-sections</code> the heading levels drive the mega-menu:</p>
+        <table class="spec-table bordered">
+          <thead><tr><th>Authored as</th><th>Becomes</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">H2</code> with a link</td><td>Level-1 menu item (<code class="code-inline">li.nav-drop</code> + trigger button) with its own flyout panel. An H2 linking to <code class="code-inline">/business-solutions.html</code> is pulled out as the right-hand CTA button instead.</td></tr>
+            <tr><td><code class="code-inline">H3</code> under an H2</td><td>Heading in the panel's <strong>featured</strong> column (<code class="code-inline">nav-featured-heading</code>)</td></tr>
+            <tr><td><code class="code-inline">UL</code> without images</td><td>Plain link list in the <strong>featured</strong> column (level 3)</td></tr>
+            <tr><td><code class="code-inline">UL</code> containing images</td><td>Image <strong>cards</strong> column (level 2)</td></tr>
+          </tbody>
+        </table>
+        <h3>Behaviour</h3>
+        <ul>
+          <li>Desktop (&ge;1280px): hover-intent (200 ms) opens/closes panels; click toggles; Escape and outside click close.</li>
+          <li>Below 1280px: hamburger toggles a mobile menu with body scroll lock and an overlay.</li>
+          <li>Tools section: search toggle, cart and account/sign-in flyout (demo sign-in via <code class="code-inline">demo-user.js</code>).</li>
+          <li>Newsroom bar (4th section): shown only when enabled &mdash; see the <code class="code-inline">newsroom</code> metadata below. It collapses behind a chevron toggle on small screens.</li>
+          <li>Every nav link gets GTM attributes automatically (<code class="code-inline">header|l1-logo</code>, <code class="code-inline">header|l2-&lt;menu&gt;</code>, <code class="code-inline">header|l3-&lt;menu&gt;</code>); see GTM.</li>
+        </ul>
+        <h3>Footer</h3>
+        <p>The <code class="code-inline">footer</code> block loads the fragment named by the <code class="code-inline">footer</code> metadata (default <code class="code-inline">/footer</code>). By position: section 1 = country selector (<code class="code-inline">footer-country</code>), 2 = link columns (accordions on mobile), 3 = legal row incl. the privacy-choices icon.</p>
+      </section>
+
+      <section class="doc-section" id="embed">
+        <h2>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg></span>
+          Embedding header &amp; footer
+        </h2>
+        <div class="section-rule"></div>
+        <p>The header and footer can be dropped into any external page (e.g. other hp.com properties) with one script and two placeholder elements. <code class="code-inline">scripts/global-nav.js</code> renders each into a <strong>shadow root</strong>, so host-page CSS cannot leak in and HP's CSS cannot leak out.</p>
+        <h3>Snippet</h3>
+        <p>The header and footer are authored once as fragments (<code class="code-inline">/nav</code>, <code class="code-inline">/footer</code>) and served from the published site, so any external site can include them with one script and an empty <code class="code-inline">&lt;header&gt;</code> / <code class="code-inline">&lt;footer&gt;</code>. Content edits publish to every site that embeds them.</p>
+        <div class="code-block">&lt;script type="module" src="https://main--hp--adobedrago.aem.live/scripts/global-nav.js"&gt;&lt;/script&gt;
+
+&lt;header&gt;&lt;/header&gt;
+&lt;main&gt; ... host page ... &lt;/main&gt;
+&lt;footer&gt;&lt;/footer&gt;</div>
+        <h3>How it works</h3>
+        <ol>
+          <li>The script loads <code class="code-inline">styles/global-nav.css</code> and <code class="code-inline">styles/fonts.css</code> into the host page's head.</li>
+          <li>A MutationObserver waits for a plain <code class="code-inline">body &gt; header</code> / <code class="code-inline">body &gt; footer</code> (as in the snippet) or an explicit <code class="code-inline">header[data-global-nav]</code>, so the script can load before or after the elements.</li>
+          <li>For each host it attaches the shadow root, loads <code class="code-inline">styles.css</code>, the block CSS (and <code class="code-inline">search-suggest.css</code> for the header) from the code origin, fetches <code class="code-inline">/nav.plain.html</code> or <code class="code-inline">/footer.plain.html</code>, and runs the normal block <code class="code-inline">decorate()</code>.</li>
+          <li>Relative links in the fragment are made absolute against <code class="code-inline">data-link-base</code> (default <code class="code-inline">https://www.hp.com</code>); images are made absolute against the code origin.</li>
+        </ol>
+        <table class="spec-table bordered">
+          <thead><tr><th>Option / event</th><th>Effect</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">data-newsroom="true"</code> (optional attribute on <code class="code-inline">&lt;header&gt;</code>)</td><td>Show the newsroom bar. Omitted or any other value hides it.</td></tr>
+            <tr><td><code class="code-inline">data-link-base</code></td><td>Origin used to resolve relative nav/footer links.</td></tr>
+            <tr><td><code class="code-inline">data-global-nav</code></td><td>Marks the placeholder; its value becomes <code class="code-inline">loading</code> &rarr; <code class="code-inline">loaded</code> or <code class="code-inline">error</code>.</td></tr>
+            <tr><td><code class="code-inline">global-nav:loaded</code></td><td>Bubbling CustomEvent on the host when rendered.</td></tr>
+            <tr><td><code class="code-inline">global-nav:error</code></td><td>Bubbling event with <code class="code-inline">detail.error</code>; the shadow root falls back to a <code class="code-inline">&lt;slot&gt;</code> so any light-DOM fallback content shows.</td></tr>
+          </tbody>
+        </table>
+        <div class="notice info">
+          <span><strong>Embedded search.</strong> When the code origin differs from the page origin, <code class="code-inline">search-utils.js</code> sets <code class="code-inline">isEmbedded</code>: search config (<code class="code-inline">search-client-guid</code> etc.) is read from this site's <code class="code-inline">/nav</code> page metadata instead of the host page, and <code class="code-inline">placeholders.json</code> comes from the code origin.</span>
+        </div>
+      </section>
+
+      <section class="doc-section" id="gtm">
+        <h2>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg></span>
+          GTM
+        </h2>
+        <div class="section-rule"></div>
+        <p>GTM click tracking is set up in two ways, and both end up as <code class="code-inline">data-gtm-*</code> attributes that HP's GTM container reads: <strong>1. authored</strong> by editors in the DA link editor, and <strong>2. generated by code</strong> for the dynamic components, where editors can only override the GTM id through section metadata.</p>
+        <h3>1. Authoring with the link editor</h3>
+        <p>In the link dialog, put the GTM values in the <strong>Title</strong> field, separated by <code class="code-inline">|</code>. Anything that is not <code class="code-inline">key=value</code> stays as the normal tooltip title.</p>
+        <div class="code-block">title = Buy now | category=linkClick | id=hero-cta | value=buy-now | target=_blank</div>
+        <table class="spec-table bordered">
+          <thead><tr><th>Key</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">title</code></td><td>The link's tooltip text (here <code class="code-inline">Buy now</code>). Dropped if identical to the link text.</td></tr>
+            <tr><td><code class="code-inline">category</code></td><td><code class="code-inline">data-gtm-category</code> &mdash; the kind of click, e.g. <code class="code-inline">linkClick</code></td></tr>
+            <tr><td><code class="code-inline">id</code></td><td><code class="code-inline">data-gtm-id</code> &mdash; the placement, e.g. <code class="code-inline">hero-cta</code></td></tr>
+            <tr><td><code class="code-inline">value</code></td><td><code class="code-inline">data-gtm-value</code> &mdash; the specific link, e.g. <code class="code-inline">buy-now</code></td></tr>
+            <tr><td>any other key (<code class="code-inline">[a-z][a-z0-9_-]*</code>)</td><td>Becomes <code class="code-inline">data-gtm-&lt;key&gt;</code></td></tr>
+          </tbody>
+        </table>
+        <p>This runs through <code class="code-inline">decorateGtmLinks()</code> (<code class="code-inline">scripts/gtm.js</code>) for all of <code class="code-inline">main</code> in <code class="code-inline">decorateMain</code>, and again for the header and footer.</p>
+        <h3>Title format rules</h3>
+        <figure style="margin:16px 0;"><img src="images/gtm-link-editor.png" alt="Edit link dialog with GTM values in the Title field" style="width:100%;max-width:640px;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:var(--gray-500,#6b7280);margin-top:6px;">The Edit link dialog: the tracking values go in the Title field.</figcaption></figure>
+        <p>Example: <code class="code-inline">title=Laptops|id=l3-laptops|category=globalNavigation|value=laptops</code> becomes <code class="code-inline">&lt;a title="Laptops" data-gtm-id="l3-laptops" data-gtm-category="globalNavigation" data-gtm-value="laptops"&gt;</code> when the page loads.</p>
+        <ul>
+          <li>Pairs can come in any order; use as many as needed.</li>
+          <li>Spaces around <code class="code-inline">|</code> and <code class="code-inline">=</code> are fine, and keys are not case-sensitive.</li>
+          <li>Only the first <code class="code-inline">=</code> splits key from value, so a value may itself contain <code class="code-inline">=</code>.</li>
+          <li>Text without <code class="code-inline">=</code> is a normal title (<code class="code-inline">Shop laptops</code> stays a tooltip and is not tracked). A title that only repeats the link text is removed.</li>
+          <li>Keys must start with a letter and use only lowercase letters, numbers, <code class="code-inline">-</code> or <code class="code-inline">_</code>. Agree new keys and category names with the analytics team.</li>
+        </ul>
+        <p>It works in page content (including buttons and links inside blocks), the header nav fragment and the footer fragment. Related Links are tagged automatically (<code class="code-inline">id=related_links</code>, <code class="code-inline">category=linkClick</code>, value from the link text).</p>
+        <h3>Real example: next-gen-ai-pcs</h3>
+        <p>The <a href="https://main--hp--adobedrago.aem.page/us-en/ai-solutions/next-gen-ai-pcs" style="color:var(--hp-blue-text);">AI PCs page</a> is authored entirely with the link-editor method. Spaces around <code class="code-inline">|</code> and <code class="code-inline">=</code> are trimmed, and <code class="code-inline">title=</code> sets the tooltip text.</p>
+        <div class="code-block">title=Benefits | id=anchor-nav | category=linkClick | value=benefits-anchor-nav
+title=Contact Sales | id=anchor-nav | category=contactClick | value=contact-button
+title=AI at home | id=portfolio-hp-ai-pcs | category=learnClick | value=ai-at-home
+title=Calculate Your ROI | id=explore-ai-pc-roi-calculator | category=linkClick | value=calculate-roi
+title=Shop | id=AI-real-world-benefits | category=buyClick | value=shop-button</div>
+        <table class="spec-table bordered">
+          <thead><tr><th>Field</th><th>Convention used on the page</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">category</code></td><td>The kind of click: <code class="code-inline">linkClick</code> (navigation, anchors, video), <code class="code-inline">learnClick</code> (Learn / learn-more), <code class="code-inline">contactClick</code> (Contact Sales), <code class="code-inline">buyClick</code> (Shop / buy)</td></tr>
+            <tr><td><code class="code-inline">id</code></td><td>The placement: <code class="code-inline">hero-banner</code>, <code class="code-inline">anchor-nav</code>, <code class="code-inline">portfolio-hp-ai-pcs</code>, <code class="code-inline">meet-fast-intelligent-windows</code>, <code class="code-inline">explore-ai-pc-roi-calculator</code>, <code class="code-inline">hp-iq</code>, <code class="code-inline">most-powerful-windows-security</code></td></tr>
+            <tr><td><code class="code-inline">value</code></td><td>The specific link, lowercase and hyphenated: <code class="code-inline">windows-11-pro-badge</code>, <code class="code-inline">benefits-anchor-nav</code>, <code class="code-inline">learn-more</code></td></tr>
+          </tbody>
+        </table>
+        <p>Links with no <code class="code-inline">key=value</code> in the title, such as the footnote references (tooltip = the disclaimer text), stay plain tooltips and get no GTM attributes. Footnote tracking comes from the code instead (below).</p>
+        <h3>2. Generated by code</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Where</th><th>Values</th></tr></thead>
+          <tbody>
+            <tr><td>Header logo / CTA</td><td><code class="code-inline">globalNavigation</code> &middot; <code class="code-inline">header|l1-logo</code> / <code class="code-inline">header|l1-&lt;cta&gt;</code></td></tr>
+            <tr><td>Header mega-menu cards / featured links</td><td><code class="code-inline">header|l2-&lt;menu&gt;</code> / <code class="code-inline">header|l3-&lt;menu&gt;</code>, value = slug of the link text</td></tr>
+            <tr><td>Accordion summaries</td><td><code class="code-inline">linkClick</code> &middot; <code class="code-inline">accordion</code> &middot; <code class="code-inline">01-&lt;label&gt;</code> (max 40 chars)</td></tr>
+            <tr><td>Footnote links</td><td><code class="code-inline">linkClick</code> with a slug of the URL</td></tr>
+            <tr><td>Related Links drawer</td><td><code class="code-inline">data-gtm-*</code> on every link, also in the edge-function output</td></tr>
+          </tbody>
+        </table>
+        <p>Header tags are applied first, so a <code class="code-inline">value=</code> authored in a link title still wins.</p>
+        <h3>GTM id from section metadata</h3>
+        <p>The dynamic components generate <code class="code-inline">data-gtm-category</code>, <code class="code-inline">data-gtm-id</code> and <code class="code-inline">data-gtm-value</code> themselves (category <code class="code-inline">linkClick</code>, value = article/press-kit slug). The only part an author controls is the id: add a <code class="code-inline">gtm_id</code> row to the <strong>Section Metadata</strong> block of the section holding the block. The code reads it from the nearest ancestor with <code class="code-inline">data-gtm_id</code>; if it isn't present, the block's default id is used.</p>
+        <table class="spec-table bordered">
+          <thead><tr><th>Block</th><th>Default GTM id</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">latest-news</code></td><td><code class="code-inline">newsroom_article_grid</code></td></tr>
+            <tr><td><code class="code-inline">more-articles</code></td><td><code class="code-inline">newsroom_article_grid</code></td></tr>
+            <tr><td><code class="code-inline">press-kits-listing</code></td><td><code class="code-inline">kits_link_placement</code> (<code class="code-inline">newsroom_top_hero_banner</code> when placed in the hero); prev/next arrows get <code class="code-inline">prev-arrow</code> / <code class="code-inline">next-arrow</code></td></tr>
+            <tr><td><code class="code-inline">articles-listing</code></td><td><code class="code-inline">archive_link_placement</code>; also tags load more, sort and filter controls</td></tr>
+          </tbody>
+        </table>
+        <div class="code-block">Section Metadata
+gtm_id | newsroom_hero_cards</div>
+                <figure style="margin:16px 0;"><img src="images/gtm-section-metadata.png" alt="Section metadata with gtm_id above an articles-listing block" style="width:100%;max-width:640px;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:var(--gray-500,#6b7280);margin-top:6px;">A section-metadata table with gtm_id sets the id for the articles-listing block below it.</figcaption></figure>
+        <ul>
+          <li>Type the key as <code class="code-inline">gtm_id</code>, with an underscore.</li>
+          <li>The block removes <code class="code-inline">gtm_id</code> from the page once it has read it, so the id only shows on the card links.</li>
+          <li><strong>One block per section.</strong> A second block in the same section won't see the value and falls back to its own default.</li>
+          <li>Authors never type the article value: it is the end of the article URL without <code class="code-inline">.html</code> (e.g. <code class="code-inline">hp-imagine</code>).</li>
+          <li>Every link on a card (image, headline, Read) gets the same three values; <code class="code-inline">press-kits-listing</code> cards are a single link, so one set.</li>
+        </ul>
+                <p><strong>Footnotes</strong> (and the dynamic footnote list) are not configurable: their GTM values are generated purely by code, with the value built from the link URL.</p>
+        <h3>Page view data</h3>
+        <p><code class="code-inline">pushPageReady()</code> builds <code class="code-inline">window.pagePropertiesData</code> from page metadata and pushes <code class="code-inline">standards.pageReady</code> to <code class="code-inline">dataLayer</code>:</p>
+        <table class="spec-table bordered">
+          <thead><tr><th>Metadata name</th><th>pagePropertiesData key</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">site_type</code></td><td><code class="code-inline">siteType</code></td></tr>
+            <tr><td><code class="code-inline">site_sub_type</code></td><td><code class="code-inline">siteSubType</code></td></tr>
+            <tr><td><code class="code-inline">template</code></td><td><code class="code-inline">templateName</code></td></tr>
+            <tr><td><code class="code-inline">page_level</code></td><td><code class="code-inline">pageNameL5</code></td></tr>
+            <tr><td><code class="code-inline">product_type</code></td><td><code class="code-inline">pageNameL6</code></td></tr>
+            <tr><td><code class="code-inline">family</code></td><td><code class="code-inline">pageNameL7</code></td></tr>
+            <tr><td><code class="code-inline">simple_title</code></td><td><code class="code-inline">pageNameL8</code></td></tr>
+            <tr><td><code class="code-inline">bu</code></td><td><code class="code-inline">meta_bu</code></td></tr>
+            <tr><td><code class="code-inline">segment</code></td><td><code class="code-inline">meta_segment</code></td></tr>
+          </tbody>
+        </table>
+        <h3>Common mistakes</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Written</th><th>What happens</th><th>Write instead</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">l3-laptops | globalNavigation</code></td><td>No <code class="code-inline">=</code>, so it is a plain tooltip and nothing is tracked</td><td><code class="code-inline">id=l3-laptops|category=globalNavigation</code></td></tr>
+            <tr><td><code class="code-inline">id:l3-laptops</code></td><td>A colon is not a separator; nothing is tracked</td><td><code class="code-inline">id=l3-laptops</code></td></tr>
+            <tr><td><code class="code-inline">id=l3-laptops, category=nav</code></td><td>Commas do not split pairs; the id value becomes <code class="code-inline">l3-laptops, category=nav</code></td><td><code class="code-inline">id=l3-laptops|category=nav</code></td></tr>
+            <tr><td><code class="code-inline">1st=hero</code></td><td>Key starts with a number; stays a plain tooltip</td><td><code class="code-inline">position=1</code></td></tr>
+            <tr><td><code class="code-inline">id=</code></td><td>Empty values are skipped</td><td>Give a value, or leave the key out</td></tr>
+          </tbody>
+        </table>
+        <h3>Check your work</h3>
+        <ol>
+          <li>Preview the page, open DevTools (F12, or Cmd+Option+I), right-click the link &rarr; Inspect, and confirm the expected <code class="code-inline">data-gtm-*</code> attributes.</li>
+          <li>In the Console enable Preserve log, and Cmd/Ctrl-click the link so it opens in a new tab and the page stays put.</li>
+          <li>On <code class="code-inline">localhost</code>, <code class="code-inline">*.aem.page</code> and <code class="code-inline">*.aem.live</code> GTM loads about 3 seconds after the page with no consent prompt, so you can test there. In production it loads only after the visitor allows Performance &amp; Analytics cookies.</li>
+        </ol>
+        <h3>Loading GTM</h3>
+        <ul>
+          <li>Container IDs come from the <code class="code-inline">gtm-id</code> metadata (normally set once in the site-wide metadata sheet; comma-separated for several containers, e.g. <code class="code-inline">GTM-P9TRBRZ</code>). A page with no <code class="code-inline">gtm-id</code> does not load GTM. <code class="code-inline">scripts/delayed.js</code> loads them ~3 s after load.</li>
+          <li>Consent: the container loads only once OneTrust group <code class="code-inline">2</code> (Performance &amp; Analytics) is accepted, hooked through <code class="code-inline">OptanonWrapper</code>. On <code class="code-inline">localhost</code> and <code class="code-inline">*.aem.page/live</code> all groups count as accepted.</li>
+          <li><code class="code-inline">pb.onOptInGroups</code> entries pushed by HP's tags run their callback when the groups are allowed, and <code class="code-inline">gtm_consent_update</code> is pushed afterwards.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section" id="search">
+        <h2>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg></span>
+          Search
+        </h2>
+        <div class="section-rule"></div>
+        <p>Site search lives in the header, so it is available on every page, including the AI PCs landing page and anywhere the header is embedded. It is powered by <strong>HawkSearch</strong> (shop and content) plus <strong>HP Support</strong> (product support), and it hands off to HP's own results page. A separate <code class="code-inline">search</code> block can also render a full results page on this site.</p>
+        <h3>How a search works in the header</h3>
+        <ol>
+          <li><strong>Open.</strong> The search icon in the nav tools opens the search bar (it is always visible at 1680px and wider). Escape, the close button or a click on the page backdrop closes it.</li>
+          <li><strong>Type.</strong> After 2 characters (250 ms debounce) the header calls HawkSearch autocomplete and HP Support in parallel. Older requests are cancelled when the user keeps typing.</li>
+          <li><strong>Suggestions panel.</strong> A panel opens under the header with:
+            <ul>
+              <li><strong>Suggestions</strong> &mdash; popular search terms with the matching text bolded, plus &ldquo;See all results&rdquo;.</li>
+              <li><strong>Shop</strong> &mdash; up to 3 product cards (name, image, list/sale price) with a total count.</li>
+              <li><strong>Explore</strong> &mdash; up to 3 articles/content hits with a count.</li>
+              <li><strong>Support</strong> &mdash; up to 3 HP Support products.</li>
+              <li>If nothing matches: &ldquo;No results for &hellip;&rdquo;. If HawkSearch fails the panel simply hides.</li>
+            </ul>
+          </li>
+          <li><strong>Choose.</strong> Arrow keys move through the options, Enter opens the highlighted one. Each section has a &ldquo;See all&rdquo; link.</li>
+          <li><strong>Submit.</strong> Pressing Enter in the box or clicking the search button submits a normal form (GET <code class="code-inline">keyword=</code>) to <code class="code-inline">https://www.hp.com/us-en/shop/sitesearch</code>. Empty searches are ignored.</li>
+        </ol>
+        <figure style="margin:16px 0;"><img src="images/search-suggestions.webp" alt="Header search suggestions panel for the keyword laptop, showing Suggestions, Shop, Explore and Support" style="width:100%;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:var(--gray-500,#6b7280);margin-top:6px;">Header search suggestions for &ldquo;laptop&rdquo;: Suggestions on the left, then Shop, Explore and Support results.</figcaption></figure>
+        <h3>Where results go</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Action</th><th>Destination</th></tr></thead>
+          <tbody>
+            <tr><td>Submit / Suggestions / Shop &ldquo;See all&rdquo;</td><td><code class="code-inline">hp.com/&lt;locale&gt;/shop/sitesearch?keyword=&hellip;</code></td></tr>
+            <tr><td>Explore &ldquo;See all&rdquo;</td><td><code class="code-inline">hp.com/&lt;locale&gt;/shop/sitesearch?keyword=&hellip;&amp;type=content</code></td></tr>
+            <tr><td>Support &ldquo;See all&rdquo;</td><td><code class="code-inline">support.hp.com/&lt;locale&gt;/search?q=&hellip;</code></td></tr>
+            <tr><td>Support product card</td><td><code class="code-inline">support.hp.com/&lt;locale&gt;/product/&lt;name&gt;/&lt;id&gt;</code></td></tr>
+          </tbody>
+        </table>
+        <h3>Results page block</h3>
+        <p>The <code class="code-inline">search</code> block (authored with an optional <code class="code-inline">client-guid</code> row) is a self-contained results page: query box, tabs <strong>Shop / Explore / Support</strong>, a sort select (Best match, Price low&ndash;high, Price high&ndash;low, Newest, Top rated &mdash; applied to Shop only), result cards and pagination. State is kept in the URL (<code class="code-inline">q</code>, <code class="code-inline">type</code>, <code class="code-inline">page</code>, <code class="code-inline">sort</code>), so a search can be linked, reloaded and navigated with back/forward. Support shows only the top 24 matches with a link to the full support search. Labels come from <code class="code-inline">placeholders.json</code> (e.g. <code class="code-inline">searchPlaceholder</code>, <code class="code-inline">searchSortBy</code>) with English fallbacks.</p>
+        <h3>Configuration</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Setting</th><th>Where</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">search-client-guid</code></td><td>metadata (page, folder sheet or nav page)</td><td>HawkSearch client GUID. <strong>Required</strong> &mdash; without it the header skips suggestions and the box just submits to hp.com.</td></tr>
+            <tr><td><code class="code-inline">search-locale</code></td><td>metadata</td><td>e.g. <code class="code-inline">us-en</code>; else first URL path segment; else <code class="code-inline">us-en</code>. Drives result and support URLs and price format.</td></tr>
+            <tr><td><code class="code-inline">search-currency</code></td><td>metadata</td><td>Defaults to USD (prices come from the US store).</td></tr>
+            <tr><td><code class="code-inline">support-search-url</code></td><td>metadata</td><td>HP Support proxy endpoint (adds the API key server-side). If unset, canned matches from <code class="code-inline">tools/mock-data/support-search.json</code> are used for demos.</td></tr>
+            <tr><td><code class="code-inline">placeholders.json</code></td><td>DA sheet</td><td>Labels for suggestions, section titles, &ldquo;See all&rdquo;, errors.</td></tr>
+          </tbody>
+        </table>
+        <div class="notice info">
+          <span><strong>On the AI PCs page</strong> (<a href="https://main--hp--adobedrago.aem.page/us-en/ai-solutions/next-gen-ai-pcs" style="color:var(--hp-blue-text);">next-gen-ai-pcs</a>) the page sets <code class="code-inline">search-client-guid</code> itself, so the header search suggests products and content as you type. When the header is embedded on an external site, the config is read from this site's <code class="code-inline">/nav</code> page instead and labels come from this site's <code class="code-inline">placeholders.json</code>.</span>
+        </div>
+      </section>
+
+      <section class="doc-section" id="metadata">
+        <h2>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg></span>
+          Page metadata
+        </h2>
+        <div class="section-rule"></div>
+        <p>Metadata is set per page in the DA <strong>Metadata</strong> block (it becomes <code class="code-inline">&lt;meta&gt;</code> tags and is read with <code class="code-inline">getMetadata()</code>), for whole folders or the site in the DA <strong>metadata sheet</strong> (URL pattern &rarr; values, e.g. <code class="code-inline">nav</code> and <code class="code-inline">gtm-id</code>), and per section with a <strong>Section Metadata</strong> block. The sheet lives in the DA content, not in this repo.</p>
+        <h3>Page metadata used by the code</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Name</th><th>Used by</th><th>Effect</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">template</code></td><td><code class="code-inline">decorateTemplateAndTheme</code></td><td>Added as a body class (comma-separated list allowed). <code class="code-inline">ai-solutions</code> also hides the newsroom bar by default.</td></tr>
+            <tr><td><code class="code-inline">theme</code></td><td><code class="code-inline">decorateTemplateAndTheme</code></td><td>Added as a body class</td></tr>
+            <tr><td><code class="code-inline">newsroom</code></td><td><code class="code-inline">loadEager</code>, header</td><td><code class="code-inline">false</code> hides the newsroom bar; <code class="code-inline">true</code> forces it on</td></tr>
+            <tr><td><code class="code-inline">breadcrumbs</code></td><td><code class="code-inline">loadEager</code></td><td><code class="code-inline">true</code> sets <code class="code-inline">body[data-breadcrumbs]</code></td></tr>
+            <tr><td><code class="code-inline">nav</code></td><td>header</td><td>Path of the nav fragment (default <code class="code-inline">/nav</code>)</td></tr>
+            <tr><td><code class="code-inline">footer</code></td><td>footer</td><td>Path of the footer fragment (default <code class="code-inline">/footer</code>)</td></tr>
+            <tr><td><code class="code-inline">gtm-id</code></td><td><code class="code-inline">delayed.js</code></td><td>GTM container ID(s)</td></tr>
+            <tr><td><code class="code-inline">site_type, site_sub_type, page_level, product_type, family, simple_title, bu, segment</code></td><td><code class="code-inline">pushPageReady</code></td><td>Analytics page properties</td></tr>
+            <tr><td><code class="code-inline">search-*, support-search-url</code></td><td>search utils</td><td>See Search</td></tr>
+          </tbody>
+        </table>
+        <h3>Section metadata</h3>
+        <p>Handled in <code class="code-inline">decorateSections</code>: <code class="code-inline">style</code> (comma-separated) becomes section classes, <code class="code-inline">id</code> sets the section id, and any other key becomes a <code class="code-inline">data-*</code> attribute (camel-cased).</p>
+      </section>
+
+            <section class="doc-section" id="lp-ai-pcs">
+        <h2>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Next-gen AI PCs
+        </h2>
+        <div class="section-rule"></div>
+        <p>Marketing gateway page for HP AI PCs, on the AI Solutions template. <a href="https://main--hp--adobedrago.aem.page/us-en/ai-solutions/next-gen-ai-pcs" style="color:var(--hp-blue-text);">main--hp--adobedrago.aem.page/us-en/ai-solutions/next-gen-ai-pcs</a></p>
+        <h3>Blocks</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Block</th><th>Variants</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">hero</code></td><td><code class="code-inline">centered</code>, <code class="code-inline">hero-logos</code></td><td>Centered hero with headline and intro</td></tr>
+            <tr><td><code class="code-inline">anchor-nav</code></td><td>&mdash;</td><td>In-page links: Benefits, Portfolio, Featured Products, ROI Calculator, FAQs, plus a Contact Sales CTA</td></tr>
+            <tr><td><code class="code-inline">cards</code></td><td><code class="code-inline">icon</code>, <code class="code-inline">image</code>, <code class="code-inline">left</code>, <code class="code-inline">right</code>, <code class="code-inline">product</code>, <code class="code-inline">3-up</code>, <code class="code-inline">4-up</code></td><td>Image-left / image-right cards for benefits and the AI PC portfolio</td></tr>
+            <tr><td><code class="code-inline">banner</code></td><td><code class="code-inline">compact</code></td><td>Large and compact banners (featured products, ROI calculator)</td></tr>
+            <tr><td><code class="code-inline">media-feature</code></td><td>&mdash;</td><td>Video/media feature</td></tr>
+            <tr><td><code class="code-inline">accordion</code></td><td><code class="code-inline">faq</code></td><td>FAQ</td></tr>
+            <tr><td><code class="code-inline">footnotes</code></td><td>&mdash;</td><td>Disclaimers</td></tr>
+          </tbody>
+        </table>
+        <h3>Page metadata</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Name</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">template</code></td><td>ai-solutions (hides the newsroom bar by default)</td></tr>
+            <tr><td><code class="code-inline">nav</code></td><td>/us-en/ai-solutions/nav (page-specific nav fragment)</td></tr>
+            <tr><td><code class="code-inline">gtm-id</code></td><td>GTM-P9TRBRZ, GTM-PDHM2PK</td></tr>
+            <tr><td><code class="code-inline">search-client-guid</code></td><td>set</td></tr>
+            <tr><td><code class="code-inline">description</code></td><td>set</td></tr>
+            <tr><td><code class="code-inline">og:title</code></td><td>AI PCs - HP&#x27;s Next Gen AI PCs, Computers, and Laptops</td></tr>
+            <tr><td><code class="code-inline">bu</code></td><td>ps</td></tr>
+            <tr><td><code class="code-inline">segment</code></td><td>segment.neutral</td></tr>
+            <tr><td><code class="code-inline">page_level</code></td><td>gateway</td></tr>
+            <tr><td><code class="code-inline">product_type</code></td><td>Laptops</td></tr>
+            <tr><td><code class="code-inline">family</code></td><td>generic-ps</td></tr>
+            <tr><td><code class="code-inline">simple_title</code></td><td>pan_ps_ai_pcs_landing_page</td></tr>
+            <tr><td><code class="code-inline">hp_design_version</code></td><td>marketing_udl</td></tr>
+            <tr><td><code class="code-inline">company_code</code></td><td>hpi</td></tr>
+            <tr><td><code class="code-inline">site_type</code></td><td>marketing</td></tr>
+            <tr><td><code class="code-inline">target_country</code></td><td>us</td></tr>
+            <tr><td><code class="code-inline">web_section_id</code></td><td>r12129</td></tr>
+            <tr><td><code class="code-inline">udl</code></td><td>enable</td></tr>
+            <tr><td><code class="code-inline">platform</code></td><td>eds</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="doc-section" id="lp-newsroom">
+        <h2>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Newsroom
+        </h2>
+        <div class="section-rule"></div>
+        <p>Newsroom home: hero, featured press kits and index-driven feeds, ending in the full archive. <a href="https://main--hp--adobedrago.aem.page/us-en/newsroom" style="color:var(--hp-blue-text);">main--hp--adobedrago.aem.page/us-en/newsroom</a></p>
+        <h3>Blocks</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Block</th><th>Variants</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">hero</code></td><td><code class="code-inline">short</code></td><td>Short hero with the featured story</td></tr>
+            <tr><td><code class="code-inline">press-kits-listing</code></td><td>&mdash;</td><td>Hand-picked mode: four author-listed press-kit URLs</td></tr>
+            <tr><td><code class="code-inline">latest-news</code></td><td>&mdash;</td><td>&ldquo;Latest News&rdquo; from the query index</td></tr>
+            <tr><td><code class="code-inline">more-articles</code></td><td>&mdash;</td><td>&ldquo;More from Newsroom&rdquo; from the same index</td></tr>
+            <tr><td><code class="code-inline">articles-listing</code></td><td>&mdash;</td><td>&ldquo;Archive&rdquo; &mdash; faceted list of all articles</td></tr>
+          </tbody>
+        </table>
+        <p>Variants shown are the classes on the live page. The wider newsroom variant set (carousel: press, quote, large; columns: press, gallery, gallery natural; video, table and anchor-nav: press; hero: compact; figure: width, float right) is used on individual article pages; see All blocks and variants.</p>
+        <p><code class="code-inline">newsroom-landing</code> and <code class="code-inline">highlight</code> are <strong>section styles</strong> (set with the <code class="code-inline">style</code> key of Section Metadata, styled in <code class="code-inline">hero.css</code>, <code class="code-inline">more-articles.css</code> and <code class="code-inline">styles.css</code>), not blocks. The &ldquo;HP Imagine 2026&rdquo; featured story is the hero.</p>
+        <h3>Page metadata</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Name</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">template</code></td><td>hpi---page-template</td></tr>
+            <tr><td><code class="code-inline">nav</code></td><td>/us-en/nav</td></tr>
+            <tr><td><code class="code-inline">gtm-id</code></td><td>GTM-P9TRBRZ, GTM-PDHM2PK</td></tr>
+            <tr><td><code class="code-inline">search-client-guid</code></td><td>set</td></tr>
+            <tr><td><code class="code-inline">og:title</code></td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">bu</code></td><td>corp</td></tr>
+            <tr><td><code class="code-inline">segment</code></td><td>Corporate</td></tr>
+            <tr><td><code class="code-inline">page_level</code></td><td>gateway</td></tr>
+            <tr><td><code class="code-inline">product_type</code></td><td>Corp</td></tr>
+            <tr><td><code class="code-inline">family</code></td><td>press-center</td></tr>
+            <tr><td><code class="code-inline">simple_title</code></td><td>newsroom</td></tr>
+            <tr><td><code class="code-inline">hp_design_version</code></td><td>marketing_udl</td></tr>
+            <tr><td><code class="code-inline">company_code</code></td><td>hpi</td></tr>
+            <tr><td><code class="code-inline">site_type</code></td><td>marketing</td></tr>
+            <tr><td><code class="code-inline">target_country</code></td><td>us</td></tr>
+            <tr><td><code class="code-inline">robots</code></td><td>follow,index</td></tr>
+            <tr><td><code class="code-inline">web_section_id</code></td><td>r12129</td></tr>
+            <tr><td><code class="code-inline">otpd</code></td><td>xd</td></tr>
+            <tr><td><code class="code-inline">referrer</code></td><td>no-referrer-when-downgrade</td></tr>
+            <tr><td><code class="code-inline">udl</code></td><td>enable</td></tr>
+            <tr><td><code class="code-inline">platform</code></td><td>eds</td></tr>
+            <tr><td><code class="code-inline">hp_inav_version</code></td><td>ihfcaas.4.r</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="doc-section" id="lp-press-releases">
+        <h2>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Press Releases
+        </h2>
+        <div class="section-rule"></div>
+        <p>Archive page showing only press releases. <a href="https://main--hp--adobedrago.aem.page/us-en/newsroom/press-releases" style="color:var(--hp-blue-text);">main--hp--adobedrago.aem.page/us-en/newsroom/press-releases</a></p>
+        <h3>Blocks</h3>
+        <p>Listing page:</p>
+        <table class="spec-table bordered">
+          <thead><tr><th>Block</th><th>Variants</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">articles-listing</code></td><td>&mdash;</td><td>Archive pinned to press releases</td></tr>
+          </tbody>
+        </table>
+        <h3>Page metadata</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Name</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">nav</code></td><td>/us-en/nav</td></tr>
+            <tr><td><code class="code-inline">gtm-id</code></td><td>GTM-P9TRBRZ, GTM-PDHM2PK</td></tr>
+            <tr><td><code class="code-inline">search-client-guid</code></td><td>set</td></tr>
+            <tr><td><code class="code-inline">description</code></td><td>HP newsroom press releases listing page</td></tr>
+            <tr><td><code class="code-inline">og:title</code></td><td>press releases</td></tr>
+            <tr><td><code class="code-inline">bu</code></td><td>ps</td></tr>
+            <tr><td><code class="code-inline">segment</code></td><td>segment.neutral</td></tr>
+            <tr><td><code class="code-inline">family</code></td><td>generic-pc</td></tr>
+            <tr><td><code class="code-inline">simple_title</code></td><td>press releases</td></tr>
+            <tr><td><code class="code-inline">hp_design_version</code></td><td>marketing_udl</td></tr>
+            <tr><td><code class="code-inline">company_code</code></td><td>hpi</td></tr>
+            <tr><td><code class="code-inline">site_type</code></td><td>marketing</td></tr>
+            <tr><td><code class="code-inline">target_country</code></td><td>us</td></tr>
+            <tr><td><code class="code-inline">robots</code></td><td>follow,index</td></tr>
+            <tr><td><code class="code-inline">web_section_id</code></td><td>r12129</td></tr>
+            <tr><td><code class="code-inline">otpd</code></td><td>xd</td></tr>
+            <tr><td><code class="code-inline">referrer</code></td><td>no-referrer-when-downgrade</td></tr>
+            <tr><td><code class="code-inline">udl</code></td><td>enable</td></tr>
+            <tr><td><code class="code-inline">platform</code></td><td>eds</td></tr>
+            <tr><td><code class="code-inline">hp_inav_version</code></td><td>ihfcaas.4.r</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="doc-section" id="lp-press-releases-detail">
+        <h2>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Press Releases Detail Page
+        </h2>
+        <div class="section-rule"></div>
+        <h3>Blocks</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Block</th><th>Variants</th><th>Articles using it</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">hero</code></td><td>&mdash;</td><td>710 (all)</td><td>Article hero</td></tr>
+            <tr><td><code class="code-inline">press-contact</code></td><td>&mdash;</td><td>9</td><td>Press contact details</td></tr>
+            <tr><td><code class="code-inline">footnotes</code></td><td><code class="code-inline">press</code></td><td>9</td><td>Press disclaimers</td></tr>
+            <tr><td><code class="code-inline">columns</code></td><td><code class="code-inline">gallery</code>, <code class="code-inline">height-300</code>, <code class="code-inline">height-360</code>, <code class="code-inline">height-desktop</code></td><td>6</td><td>Image gallery</td></tr>
+            <tr><td><code class="code-inline">figure</code></td><td><code class="code-inline">width-50</code>, <code class="code-inline">width-64</code>, <code class="code-inline">height-320</code>, <code class="code-inline">height-340</code>, <code class="code-inline">height-360</code>, <code class="code-inline">height-desktop</code></td><td>4</td><td>Sized inline image/figure</td></tr>
+          </tbody>
+        </table>
+              <h3>Page metadata</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Name</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">template</code></td><td>article-detail</td></tr>
+            <tr><td><code class="code-inline">nav</code></td><td>/us-en/nav</td></tr>
+            <tr><td><code class="code-inline">gtm-id</code></td><td>GTM-P9TRBRZ, GTM-PDHM2PK</td></tr>
+            <tr><td><code class="code-inline">search-client-guid</code></td><td>set</td></tr>
+            <tr><td><code class="code-inline">og:title</code></td><td>article title</td></tr>
+            <tr><td><code class="code-inline">description</code></td><td>article summary</td></tr>
+            <tr><td><code class="code-inline">created-date</code></td><td>publish date, ISO YYYY-MM-DD</td></tr>
+            <tr><td><code class="code-inline">type</code></td><td>Press Release</td></tr>
+            <tr><td><code class="code-inline">topic</code></td><td>comma-separated topic slugs (backfilled on pages that have topics)</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="doc-section" id="lp-press-kits">
+        <h2>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Press Kits
+        </h2>
+        <div class="section-rule"></div>
+        <p>Archive page showing only press kits. <a href="https://main--hp--adobedrago.aem.page/us-en/newsroom/press-kits" style="color:var(--hp-blue-text);">main--hp--adobedrago.aem.page/us-en/newsroom/press-kits</a></p>
+        <h3>Blocks</h3>
+        <p>Listing page:</p>
+        <table class="spec-table bordered">
+          <thead><tr><th>Block</th><th>Variants</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">articles-listing</code></td><td>&mdash;</td><td>Archive pinned to press kits</td></tr>
+          </tbody>
+        </table>
+        <h3>Page metadata</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Name</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">template</code></td><td>hpi---page-template</td></tr>
+            <tr><td><code class="code-inline">nav</code></td><td>/us-en/nav</td></tr>
+            <tr><td><code class="code-inline">gtm-id</code></td><td>GTM-P9TRBRZ, GTM-PDHM2PK</td></tr>
+            <tr><td><code class="code-inline">search-client-guid</code></td><td>set</td></tr>
+            <tr><td><code class="code-inline">description</code></td><td>HP newsroom press kits listing page</td></tr>
+            <tr><td><code class="code-inline">og:title</code></td><td>Press Kits</td></tr>
+            <tr><td><code class="code-inline">bu</code></td><td>corp</td></tr>
+            <tr><td><code class="code-inline">segment</code></td><td>Corporate</td></tr>
+            <tr><td><code class="code-inline">family</code></td><td>press-center</td></tr>
+            <tr><td><code class="code-inline">simple_title</code></td><td>press kits</td></tr>
+            <tr><td><code class="code-inline">hp_design_version</code></td><td>marketing_udl</td></tr>
+            <tr><td><code class="code-inline">company_code</code></td><td>hpi</td></tr>
+            <tr><td><code class="code-inline">site_type</code></td><td>marketing</td></tr>
+            <tr><td><code class="code-inline">target_country</code></td><td>us</td></tr>
+            <tr><td><code class="code-inline">robots</code></td><td>follow,index</td></tr>
+            <tr><td><code class="code-inline">web_section_id</code></td><td>r12129</td></tr>
+            <tr><td><code class="code-inline">otpd</code></td><td>xd</td></tr>
+            <tr><td><code class="code-inline">referrer</code></td><td>no-referrer-when-downgrade</td></tr>
+            <tr><td><code class="code-inline">udl</code></td><td>enable</td></tr>
+            <tr><td><code class="code-inline">platform</code></td><td>eds</td></tr>
+            <tr><td><code class="code-inline">hp_inav_version</code></td><td>ihfcaas.4.r</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="doc-section" id="lp-press-kits-detail">
+        <h2>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Press Kits Detail Page
+        </h2>
+        <div class="section-rule"></div>
+        <h3>Blocks</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Block</th><th>Variants</th><th>Articles using it</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">hero</code></td><td>&mdash;</td><td>149 (all)</td><td>Press-kit hero</td></tr>
+            <tr><td><code class="code-inline">cards</code></td><td><code class="code-inline">press</code>, <code class="code-inline">2-up</code></td><td>145</td><td>Press-kit galleries</td></tr>
+          </tbody>
+        </table>
+              <h3>Page metadata</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Name</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">template</code></td><td>article-detail</td></tr>
+            <tr><td><code class="code-inline">nav</code></td><td>/us-en/nav</td></tr>
+            <tr><td><code class="code-inline">gtm-id</code></td><td>GTM-P9TRBRZ, GTM-PDHM2PK</td></tr>
+            <tr><td><code class="code-inline">search-client-guid</code></td><td>set</td></tr>
+            <tr><td><code class="code-inline">og:title</code></td><td>article title</td></tr>
+            <tr><td><code class="code-inline">created-date</code></td><td>publish date, ISO YYYY-MM-DD</td></tr>
+            <tr><td><code class="code-inline">type</code></td><td>Press Kit</td></tr>
+            <tr><td><code class="code-inline">topic</code></td><td>comma-separated topic slugs (backfilled on pages that have topics)</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="doc-section" id="lp-blogs">
+        <h2>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Blogs
+        </h2>
+        <div class="section-rule"></div>
+        <p>Archive page showing only blogs. <a href="https://main--hp--adobedrago.aem.page/us-en/newsroom/blogs" style="color:var(--hp-blue-text);">main--hp--adobedrago.aem.page/us-en/newsroom/blogs</a></p>
+        <h3>Blocks</h3>
+        <p>Listing page:</p>
+        <table class="spec-table bordered">
+          <thead><tr><th>Block</th><th>Variants</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">articles-listing</code></td><td>&mdash;</td><td>Archive pinned to blogs</td></tr>
+          </tbody>
+        </table>
+        <h3>Page metadata</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Name</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">template</code></td><td>hpi---page-template</td></tr>
+            <tr><td><code class="code-inline">nav</code></td><td>/us-en/nav</td></tr>
+            <tr><td><code class="code-inline">gtm-id</code></td><td>GTM-P9TRBRZ, GTM-PDHM2PK</td></tr>
+            <tr><td><code class="code-inline">search-client-guid</code></td><td>set</td></tr>
+            <tr><td><code class="code-inline">description</code></td><td>HP newsroom blogs listing page</td></tr>
+            <tr><td><code class="code-inline">og:title</code></td><td>Blogs | HP® Official Site</td></tr>
+            <tr><td><code class="code-inline">bu</code></td><td>corp</td></tr>
+            <tr><td><code class="code-inline">segment</code></td><td>Corporate</td></tr>
+            <tr><td><code class="code-inline">family</code></td><td>press-center</td></tr>
+            <tr><td><code class="code-inline">simple_title</code></td><td>blogs</td></tr>
+            <tr><td><code class="code-inline">hp_design_version</code></td><td>marketing_udl</td></tr>
+            <tr><td><code class="code-inline">company_code</code></td><td>hpi</td></tr>
+            <tr><td><code class="code-inline">site_type</code></td><td>marketing</td></tr>
+            <tr><td><code class="code-inline">target_country</code></td><td>us</td></tr>
+            <tr><td><code class="code-inline">robots</code></td><td>follow,index</td></tr>
+            <tr><td><code class="code-inline">otpd</code></td><td>xd</td></tr>
+            <tr><td><code class="code-inline">referrer</code></td><td>no-referrer-when-downgrade</td></tr>
+            <tr><td><code class="code-inline">udl</code></td><td>enable</td></tr>
+            <tr><td><code class="code-inline">platform</code></td><td>eds</td></tr>
+            <tr><td><code class="code-inline">hp_inav_version</code></td><td>ihfcaas.4.r</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="doc-section" id="lp-blogs-detail">
+        <h2>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Blogs Detail Page
+        </h2>
+        <div class="section-rule"></div>
+        <h3>Blocks</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Block</th><th>Variants</th><th>Articles using it</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">hero</code></td><td><code class="code-inline">compact</code> (4 articles); default on 321</td><td>325 (all)</td><td>Blog hero</td></tr>
+            <tr><td><code class="code-inline">press-contact</code></td><td>&mdash;</td><td>12</td><td>Press contact details</td></tr>
+            <tr><td><code class="code-inline">footnotes</code></td><td><code class="code-inline">press</code></td><td>12</td><td>Press disclaimers</td></tr>
+            <tr><td><code class="code-inline">carousel</code></td><td><code class="code-inline">press</code></td><td>2</td><td>Image carousel</td></tr>
+            <tr><td><code class="code-inline">columns</code></td><td><code class="code-inline">gallery</code>, <code class="code-inline">gallery natural</code>, <code class="code-inline">height-300</code> and plain</td><td>3</td><td>Image gallery / columns</td></tr>
+            <tr><td><code class="code-inline">figure</code></td><td><code class="code-inline">height-400</code> and plain</td><td>2</td><td>Inline figure</td></tr>
+          </tbody>
+        </table>
+              <h3>Page metadata</h3>
+        <table class="spec-table bordered">
+          <thead><tr><th>Name</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">template</code></td><td>article-detail</td></tr>
+            <tr><td><code class="code-inline">nav</code></td><td>/us-en/nav</td></tr>
+            <tr><td><code class="code-inline">gtm-id</code></td><td>GTM-P9TRBRZ, GTM-PDHM2PK</td></tr>
+            <tr><td><code class="code-inline">search-client-guid</code></td><td>set</td></tr>
+            <tr><td><code class="code-inline">og:title</code></td><td>article title</td></tr>
+            <tr><td><code class="code-inline">description</code></td><td>article summary</td></tr>
+            <tr><td><code class="code-inline">created-date</code></td><td>publish date, ISO YYYY-MM-DD</td></tr>
+            <tr><td><code class="code-inline">type</code></td><td>Press Blog</td></tr>
+            <tr><td><code class="code-inline">topic</code></td><td>comma-separated topic slugs (backfilled on pages that have topics)</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="doc-section" id="archive">
+        <h2>
+          <span class="section-icon icon-blue">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.742 10.344a6.5 6.5 0 10-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 001.415-1.414l-3.85-3.85a1 1 0 00-.115-.099zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"/></svg>
           </span>
-          Brand typeface — Forma DJR
+          Article archive — articles-listing
           <span class="status-badge sb-done">Complete</span>
         </h2>
         <div class="section-rule"></div>
-        <p>HP's brand typeface is <strong>Forma DJR</strong>, self-hosted on hp.com as a single face with a synthetic bold and an Arial fallback. The boilerplate EDS project shipped with Roboto; we swapped in Forma DJR so the newsroom reads as HP.</p>
+        <p>The <code class="code-inline">articles-listing</code> block is the faceted archive over all 1,184 articles. It reads the query index and filters, sorts, and paginates entirely client-side.</p>
+        <h3>Features</h3>
         <ul class="req-list">
-          <li>Added <code class="code-inline">fonts/forma-djr.woff2</code> and <code class="code-inline">.woff</code>, removed the Roboto faces.</li>
-          <li>Set both <code class="code-inline">--body-font-family</code> and <code class="code-inline">--heading-font-family</code> to <code class="code-inline">forma-djr, forma-djr-fallback, arial, sans-serif</code>.</li>
-          <li>Arial stands in as the fallback face before Forma DJR loads — the same behavior as hp.com.</li>
+          <li><strong>Card grid</strong> — 3-up on desktop; image, title, two-line description, and a Read button.</li>
+          <li><strong>Keyword search</strong> across title and description.</li>
+          <li><strong>Media Type facet</strong> (<code class="code-inline">type</code>) and a <strong>Topics facet</strong> over the 46-topic taxonomy.</li>
+          <li><strong>Sort</strong> — Newest / Oldest (on <code class="code-inline">created-date</code>) and A–Z / Z–A.</li>
+          <li><strong>Removable chips</strong> + Clear all, and a <strong>Load More</strong> that reveals the next batch of 9.</li>
+          <li><strong>Mobile</strong> — single-column cards with a combined Sort &amp; Filter modal, state synced with the desktop controls.</li>
         </ul>
-        <div class="code-block"><span class="cmt">/* styles/fonts.css — HP brand typeface, self-hosted */</span>
-@font-face {
-  <span class="var">font-family</span>: forma-djr;
-  <span class="var">src</span>: <span class="kw">url</span>(<span class="str">'../fonts/forma-djr.woff2'</span>) <span class="kw">format</span>(<span class="str">'woff2'</span>),
-       <span class="kw">url</span>(<span class="str">'../fonts/forma-djr.woff'</span>) <span class="kw">format</span>(<span class="str">'woff'</span>);
-}</div>
+        <p>Only real articles appear — a path filter keeps the landing, archive, and any test pages out of the results.</p>
+        <div class="url-grid">
+          <a class="url-card" href="https://main--hp--adobedrago.aem.page/us-en/newsroom/archive" target="_blank" rel="noopener">
+            <span class="url-card-label"><span class="dot dot-blue"></span>EDS Preview</span>
+            <span class="url-card-title">Newsroom Archive</span>
+            <span class="url-card-url">main--hp--adobedrago.aem.page/us-en/newsroom/archive</span>
+            <span class="url-card-desc">The faceted articles-listing block, live.</span>
+          </a>
+        </div>
       </section>
 
-      <!-- ARTICLE IMPORT -->
       <section class="doc-section" id="import">
         <h2>
           <span class="section-icon icon-seafoam">
@@ -823,13 +1634,14 @@
         </div>
 
         <h3>What was imported</h3>
-        <table class="spec-table">
+        <table class="spec-table bordered">
           <thead><tr><th>Content type</th><th>Count</th><th>DA path pattern</th></tr></thead>
           <tbody>
             <tr><td>Press releases</td><td>709</td><td><code class="code-inline">us-en/newsroom/press-releases/{year}/{slug}</code></td></tr>
             <tr><td>Blogs</td><td>323</td><td><code class="code-inline">us-en/newsroom/blogs/{year}/{slug}</code></td></tr>
             <tr><td>Press kits</td><td>149</td><td><code class="code-inline">us-en/newsroom/press-kits/…</code></td></tr>
             <tr><td>Total unique</td><td>1,181</td><td>spanning 2016–2026</td></tr>
+            <tr><td>Currently in the index</td><td>1,184</td><td>710 press releases, 325 blogs, 149 press kits (articles added since the import)</td></tr>
           </tbody>
         </table>
 
@@ -848,11 +1660,10 @@
           <li><strong>Path normalization:</strong> DA source paths use EDS-normalized slugs (lowercase, non-alphanumeric runs → single <code class="code-inline">-</code>, trimmed) — otherwise the preview 404s. ~253 older slugs needed this.</li>
           <li><strong>Two source templates:</strong> a post-2024 template and a pre-2024 one (breakpoint <code class="code-inline">data-src</code> image syntax, DAM paths with spaces) — a recursive walker handles both.</li>
           <li><strong>Image guards:</strong> images ≥ 20 MB and TIFF/GIF/SVG are excluded (some HP DAM mastheads are 48 MB TIFFs / 145 MB+ PNGs).</li>
-          <li><strong>Press kits</strong> imported best-effort using existing blocks — galleries collapse into the <code class="code-inline">cards</code> block; interactive download modals and dropdowns are intentionally dropped for this pass.</li>
+          <li><strong>Press kits</strong> imported best-effort using existing blocks — galleries collapse into the <code class="code-inline">cards</code> block; interactive download modals and dropdowns were intentionally dropped for this pass; press-specific blocks and variants were added afterwards (see EDS blocks).</li>
         </ul>
       </section>
 
-      <!-- QUERY INDEX -->
       <section class="doc-section" id="query-index">
         <h2>
           <span class="section-icon icon-green">
@@ -863,11 +1674,11 @@
         </h2>
         <div class="section-rule"></div>
         <p>A single query index at <code class="code-inline">/us-en/newsroom/query-index.json</code> is the data source behind every dynamic block on the site — the landing modules and the archive all read from it.</p>
-        <table class="spec-table">
+        <table class="spec-table bordered">
           <thead><tr><th>Column</th><th>Role</th></tr></thead>
           <tbody>
             <tr><td>path, title, description, image</td><td>Card rendering</td></tr>
-            <tr><td>type</td><td>Media Type facet — Press Release (709) / Press Blog (323) / Press Kit (149)</td></tr>
+            <tr><td>type</td><td>Media Type facet — Press Release (710) / Press Blog (325) / Press Kit (149)</td></tr>
             <tr><td>created-date</td><td>Sort key — ISO <code class="code-inline">YYYY-MM-DD</code></td></tr>
             <tr><td>topic</td><td>Topics facet — comma-separated slugs</td></tr>
             <tr><td>lastModified</td><td>EDS system field — epoch <em>seconds</em></td></tr>
@@ -883,7 +1694,6 @@
         </div>
       </section>
 
-      <!-- TAXONOMY -->
       <section class="doc-section" id="taxonomy">
         <h2>
           <span class="section-icon icon-orange">
@@ -901,73 +1711,6 @@
         </ul>
       </section>
 
-      <!-- LANDING -->
-      <section class="doc-section" id="landing">
-        <h2>
-          <span class="section-icon icon-navy">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg>
-          </span>
-          Newsroom landing page
-          <span class="status-badge sb-done">Complete</span>
-        </h2>
-        <div class="section-rule"></div>
-        <p>The landing page is composed from a full-bleed hero on top of curated, index-driven feeds plus the faceted archive.</p>
-        <div class="skills-grid">
-          <div class="skill-card">
-            <div class="skill-card-header"><span class="skill-tag tag-js">block</span><span class="skill-card-name">hero</span></div>
-            <div class="skill-card-desc">Full-bleed background image with an overlaid content band — divider rules per line, scrim over the image, responsive down to mobile. Generic: any authored picture becomes the background and every remaining line renders in the band.</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-card-header"><span class="skill-tag tag-js">block</span><span class="skill-card-name">latest-news</span></div>
-            <div class="skill-card-desc">The newest 4 articles from the query index, sorted on <code class="code-inline">created-date</code>. Optimized images, headline, and description.</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-card-header"><span class="skill-tag tag-js">block</span><span class="skill-card-name">more-articles</span></div>
-            <div class="skill-card-desc">The next 6 articles after latest-news (skips the first 4), so the two feeds never repeat a story.</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-card-header"><span class="skill-tag tag-js">block</span><span class="skill-card-name">press-kits-listing</span></div>
-            <div class="skill-card-desc">Two modes: by default the latest 4 press kits from the query index (filtered by the <code class="code-inline">/newsroom/press-kits/</code> path), or a hand-picked set when the author lists specific article URLs in the block.</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-card-header"><span class="skill-tag tag-js">block</span><span class="skill-card-name">articles-listing</span></div>
-            <div class="skill-card-desc">The full faceted archive of all 1,181 articles — keyword search, Media Type and Topics facets, sort, and Load More. See <a href="#archive" style="color:var(--hp-blue-text);">Article archive</a>.</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ARCHIVE -->
-      <section class="doc-section" id="archive">
-        <h2>
-          <span class="section-icon icon-blue">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.742 10.344a6.5 6.5 0 10-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 001.415-1.414l-3.85-3.85a1 1 0 00-.115-.099zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"/></svg>
-          </span>
-          Article archive — articles-listing
-          <span class="status-badge sb-done">Complete</span>
-        </h2>
-        <div class="section-rule"></div>
-        <p>The <code class="code-inline">articles-listing</code> block is the faceted archive over all 1,181 articles. It reads the query index and filters, sorts, and paginates entirely client-side.</p>
-        <h3>Features</h3>
-        <ul class="req-list">
-          <li><strong>Card grid</strong> — 3-up on desktop; image, title, two-line description, and a Read button.</li>
-          <li><strong>Keyword search</strong> across title and description.</li>
-          <li><strong>Media Type facet</strong> (<code class="code-inline">type</code>) and a <strong>Topics facet</strong> over the 46-topic taxonomy.</li>
-          <li><strong>Sort</strong> — Newest / Oldest (on <code class="code-inline">created-date</code>) and A–Z / Z–A.</li>
-          <li><strong>Removable chips</strong> + Clear all, and a <strong>Load More</strong> that reveals the next batch of 9.</li>
-          <li><strong>Mobile</strong> — single-column cards with a combined Sort &amp; Filter modal, state synced with the desktop controls.</li>
-        </ul>
-        <p>Only real articles appear — a path filter keeps the landing, archive, and any test pages out of the results.</p>
-        <div class="url-grid">
-          <a class="url-card" href="https://main--hp--adobedrago.aem.page/us-en/newsroom/archive" target="_blank" rel="noopener">
-            <span class="url-card-label"><span class="dot dot-blue"></span>EDS Preview</span>
-            <span class="url-card-title">Newsroom Archive</span>
-            <span class="url-card-url">main--hp--adobedrago.aem.page/us-en/newsroom/archive</span>
-            <span class="url-card-desc">The faceted articles-listing block, live.</span>
-          </a>
-        </div>
-      </section>
-
-      <!-- RELATED LINKS (SEO EDGE FUNCTION) -->
       <section class="doc-section" id="related-links">
         <h2>
           <span class="section-icon icon-purple">
@@ -1011,7 +1754,7 @@ Browser → Edge Function ─┬→ EDS origin        <span class="cmt">(page HT
               ↳ inject &lt;div class="related-links"&gt; before &lt;/main&gt; → return HTML</div>
         <p>Link resolution mirrors BrightEdge's own SDK and resolves in three tiers — this is what makes
         every newsroom page (landing pages <em>and</em> deep articles) get the right links automatically:</p>
-        <table class="spec-table">
+        <table class="spec-table bordered">
           <thead><tr><th>Tier</th><th>Source</th><th>Used by</th></tr></thead>
           <tbody>
             <tr><td>1 · Page-specific</td><td><code class="code-inline">nodes[body_1]</code> in the page's capsule</td><td>Newsroom landing pages (newsroom, press-releases, press-kits, blogs)</td></tr>
@@ -1023,7 +1766,7 @@ Browser → Edge Function ─┬→ EDS origin        <span class="cmt">(page HT
         unchanged — related links can never break a page.</p>
 
         <h3>The BrightEdge contract (reverse-engineered)</h3>
-        <table class="spec-table">
+        <table class="spec-table bordered">
           <thead><tr><th>Step</th><th>Rule</th></tr></thead>
           <tbody>
             <tr><td>Normalize + canonicalize</td><td>EDS serves extensionless URLs; BrightEdge keys on the live <code class="code-inline">.html</code> URL. Force host to <code class="code-inline">www.hp.com</code> and add <code class="code-inline">.html</code> → e.g. <code class="code-inline">https://www.hp.com/us-en/newsroom.html</code></td></tr>
@@ -1091,128 +1834,33 @@ npm run serve      <span class="cmt"># → http://127.0.0.1:7676</span></div>
         </div>
 
         <h3>Files</h3>
-        <table class="spec-table">
+        <table class="spec-table bordered">
           <thead><tr><th>Path</th><th>Role</th></tr></thead>
           <tbody>
             <tr><td><code class="code-inline">aem-edge-functions/src/lib/brightedge.js</code></td><td>Pure resolution logic (canonicalize, hash, 3-tier resolve)</td></tr>
             <tr><td><code class="code-inline">aem-edge-functions/src/related-links.js</code></td><td>Handler: fetch origin, resolve, inject</td></tr>
             <tr><td><code class="code-inline">aem-edge-functions/src/index.js</code></td><td>Router + transparent origin proxy</td></tr>
             <tr><td><code class="code-inline">aem-edge-functions/config/*.yaml</code></td><td>Function declaration + CDN routing</td></tr>
-            <tr><td><code class="code-inline">blocks/related-links/</code></td><td>EDS block: drawer styling + GTM tracking</td></tr>
+            <tr><td><code class="code-inline">blocks/related-links/</code></td><td>EDS block: drawer styling + GTM</td></tr>
             <tr><td><code class="code-inline">aem-edge-functions/PREREQUISITES.md</code></td><td>Client deployment checklist</td></tr>
           </tbody>
         </table>
       </section>
 
-      <!-- DECISIONS & ASSUMPTIONS -->
-      <section class="doc-section" id="decisions">
+      <section class="doc-section" id="deploying">
         <h2>
-          <span class="section-icon icon-purple">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 4.5A2.5 2.5 0 014.5 2h7A2.5 2.5 0 0114 4.5v5a2.5 2.5 0 01-2.5 2.5H6.7l-3 2.4A.5.5 0 013 14v-2H4.5A2.5 2.5 0 012 9.5v-5z"/></svg>
-          </span>
-          Decisions &amp; assumptions
-          <span class="status-badge sb-done">Handoff</span>
+          <span class="section-icon icon-navy"><svg width="14" height="14" class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1zM1.5 4v9.25c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V4h-13z"/></svg></span>
+          Deploying
         </h2>
         <div class="section-rule"></div>
-        <p>The choices behind the build — Code &amp; Theory should understand these before extending the work.</p>
-        <table class="spec-table">
-          <thead><tr><th>Decision</th><th>Rationale / assumption</th></tr></thead>
-          <tbody>
-            <tr><td>Sort on authored <code class="code-inline">created-date</code>, not EDS <code class="code-inline">lastModified</code></td><td>EDS's system <code class="code-inline">lastModified</code> resets to migration time for every page, so it can't order the archive. Blocks sort on the authored, ISO-normalized <code class="code-inline">created-date</code>.</td></tr>
-            <tr><td>No <code class="code-inline">published-date</code> carried from HP</td><td>Only <code class="code-inline">created-date</code> is authored/indexed for sorting; <code class="code-inline">lastModified</code> remains a system field.</td></tr>
-            <tr><td>Family-only font swap to Forma DJR</td><td>Swap the boilerplate Roboto for HP's brand face without re-scaling the whole type ramp — lowest-risk brand match.</td></tr>
-            <tr><td>Hero as an explicit block</td><td>Autoblocking was removed; the masthead is an authored hero block, so authors control the eyebrow/title/date and it renders consistently.</td></tr>
-            <tr><td>Corporate boilerplate dropped on import</td><td>Everything from an "About HP" / "Media Contact" component onward is dropped; the article's own closing paragraph is kept as real content.</td></tr>
-            <tr><td>Press kits imported best-effort</td><td>Migrated with existing blocks (metadata, hero, body, galleries → <code class="code-inline">cards</code>); interactive download modals and dropdowns intentionally dropped for this pass.</td></tr>
-            <tr><td>Delivery via branch + PR</td><td>All work shipped through feature branches and PRs on <code class="code-inline">AdobeDrago/hp</code>, never pushed straight to <code class="code-inline">main</code>.</td></tr>
-            <tr><td>Topic values stored as slugs</td><td>Backfilled a singular <code class="code-inline">topic</code> field (comma-separated slugs); <code class="code-inline">created-date</code> left unchanged during backfill.</td></tr>
-          </tbody>
-        </table>
+        <p>There is no build or deploy script for the site &mdash; deployment is handled by the AEM Code Sync GitHub App, which syncs code changes to the matching preview/live environment on every push. <code class="code-inline">aem-edge-functions/</code> deploys separately (see its README and <code class="code-inline">PREREQUISITES.md</code>).</p>
+        <ol class="steps">
+          <li class="step"><div class="step-num"></div><div class="step-body"><div class="step-title">Push to a feature branch</div><p>Code Sync publishes it to <code class="code-inline">https://&lt;branch&gt;--hp--adobedrago.aem.page/</code>.</p></div></li>
+          <li class="step"><div class="step-num"></div><div class="step-body"><div class="step-title">Open a PR to <code class="code-inline">main</code></div><p>CI runs lint on the PR; a reviewer inspects the feature preview and merges.</p></div></li>
+          <li class="step"><div class="step-num"></div><div class="step-body"><div class="step-title">Merge to main</div><p>Code Sync updates <code class="code-inline">main--hp--adobedrago.aem.live</code>.</p></div></li>
+        </ol>
       </section>
 
-      <!-- KNOWN LIMITATIONS -->
-      <section class="doc-section" id="limitations">
-        <h2>
-          <span class="section-icon icon-orange">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
-          </span>
-          Known limitations &amp; accepted quirks
-          <span class="status-badge sb-progress">Review</span>
-        </h2>
-        <div class="section-rule"></div>
-        <p>Accepted for this delivery — each is a candidate for follow-up if Code &amp; Theory needs it resolved for production.</p>
-        <ul class="checklist">
-          <li class="check-item">
-            <span class="check-mark cm-partial"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg></span>
-            <div class="check-body"><div class="check-title">Article pages are at MVP fidelity, not a production pixel match</div><div class="check-note">Individual article pages were migrated and assembled using existing blocks to reach an MVP — they don't yet replicate the exact styling of the production newsroom. Example: <a href="https://main--hp--adobedrago.aem.page/us-en/newsroom/press-releases/2026/hp-extends-data-center-ai-architecture-to-the-edge" target="_blank" rel="noopener" style="color:var(--hp-blue-text);">a migrated 2026 press release</a>. Matching production styling per template is a follow-up for Code &amp; Theory.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-partial"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg></span>
-            <div class="check-body"><div class="check-title">created-date clustering (~87%)</div><div class="check-note">1,027 of 1,181 articles show <code class="code-inline">2024-06-18</code> because HP's 2024 CMS migration reset the date on older content. True editorial dates are recoverable from the embedded newsroom JSON (<code class="code-inline">ad</code>, epoch ms) but were <strong>not applied</strong> this pass.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-partial"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg></span>
-            <div class="check-body"><div class="check-title">Missing descriptions (~1/3 of older pages)</div><div class="check-note">Handled with a fallback to the article's first paragraph; index shows 1,165 of 1,181 with a description.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-partial"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg></span>
-            <div class="check-body"><div class="check-title">Press-kit page interactivity dropped</div><div class="check-note">The press-kit articles' overall page interactivity was not migrated — download modals, dropdowns, and interactive asset galleries; galleries were flattened into the <code class="code-inline">cards</code> block. Faithful, fully interactive press-kit pages are a separate scope.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-partial"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg></span>
-            <div class="check-body"><div class="check-title">Oversized / unsupported images excluded</div><div class="check-note">Images ≥ 20 MB and TIFF/GIF/SVG are skipped (some HP DAM mastheads are 48 MB TIFFs or 145 MB+ PNGs). Affected heroes fall back to no masthead.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-partial"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 5a.75.75 0 00-.75.75v2.5a.75.75 0 001.5 0v-2.5A.75.75 0 008 5zm0 6a1 1 0 100-2 1 1 0 000 2z"/></svg></span>
-            <div class="check-body"><div class="check-title">416 articles have no topic</div><div class="check-note">Source data has no topic for those articles, so they won't match any Topics facet until tagged.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-todo"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM6.05 6.05a1.95 1.95 0 113.31 1.4c-.42.42-.86.86-.86 1.55a.5.5 0 01-1 0c0-1.1.66-1.76 1.15-2.25a.95.95 0 10-1.6-.7.5.5 0 01-1 0zM8 11.5A.75.75 0 108 13a.75.75 0 000-1.5z"/></svg></span>
-            <div class="check-body"><div class="check-title">Topic data provenance</div><div class="check-note">The topic taxonomy was scraped from HP's public embedded JSON. Confirm this source is acceptable for production use before go-live.</div></div>
-          </li>
-        </ul>
-      </section>
-
-      <!-- BLOCK LIBRARY -->
-      <section class="doc-section" id="blocks">
-        <h2>
-          <span class="section-icon icon-navy">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5A1.5 1.5 0 012.5 2h2A1.5 1.5 0 016 3.5v2A1.5 1.5 0 014.5 7h-2A1.5 1.5 0 011 5.5v-2zm5.5 0A1.5 1.5 0 018 2h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 7H8A1.5 1.5 0 016.5 5.5v-2zm-5.5 5A1.5 1.5 0 012.5 7h2A1.5 1.5 0 016 8.5v2A1.5 1.5 0 014.5 12h-2A1.5 1.5 0 011 10.5v-2zm5.5 0A1.5 1.5 0 018 7h2a1.5 1.5 0 011.5 1.5v2A1.5 1.5 0 0110 12H8A1.5 1.5 0 016.5 10.5v-2z"/></svg>
-          </span>
-          Block library
-        </h2>
-        <div class="section-rule"></div>
-        <h3>Custom blocks built for HP</h3>
-        <p>Net-new blocks authored for the newsroom — not part of the boilerplate. All four read from the query index.</p>
-        <div class="skills-grid">
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">latest-news</span></div><div class="skill-card-desc">Newest 4 articles from the query index.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">more-articles</span></div><div class="skill-card-desc">Next 6 articles, de-duped against latest-news.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">press-kits-listing</span></div><div class="skill-card-desc">Latest 4 press kits from the index, or a hand-picked set of author-listed URLs.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">articles-listing</span></div><div class="skill-card-desc">Faceted, sortable, searchable archive with Load More.</div></div>
-        </div>
-        <h3>Standard EDS blocks in the project</h3>
-        <p>Blocks from the AEM boilerplate. <span class="skill-tag tag-poli" style="vertical-align:middle;">polished</span> marks the three existing blocks updated and restyled for HP.</p>
-        <div class="skills-grid">
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-poli">polished</span><span class="skill-card-name">header</span></div><div class="skill-card-desc">HP mega-menu nav, responsive mobile fallback, page dim/blur behind open menus.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-poli">polished</span><span class="skill-card-name">footer</span></div><div class="skill-card-desc">HP newsroom footer.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-poli">polished</span><span class="skill-card-name">hero</span></div><div class="skill-card-desc">Full-bleed background + divided content band; scrim, per-line rules, responsive.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">accordion</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">cards</span></div><div class="skill-card-desc">Reused for press-kit galleries.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">carousel</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">columns</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">embed</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">form</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">fragment</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">modal</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">quote</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">search</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">table</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">tabs</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">video</span></div></div>
-        </div>
-      </section>
-
-      <!-- DEVELOPER NOTES -->
       <section class="doc-section" id="dev-notes">
         <h2>
           <span class="section-icon icon-orange">
@@ -1236,6 +1884,8 @@ npm run serve      <span class="cmt"># → http://127.0.0.1:7676</span></div>
           <span>Built on Adobe Edge Delivery Services</span>
         </div>
       </section>
+
+      <div class="doc-footer"><span>HP Newsroom — AEM → Edge Delivery Services · docs/</span></div>
 
     </div>
   </main>

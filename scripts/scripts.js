@@ -150,6 +150,16 @@ async function loadLazy(doc) {
 
 function loadDelayed() {
   window.setTimeout(() => import('./delayed.js'), 3000);
+  if (window.location.pathname.startsWith('/us-en/newsroom')) {
+    window.setTimeout(() => {
+      import('./related-links.js')
+        .then(({ default: loadRelatedLinks }) => loadRelatedLinks())
+        .catch((error) => {
+          // eslint-disable-next-line no-console
+          console.error('failed to load related links', error);
+        });
+    }, 1000);
+  }
 }
 
 async function loadSidekick() {

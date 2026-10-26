@@ -6,8 +6,17 @@
 <title>HP Newsroom and Next-gen AI Pcs on EDS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Code+Pro:wght@400;600&display=swap"></noscript>
 <style>
+  @font-face {
+    font-family: 'Source Sans 3 Fallback';
+    src: local('Arial');
+    size-adjust: 93%;
+    ascent-override: 110%;
+    descent-override: 43%;
+    line-gap-override: 0%;
+  }
   :root {
     /* HP brand */
     --hp-blue: #0096d6;
@@ -31,7 +40,7 @@
     --gray-800: #4b4b4b;
     --gray-900: #2c2c2c;
 
-    --font: 'Source Sans 3', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font: 'Source Sans 3', 'Source Sans 3 Fallback', ui-sans-serif, system-ui, -apple-system, sans-serif;
     --mono: 'Source Code Pro', 'Fira Mono', 'Courier New', monospace;
     --sidebar-width: 248px;
     --content-max: 860px;
@@ -1075,7 +1084,7 @@ npm run build:json <span class="cmt"># merges ue/models/*.json into component-mo
         </table>
         <p>This runs through <code class="code-inline">decorateGtmLinks()</code> (<code class="code-inline">scripts/gtm.js</code>) for all of <code class="code-inline">main</code> in <code class="code-inline">decorateMain</code>, and again for the header and footer.</p>
         <h3>Title format rules</h3>
-        <figure style="margin:16px 0;"><img src="images/gtm-link-editor.png" alt="Edit link dialog with GTM values in the Title field" style="width:100%;max-width:640px;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:var(--gray-500,#6b7280);margin-top:6px;">The Edit link dialog: the tracking values go in the Title field.</figcaption></figure>
+        <figure style="margin:16px 0;"><img src="images/gtm-link-editor.jpg" width="1326" height="886" decoding="async" alt="Edit link dialog with GTM values in the Title field" style="width:100%;max-width:640px;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:var(--gray-500,#6b7280);margin-top:6px;">The Edit link dialog: the tracking values go in the Title field.</figcaption></figure>
         <p>Example: <code class="code-inline">title=Laptops|id=l3-laptops|category=globalNavigation|value=laptops</code> becomes <code class="code-inline">&lt;a title="Laptops" data-gtm-id="l3-laptops" data-gtm-category="globalNavigation" data-gtm-value="laptops"&gt;</code> when the page loads.</p>
         <ul>
           <li>Pairs can come in any order; use as many as needed.</li>
@@ -1126,7 +1135,7 @@ title=Shop | id=AI-real-world-benefits | category=buyClick | value=shop-button</
         </table>
         <div class="code-block">Section Metadata
 gtm_id | newsroom_hero_cards</div>
-                <figure style="margin:16px 0;"><img src="images/gtm-section-metadata.png" alt="Section metadata with gtm_id above an articles-listing block" style="width:100%;max-width:640px;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:var(--gray-500,#6b7280);margin-top:6px;">A section-metadata table with gtm_id sets the id for the articles-listing block below it.</figcaption></figure>
+                <figure style="margin:16px 0;"><img src="images/gtm-section-metadata.png" width="1808" height="746" decoding="async" alt="Section metadata with gtm_id above an articles-listing block" style="width:100%;max-width:640px;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:var(--gray-500,#6b7280);margin-top:6px;">A section-metadata table with gtm_id sets the id for the articles-listing block below it.</figcaption></figure>
         <ul>
           <li>Type the key as <code class="code-inline">gtm_id</code>, with an underscore.</li>
           <li>The block removes <code class="code-inline">gtm_id</code> from the page once it has read it, so the id only shows on the card links.</li>
@@ -1199,7 +1208,7 @@ gtm_id | newsroom_hero_cards</div>
           <li><strong>Choose.</strong> Arrow keys move through the options, Enter opens the highlighted one. Each section has a &ldquo;See all&rdquo; link.</li>
           <li><strong>Submit.</strong> Pressing Enter in the box or clicking the search button submits a normal form (GET <code class="code-inline">keyword=</code>) to <code class="code-inline">https://www.hp.com/us-en/shop/sitesearch</code>. Empty searches are ignored.</li>
         </ol>
-        <figure style="margin:16px 0;"><img src="images/search-suggestions.webp" alt="Header search suggestions panel for the keyword laptop, showing Suggestions, Shop, Explore and Support" style="width:100%;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:var(--gray-500,#6b7280);margin-top:6px;">Header search suggestions for &ldquo;laptop&rdquo;: Suggestions on the left, then Shop, Explore and Support results.</figcaption></figure>
+        <figure style="margin:16px 0;"><img src="images/search-suggestions.webp" width="2000" height="696" decoding="async" alt="Header search suggestions panel for the keyword laptop, showing Suggestions, Shop, Explore and Support" style="width:100%;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:var(--gray-500,#6b7280);margin-top:6px;">Header search suggestions for &ldquo;laptop&rdquo;: Suggestions on the left, then Shop, Explore and Support results.</figcaption></figure>
         <h3>Where results go</h3>
         <table class="spec-table bordered">
           <thead><tr><th>Action</th><th>Destination</th></tr></thead>

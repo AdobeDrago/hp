@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Documentation for the HP Newsroom and Next-gen AI PCs sites on Adobe Edge Delivery Services: architecture, shared header and footer, GTM, search, blocks and pages.">
+<link rel="icon" href="data:,">
 <title>HP Newsroom and Next-gen AI Pcs on EDS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -316,7 +318,7 @@
     margin: 8px 0 4px;
     white-space: pre;
   }
-  .code-block .cmt  { color: #6a9955; }
+  .code-block .cmt  { color: #8fbf78; }
   .code-block .str  { color: #ce9178; }
   .code-block .kw   { color: #569cd6; }
   .code-block .var  { color: #9cdcfe; }
@@ -402,7 +404,7 @@
     margin-top: 40px;
     padding-top: 20px;
     font-size: 12px;
-    color: var(--gray-500);
+    color: #5b6572;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -551,7 +553,7 @@
   .lh-gauges { display: flex; flex-direction: column; gap: 20px; margin: 16px 0; }
   .lh-page { border: 1px solid var(--gray-200, #e1e4e8); border-radius: 10px; padding: 16px 20px; }
   .lh-page-title { font-weight: 600; margin-bottom: 12px; }
-  .lh-page-title span { font-weight: 400; font-size: 12px; color: var(--gray-500, #6b7280); margin-left: 8px; }
+  .lh-page-title span { font-weight: 400; font-size: 12px; color: #5b6572; margin-left: 8px; }
   .lh-sides { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .lh-side-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 10px; }
   .lh-rings { display: flex; flex-wrap: wrap; gap: 14px; }
@@ -559,7 +561,7 @@
   .lh-ring-dial { --c: #0c8; --p: 0; width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center;
     background: conic-gradient(var(--c) calc(var(--p) * 1%), #e8eaed 0); }
   .lh-ring-dial b { width: 50px; height: 50px; border-radius: 50%; background: var(--bg, #fff); display: grid; place-items: center; font-size: 18px; color: var(--c); }
-  .lh-good { --c: #0a8a5f; } .lh-ok { --c: #d97706; } .lh-bad { --c: #c62828; }
+  .lh-good { --c: #087f56; } .lh-ok { --c: #b45309; } .lh-bad { --c: #c62828; }
   @media (max-width: 700px) { .lh-sides { grid-template-columns: 1fr; } }
   .spec-table.bordered { border: 1px solid var(--gray-300, #cfd4da); border-collapse: collapse; }
   .spec-table.bordered th, .spec-table.bordered td { border: 1px solid var(--gray-300, #cfd4da); vertical-align: top; }
@@ -1084,7 +1086,7 @@ npm run build:json <span class="cmt"># merges ue/models/*.json into component-mo
         </table>
         <p>This runs through <code class="code-inline">decorateGtmLinks()</code> (<code class="code-inline">scripts/gtm.js</code>) for all of <code class="code-inline">main</code> in <code class="code-inline">decorateMain</code>, and again for the header and footer.</p>
         <h3>Title format rules</h3>
-        <figure style="margin:16px 0;"><img src="images/gtm-link-editor.jpg" width="1326" height="886" decoding="async" alt="Edit link dialog with GTM values in the Title field" style="width:100%;max-width:640px;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:var(--gray-500,#6b7280);margin-top:6px;">The Edit link dialog: the tracking values go in the Title field.</figcaption></figure>
+        <figure style="margin:16px 0;"><img src="images/gtm-link-editor.jpg" width="1326" height="886" decoding="async" alt="Edit link dialog with GTM values in the Title field" style="width:100%;height:auto;max-width:640px;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:#5b6572;margin-top:6px;">The Edit link dialog: the tracking values go in the Title field.</figcaption></figure>
         <p>Example: <code class="code-inline">title=Laptops|id=l3-laptops|category=globalNavigation|value=laptops</code> becomes <code class="code-inline">&lt;a title="Laptops" data-gtm-id="l3-laptops" data-gtm-category="globalNavigation" data-gtm-value="laptops"&gt;</code> when the page loads.</p>
         <ul>
           <li>Pairs can come in any order; use as many as needed.</li>
@@ -1135,7 +1137,7 @@ title=Shop | id=AI-real-world-benefits | category=buyClick | value=shop-button</
         </table>
         <div class="code-block">Section Metadata
 gtm_id | newsroom_hero_cards</div>
-                <figure style="margin:16px 0;"><img src="images/gtm-section-metadata.png" width="1808" height="746" decoding="async" alt="Section metadata with gtm_id above an articles-listing block" style="width:100%;max-width:640px;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:var(--gray-500,#6b7280);margin-top:6px;">A section-metadata table with gtm_id sets the id for the articles-listing block below it.</figcaption></figure>
+                <figure style="margin:16px 0;"><img src="images/gtm-section-metadata.png" width="1808" height="746" decoding="async" alt="Section metadata with gtm_id above an articles-listing block" style="width:100%;height:auto;max-width:640px;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:#5b6572;margin-top:6px;">A section-metadata table with gtm_id sets the id for the articles-listing block below it.</figcaption></figure>
         <ul>
           <li>Type the key as <code class="code-inline">gtm_id</code>, with an underscore.</li>
           <li>The block removes <code class="code-inline">gtm_id</code> from the page once it has read it, so the id only shows on the card links.</li>
@@ -1208,7 +1210,7 @@ gtm_id | newsroom_hero_cards</div>
           <li><strong>Choose.</strong> Arrow keys move through the options, Enter opens the highlighted one. Each section has a &ldquo;See all&rdquo; link.</li>
           <li><strong>Submit.</strong> Pressing Enter in the box or clicking the search button submits a normal form (GET <code class="code-inline">keyword=</code>) to <code class="code-inline">https://www.hp.com/us-en/shop/sitesearch</code>. Empty searches are ignored.</li>
         </ol>
-        <figure style="margin:16px 0;"><img src="images/search-suggestions.webp" width="2000" height="696" decoding="async" alt="Header search suggestions panel for the keyword laptop, showing Suggestions, Shop, Explore and Support" style="width:100%;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:var(--gray-500,#6b7280);margin-top:6px;">Header search suggestions for &ldquo;laptop&rdquo;: Suggestions on the left, then Shop, Explore and Support results.</figcaption></figure>
+        <figure style="margin:16px 0;"><img src="images/search-suggestions.webp" width="2000" height="696" decoding="async" alt="Header search suggestions panel for the keyword laptop, showing Suggestions, Shop, Explore and Support" style="width:100%;height:auto;border:1px solid var(--gray-200,#ddd);border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:#5b6572;margin-top:6px;">Header search suggestions for &ldquo;laptop&rdquo;: Suggestions on the left, then Shop, Explore and Support results.</figcaption></figure>
         <h3>Where results go</h3>
         <table class="spec-table bordered">
           <thead><tr><th>Action</th><th>Destination</th></tr></thead>

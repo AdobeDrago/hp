@@ -13,7 +13,17 @@
 <style>
   @font-face {
     font-family: 'Source Sans 3 Fallback';
-    src: local('Arial');
+    src: local('Arial'), local('ArialMT');
+    font-weight: 300 500;
+    size-adjust: 93%;
+    ascent-override: 110%;
+    descent-override: 43%;
+    line-gap-override: 0%;
+  }
+  @font-face {
+    font-family: 'Source Sans 3 Fallback';
+    src: local('Arial Bold'), local('Arial-BoldMT');
+    font-weight: 600 900;
     size-adjust: 93%;
     ascent-override: 110%;
     descent-override: 43%;
@@ -643,7 +653,7 @@
       <div class="page-hero" id="overview">
         <div class="page-hero-eyebrow">HP · Newsroom Migration</div>
         <h1>HP Newsroom on Edge Delivery Services</h1>
-        <p class="page-hero-sub">Rebuilding <strong>hp.com/us-en/newsroom</strong> and the <strong>Next-gen AI PCs</strong> page on <strong>Adobe Edge Delivery Services</strong> — migrating the site chrome, importing the full newsroom archive of <strong>1,181 articles</strong> into Document Authoring, and building the blocks that power the landing page and the faceted archive.</p>
+        <p class="page-hero-sub">Rebuilding <strong>hp.com/us-en/newsroom</strong> and the <strong>Next-gen AI PCs</strong> page on <strong>Adobe Edge Delivery Services</strong> — migrating the site chrome, importing the full newsroom archive of <strong>1,184 articles</strong> into Document Authoring, and building the blocks that power the landing page and the faceted archive.</p>
       </div>
 
       <!-- PROJECT OVERVIEW -->
@@ -703,7 +713,7 @@
 
         <div class="notice info">
           <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
-          <span><strong>Progress to date.</strong> The newsroom <strong>header and footer</strong> are migrated, now with a <a href="#header-nav" style="color:#0d51b5;">header per site section</a> and a <a href="#embed" style="color:#0d51b5;">shared global navigation</a> other HP sites can use. The <strong>full archive</strong> — 1,184 articles (710 press releases, 325 blogs, 149 press kits) — is in DA and a <a href="#query-index" style="color:#0d51b5;">query index</a> of 1,186 rows drives every listing block. The <a href="#lp-ai-pcs" style="color:#0d51b5;">Next-gen AI PCs</a> and newsroom pages, the faceted <a href="#archive" style="color:#0d51b5;">articles-listing archive</a>, <a href="#gtm" style="color:#0d51b5;">GTM tracking</a>, <a href="#search" style="color:#0d51b5;">search</a> and the <a href="#related-links" style="color:#0d51b5;">Related Links edge function</a> are built and live on the preview.</span>
+          <span><strong>Progress to date.</strong> The newsroom <strong>header and footer</strong> are migrated, now with a <a href="#header-nav" style="color:#0d51b5;">header per site section</a> and a <a href="#embed" style="color:#0d51b5;">shared global navigation</a> other HP sites can use. The <strong>full archive</strong> — <strong>1,184 articles</strong> (710 press releases, 325 blogs, 149 press kits) — is in DA and a <a href="#query-index" style="color:#0d51b5;">query index</a> of <strong>1,186 rows</strong> drives every listing block. The <a href="#lp-ai-pcs" style="color:#0d51b5;">Next-gen AI PCs</a> and newsroom pages, the faceted <a href="#archive" style="color:#0d51b5;">articles-listing archive</a>, <a href="#gtm" style="color:#0d51b5;">GTM tracking</a>, <a href="#search" style="color:#0d51b5;">search</a> and the <a href="#related-links" style="color:#0d51b5;">Related Links edge function</a> are built and live on the preview.</span>
         </div>
 
         <table class="spec-table" style="margin-top:16px;">
@@ -913,7 +923,7 @@
           Hierarchy Header
         </h2>
         <div class="section-rule"></div>
-        <p>The Hierarchy Header lets each part of the website show <strong>its own header</strong>. Instead of one header for every page, a section of the site &mdash; for example the newsroom or AI Solutions &mdash; can have a header with the menu items, links and look that suit that audience. Visitors see the header that belongs to the section they are in, and pages stay fast because only that header is loaded.</p>
+        <p>The Hierarchy Header lets each part of the website show <strong>its own header</strong>. Instead of one header for every page, a section of the site &mdash; for example the newsroom or AI Solutions &mdash; can have a header with the menu items, links and look that suit that audience. Visitors see the header that belongs to the section they are in, and <strong>pages stay fast</strong> because only that header is loaded.</p>
         <h3>Why it matters</h3>
         <ul>
           <li><strong>Relevant navigation:</strong> AI Solutions visitors see AI Solutions menus, newsroom visitors see the newsroom bar.</li>
@@ -922,7 +932,7 @@
           <li><strong>Reusable elsewhere:</strong> the same header can also appear on other HP websites (see Shared global navigation).</li>
         </ul>
         <h3>Which header shows where</h3>
-        <p>The website is organised in sections (folders). Each section is linked to the header document it should use. If a section has its own header it uses that; anything not covered uses the main HP header.</p>
+        <p>The website is organised in sections (folders). Each section is linked to the header document it should use. If a section has its own header it uses that; anything not covered uses the <strong>main HP header</strong>.</p>
         <table class="spec-table bordered">
           <thead><tr><th>Site section</th><th>Header document</th><th>What visitors see</th></tr></thead>
           <tbody>
@@ -937,13 +947,21 @@
           <li class="step"><div class="step-num"></div><div class="step-body"><div class="step-title">Point the section at it</div><p>Add a row to the site's settings sheet (the metadata sheet): the section's address pattern (for example <code class="code-inline">/us-en/ai-solutions/**</code>) and the header document in the <code class="code-inline">nav</code> column.</p></div></li>
           <li class="step"><div class="step-num"></div><div class="step-body"><div class="step-title">Preview and publish</div><p>Preview a page in the section to confirm the right header appears, then publish the header document and the metadata sheet.</p></div></li>
         </ol>
-        <p>Need a one-off exception for a single page? Set <code class="code-inline">nav</code> in that single page's own metadata and it uses that header instead of its section's.</p>
+        <p><strong>Need a one-off exception for a single page?</strong> Set <code class="code-inline">nav</code> in that single page's own metadata and it uses that header instead of its section's.</p>
         <h3>Good to know</h3>
         <ul>
           <li>Links in the header are tracked for analytics automatically; you don't need to add tracking.</li>
           <li>Search in the header works on every header, as long as the site's search settings are in place (see Search).</li>
-          <li>Always preview after changing a section's header: if the header document can't be found, the page shows without a header.</li>
+          <li><strong>Always preview</strong> after changing a section's header: if the header document can't be found, the page shows without a header.</li>
         </ul>
+        <div class="notice info">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>Fallback.</strong> A page that no section rule covers uses the main header (<code class="code-inline">/nav</code>). A single page can override its section with its own <code class="code-inline">nav</code> page setting.</span>
+        </div>
+        <div class="notice tip">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L7 8.94 5.28 7.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.06 0l4.25-4.25z"/></svg>
+          <span><strong>Managing headers.</strong> Add a row to the site's metadata sheet with the section's address pattern and its header document, then preview a page in that section and publish both the header document and the sheet.</span>
+        </div>
       </section>
 
       <section class="doc-section" id="embed">
@@ -952,7 +970,7 @@
           Shared global navigation
         </h2>
         <div class="section-rule"></div>
-        <p>HP's header and footer are the same <strong>global navigation</strong> across many HP websites. On Edge Delivery Services that navigation is built once, authored once and <strong>shared</strong>: the newsroom, the AI Solutions pages and any other HP site can show the same header and footer, and a change made by the content team reaches all of them at the same time. This is how the newsroom keeps hp.com's real navigation without copying it.</p>
+        <p>HP's header and footer are the same <strong>global navigation</strong> across many HP websites. On Edge Delivery Services that navigation is <strong>built once, authored once and shared</strong>: the newsroom, the AI Solutions pages and any other HP site can show the same header and footer, and a change made by the content team <strong>reaches all of them at the same time</strong>. This is how the newsroom keeps hp.com's real navigation <strong>without copying it</strong>.</p>
         <h3>The idea</h3>
         <div class="arch-diagram">
           <div class="arch-row">
@@ -981,7 +999,7 @@
           </tbody>
         </table>
         <h3>Adding it to another HP site</h3>
-        <p>The web team of the host site adds <strong>one script and two empty tags</strong> once. After that, the content team never has to touch the host site again.</p>
+        <p>The web team of the host site adds <strong>one script and two empty tags</strong> once. After that, <strong>the content team never has to touch the host site again</strong>.</p>
         <div class="code-block">&lt;script type="module" src="https://main--hp--adobedrago.aem.live/scripts/global-nav.js"&gt;&lt;/script&gt;
 
 &lt;header&gt;&lt;/header&gt;
@@ -1001,6 +1019,14 @@
             <tr><td>Analytics team</td><td>Navigation clicks are tracked automatically, so reports stay consistent across sites.</td></tr>
           </tbody>
         </table>
+        <div class="notice info">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>One source of truth.</strong> The header and footer are loaded from the published site, so a change is live on every site that uses them as soon as the content team publishes it.</span>
+        </div>
+        <div class="notice tip">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L7 8.94 5.28 7.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.06 0l4.25-4.25z"/></svg>
+          <span><strong>Adding a site.</strong> Give the host site's web team the snippet above. Nothing needs to change in Document Authoring for a new site to use the shared navigation.</span>
+        </div>
       </section>
 
       <section class="doc-section" id="gtm">
@@ -1009,7 +1035,7 @@
           GTM
         </h2>
         <div class="section-rule"></div>
-        <p>Google Tag Manager (GTM) is how HP's analytics team learns which links and buttons visitors click. On this site tracking is built into the content: editors can tag any link while they write, and the dynamic newsroom components tag themselves. No developer is needed to add or change tracking.</p>
+        <p>Google Tag Manager (GTM) is how HP's analytics team learns which links and buttons visitors click. On this site tracking is built into the content: editors can tag any link while they write, and the dynamic newsroom components tag themselves. <strong>No developer is needed to add or change tracking.</strong></p>
         <h3>Two ways tracking is added</h3>
         <table class="spec-table bordered">
           <thead><tr><th></th><th>1. Tagged by the editor</th><th>2. Tagged automatically</th></tr></thead>
@@ -1020,7 +1046,7 @@
           </tbody>
         </table>
         <h3>1. Tagging a link yourself</h3>
-        <p>When you add or edit a link in Document Authoring, the <strong>Edit link</strong> dialog has a Title field. Type the tracking values there, separated by a vertical bar ( <code class="code-inline">|</code> ).</p>
+        <p>When you add or edit a link in Document Authoring, the <strong>Edit link</strong> dialog has a <strong>Title</strong> field. Type the tracking values there, separated by a vertical bar ( <code class="code-inline">|</code> ).</p>
         <figure style="margin:16px 0;"><img src="images/gtm-link-editor.jpg" width="1326" height="886" decoding="async" alt="Edit link dialog with tracking values in the Title field" style="width:100%;height:auto;max-width:560px;border:1px solid #ddd;border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:#5b6572;margin-top:6px;">The Edit link dialog: tracking values go in the Title field.</figcaption></figure>
         <div class="code-block">title = Buy now | category=linkClick | id=hero-cta | value=buy-now | target=_blank</div>
         <table class="spec-table bordered">
@@ -1037,7 +1063,7 @@
         <ul>
           <li>Use as many pairs as you need, in any order. Spaces around the bars and equals signs are fine.</li>
           <li>Each pair is written <code class="code-inline">name=value</code>. A title without an equals sign is treated as a normal tooltip and is <strong>not</strong> tracked.</li>
-          <li>Names must start with a letter and use lowercase letters, numbers, hyphens or underscores. Agree new names and categories with the analytics team so reports stay consistent.</li>
+          <li>Names must start with a letter and use lowercase letters, numbers, hyphens or underscores. <strong>Agree new names and categories with the analytics team</strong> so reports stay consistent.</li>
           <li>It works for links in page content, the header and the footer.</li>
         </ul>
         <h3>Real example: Next-gen AI PCs</h3>
@@ -1106,7 +1132,7 @@ title=Shop | id=AI-real-world-benefits | category=buyClick | value=shop-button</
         <h3>When tracking switches on</h3>
         <ul>
           <li>The GTM container is chosen by the <code class="code-inline">gtm-id</code> page setting, normally set once for the whole site in the metadata sheet. A page without it does not load GTM.</li>
-          <li>On the live site, tracking starts only after the visitor accepts Performance &amp; Analytics cookies.</li>
+          <li>On the live site, tracking starts <strong>only after the visitor accepts Performance &amp; Analytics cookies</strong>.</li>
           <li>On preview and test sites (<code class="code-inline">localhost</code>, <code class="code-inline">.aem.page</code>, <code class="code-inline">.aem.live</code>) it starts about 3 seconds after the page loads, so you can test without the cookie prompt.</li>
         </ul>
         <h3>Check your work</h3>
@@ -1115,6 +1141,14 @@ title=Shop | id=AI-real-world-benefits | category=buyClick | value=shop-button</
           <li>Confirm the link shows the tracking values you typed (they appear as attributes starting with <code class="code-inline">data-gtm-</code>).</li>
           <li>Ask the analytics team to confirm the click appears in their reports.</li>
         </ol>
+        <div class="notice info">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>Name=value pairs.</strong> Each tracking value in a link title is written <code class="code-inline">name=value</code>. Text without an equals sign is treated as a normal tooltip and is <strong>not</strong> tracked.</span>
+        </div>
+        <div class="notice tip">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L7 8.94 5.28 7.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.06 0l4.25-4.25z"/></svg>
+          <span><strong>Managing the container.</strong> The GTM container comes from the <code class="code-inline">gtm-id</code> page setting, normally set once for the whole site in the metadata sheet. On the live site tracking starts only after the visitor accepts Performance &amp; Analytics cookies.</span>
+        </div>
       </section>
 
       <section class="doc-section" id="search">
@@ -1123,11 +1157,11 @@ title=Shop | id=AI-real-world-benefits | category=buyClick | value=shop-button</
           Search
         </h2>
         <div class="section-rule"></div>
-        <p>Search helps visitors find the right product, article or support page quickly, from any page. It sits in the header, so it is available everywhere the header appears, including the Next-gen AI PCs page and any HP site that uses the <a href="#embed" style="color:var(--hp-blue-text);">shared global navigation</a>. As visitors type, it suggests products, articles and support pages; when they press Enter, it takes them to HP's full search results.</p>
+        <p>Search helps visitors find the right product, article or support page quickly, from any page. It sits in the header, so it is available everywhere the header appears, including the Next-gen AI PCs page and any HP site that uses the <a href="#embed" style="color:var(--hp-blue-text);">shared global navigation</a>. As visitors type, it <strong>suggests products, articles and support pages</strong>; when they press Enter, it takes them to HP's full search results.</p>
         <h3>What visitors experience</h3>
         <ol>
           <li><strong>Open search.</strong> Visitors click the search icon in the header. On very wide screens the search box is always visible.</li>
-          <li><strong>Start typing.</strong> After two letters, suggestions appear in a panel under the header.</li>
+          <li><strong>Start typing.</strong> After <strong>two letters</strong>, suggestions appear in a panel under the header.</li>
           <li><strong>Pick a suggestion.</strong> The panel groups results so visitors can scan quickly:
             <ul>
               <li><strong>Suggestions</strong> &mdash; popular searches that match what they typed.</li>
@@ -1136,7 +1170,7 @@ title=Shop | id=AI-real-world-benefits | category=buyClick | value=shop-button</
               <li><strong>Support</strong> &mdash; up to three matching HP support products.</li>
             </ul>
           </li>
-          <li><strong>See everything.</strong> Each group has a &ldquo;See all&rdquo; link, and pressing Enter shows the full results for the search.</li>
+          <li><strong>See everything.</strong> Each group has a &ldquo;See all&rdquo; link, and pressing Enter <strong>shows the full results for the search</strong>.</li>
         </ol>
         <figure style="margin:16px 0;"><img src="images/search-suggestions.webp" alt="Header search suggestions for the word laptop, showing Suggestions, Shop, Explore and Support" width="2000" height="696" decoding="async" style="width:100%;height:auto;border:1px solid #ddd;border-radius:8px;display:block;" loading="lazy"><figcaption style="font-size:12px;color:#5b6572;margin-top:6px;">Search suggestions for &ldquo;laptop&rdquo;: popular searches on the left, then Shop, Explore and Support results.</figcaption></figure>
         <p>Search is also usable with a keyboard, and nothing breaks if a visitor searches for something with no matches: they see a clear &ldquo;No results&rdquo; message.</p>
@@ -1156,7 +1190,7 @@ title=Shop | id=AI-real-world-benefits | category=buyClick | value=shop-button</
         <table class="spec-table bordered">
           <thead><tr><th>Setting</th><th>What it controls</th><th>Who sets it</th></tr></thead>
           <tbody>
-            <tr><td><code class="code-inline">search-client-guid</code></td><td>Connects the site to HP's product and content search. Without it, suggestions are switched off and the search box simply sends visitors to HP.com search.</td><td>Set once for the site (required)</td></tr>
+            <tr><td><code class="code-inline">search-client-guid</code></td><td>Connects the site to HP's product and content search. <strong>Without it, suggestions are switched off</strong> and the search box simply sends visitors to HP.com search.</td><td>Set once for the site (required)</td></tr>
             <tr><td><code class="code-inline">search-locale</code></td><td>Country and language, for example us-en. Decides which HP.com and support pages visitors are sent to, and how prices are shown. If not set, it is taken from the page address.</td><td>Site or section</td></tr>
             <tr><td><code class="code-inline">search-currency</code></td><td>Currency used for prices. US dollars unless HP provides another store.</td><td>Site or section</td></tr>
             <tr><td><code class="code-inline">support-search-url</code></td><td>Where support results come from. If not set, a small sample set is used for demos.</td><td>Site, with the web team</td></tr>
@@ -1165,6 +1199,14 @@ title=Shop | id=AI-real-world-benefits | category=buyClick | value=shop-button</
         </table>
         <div class="notice info">
           <span><strong>On the Next-gen AI PCs page</strong> (<a href="#lp-ai-pcs" style="color:var(--hp-blue-text);">page details</a>), search is already switched on, so visitors get suggestions as they type. On other HP sites that use the shared navigation, search uses this site's settings, so results stay consistent everywhere.</span>
+        </div>
+        <div class="notice info">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span><strong>No catalogue, no suggestions.</strong> Without <code class="code-inline">search-client-guid</code>, suggestions are switched off and the search box simply sends visitors to HP.com search.</span>
+        </div>
+        <div class="notice tip">
+          <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L7 8.94 5.28 7.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.06 0l4.25-4.25z"/></svg>
+          <span><strong>Managing search wording.</strong> Labels such as &ldquo;See all&rdquo; and the error messages live in the site's placeholders sheet, so the content team can edit and translate them without code.</span>
         </div>
       </section>
 

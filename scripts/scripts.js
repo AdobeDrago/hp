@@ -158,7 +158,7 @@ function loadDelayed() {
           // eslint-disable-next-line no-console
           console.error('failed to load related links', error);
         });
-    }, 2000);
+    }, 3000);
   }
 }
 

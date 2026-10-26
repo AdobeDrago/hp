@@ -665,7 +665,7 @@
 
         <div class="stat-row">
           <div class="stat-card"><div class="stat-num">1,184</div><div class="stat-label">articles in the index</div></div>
-          <div class="stat-card"><div class="stat-num">7</div><div class="stat-label">new blocks · 25 variants</div></div>
+          <div class="stat-card"><div class="stat-num">12</div><div class="stat-label">custom blocks · 25 variants</div></div>
           <div class="stat-card"><div class="stat-num">2016–2026</div><div class="stat-label">archive span</div></div>
           <div class="stat-card"><div class="stat-num">46</div><div class="stat-label">topic taxonomy</div></div>
         </div>
@@ -1915,34 +1915,58 @@ npm run serve      <span class="cmt"># → http://127.0.0.1:7676</span></div>
           Block library
         </h2>
         <div class="section-rule"></div>
-        <h3>Custom blocks built for HP</h3>
-        <p>Net-new blocks authored for the newsroom — not part of the boilerplate. All four read from the query index.</p>
-        <div class="skills-grid">
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">latest-news</span></div><div class="skill-card-desc">Newest 4 articles from the query index.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">more-articles</span></div><div class="skill-card-desc">Next 6 articles, de-duped against latest-news.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">press-kits-listing</span></div><div class="skill-card-desc">Latest 4 press kits from the index, or a hand-picked set of author-listed URLs.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-js">custom</span><span class="skill-card-name">articles-listing</span></div><div class="skill-card-desc">Faceted, sortable, searchable archive with Load More.</div></div>
-        </div>
-        <h3>Standard EDS blocks in the project</h3>
-        <p>Blocks from the AEM boilerplate. <span class="skill-tag tag-poli" style="vertical-align:middle;">polished</span> marks the three existing blocks updated and restyled for HP.</p>
-        <div class="skills-grid">
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-poli">polished</span><span class="skill-card-name">header</span></div><div class="skill-card-desc">HP mega-menu nav, responsive mobile fallback, page dim/blur behind open menus.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-poli">polished</span><span class="skill-card-name">footer</span></div><div class="skill-card-desc">HP newsroom footer.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-poli">polished</span><span class="skill-card-name">hero</span></div><div class="skill-card-desc">Full-bleed background + divided content band; scrim, per-line rules, responsive.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">accordion</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">cards</span></div><div class="skill-card-desc">Reused for press-kit galleries.</div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">carousel</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">columns</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">embed</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">form</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">fragment</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">modal</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">quote</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">search</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">table</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">tabs</span></div></div>
-          <div class="skill-card"><div class="skill-card-header"><span class="skill-tag tag-core">core</span><span class="skill-card-name">video</span></div></div>
-        </div>
+                <h3>New blocks and variants (this project)</h3>
+        <p><strong>7 new blocks and 25 new variants</strong> were created for the AI landing page and the newsroom pages, excluding the earlier work by Tim.</p>
+        <table class="spec-table bordered">
+          <thead><tr><th>Scope</th><th>Blocks (7)</th></tr></thead>
+          <tbody>
+            <tr><td>AI landing page and newsroom (2)</td><td><code class="code-inline">anchor-nav</code>, <code class="code-inline">footnotes</code></td></tr>
+            <tr><td>AI landing only (2)</td><td><code class="code-inline">banner</code>, <code class="code-inline">media-feature</code></td></tr>
+            <tr><td>Newsroom only (3)</td><td><code class="code-inline">press-contact</code>, <code class="code-inline">cta-dropdown</code>, <code class="code-inline">figure</code></td></tr>
+          </tbody>
+        </table>
+        <table class="spec-table bordered">
+          <thead><tr><th>Scope</th><th>Variants (25)</th><th>Block: variants</th></tr></thead>
+          <tbody>
+            <tr><td>AI landing only (11)</td><td>11</td><td><code class="code-inline">hero</code>: <code class="code-inline">centered</code>, <code class="code-inline">hero-logos</code><br><code class="code-inline">cards</code>: <code class="code-inline">icon</code>, <code class="code-inline">image</code>, <code class="code-inline">left</code>, <code class="code-inline">right</code>, <code class="code-inline">product</code>, <code class="code-inline">3-up</code>, <code class="code-inline">4-up</code><br><code class="code-inline">banner</code>: <code class="code-inline">compact</code><br><code class="code-inline">accordion</code>: <code class="code-inline">faq</code></td></tr>
+            <tr><td>Newsroom only (14), across press releases, press kits and blogs</td><td>14</td><td><code class="code-inline">carousel</code>: <code class="code-inline">press</code>, <code class="code-inline">quote</code>, <code class="code-inline">large</code><br><code class="code-inline">columns</code>: <code class="code-inline">press</code>, <code class="code-inline">gallery</code>, <code class="code-inline">gallery natural</code><br><code class="code-inline">video</code>: <code class="code-inline">press</code><br><code class="code-inline">table</code>: <code class="code-inline">press</code><br><code class="code-inline">cards</code>: <code class="code-inline">press</code>, <code class="code-inline">2-up</code><br><code class="code-inline">anchor-nav</code>: <code class="code-inline">press</code><br><code class="code-inline">hero</code>: <code class="code-inline">compact</code><br><code class="code-inline">footnotes</code>: <code class="code-inline">press</code><br><code class="code-inline">figure</code>: width and float right</td></tr>
+          </tbody>
+        </table>
+        <h3>All blocks and variants</h3>
+        <p>Every block used in the project with the variants authored for each page group. <span class="skill-tag tag-core">core</span> = from the AEM block collection; <span class="skill-tag tag-poli">polished</span> = core block restyled for HP; <span class="skill-tag tag-js">custom</span> = net-new. <strong>New</strong> marks the 7 blocks built in this project. A dash means no variant is used.</p>
+        <table class="spec-table bordered">
+          <thead><tr><th>Block</th><th>Type</th><th>New</th><th>Variants</th><th>Role</th><th>Used on</th></tr></thead>
+          <tbody>
+            <tr><td><code class="code-inline">accordion</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td><strong>AI landing:</strong> <code class="code-inline">faq</code></td><td>Expandable items; the FAQ variant is used on the AI landing page</td><td>AI landing</td></tr>
+            <tr><td><code class="code-inline">anchor-nav</code></td><td><span class="skill-tag tag-js">custom</span></td><td><strong>Yes</strong></td><td><strong>Newsroom:</strong> <code class="code-inline">press</code></td><td>In-page anchor navigation bar, pinned under the header, with a mobile dropdown</td><td>AI landing, Newsroom</td></tr>
+            <tr><td><code class="code-inline">articles-listing</code></td><td><span class="skill-tag tag-js">custom</span></td><td>&mdash;</td><td>&mdash;</td><td>Faceted, sortable, searchable archive with Load More</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">banner</code></td><td><span class="skill-tag tag-js">custom</span></td><td><strong>Yes</strong></td><td><strong>AI landing:</strong> <code class="code-inline">compact</code></td><td>Image + content banner</td><td>AI landing</td></tr>
+            <tr><td><code class="code-inline">cards</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td><strong>AI landing:</strong> <code class="code-inline">icon</code>, <code class="code-inline">image</code>, <code class="code-inline">left</code>, <code class="code-inline">right</code>, <code class="code-inline">product</code>, <code class="code-inline">3-up</code>, <code class="code-inline">4-up</code><br><strong>Newsroom:</strong> <code class="code-inline">press</code>, <code class="code-inline">2-up</code></td><td>Card grids and galleries</td><td>AI landing, Newsroom</td></tr>
+            <tr><td><code class="code-inline">carousel</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td><strong>Newsroom:</strong> <code class="code-inline">press</code>, <code class="code-inline">quote</code>, <code class="code-inline">large</code></td><td>Image/content carousel</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">columns</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td><strong>Newsroom:</strong> <code class="code-inline">press</code>, <code class="code-inline">gallery</code>, <code class="code-inline">gallery natural</code></td><td>Column layouts and image galleries</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">cta-dropdown</code></td><td><span class="skill-tag tag-js">custom</span></td><td><strong>Yes</strong></td><td>&mdash;</td><td>Call-to-action button that opens a menu of links</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">embed</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td>&mdash;</td><td>Embeds external content</td><td>&mdash;</td></tr>
+            <tr><td><code class="code-inline">figure</code></td><td><span class="skill-tag tag-js">custom</span></td><td><strong>Yes</strong></td><td><strong>Newsroom:</strong> <code class="code-inline">width</code>, <code class="code-inline">float right</code></td><td>Inline figure with optional width, height and float</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">footer</code></td><td><span class="skill-tag tag-poli">polished</span></td><td>&mdash;</td><td>&mdash;</td><td>HP newsroom footer: country selector, link columns, legal row</td><td>All pages</td></tr>
+            <tr><td><code class="code-inline">footnotes</code></td><td><span class="skill-tag tag-js">custom</span></td><td><strong>Yes</strong></td><td><strong>Newsroom:</strong> <code class="code-inline">press</code></td><td>Collapsible footnotes and disclaimers; auto-links URLs and adds GTM values</td><td>AI landing, Newsroom</td></tr>
+            <tr><td><code class="code-inline">form</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td>&mdash;</td><td>Form block</td><td>&mdash;</td></tr>
+            <tr><td><code class="code-inline">fragment</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td>&mdash;</td><td>Includes content from another page</td><td>&mdash;</td></tr>
+            <tr><td><code class="code-inline">header</code></td><td><span class="skill-tag tag-poli">polished</span></td><td>&mdash;</td><td>&mdash;</td><td>HP mega-menu navigation, responsive mobile menu and search</td><td>All pages</td></tr>
+            <tr><td><code class="code-inline">hero</code></td><td><span class="skill-tag tag-poli">polished</span></td><td>&mdash;</td><td><strong>AI landing:</strong> <code class="code-inline">centered</code>, <code class="code-inline">hero-logos</code><br><strong>Newsroom:</strong> <code class="code-inline">compact</code></td><td>Full-bleed hero with overlaid content band</td><td>AI landing, Newsroom</td></tr>
+            <tr><td><code class="code-inline">latest-news</code></td><td><span class="skill-tag tag-js">custom</span></td><td>&mdash;</td><td>&mdash;</td><td>Newest 4 articles from the query index</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">media-feature</code></td><td><span class="skill-tag tag-js">custom</span></td><td><strong>Yes</strong></td><td>&mdash;</td><td>Media feature supporting MP4/WebM files and YouTube/Vimeo embeds</td><td>AI landing</td></tr>
+            <tr><td><code class="code-inline">modal</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td>&mdash;</td><td>Modal dialog for <code class="code-inline">/modals/</code> links</td><td>&mdash;</td></tr>
+            <tr><td><code class="code-inline">more-articles</code></td><td><span class="skill-tag tag-js">custom</span></td><td>&mdash;</td><td>&mdash;</td><td>Next 6 articles, de-duplicated against latest-news</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">press-contact</code></td><td><span class="skill-tag tag-js">custom</span></td><td><strong>Yes</strong></td><td>&mdash;</td><td>Press contact label/link list</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">press-kits-listing</code></td><td><span class="skill-tag tag-js">custom</span></td><td>&mdash;</td><td>&mdash;</td><td>Latest 4 press kits from the index, or a hand-picked set of URLs</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">quote</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td>&mdash;</td><td>Pull quote</td><td>&mdash;</td></tr>
+            <tr><td><code class="code-inline">related-links</code></td><td><span class="skill-tag tag-js">custom</span></td><td>&mdash;</td><td>&mdash;</td><td>Related Links drawer with GTM tracking</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">search</code></td><td><span class="skill-tag tag-poli">polished</span></td><td>&mdash;</td><td>&mdash;</td><td>Search results page backed by HawkSearch and HP Support</td><td>Search results page</td></tr>
+            <tr><td><code class="code-inline">table</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td><strong>Newsroom:</strong> <code class="code-inline">press</code></td><td>Data table</td><td>Newsroom</td></tr>
+            <tr><td><code class="code-inline">tabs</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td>&mdash;</td><td>Tabbed content</td><td>&mdash;</td></tr>
+            <tr><td><code class="code-inline">video</code></td><td><span class="skill-tag tag-core">core</span></td><td>&mdash;</td><td><strong>Newsroom:</strong> <code class="code-inline">press</code></td><td>Video player</td><td>Newsroom</td></tr>
+          </tbody>
+        </table>
       </section>
 
       <!-- DEVELOPER NOTES -->

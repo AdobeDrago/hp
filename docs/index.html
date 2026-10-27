@@ -282,7 +282,7 @@
     width: 1px;
     background: var(--gray-300);
   }
-  .step { display: flex; gap: 16px; padding-bottom: 24px; position: relative; }
+  .step { display: flex; gap: 16px; padding-bottom: 10px; position: relative; }
   .step:last-child { padding-bottom: 0; }
   .step-num {
     counter-increment: step;
@@ -327,6 +327,7 @@
     overflow-x: auto;
     margin: 8px 0 4px;
     white-space: pre;
+    margin-bottom: 15px;
   }
   .code-block .cmt  { color: #8fbf78; }
   .code-block .str  { color: #ce9178; }
@@ -607,14 +608,14 @@
       </a>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-label">Archive <span class="nav-status ns-done">Complete</span></div>
+      <div class="sidebar-label">Archive</div>
       <a class="sidebar-link" href="#archive">
         <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M11.742 10.344a6.5 6.5 0 10-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 001.415-1.414l-3.85-3.85a1 1 0 00-.115-.099zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"/></svg>
         Articles listing
       </a>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-label">Edge Functions <span class="nav-status ns-done">Complete</span></div>
+      <div class="sidebar-label">Edge Functions</div>
       <a class="sidebar-link" href="#related-links">
         <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/></svg>
         Related links (SEO)
@@ -649,7 +650,7 @@
       <div class="page-hero" id="overview">
         <div class="page-hero-eyebrow">HP · Newsroom Migration</div>
         <h1>HP Newsroom on Edge Delivery Services</h1>
-        <p class="page-hero-sub">Rebuilding <strong>hp.com/us-en/newsroom</strong> and the <strong>Next-gen AI PCs</strong> page on <strong>Adobe Edge Delivery Services</strong> — migrating the site chrome, importing the full newsroom archive of <strong>1,184 articles</strong> into Document Authoring, and building the blocks that power the landing page and the faceted archive.</p>
+        <p class="page-hero-sub">Rebuilding <strong>hp.com/us-en/newsroom</strong> and the <strong>Next-gen AI PCs</strong> landing page on <strong>Adobe Edge Delivery Services</strong> — migrating the site chrome, importing the full newsroom archive of <strong>1,184 articles</strong> into Document Authoring, and building the blocks that power the landing page and the faceted archive.</p>
       </div>
 
       <!-- PROJECT OVERVIEW -->
@@ -661,7 +662,7 @@
           Project overview
         </h2>
         <div class="section-rule"></div>
-        <p>This effort recreates HP's US-English <strong>Newsroom</strong> — the public home for HP press releases, blogs, and press kits — and the <strong>Next-gen AI PCs</strong> page on <strong>Adobe Edge Delivery Services (EDS)</strong>, authored through <strong>Document Authoring (DA)</strong>. It follows an EDS block-based development model: the header and footer, articles, landing pages, and archive are all delivered as authorable blocks, with the newsroom feeds driven by a single content query index and the header and footer shared with other HP sites.</p>
+        <p>This effort recreates HP's US-English <strong>Newsroom</strong> — the public home for HP press releases, blogs, and press kits — and the <strong>Next-gen AI PCs</strong> landing page on <strong>Adobe Edge Delivery Services (EDS)</strong>, authored through <strong>Document Authoring (DA)</strong>. It follows an EDS block-based development model: the header and footer, articles, landing pages, and archive are all delivered as authorable blocks, with the newsroom feeds driven by a single content query index and the header and footer shared with other HP sites.</p>
 
         <div class="stat-row">
           <div class="stat-card"><div class="stat-num">1,184</div><div class="stat-label">articles in the index</div></div>
@@ -672,11 +673,11 @@
 
         <h3>Goals</h3>
         <ul class="req-list">
-          <li>Recreate the <strong>HP newsroom and the Next-gen AI PCs page</strong> on <strong>Edge Delivery Services</strong>, authored in DA.</li>
+          <li>Recreate the <strong>HP newsroom</strong> pages and the <strong>Next-gen AI PCs</strong> landing page on <strong>Edge Delivery Services</strong>, authored in DA.</li>
           <li>Migrate the <strong>full article archive</strong> (press releases, blogs, press kits) with metadata intact.</li>
           <li>Reproduce the landing pages and a <strong>faceted, searchable archive</strong> driven by a query index.</li>
           <li>Match HP's <strong>brand identity</strong> — typeface, color, header, and footer.</li>
-          <li>Provide a <strong>shared global navigation</strong>: a header per site section that other HP sites can include.</li>
+          <li>Provide a <strong>shared global navigation</strong> - a header and footer that other HP sites can include.</li>
           <li>Keep <strong>analytics, search and SEO</strong> on par with hp.com: GTM click tracking, header search, and Related Links in the initial HTML.</li>
         </ul>
 
@@ -696,10 +697,10 @@
           <tbody>
             <tr><td><a href="#chrome" style="color:var(--hp-blue-text);">Site chrome</a></td><td>Newsroom header &amp; footer + HP brand typeface (Forma DJR)</td><td><span class="nav-status ns-done">Complete</span></td></tr>
             <tr><td><a href="#header-nav" style="color:var(--hp-blue-text);">Hierarchy Header</a></td><td>A different header per site section, authored in Document Authoring</td><td><span class="nav-status ns-done">Complete</span></td></tr>
-            <tr><td><a href="#embed" style="color:var(--hp-blue-text);">Shared global navigation</a></td><td>Header and footer that other HP sites can include with one script</td><td><span class="nav-status ns-done">Complete</span></td></tr>
-            <tr><td><a href="#import" style="color:var(--hp-blue-text);">Content import</a></td><td>1,181 articles imported to DA with metadata, previewed &amp; reconciled (1,184 in the index now)</td><td><span class="nav-status ns-done">Complete</span></td></tr>
+            <tr><td><a href="#embed" style="color:var(--hp-blue-text);">Shared global navigation</a></td><td>Header and footer built in EDS which other HP sites can include</td><td><span class="nav-status ns-done">Complete</span></td></tr>
+            <tr><td><a href="#import" style="color:var(--hp-blue-text);">Content import</a></td><td>1,184 articles imported to DA with metadata, previewed &amp; reconciled (1,184 in the index now)</td><td><span class="nav-status ns-done">Complete</span></td></tr>
             <tr><td><a href="#lp-ai-pcs" style="color:var(--hp-blue-text);">Next-gen AI PCs</a></td><td>AI Solutions landing page built from reusable blocks and variants</td><td><span class="nav-status ns-done">Complete</span></td></tr>
-            <tr><td><a href="#lp-newsroom" style="color:var(--hp-blue-text);">Newsroom pages</a></td><td>Newsroom home, Press Releases, Press Kits and Blogs listing pages plus article detail pages</td><td><span class="nav-status ns-done">Complete</span></td></tr>
+            <tr><td><a href="#lp-newsroom" style="color:var(--hp-blue-text);">Newsroom pages</a></td><td>Newsroom home, Press Releases, Press Kits and Blogs listing pages and article detail pages</td><td><span class="nav-status ns-done">Complete</span></td></tr>
             <tr><td><a href="#archive" style="color:var(--hp-blue-text);">Article archive</a></td><td>articles-listing block — faceted, sortable, searchable</td><td><span class="nav-status ns-done">Complete</span></td></tr>
             <tr><td><a href="#gtm" style="color:var(--hp-blue-text);">GTM</a></td><td>Click tracking authored in the link editor or generated by the components; consent-aware loading</td><td><span class="nav-status ns-done">Complete</span></td></tr>
             <tr><td><a href="#search" style="color:var(--hp-blue-text);">Search</a></td><td>Header search suggestions and a search results page</td><td><span class="nav-status ns-done">Complete</span></td></tr>
@@ -736,14 +737,14 @@
           Use case &amp; requirements
         </h2>
         <div class="section-rule"></div>
-        <p><strong>Use case.</strong> Recreate HP's US-English <strong>Newsroom</strong> — the public hub for HP press releases, blogs, and press kits — on Edge Delivery Services, authored in Document Authoring. The experience is a <strong>landing page</strong> of curated, recent stories plus a <strong>faceted archive</strong> across the full back catalog, all reading from a single content query index.</p>
+        <p><strong>Use case.</strong> Recreate HP's US-English <strong>Newsroom</strong> — the public hub for HP press releases, blogs, and press kits — and the <strong>Next-gen AI PCs</strong> landing page on Edge Delivery Services, authored in Document Authoring. The experience is a <strong>landing page</strong> of curated, recent stories plus a <strong>faceted archive</strong> across the full back catalog, all reading from a single content query index.</p>
 
         <h3>Requirements gathered</h3>
         <table class="spec-table">
           <thead><tr><th>Area</th><th>What we found</th></tr></thead>
           <tbody>
-            <tr><td>Content source</td><td>HP's public sitemap (<code class="code-inline">sitemap-aem-us-en.xml</code> via <code class="code-inline">sitemap_index.xml</code>), filtered to <code class="code-inline">/us-en/newsroom/</code> — ~1,183 pages spanning 2016–2026.</td></tr>
-            <tr><td>Content mix</td><td>711 press releases · 323 blogs · 149 press kits (US-en only; ~80 other locale sitemaps exist if scope expands).</td></tr>
+            <tr><td>Content source</td><td>HP's public sitemap (<code class="code-inline">sitemap-aem-us-en.xml</code> via <code class="code-inline">sitemap_index.xml</code>), filtered to <code class="code-inline">/us-en/newsroom/</code> — ~1,184 pages spanning 2016–2026.</td></tr>
+            <tr><td>Content mix</td><td>710 press releases · 325 blogs · 149 press kits (US-en only; ~80 other locale sitemaps exist if scope expands).</td></tr>
             <tr><td>Per-page metadata</td><td>Machine-readable in each page <code class="code-inline">&lt;head&gt;</code>: <code class="code-inline">og:title</code>, <code class="code-inline">description</code>/<code class="code-inline">og:description</code>, <code class="code-inline">og:image</code>, <code class="code-inline">created-date</code>.</td></tr>
             <tr><td>Topic taxonomy</td><td><strong>Not</strong> in page metadata — HP's newsroom embeds a JSON index of all articles and filters client-side. Topics follow a fixed <strong>46-topic taxonomy</strong>, extracted from that embedded index.</td></tr>
             <tr><td>Templates</td><td>Two source templates — a post-2024 template and a pre-2024 one (breakpoint <code class="code-inline">data-src</code> images, DAM paths with spaces). Editorial body lives in the <code class="code-inline">c-title-and-text-v2</code> component.</td></tr>
@@ -793,7 +794,7 @@
             <span class="url-card-label"><span class="dot dot-green"></span>Query index</span>
             <span class="url-card-title">query-index.json</span>
             <span class="url-card-url">main--hp--adobedrago.aem.page/us-en/newsroom/query-index.json</span>
-            <span class="url-card-desc">1,182 rows — the data behind every listing block.</span>
+            <span class="url-card-desc">1,184 rows — the data behind every listing block.</span>
           </a>
         </div>
       </section>
@@ -811,7 +812,7 @@
         <ul class="checklist">
           <li class="check-item">
             <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
-            <div class="check-body"><div class="check-title">Header &amp; footer migrated (via EMA)</div><div class="check-note">HP newsroom mega-menu navigation and footer migrated and styled using the Experience Modernization Agent (EMA), then refined — responsive mobile nav and a dim/blur behind open menus.</div></div>
+            <div class="check-body"><div class="check-title">Header &amp; footer</div><div class="check-note">The HP newsroom's mega-menu navigation and footer were migrated and styled with the Experience Modernization Agent (EMA) and then refined with a responsive mobile nav and a dim/blur effect behind open menus, with a different header per site section (main, newsroom, AI Solutions) chosen through the metadata sheet and authored in Document Authoring, and both the header and footer can be dropped into other HP sites with one script and two empty tags so that a single content change updates every site that uses them.</div></div>
           </li>
           <li class="check-item">
             <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
@@ -835,14 +836,6 @@
           </li>
           <li class="check-item">
             <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
-            <div class="check-body"><div class="check-title">Hierarchy Header</div><div class="check-note">A different header per site section (main, US English, AI Solutions), chosen through the metadata sheet and authored in Document Authoring.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
-            <div class="check-body"><div class="check-title">Shared global navigation</div><div class="check-note">The header and footer can be included on other HP sites with one script and two empty tags, so a content change updates every site that uses them.</div></div>
-          </li>
-          <li class="check-item">
-            <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
             <div class="check-body"><div class="check-title">Next-gen AI PCs page</div><div class="check-note">The AI Solutions landing page built from reusable blocks and variants: hero, quick links, cards, banners, media feature, FAQ and footnotes.</div></div>
           </li>
           <li class="check-item">
@@ -851,7 +844,7 @@
           </li>
           <li class="check-item">
             <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
-            <div class="check-body"><div class="check-title">New blocks and variants</div><div class="check-note">12 custom blocks in total (7 new in this project) and 25 variants for the AI landing page and newsroom, including <code class="code-inline">anchor-nav</code>, <code class="code-inline">footnotes</code>, <code class="code-inline">banner</code>, <code class="code-inline">media-feature</code> and <code class="code-inline">press-contact</code>.</div></div>
+            <div class="check-body"><div class="check-title">Blocks and variants</div><div class="check-note">12 custom blocks in total and 25 variants for the AI landing page and newsroom, including <code class="code-inline">anchor-nav</code>, <code class="code-inline">footnotes</code>, <code class="code-inline">banner</code>, <code class="code-inline">media-feature</code> and <code class="code-inline">press-contact</code>.</div></div>
           </li>
           <li class="check-item">
             <span class="check-mark cm-done"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06l2.72 2.72 6.72-6.72a.75.75 0 011.06 0z"/></svg></span>
@@ -932,7 +925,7 @@
         <table class="spec-table bordered">
           <thead><tr><th>Site section</th><th>Header document</th><th>What visitors see</th></tr></thead>
           <tbody>
-            <tr><td>Everything else</td><td><code class="code-inline">/nav</code></td><td>The standard HP header</td></tr>
+            <tr><td>Global</td><td><code class="code-inline">/nav</code></td><td>The standard HP header</td></tr>
             <tr><td>All US English pages, including the newsroom</td><td><code class="code-inline">/us-en/nav</code></td><td>The US English HP header; the newsroom pages also show the newsroom bar</td></tr>
             <tr><td>AI Solutions pages (e.g. Next-gen AI PCs)</td><td><code class="code-inline">/us-en/ai-solutions/nav</code></td><td>The AI Solutions header</td></tr>
           </tbody>
@@ -997,24 +990,15 @@
         <h3>Adding it to another HP site</h3>
         <p>The web team of the host site adds <strong>one script and two empty tags</strong> once. After that, <strong>the content team never has to touch the host site again</strong>.</p>
         <div class="code-block">&lt;script type="module" src="https://main--hp--adobedrago.aem.live/scripts/global-nav.js"&gt;&lt;/script&gt;
-
-&lt;header&gt;&lt;/header&gt;
-&lt;main&gt; ... host page ... &lt;/main&gt;
-&lt;footer&gt;&lt;/footer&gt;</div>
+&lt;body&gt;
+  &lt;header&gt;&lt;/header&gt;
+  &lt;footer&gt;&lt;/footer&gt;
+&lt;/body&gt;</div>
         <ol class="steps">
-          <li class="step"><div class="step-num"></div><div class="step-body"><div class="step-title">Add the script and tags</div><p>Place the script on the page and an empty header and footer tag where the navigation should appear.</p></div></li>
-          <li class="step"><div class="step-num"></div><div class="step-body"><div class="step-title">The navigation loads itself</div><p>It fetches the current header and footer from the shared site and shows them in place.</p></div></li>
+          <li class="step"><div class="step-num"></div><div class="step-body"><div class="step-title">Include the script and tags</div><p>Place the script in the &lt;/head&gt; section on the page and an empty header and footer tag where the navigation should appear.</p></div></li>
+          <li class="step"><div class="step-num"></div><div class="step-body"><div class="step-title">The navigation loads itself</div><p>The script fetches the header and footer from EDS and places them inside the empty &lt;header&gt;&lt;/header&gt; and &lt;footer&gt;&lt;/footer&gt; tags.</p></div></li>
           <li class="step"><div class="step-num"></div><div class="step-body"><div class="step-title">Stays up to date</div><p>Every time the content team publishes a change, the host site shows it on the next visit.</p></div></li>
         </ol>
-        <h3>Who does what</h3>
-        <table class="spec-table bordered">
-          <thead><tr><th>Team</th><th>Responsibility</th></tr></thead>
-          <tbody>
-            <tr><td>Content team</td><td>Edits and publishes the header and footer documents; decides which header each site section uses.</td></tr>
-            <tr><td>Host site's web team</td><td>Adds the snippet once. No further work for later menu or footer changes.</td></tr>
-            <tr><td>Analytics team</td><td>Navigation clicks are tracked automatically, so reports stay consistent across sites.</td></tr>
-          </tbody>
-        </table>
         <div class="notice info">
           <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
           <span><strong>One source of truth.</strong> The header and footer are loaded from the published site, so a change is live on every site that uses them as soon as the content team publishes it.</span>
@@ -1159,7 +1143,7 @@ title=Shop | id=AI-real-world-benefits | category=buyClick | value=shop-button</
           <li><strong>Open search.</strong> Visitors click the search icon in the header. On very wide screens the search box is always visible.</li>
           <li><strong>Start typing.</strong> After <strong>two letters</strong>, suggestions appear in a panel under the header.</li>
           <li><strong>Pick a suggestion.</strong> The panel groups results so visitors can scan quickly:
-            <ul>
+            <ul style="margin-left: 20px;">
               <li><strong>Suggestions</strong> &mdash; popular searches that match what they typed.</li>
               <li><strong>Shop</strong> &mdash; up to three matching products with image and price.</li>
               <li><strong>Explore</strong> &mdash; up to three articles and content pages.</li>
@@ -1179,14 +1163,12 @@ title=Shop | id=AI-real-world-benefits | category=buyClick | value=shop-button</
             <tr><td>Chooses Support &ldquo;See all&rdquo; or a support product</td><td>The HP Support site</td></tr>
           </tbody>
         </table>
-        <h3>Search results page</h3>
-        <p>The newsroom can also show a full results page of its own. Visitors get tabs for <strong>Shop</strong>, <strong>Explore</strong> and <strong>Support</strong>, can sort products (best match, price, newest, top rated), and move through pages of results. The address of the page remembers the search, so a results page can be shared, bookmarked, or revisited with the browser's Back button. Editors add it by placing the Search component on a page.</p>
         <h3>What the team controls</h3>
         <p>Search behaves the same on every page because it is set up once for the site. These are the settings behind it:</p>
         <table class="spec-table bordered">
           <thead><tr><th>Setting</th><th>What it controls</th><th>Who sets it</th></tr></thead>
           <tbody>
-            <tr><td><code class="code-inline">search-client-guid</code></td><td>Connects the site to HP's product and content search. <strong>Without it, suggestions are switched off</strong> and the search box simply sends visitors to HP.com search.</td><td>Set once for the site (required)</td></tr>
+            <tr><td><code class="code-inline">search-client-guid</code></td><td>Connects the site to HP's product and content search. <strong>Without it, suggestions are switched off</strong> and the search box simply sends visitors to HP.com search.</td><td>Set once for the site in metadata sheet(required)</td></tr>
             <tr><td><code class="code-inline">support-search-url</code></td><td>Where support results come from. If not set, a small sample set is used for demos.</td><td>Site, with the web team</td></tr>
           </tbody>
         </table>

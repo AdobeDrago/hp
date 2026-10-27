@@ -1187,15 +1187,9 @@ title=Shop | id=AI-real-world-benefits | category=buyClick | value=shop-button</
           <thead><tr><th>Setting</th><th>What it controls</th><th>Who sets it</th></tr></thead>
           <tbody>
             <tr><td><code class="code-inline">search-client-guid</code></td><td>Connects the site to HP's product and content search. <strong>Without it, suggestions are switched off</strong> and the search box simply sends visitors to HP.com search.</td><td>Set once for the site (required)</td></tr>
-            <tr><td><code class="code-inline">search-locale</code></td><td>Country and language, for example us-en. Decides which HP.com and support pages visitors are sent to, and how prices are shown. If not set, it is taken from the page address.</td><td>Site or section</td></tr>
-            <tr><td><code class="code-inline">search-currency</code></td><td>Currency used for prices. US dollars unless HP provides another store.</td><td>Site or section</td></tr>
             <tr><td><code class="code-inline">support-search-url</code></td><td>Where support results come from. If not set, a small sample set is used for demos.</td><td>Site, with the web team</td></tr>
-            <tr><td>Search wording</td><td>The text visitors see, such as placeholders, &ldquo;See all&rdquo; and error messages, kept in the site's placeholders sheet so it can be edited and translated without code.</td><td>Content team</td></tr>
           </tbody>
         </table>
-        <div class="notice info">
-          <span><strong>On the Next-gen AI PCs page</strong> (<a href="#lp-ai-pcs" style="color:var(--hp-blue-text);">page details</a>), search is already switched on, so visitors get suggestions as they type. On other HP sites that use the shared navigation, search uses this site's settings, so results stay consistent everywhere.</span>
-        </div>
         <div class="notice info">
           <svg class="notice-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
           <span><strong>No catalogue, no suggestions.</strong> Without <code class="code-inline">search-client-guid</code>, suggestions are switched off and the search box simply sends visitors to HP.com search.</span>
